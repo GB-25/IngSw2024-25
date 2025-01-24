@@ -4,8 +4,11 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import com.toedter.calendar.JDateChooser;
 
 import Class.Controller;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class FinestraRegistrazione extends JFrame {
@@ -14,6 +17,8 @@ public class FinestraRegistrazione extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 
 	/**
 	 * Launch the application.
@@ -37,7 +42,7 @@ public class FinestraRegistrazione extends JFrame {
 	public FinestraRegistrazione() {
 		setBackground(new Color(0, 153, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 619, 376);
+		setBounds(100, 100, 542, 376);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(null);
@@ -46,7 +51,7 @@ public class FinestraRegistrazione extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel logoLabel = new JLabel();
-		logoLabel.setBounds(33, 0, 103, 67);
+		logoLabel.setBounds(22, 0, 103, 67);
 		ImageIcon logo = new ImageIcon(getClass().getResource("/immagini/LOGO.png"));
 		Image imageLogo = logo.getImage().getScaledInstance(logoLabel.getWidth(), logoLabel.getHeight(), Image.SCALE_SMOOTH);
         logoLabel.setIcon(new ImageIcon(imageLogo)); 
@@ -55,7 +60,7 @@ public class FinestraRegistrazione extends JFrame {
 		JLabel lblRegistratiInPochi = new JLabel("Registrati in pochi passi!");
 		lblRegistratiInPochi.setFont(new Font("Dialog", Font.BOLD, 26));
 		lblRegistratiInPochi.setForeground(new Color(0, 153, 255));
-		lblRegistratiInPochi.setBounds(187, 12, 377, 40);
+		lblRegistratiInPochi.setBounds(148, 12, 377, 40);
 		contentPane.add(lblRegistratiInPochi);
 		
 		JLabel lblNome = new JLabel("Nome");
@@ -68,12 +73,54 @@ public class FinestraRegistrazione extends JFrame {
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Cognome\n");
-		lblNewLabel.setBounds(249, 101, 70, 15);
+		lblNewLabel.setBounds(227, 101, 70, 15);
 		contentPane.add(lblNewLabel);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(319, 99, 114, 19);
+		textField_1.setBounds(296, 99, 114, 19);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
+		
+		JLabel lblDataDiNascita = new JLabel("Data di Nascita");
+		lblDataDiNascita.setBounds(33, 153, 159, 15);
+		contentPane.add(lblDataDiNascita);
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+        dateChooser.setBounds(153, 148, 200, 30);
+        contentPane.add(dateChooser);
+        
+        JLabel lblIndirizzoMail = new JLabel("Indirizzo Mail");
+        lblIndirizzoMail.setBounds(33, 219, 119, 15);
+        contentPane.add(lblIndirizzoMail);
+        
+        textField_2 = new JTextField();
+        textField_2.setBounds(136, 217, 114, 19);
+        contentPane.add(textField_2);
+        textField_2.setColumns(10);
+        
+        JLabel lblTelefono = new JLabel("Telefono");
+        lblTelefono.setBounds(311, 219, 70, 15);
+        contentPane.add(lblTelefono);
+        
+        textField_3 = new JTextField();
+        textField_3.setBounds(382, 217, 114, 19);
+        contentPane.add(textField_3);
+        textField_3.setColumns(10);
+        
+        JButton btnAnnulla = new JButton("Annulla");
+        btnAnnulla.setBounds(54, 276, 117, 25);
+        contentPane.add(btnAnnulla);
+        
+        JButton btnNewButtocon = new JButton("Conferma");
+        btnNewButtocon.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnNewButtocon.setBounds(342, 276, 117, 25);
+        contentPane.add(btnNewButtocon);
+		
 	}
 }
