@@ -16,9 +16,13 @@ public class Controller {
 	//costruttore
 	public Controller() {
 		finestraPrincipale = new FinestraLogin(this);
+		finestraPrincipale.setVisible(true);
 	}
 	
 	
 	public static void main(String[] args)
-	{}
+	{
+		Controller controller = new Controller();
+		
+	}
 }
