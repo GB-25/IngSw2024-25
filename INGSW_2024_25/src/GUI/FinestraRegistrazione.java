@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
-
+import java.util.Date;
 import Class.Controller;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -90,6 +90,7 @@ public class FinestraRegistrazione extends JFrame {
 			}
 		});
         dateChooser.setBounds(153, 148, 200, 30);
+        dateChooser.setSelectableDateRange(new Date(), new Date(System.currentTimeMillis()));
         contentPane.add(dateChooser);
         
         JLabel lblIndirizzoMail = new JLabel("Indirizzo Mail");

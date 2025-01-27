@@ -147,10 +147,9 @@ public class FinestraLogin extends JFrame {
                 index = (index + 1) % caseSlide.length;
             }
         });
-  
+        contentPane.add(caseLabel);
         timerSlideShow.start();
         
-        contentPane.add(caseLabel);
         
         JLabel lblNewLabel = new JLabel("La casa dei tuoi sogni\n");
         lblNewLabel.setFont(new Font("Serif", Font.BOLD, 29));

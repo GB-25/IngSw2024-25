@@ -19,12 +19,17 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
-public class FinestraHome extends JFrame {
+public class FinestraRicerca extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtCerca;
+	private JTextField txtBarra;
 
 	/**
 	 * Launch the application.
@@ -45,7 +50,7 @@ public class FinestraHome extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FinestraHome() {
+	public FinestraRicerca() {
 		setBackground(new Color(0, 153, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 548, 422);
@@ -90,11 +95,11 @@ public class FinestraHome extends JFrame {
 		
 		contentPane.add(btnLente);
 		
-		JLabel lblAnnunciRecenti = new JLabel("Annunci Recenti");
-		lblAnnunciRecenti.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblAnnunciRecenti.setForeground(new Color(0, 153, 255));
-		lblAnnunciRecenti.setBounds(29, 120, 251, 39);
-		contentPane.add(lblAnnunciRecenti);
+		JLabel lblAnnunciTrovati = new JLabel("Annunci Trovati");
+		lblAnnunciTrovati.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblAnnunciTrovati.setForeground(new Color(0, 153, 255));
+		lblAnnunciTrovati.setBounds(29, 120, 251, 39);
+		contentPane.add(lblAnnunciTrovati);
 		
 		JLabel lblAnnunciCheDovranno = new JLabel("Annunci che dovranno uscire tramite query");
 		lblAnnunciCheDovranno.setBounds(39, 171, 304, 15);
@@ -116,5 +121,11 @@ public class FinestraHome extends JFrame {
 		contentPane.add(userLabel);
 		
 	}
-	}
+	
+		
+		
+		
 
+		
+	}
+	
