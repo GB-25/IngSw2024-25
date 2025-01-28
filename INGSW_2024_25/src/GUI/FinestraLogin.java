@@ -78,7 +78,7 @@ public class FinestraLogin extends JFrame {
         btnGoogle.setBounds(341, 180, 78, 33);
         contentPane.add(btnGoogle);
         
-        ImageIcon iconFacebook = new ImageIcon(getClass().getResource("/immagini/facebook-logo.png"));
+        ImageIcon iconFacebook = new ImageIcon(getClass().getResource("/immagini/Facebook-logo.png"));
         Image imgFacebook = iconFacebook.getImage();
         Image imgFacebookScaled = imgFacebook.getScaledInstance(35, 25, Image.SCALE_SMOOTH);
         ImageIcon finalFacebookIcon = new ImageIcon(imgFacebookScaled);
@@ -108,21 +108,21 @@ public class FinestraLogin extends JFrame {
         contentPane.add(textField);
         textField.setColumns(10);
         
-        JButton btnNewButton_3 = new JButton("Accedi");
-        btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-        btnNewButton_3.setForeground(new Color(0, 153, 255));
-        btnNewButton_3.addActionListener(new ActionListener() {
+        JButton btnAccedi = new JButton("Accedi");
+        btnAccedi.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnAccedi.setForeground(new Color(0, 153, 255));
+        btnAccedi.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        btnNewButton_3.setBounds(418, 146, 89, 23);
-        contentPane.add(btnNewButton_3);
+        btnAccedi.setBounds(418, 146, 89, 23);
+        contentPane.add(btnAccedi);
         
-        JButton btnNewButton = new JButton("ISCRIVITI ORA");
-        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-        btnNewButton.setForeground(new Color(0, 153, 255));
-        btnNewButton.setBounds(408, 286, 124, 40);
-        contentPane.add(btnNewButton);
+        JButton btnIscriviti = new JButton("ISCRIVITI ORA");
+        btnIscriviti.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnIscriviti.setForeground(new Color(0, 153, 255));
+        btnIscriviti.setBounds(408, 286, 124, 40);
+        contentPane.add(btnIscriviti);
         
         JLabel caseLabel = new JLabel();
         caseLabel.setBounds(192, 338, 287, 116);
