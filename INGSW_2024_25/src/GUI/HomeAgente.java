@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HomeAgente extends JFrame {
 
@@ -21,15 +23,40 @@ public class HomeAgente extends JFrame {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.WHITE);
 
-        JButton logoButton = createIconButton("/immagini/LOGO.png", 200, 120);
+        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/immagini/LOGO.png"));
+		Image imgLogo = iconLogo.getImage();
+		Image imgLogoScaled = imgLogo.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon finalLogoIcon = new ImageIcon(imgLogoScaled);
+		JButton logoButton = new JButton(finalLogoIcon);
+		logoButton.setBackground(new Color(255, 255, 255));
+		logoButton.setBorderPainted(false);   
+		logoButton.setFocusPainted(false);    
+		logoButton.setContentAreaFilled(false);
+       
+       
         logoButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "click logo, fare in modo che venga evidenziato con il mouse. redirect alla home"));
 
+       
+        
+        
         JButton bellButton = createIconButton("/immagini/bell.png", 30, 30);
         bellButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "click campanella, fare in modo che venga evidenziato con il mouse. tendina notifiche"));
 
-        JButton userButton = createIconButton("/immagini/user.png", 30, 30);
+        
+        
+       
+		
+		ImageIcon userIcon = new ImageIcon(getClass().getResource("/immagini/user.png")); 
+        Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon finalUserIcon = new ImageIcon(userImage);
+		JButton userButton = new JButton(finalUserIcon);
         userButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "click utente, fare in modo che venga evidenziato con il mouse. tendina gestione account"));
-
+        userButton.setBackground(new Color(255, 255, 255));
+  		userButton.setBorderPainted(false);   
+		userButton.setFocusPainted(false);    
+		userButton.setContentAreaFilled(false);
+        
+        
         // Pannello per icone in alto a destra
         JPanel topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topRightPanel.setBackground(Color.WHITE);
@@ -60,12 +87,18 @@ public class HomeAgente extends JFrame {
         gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 10, 0); // Margini tra i pulsanti
         centerPanel.add(addPropertyButton, gbc);
+        
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.gridx = 0;
+        gbc1.gridy = 1;
+       
+        centerPanel.add(viewRequestsButton, gbc1);
 
-        gbc.gridy = 1;
-        centerPanel.add(viewRequestsButton, gbc);
-
-        gbc.gridy = 2;
-        centerPanel.add(viewCalendarButton, gbc);
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        gbc2.gridx = 0;
+        gbc2.gridy = 2;
+        gbc2.insets = new Insets(10, 0, 10, 0);
+        centerPanel.add(viewCalendarButton, gbc2);
 
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 

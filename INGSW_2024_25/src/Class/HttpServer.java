@@ -1,6 +1,8 @@
 package Class;
 
+
 import org.eclipse.jetty.server.Server;
+
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
@@ -9,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import GUI.*;
 
 public class HttpServer {
     public static void main(String[] args) throws Exception {
@@ -19,11 +22,9 @@ public class HttpServer {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
+        context.addServlet(new ServletHolder(new Controller()), "/api");
 
-        // Collega il controller esistente (come servlet)
-        context.addServlet(new ServletHolder(new Controller()), "/");
-
-        // Avvia il server
+        server.setHandler(context);
         server.start();
         System.out.println("Server avviato su http://localhost:8080");
         server.join();
