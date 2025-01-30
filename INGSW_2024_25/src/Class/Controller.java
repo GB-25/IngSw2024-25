@@ -1,63 +1,38 @@
 package Class;
 
-//import 
 import GUI.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.ServletException;
-import org.json.JSONObject;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.stream.Collectors;
+public class Controller {
 
-public class Controller extends HttpServlet {
+    FinestraLogin finestraPrincipale;
 
-	//frame
-	
-	FinestraLogin finestraPrincipale;
-	//connessione al db
-	//private final static String url 
-	//private final static String user
-	//private final static String password
-	
-	//costruttore
-	public Controller() {
-		finestraPrincipale = new FinestraLogin(this);
-		finestraPrincipale.setVisible(true);
-	}
-	
-	 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	        resp.setContentType("application/json");
-	        resp.setStatus(HttpServletResponse.SC_OK);
+    public Controller() {
+        finestraPrincipale = new FinestraLogin(this);
+        finestraPrincipale.setVisible(true);
+    }
 
-	        JSONObject json = new JSONObject();
-	        json.put("message", "Ciao dal server Java!");
-	        
-	        PrintWriter out = resp.getWriter();
-	        out.print(json.toString());
-	        out.flush();
-	    }
+    public String chiamaServer(String endpoint) {
+        try {
+            URL url = new URL("http://localhost:8080/api/" + endpoint);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
-	    @Override
-	    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	        String body = req.getReader().lines().collect(Collectors.joining());
-	        JSONObject jsonRequest = new JSONObject(body);
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String response = in.readLine();
+            in.close();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Errore nella connessione al server!";
+        }
+    }
 
-	        JSONObject jsonResponse = new JSONObject();
-	        jsonResponse.put("received", jsonRequest);
-
-	        resp.setContentType("application/json");
-	        resp.setStatus(HttpServletResponse.SC_OK);
-	        PrintWriter out = resp.getWriter();
-	        out.print(jsonResponse.toString());
-	        out.flush();
-	    }
-	
-	public static void main(String[] args)
-	{
-		Controller controller = new Controller();
-		
-	}
+    public static void main(String[] args) {
+        Controller controller = new Controller();
+    }
 }
+
