@@ -6,11 +6,7 @@ import GUI.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.ServletException;
-import org.json.JSONObject;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.stream.Collectors;
 
 public class Controller extends HttpServlet {
 
@@ -28,32 +24,13 @@ public class Controller extends HttpServlet {
 		finestraPrincipale.setVisible(true);
 	}
 	
-	 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	        resp.setContentType("application/json");
-	        resp.setStatus(HttpServletResponse.SC_OK);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // Imposta il contenuto della risposta come JSON
+        resp.setContentType("application/json");
 
-	        JSONObject json = new JSONObject();
-	        json.put("message", "Ciao dal server Java!");
-	        
-	        PrintWriter out = resp.getWriter();
-	        out.print(json.toString());
-	        out.flush();
-	    }
-
-	    @Override
-	    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	        String body = req.getReader().lines().collect(Collectors.joining());
-	        JSONObject jsonRequest = new JSONObject(body);
-
-	        JSONObject jsonResponse = new JSONObject();
-	        jsonResponse.put("received", jsonRequest);
-
-	        resp.setContentType("application/json");
-	        resp.setStatus(HttpServletResponse.SC_OK);
-	        PrintWriter out = resp.getWriter();
-	        out.print(jsonResponse.toString());
-	        out.flush();
-	    }
+        // Scrivi la risposta (esempio: lista immobili)
+        resp.getWriter().println("{\"immobili\": [{\"titolo\": \"Appartamento\", \"prezzo\": 120000}]}");
+    }
 	
 	public static void main(String[] args)
 	{

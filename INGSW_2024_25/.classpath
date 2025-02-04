@@ -14,17 +14,14 @@
 	<classpathentry kind="lib" path="com.jgoodies.forms_1.9.0.v20240327-0800.jar"/>
 	<classpathentry kind="lib" path="com.miglayout.swing_11.4.2.jar"/>
 	<classpathentry kind="lib" path="com.miglayout.core_11.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-server-12.0.16.jar"/>
 	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta.servlet-api-6.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-12.0.16.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-servlet-11.0.24.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-io-12.0.16.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-http-12.0.16.jar"/>
+	<classpathentry kind="lib" path="lib/logback-classic-1.2.11.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-2.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/json-20231013.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-simple-2.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-webapp-11.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-http-11.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-io-11.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-security-11.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-server-11.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/jetty-util-11.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta.servlet-api-5.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
