@@ -4,16 +4,18 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
@@ -86,6 +88,12 @@ public class FinestraHome extends JFrame {
 		Image imgLenteScaled = imgLente.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
 		ImageIcon finalLenteIcon = new ImageIcon(imgLenteScaled);
 		JButton btnLente = new JButton(finalLenteIcon);
+		btnLente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new LoadingDialog(FinestraHome.this).setVisible(true);
+            }
+        });
 		btnLente.setBounds(323, 12, 33, 24);
 		
 		contentPane.add(btnLente);
@@ -115,6 +123,42 @@ public class FinestraHome extends JFrame {
 		
 		contentPane.add(userLabel);
 		
-	}
-	}
+		
+		this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                // Ottieni la nuova dimensione della finestra
+                Dimension frameSize = contentPane.getSize();
+                int newWidth = frameSize.width;
+                int newHeight = frameSize.height;
 
+                // Modifica le dimensioni e la posizione dei componenti
+                //button.setBounds(newWidth / 4, newHeight / 4, newWidth / 2, 40);
+            }
+
+			
+        });
+		
+	}
+	
+
+class LoadingDialog extends JDialog {
+    public LoadingDialog(JFrame owner) {
+        super(owner, "Caricamento", true);
+        setSize(200, 100);
+        setLocationRelativeTo(owner);
+        setLayout(new BorderLayout());
+
+        JLabel label = new JLabel("Caricamento in corso...");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        add(label, BorderLayout.CENTER);
+
+        new Timer(3000, new ActionListener() { // Simula attesa di 3 secondi
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Chiude la finestra di caricamento
+            }
+        }).start();
+    }
+}
+}

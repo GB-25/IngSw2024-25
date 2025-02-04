@@ -78,7 +78,7 @@ public class FinestraLogin extends JFrame {
         btnGoogle.setBounds(341, 180, 78, 33);
         contentPane.add(btnGoogle);
         
-        ImageIcon iconFacebook = new ImageIcon(getClass().getResource("/immagini/facebook-logo.png"));
+        ImageIcon iconFacebook = new ImageIcon(getClass().getResource("/immagini/Facebook-logo.png"));
         Image imgFacebook = iconFacebook.getImage();
         Image imgFacebookScaled = imgFacebook.getScaledInstance(35, 25, Image.SCALE_SMOOTH);
         ImageIcon finalFacebookIcon = new ImageIcon(imgFacebookScaled);
