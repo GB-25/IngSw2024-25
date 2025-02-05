@@ -21,14 +21,85 @@ public class HomeAgente extends JFrame {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.WHITE);
 
-        JButton logoButton = createIconButton("/immagini/LOGO.png", 200, 120);
-        logoButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "click logo, fare in modo che venga evidenziato con il mouse. redirect alla home"));
+        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/immagini/LOGO.png"));
+        Image imgLogo = iconLogo.getImage();
+        Image imgLogoScaled = imgLogo.getScaledInstance(200, 120, Image.SCALE_SMOOTH);
+        ImageIcon finalLogoIcon = new ImageIcon(imgLogoScaled);
+        JButton logoButton = new JButton(finalLogoIcon);
+        logoButton.setBackground(new Color(255, 255, 255));
+        logoButton.setBorderPainted(false);
+        logoButton.setFocusPainted(false);
+        logoButton.setContentAreaFilled(false);
+
+        logoButton.addActionListener(e -> {
+            dispose(); // Chiude la schermata attuale
+            new HomeAgente(); // Torna alla home
+        });
+
+        // Menu a tendina per le notifiche
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        // Esempio di notifiche
+        JMenuItem notifica1 = new JMenuItem("Nuova prenotazione per Appartamento Roma");
+        JMenuItem notifica2 = new JMenuItem("Visita per Villa Roma confermata");
+        JMenuItem notifica3 = new JMenuItem("Visita per Casa Tivoli confermata");
+
+        popupMenu.add(notifica1);
+        popupMenu.add(notifica2);
+        popupMenu.add(notifica3);
 
         JButton bellButton = createIconButton("/immagini/bell.png", 30, 30);
-        bellButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "click campanella, fare in modo che venga evidenziato con il mouse. tendina notifiche"));
+        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
 
-        JButton userButton = createIconButton("/immagini/user.png", 30, 30);
-        userButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "click utente, fare in modo che venga evidenziato con il mouse. tendina gestione account"));
+        // Menu a tendina per lo user
+        JPopupMenu popupUser = new JPopupMenu();
+        popupUser.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        // Nome e Cognome dell’utente
+        JMenuItem userInfo = new JMenuItem("Mario Rossi"); // Modifica con il nome utente
+        userInfo.setEnabled(false); // Non cliccabile
+
+        // Gestione Account
+        JMenuItem cambiaPassword = new JMenuItem("Cambia password");
+        cambiaPassword.addActionListener(e -> {
+        	dispose();
+        	new CambioPassword();
+        });
+
+        JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
+        creaAccount.addActionListener(e -> {
+        	dispose();
+    	    new CreazioneAccountAdmin();
+    });
+
+        // Logout
+        JMenuItem logout = new JMenuItem("Logout");
+        logout.addActionListener(e -> {
+            int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                dispose(); // Chiude la finestra attuale
+                JOptionPane.showMessageDialog(this, "Logout effettuato!");
+                System.exit(0);
+            }
+        });
+
+        popupUser.add(userInfo);
+        popupUser.add(new JSeparator()); // Separatore tra identità dell'admin ed opzioni
+        popupUser.add(creaAccount);
+        popupUser.add(cambiaPassword);
+        popupUser.add(logout);
+
+        ImageIcon userIcon = new ImageIcon(getClass().getResource("/immagini/user.png"));
+        Image userImage = userIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        ImageIcon finalUserIcon = new ImageIcon(userImage);
+        JButton userButton = new JButton(finalUserIcon);
+        userButton.addActionListener(e -> popupUser.show(userButton, 0, userButton.getHeight()));
+        userButton.setBackground(new Color(255, 255, 255));
+        userButton.setBorderPainted(false);
+        userButton.setFocusPainted(false);
+        userButton.setContentAreaFilled(false);
+
 
         // Pannello per icone in alto a destra
         JPanel topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -47,6 +118,10 @@ public class HomeAgente extends JFrame {
         centerPanel.setBackground(Color.WHITE);
 
         JButton addPropertyButton = new JButton("Inserisci un nuovo immobile sulla piattaforma");
+        addPropertyButton.addActionListener(e -> {
+            dispose(); // Chiude la schermata attuale
+            new CaricamentoProprietaNuovo(); // Porta alla schermata di inserimento della proprietà
+        });
         JButton viewRequestsButton = new JButton("Visualizza le richieste di appuntamento");
         JButton viewCalendarButton = new JButton("Visualizza il calendario con gli appuntamenti concordati");
 
@@ -61,11 +136,17 @@ public class HomeAgente extends JFrame {
         gbc.insets = new Insets(10, 0, 10, 0); // Margini tra i pulsanti
         centerPanel.add(addPropertyButton, gbc);
 
-        gbc.gridy = 1;
-        centerPanel.add(viewRequestsButton, gbc);
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.gridx = 0;
+        gbc1.gridy = 1;
 
-        gbc.gridy = 2;
-        centerPanel.add(viewCalendarButton, gbc);
+        centerPanel.add(viewRequestsButton, gbc1);
+
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        gbc2.gridx = 0;
+        gbc2.gridy = 2;
+        gbc2.insets = new Insets(10, 0, 10, 0);
+        centerPanel.add(viewCalendarButton, gbc2);
 
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
