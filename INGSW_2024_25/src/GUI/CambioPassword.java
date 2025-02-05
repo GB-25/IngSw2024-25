@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import Class.Controller;
 
 public class CambioPassword extends JFrame {
 	// Campi per inserire la password
@@ -9,7 +10,7 @@ public class CambioPassword extends JFrame {
     private JPasswordField txtNuovaPassword;
     private JPasswordField txtConfermaPassword;
     
-    public CambioPassword() {
+    public CambioPassword(Controller c) {
         // Configurazione finestra
         setTitle("Cambio Password - Admin");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -29,7 +30,7 @@ public class CambioPassword extends JFrame {
         // **Bottone di cambio password**
         JButton btnCambiaPassword = new JButton("Cambia Password");
         btnCambiaPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnCambiaPassword.addActionListener(e -> cambiaPassword());
+        btnCambiaPassword.addActionListener(e -> cambiaPassword(c));
 
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Spazio
         mainPanel.add(btnCambiaPassword);
@@ -56,7 +57,7 @@ public class CambioPassword extends JFrame {
     /**
      * Metodo per cambiare la password con verifica
      */
-    private void cambiaPassword() {
+    private void cambiaPassword(Controller c) {
         String passwordAttuale = new String(txtPasswordAttuale.getPassword());
         String nuovaPassword = new String(txtNuovaPassword.getPassword());
         String confermaPassword = new String(txtConfermaPassword.getPassword());
@@ -91,11 +92,11 @@ public class CambioPassword extends JFrame {
         if (response == JOptionPane.YES_OPTION) {
         	JOptionPane.showMessageDialog(this, "Password cambiata con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            new HomeAgente();
+            new HomeAgente(c);
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CambioPassword::new);
+       // SwingUtilities.invokeLater(CambioPassword::new);
     }
 }

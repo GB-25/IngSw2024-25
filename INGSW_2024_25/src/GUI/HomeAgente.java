@@ -34,7 +34,7 @@ public class HomeAgente extends JFrame {
 
         logoButton.addActionListener(e -> {
             dispose(); // Chiude la schermata attuale
-            new HomeAgente(); // Torna alla home
+            new HomeAgente(c); // Torna alla home
         });
 
         // Menu a tendina per le notifiche
@@ -65,13 +65,13 @@ public class HomeAgente extends JFrame {
         JMenuItem cambiaPassword = new JMenuItem("Cambia password");
         cambiaPassword.addActionListener(e -> {
         	dispose();
-        	new CambioPassword();
+        	new CambioPassword(c);
         });
 
         JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
         creaAccount.addActionListener(e -> {
         	dispose();
-    	    new CreazioneAccountAdmin();
+    	    new CreazioneAccountAdmin(c);
     });
 
         // Logout
