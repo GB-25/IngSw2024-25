@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 
+import Class.Controller;
 public class FinestraHome extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -47,7 +48,7 @@ public class FinestraHome extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FinestraHome() {
+	public FinestraHome(Controller c) {
 		setBackground(new Color(0, 153, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 548, 422);

@@ -2,10 +2,11 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import Class.Controller;
 
 public class HomeAgente extends JFrame {
 
-    public HomeAgente() {
+    public HomeAgente(Controller c) {
         // Imposta il titolo della finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -174,6 +175,6 @@ public class HomeAgente extends JFrame {
     // Codice per far partire la finestra senza la necessità del controller
     // Ovviamente metteremo a posto appena abbiamo tutto a disposizione
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(HomeAgente::new);
+        //SwingUtilities.invokeLater(HomeAgente::new);
     }
 }

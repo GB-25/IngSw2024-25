@@ -2,21 +2,20 @@ package Class;
 
 //import 
 import GUI.*;
+import model.ClientModel;
 
 public class Controller {
 
 	//frame
 	
 	FinestraLogin finestraPrincipale;
-	//connessione al db
-	//private final static String url 
-	//private final static String user
-	//private final static String password
+	ClientModel model;
 	
 	//costruttore
 	public Controller() {
 		finestraPrincipale = new FinestraLogin(this);
 		finestraPrincipale.setVisible(true);
+		//model = new ClietModel(ip, porta);
 	}
 	
 	

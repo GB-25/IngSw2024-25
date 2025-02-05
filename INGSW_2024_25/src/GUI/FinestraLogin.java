@@ -59,13 +59,6 @@ public class FinestraLogin extends JFrame {
         imageLabel.setIcon(new ImageIcon(image)); 
         contentPane.add(imageLabel);
         
-        JTextPane txtpnSeiGiIscritto = new JTextPane();
-        txtpnSeiGiIscritto.setFont(new Font("FreeSerif", Font.BOLD, 16));
-        txtpnSeiGiIscritto.setForeground(new Color(0, 153, 255));
-        txtpnSeiGiIscritto.setText("Non sei iscritto?");
-        txtpnSeiGiIscritto.setBounds(408, 254, 144, 21);
-        contentPane.add(txtpnSeiGiIscritto);
-        
         ImageIcon iconGoogle = new ImageIcon(getClass().getResource("/immagini/Google_logo.svg.png"));
         Image imgGoogle = iconGoogle.getImage();
         Image imgGoogleScaled = imgGoogle.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -108,25 +101,25 @@ public class FinestraLogin extends JFrame {
         contentPane.add(textField);
         textField.setColumns(10);
         
-        JButton btnNewButton_3 = new JButton("Accedi");
-        btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-        btnNewButton_3.setForeground(new Color(0, 153, 255));
-        btnNewButton_3.addActionListener(new ActionListener() {
+        JButton btnAccesso = new JButton("Accedi");
+        btnAccesso.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnAccesso.setForeground(new Color(0, 153, 255));
+        btnAccesso.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        btnNewButton_3.setBounds(418, 146, 89, 23);
-        contentPane.add(btnNewButton_3);
+        btnAccesso.setBounds(418, 146, 89, 23);
+        contentPane.add(btnAccesso);
         
-        JButton btnNewButton = new JButton("ISCRIVITI ORA");
-        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-        btnNewButton.setForeground(new Color(0, 153, 255));
-        btnNewButton.setBounds(408, 286, 124, 40);
-        contentPane.add(btnNewButton);
+        JButton btnIscrizione = new JButton("ISCRIVITI ORA");
+        btnIscrizione.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnIscrizione.setForeground(new Color(0, 153, 255));
+        btnIscrizione.setBounds(409, 263, 135, 40);
+        contentPane.add(btnIscrizione);
         
         JLabel caseLabel = new JLabel();
         caseLabel.setBounds(192, 338, 287, 116);
-        String[] caseSlide = {
+       String[] caseSlide = {
         		"/immagini/casa1.jpeg",
         		"/immagini/casa2.jpeg",
         		"/immagini/casa3.jpeg",
@@ -138,7 +131,7 @@ public class FinestraLogin extends JFrame {
             int index = 0;
 
             public void actionPerformed(ActionEvent e) {
-                ImageIcon iconCase = new ImageIcon(caseSlide[index]);
+                ImageIcon iconCase = new ImageIcon(getClass().getResource(caseSlide[index]));
                 Image imgCase= iconCase.getImage();
                 Image scaledCasePics = imgCase.getScaledInstance(caseLabel.getWidth(), caseLabel.getHeight(), Image.SCALE_SMOOTH);
                 caseLabel.setIcon(new ImageIcon(scaledCasePics));
@@ -166,6 +159,12 @@ public class FinestraLogin extends JFrame {
         passwordField = new JPasswordField();
         passwordField.setBounds(341, 115, 243, 19);
         contentPane.add(passwordField);
+        
+        JLabel lblNonIscritto = new JLabel("Non sei iscritto?");
+        lblNonIscritto.setFont(new Font("Serif", Font.BOLD, 14));
+        lblNonIscritto.setForeground(new Color(0, 153, 255));
+        lblNonIscritto.setBounds(409, 247, 135, 15);
+        contentPane.add(lblNonIscritto);
 		
         
         

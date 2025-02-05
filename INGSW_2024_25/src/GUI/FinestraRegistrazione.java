@@ -39,7 +39,7 @@ public class FinestraRegistrazione extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FinestraRegistrazione() {
+	public FinestraRegistrazione(Controller c) {
 		setBackground(new Color(0, 153, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 542, 376);
