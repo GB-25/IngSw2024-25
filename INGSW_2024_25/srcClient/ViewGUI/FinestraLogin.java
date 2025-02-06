@@ -1,9 +1,11 @@
-package GUI;
+package ViewGUI;
 
-import Class.Controller;
 import java.awt.*;
 
 import javax.swing.*;
+
+import Controller.Controller;
+
 /**import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;

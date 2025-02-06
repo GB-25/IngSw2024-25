@@ -1,7 +1,6 @@
-package Class;
+package Controller;
 
-//import 
-import GUI.*;
+import ViewGUI.*;
 import model.ClientModel;
 
 public class Controller {

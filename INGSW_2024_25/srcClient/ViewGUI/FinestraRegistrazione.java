@@ -1,12 +1,14 @@
-package GUI;
+package ViewGUI;
 
 import java.awt.*;
 
 import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
+
+import Controller.Controller;
+
 import java.util.Date;
-import Class.Controller;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

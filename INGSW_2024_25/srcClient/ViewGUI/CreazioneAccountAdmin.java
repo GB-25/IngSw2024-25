@@ -1,8 +1,10 @@
-package GUI;
+package ViewGUI;
 
 import javax.swing.*;
+
+import Controller.Controller;
+
 import java.awt.*;
-import Class.Controller;
 
 public class CreazioneAccountAdmin extends JFrame {
     private JTextField txtNome, txtCognome, txtEmail;

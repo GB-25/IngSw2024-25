@@ -1,4 +1,4 @@
-package GUI;
+package ViewGUI;
 
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -9,6 +9,8 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import Controller.Controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,8 +23,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
-
-import Class.Controller;
 public class FinestraHome extends JFrame {
 
 	private static final long serialVersionUID = 1L;
