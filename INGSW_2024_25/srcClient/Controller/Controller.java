@@ -9,12 +9,15 @@ public class Controller {
 	
 	FinestraLogin finestraPrincipale;
 	ClientModel model;
+	//String ip = "ip server vm";
+	//int porta = porta server vm
 	
 	//costruttore
 	public Controller() {
 		finestraPrincipale = new FinestraLogin(this);
 		finestraPrincipale.setVisible(true);
-		//model = new ClietModel(ip, porta);
+		//model = new ClientModel(ip, porta);
+		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
 	}
 	
 	
