@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="srcClient"/>
 	<classpathentry kind="src" path="srcServer"/>
+	<classpathentry kind="src" path="sharedClass"/>
 	<classpathentry kind="lib" path="com.jgoodies.forms_1.9.0.v20240327-0800.jar"/>
 	<classpathentry kind="lib" path="com.jgoodies.common_1.8.1.v20240327-0800.jar"/>
 	<classpathentry kind="lib" path="com.miglayout.swing_11.4.2.jar"/>
@@ -12,5 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="srcClient/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="json-20250107.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

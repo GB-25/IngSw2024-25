@@ -13,6 +13,7 @@ public class Server {
                 Socket socket = serverSocket.accept();
                 System.out.println("🔗 Nuovo client connesso!");
                 new ClientHandler(socket).start();
+                // oppure cosi  new Thread(new ClientHandler(socket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();

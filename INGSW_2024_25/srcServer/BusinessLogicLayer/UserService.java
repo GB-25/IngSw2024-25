@@ -1,8 +1,8 @@
 package BusinessLogicLayer;
 
+import Class.User;
 import DataAccessLayer.DatabaseManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class UserService {
     private DatabaseManager dbManager;
@@ -12,16 +12,13 @@ public class UserService {
     }
 
     public boolean authenticateUser(String username, String password) {
-        String query = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'";
-        ResultSet rs = dbManager.executeQuery(query);
+    	 User user = dbManager.getUserByUsername(username);
 
-        try {
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+         if (user != null) {
+             return user.getPassword().equals(password);
+         }
+         return false;
+     }
 
     public void close() {
         dbManager.closeConnection();

@@ -21,6 +21,12 @@ public class Controller {
 	}
 	
 	
+	public void handleLogin (String username, String password) {
+		model.loginModel(username, password);
+		
+		
+	}
+	
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();

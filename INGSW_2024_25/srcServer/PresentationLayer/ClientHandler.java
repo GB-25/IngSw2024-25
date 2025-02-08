@@ -3,8 +3,9 @@ package PresentationLayer;
 import java.io.*;
 import java.net.*;
 import BusinessLogicLayer.UserService;
+import org.json.JSONObject;
 
-public class ClientHandler extends Thread {
+public class ClientHandler extends Thread { //implements Runnable???
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
@@ -12,7 +13,6 @@ public class ClientHandler extends Thread {
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
-        this.userService = new UserService();
     }
 
     public void run() {
@@ -22,23 +22,53 @@ public class ClientHandler extends Thread {
 
             String message;
             while ((message = in.readLine()) != null) {
-                String[] parts = message.split(" ");
-                if (parts[0].equalsIgnoreCase("LOGIN")) {
-                    boolean success = userService.authenticateUser(parts[1], parts[2]);
-                    out.println(success ? "LOGIN_OK" : "LOGIN_FAILED");
-                } else {
-                    out.println("Comando sconosciuto!");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                userService.close();
-                socket.close();
+            	System.out.println("Ricevuto: " + message);
+
+            	// Parsing del JSON ricevuto
+            	JSONObject request = new JSONObject(message);
+            	String action = request.getString("action");
+
+            	// Creazione della risposta JSON
+            	JSONObject response = new JSONObject();
+
+            	switch (action) {
+                	case "login":
+                		response = handleLogin(request);
+                		break;
+                	case "register":
+                		// response = handleRegister(request);
+                		break;
+                	case "addProperty":
+                		//response = handleAddProperty(request);
+                		break;
+                	case "bookProperty":
+                		//response = handleBookProperty(request);
+                		break;
+                	default:
+                		response.put("status", "error");
+                		response.put("message", "Azione non riconosciuta");
+                		break;
+            		}
+
+            		// Invia la risposta al client
+            		out.println(response.toString());
+            	}
             } catch (IOException e) {
-                e.printStackTrace();
-            }
+        e.printStackTrace();
         }
+    }
+    
+    private JSONObject handleLogin(JSONObject request) {
+        String username = request.getString("username");
+        String password = request.getString("password");
+        
+        userService = new UserService();
+        
+        boolean isAuthenticated = userService.authenticateUser(username, password);
+
+        JSONObject response = new JSONObject();
+        response.put("status", isAuthenticated ? "success" : "error");
+        response.put("message", isAuthenticated ? "Login riuscito" : "Credenziali errate");
+        return response;
     }
 }

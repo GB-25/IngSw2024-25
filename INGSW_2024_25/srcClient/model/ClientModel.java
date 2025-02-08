@@ -1,12 +1,12 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+
+import java.io.*;
 import java.net.Socket;
+import org.json.JSONObject;
 
 public class ClientModel {
-    private String serverIP;
+    private String serverIP; //34.78.163.251
     private int port;
 
     public ClientModel(String serverIP, int port) {
@@ -14,17 +14,37 @@ public class ClientModel {
         this.port = port;
     }
 
-    public String sendMessage(String message) {
+    
+    public JSONObject sendRequest(JSONObject request) {
         try (Socket socket = new Socket(serverIP, port);
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            out.println(message);
-            return in.readLine(); // Riceve risposta dal server
+            // Invia richiesta al server
+            out.println(request.toString());
 
-        } catch (Exception e) {
+            // Riceve la risposta dal server
+            String response = in.readLine();
+            return new JSONObject(response);
+
+        } catch (IOException e) {
             e.printStackTrace();
-            return "Errore di connessione!";
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("status", "error");
+            errorResponse.put("message", "Connessione al server fallita");
+            return errorResponse;
         }
     }
+    
+    
+    public JSONObject loginModel(String username, String password) {
+    	JSONObject request = new JSONObject();
+        request.put("action", "login");
+        request.put("username", username);
+        request.put("password", password);
+        return sendRequest(request);
+    }
+    
+    
+ 
 }

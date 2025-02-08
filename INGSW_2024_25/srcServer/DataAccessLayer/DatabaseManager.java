@@ -1,6 +1,7 @@
 package DataAccessLayer;
 
 import java.sql.*;
+import Class.User;
 
 public class DatabaseManager {
     private static final String URL = "jdbc:mysql://34.125.200.50:3306/miodb";
@@ -19,16 +20,27 @@ public class DatabaseManager {
         }
     }
 
-    public ResultSet executeQuery(String query) {
-        try {
-            Statement stmt = conn.createStatement();
-            return stmt.executeQuery(query);
+    public  User getUserByUsername(String username) {
+        User user = null;
+
+        String query = "SELECT * FROM users WHERE username = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                user = new User(rs.getString("username"), rs.getString("password"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
-    }
 
+        return user;
+    }
+    
+    
     public void closeConnection() {
         try {
             if (conn != null) conn.close();
