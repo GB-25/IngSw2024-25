@@ -10,6 +10,8 @@ import Controller.Controller;
 
 import java.util.Date;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 
@@ -99,10 +101,30 @@ public class FinestraRegistrazione extends JFrame {
         lblIndirizzoMail.setBounds(33, 219, 119, 15);
         contentPane.add(lblIndirizzoMail);
         
+        
+        JLabel validationLabel = new JLabel("");
+        validationLabel.setBounds(136, 245, 114, 14);
+        contentPane.add(validationLabel);
+        
+        
         textField_2 = new JTextField();
         textField_2.setBounds(136, 217, 114, 19);
         contentPane.add(textField_2);
         textField_2.setColumns(10);
+        textField_2.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String text = textField.getText();
+                if (c.isValidEmail(text)) {
+                    validationLabel.setText("Email valida ✔️");
+                    validationLabel.setForeground(Color.GREEN);
+                    
+                } else {
+                    validationLabel.setText("Email non valida ❌");
+                    validationLabel.setForeground(Color.RED);
+                }
+            }
+        });
         
         JLabel lblTelefono = new JLabel("Telefono");
         lblTelefono.setBounds(311, 219, 70, 15);
@@ -124,6 +146,7 @@ public class FinestraRegistrazione extends JFrame {
         });
         btnNewButtocon.setBounds(342, 276, 117, 25);
         contentPane.add(btnNewButtocon);
+        
 		
 	}
 }

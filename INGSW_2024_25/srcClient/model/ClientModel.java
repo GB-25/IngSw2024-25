@@ -37,10 +37,10 @@ public class ClientModel {
     }
     
     
-    public JSONObject loginModel(String username, String password) {
+    public JSONObject loginModel(String mail, String password) {
     	JSONObject request = new JSONObject();
         request.put("action", "login");
-        request.put("username", username);
+        request.put("mail", mail);
         request.put("password", password);
         return sendRequest(request);
     }

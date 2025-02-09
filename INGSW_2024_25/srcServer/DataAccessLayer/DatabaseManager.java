@@ -4,9 +4,9 @@ import java.sql.*;
 import Class.User;
 
 public class DatabaseManager {
-    private static final String URL = "jdbc:mysql://34.125.200.50:3306/miodb";
-    private static final String USER = "root";
-    private static final String PASSWORD = "password"; 
+    private static final String URL = "jdbc:postgresql://35.241.167.132:5432/app-db";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "passwordpocosicura"; 
 
     private Connection conn;
 
@@ -20,18 +20,18 @@ public class DatabaseManager {
         }
     }
 
-    public  User getUserByUsername(String username) {
+    public  User getUserByMail(String mail) {
         User user = null;
 
-        String query = "SELECT * FROM users WHERE username = ?";
+        String query = "SELECT * FROM users WHERE mail = ?";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             
-            stmt.setString(1, username);
+            stmt.setString(1, mail);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                user = new User(rs.getString("username"), rs.getString("password"));
+                user = new User(rs.getString("mail"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("numeroTelefono"), rs.getDate("dataNascita"), rs.getBoolean("isAgente"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

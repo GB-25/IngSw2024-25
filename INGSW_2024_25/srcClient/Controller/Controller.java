@@ -21,11 +21,17 @@ public class Controller {
 	}
 	
 	
-	public void handleLogin (String username, String password) {
-		model.loginModel(username, password);
+	public void handleLogin (String mail, String password) {
+		model.loginModel(mail, password);
 		
 		
 	}
+	
+	 public boolean isValidEmail(String email) {
+	        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+	        return email != null && email.matches(emailRegex);
+	    }
+	
 	
 	public static void main(String[] args)
 	{

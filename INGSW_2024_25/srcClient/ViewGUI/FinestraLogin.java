@@ -1,7 +1,7 @@
 package ViewGUI;
 
 import java.awt.*;
-
+import java.awt.event.*;
 import javax.swing.*;
 
 import Controller.Controller;
@@ -97,11 +97,12 @@ public class FinestraLogin extends JFrame {
         });
         btnGit.setBounds(418, 180, 89, 33);
         contentPane.add(btnGit);
-        
+ 
         textField = new JTextField();
         textField.setBounds(341, 83, 243, 20);
         contentPane.add(textField);
         textField.setColumns(10);
+
         
         JButton btnAccesso = new JButton("Accedi");
         btnAccesso.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -168,7 +169,8 @@ public class FinestraLogin extends JFrame {
         lblNonIscritto.setForeground(new Color(0, 153, 255));
         lblNonIscritto.setBounds(409, 247, 135, 15);
         contentPane.add(lblNonIscritto);
-		
+        
+      
         
         
 	}

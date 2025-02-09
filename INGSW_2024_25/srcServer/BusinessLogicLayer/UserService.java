@@ -11,8 +11,8 @@ public class UserService {
         dbManager = new DatabaseManager();
     }
 
-    public boolean authenticateUser(String username, String password) {
-    	 User user = dbManager.getUserByUsername(username);
+    public boolean authenticateUser(String mail, String password) {
+    	 User user = dbManager.getUserByMail(mail);
 
          if (user != null) {
              return user.getPassword().equals(password);
