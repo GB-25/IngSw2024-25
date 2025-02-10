@@ -11,11 +11,15 @@ public class UserService {
         dbManager = new DatabaseManager();
     }
 
-    public boolean authenticateUser(String mail, String password) {
+    public boolean authenticateUser(String mail, String password, boolean agente) {
     	 User user = dbManager.getUserByMail(mail);
-
+    	 boolean loginSuccess;
          if (user != null) {
-             return user.getPassword().equals(password);
+             loginSuccess= user.getPassword().equals(password);
+             if (loginSuccess) {
+            	 agente= user.getIsAgente();
+            	 return true;
+            }
          }
          return false;
      }

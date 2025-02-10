@@ -19,7 +19,7 @@ public class FinestraRegistrazione extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textFieldNome;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -67,14 +67,33 @@ public class FinestraRegistrazione extends JFrame {
 		lblRegistratiInPochi.setBounds(148, 12, 377, 40);
 		contentPane.add(lblRegistratiInPochi);
 		
+		JLabel labelNome = new JLabel("");
+	    labelNome.setBounds(78, 116, 114, 25);
+	    contentPane.add(labelNome);
+		
+		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setBounds(33, 101, 70, 15);
 		contentPane.add(lblNome);
 		
-		textField = new JTextField();
-		textField.setBounds(78, 99, 114, 19);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textFieldNome = new JTextField();
+		textFieldNome.setBounds(78, 99, 114, 19);
+		contentPane.add(textFieldNome);
+		textFieldNome.setColumns(10);
+		textFieldNome.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String text = textFieldNome.getText();
+                if (c.isValidNome(text)) {
+                    labelNome.setText("Nome valido ✔️");
+                    labelNome.setForeground(Color.GREEN);
+                    
+                } else {
+                    labelNome.setText("Nome non valido ❌");
+                    labelNome.setForeground(Color.RED);
+                }
+            }
+        });
 		
 		JLabel lblNewLabel = new JLabel("Cognome\n");
 		lblNewLabel.setBounds(227, 101, 70, 15);
@@ -103,7 +122,7 @@ public class FinestraRegistrazione extends JFrame {
         
         
         JLabel validationLabel = new JLabel("");
-        validationLabel.setBounds(136, 245, 114, 14);
+        validationLabel.setBounds(136, 245, 161, 14);
         contentPane.add(validationLabel);
         
         
@@ -114,7 +133,7 @@ public class FinestraRegistrazione extends JFrame {
         textField_2.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                String text = textField.getText();
+                String text = textFieldNome.getText();
                 if (c.isValidEmail(text)) {
                     validationLabel.setText("Email valida ✔️");
                     validationLabel.setForeground(Color.GREEN);
@@ -139,13 +158,16 @@ public class FinestraRegistrazione extends JFrame {
         btnAnnulla.setBounds(54, 276, 117, 25);
         contentPane.add(btnAnnulla);
         
-        JButton btnNewButtocon = new JButton("Conferma");
-        btnNewButtocon.addActionListener(new ActionListener() {
+        JButton btnConferma = new JButton("Conferma");
+        btnConferma.setEnabled(false);
+        btnConferma.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        btnNewButtocon.setBounds(342, 276, 117, 25);
-        contentPane.add(btnNewButtocon);
+        btnConferma.setBounds(342, 276, 117, 25);
+        contentPane.add(btnConferma);
+        
+       
         
 		
 	}
