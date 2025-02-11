@@ -3,6 +3,7 @@ package ViewGUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import Class.Controller;
 
 public class VisioneImmobile extends JFrame {
 
@@ -10,7 +11,7 @@ public class VisioneImmobile extends JFrame {
     private CardLayout cardLayout; // Layout per il carosello
     private JButton prevButton, nextButton; // Navigation buttons
 
-    public VisioneImmobile() {
+    public VisioneImmobile(Controller c) {
         // Configurazione della finestra
         setTitle("Visualizzazione Immobile - DietiEstates25");
         setSize(600, 640);
@@ -246,6 +247,6 @@ public class VisioneImmobile extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(VisioneImmobile::new);
+        //SwingUtilities.invokeLater(VisioneImmobile::new);
     }
 }
