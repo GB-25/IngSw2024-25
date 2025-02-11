@@ -2,8 +2,9 @@ package Controller;
 
 import ViewGUI.*;
 import model.ClientModel;
-
+import java.util.Arrays;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import org.json.JSONObject;
@@ -22,14 +23,15 @@ public class Controller {
 	
 	//costruttore
 	public Controller() {
-		finestraPrincipale = new FinestraLogin(this);
-		finestraPrincipale.setVisible(true);
+		finestraRegistrazione = new FinestraRegistrazione(this);
+		finestraRegistrazione.setVisible(true);
 		//model = new ClientModel(ip, porta);
 		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
 	}
 	
 	
-	public void handleLogin (String mail, String password) {
+	public void handleLogin (String mail, char[] pass) {
+		String password = new String(pass);
 		JSONObject response = model.loginModel(mail, password);
 		if (response.getString("status").equals("error")) {
 			 JOptionPane.showMessageDialog(null, "Credenziali errate!", "Errore di Login", JOptionPane.ERROR_MESSAGE);
@@ -51,7 +53,7 @@ public class Controller {
 	
 	public boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-        return email != null && email.matches(emailRegex);
+        return ((email != null) && (email.matches(emailRegex)));
 	}
 	
 	public boolean isValidNome(String nome) {
@@ -60,6 +62,45 @@ public class Controller {
 		}
 		return true;
 	}
+	
+	public void isValidPassword(char[] pass, boolean[] valori) {
+		
+		String password = new String(pass);
+		
+		if (password.length()<6) {
+			valori[0] = false;
+		} else {
+			valori[0] = true;
+		}
+		if (password.matches("^.*[A-Z].*")) {
+			valori[1] = true;
+		} else {
+			valori[1] = false;
+		}
+		if (password.matches("^.*[a-z].*")) {
+			valori[2] = true;
+		} else {
+			valori[2] = false;
+		}
+		if (password.matches("^.*[0-9].*")) {
+			valori[3] = true;
+		} else {
+			valori[3] = false;
+		}
+	}
+	
+	public boolean isValidNumero(String numero) {
+		if (numero.matches("^\\d{9,10}$")) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean verifyPassword(char[] password1, char[] password2) {
+		return Arrays.equals(password1, password2);
+	}
+	
+
 	
 	public static void main(String[] args)
 	{

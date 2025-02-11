@@ -9,6 +9,7 @@ import com.toedter.calendar.JDateChooser;
 import Controller.Controller;
 
 import java.util.Date;
+import java.util.Calendar;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -20,9 +21,11 @@ public class FinestraRegistrazione extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldNome;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textFieldCognome;
+	private JTextField textFieldMail;
+	private JTextField textFieldTelefono;
+	private JPasswordField passwordField;
+	private JPasswordField passwordFieldConferma;
 
 	/**
 	 * Launch the application.
@@ -46,7 +49,7 @@ public class FinestraRegistrazione extends JFrame {
 	public FinestraRegistrazione(Controller c) {
 		setBackground(new Color(0, 153, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 542, 376);
+		setBounds(100, 100, 542, 635);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(null);
@@ -67,17 +70,17 @@ public class FinestraRegistrazione extends JFrame {
 		lblRegistratiInPochi.setBounds(148, 12, 377, 40);
 		contentPane.add(lblRegistratiInPochi);
 		
-		JLabel labelNome = new JLabel("");
-	    labelNome.setBounds(78, 116, 114, 25);
-	    contentPane.add(labelNome);
+		JLabel labelVerifyNome = new JLabel("");
+	    labelVerifyNome.setBounds(77, 96, 114, 25);
+	    contentPane.add(labelVerifyNome);
 		
 		
 		JLabel lblNome = new JLabel("Nome");
-		lblNome.setBounds(33, 101, 70, 15);
+		lblNome.setBounds(32, 81, 70, 15);
 		contentPane.add(lblNome);
 		
 		textFieldNome = new JTextField();
-		textFieldNome.setBounds(78, 99, 114, 19);
+		textFieldNome.setBounds(77, 79, 114, 19);
 		contentPane.add(textFieldNome);
 		textFieldNome.setColumns(10);
 		textFieldNome.addKeyListener(new KeyAdapter() {
@@ -85,55 +88,83 @@ public class FinestraRegistrazione extends JFrame {
             public void keyReleased(KeyEvent e) {
                 String text = textFieldNome.getText();
                 if (c.isValidNome(text)) {
-                    labelNome.setText("Nome valido ✔️");
-                    labelNome.setForeground(Color.GREEN);
+                    labelVerifyNome.setText("Nome valido ✔️");
+                    labelVerifyNome.setForeground(Color.GREEN);
                     
                 } else {
-                    labelNome.setText("Nome non valido ❌");
-                    labelNome.setForeground(Color.RED);
+                    labelVerifyNome.setText("Nome non valido ❌");
+                    labelVerifyNome.setForeground(Color.RED);
                 }
             }
         });
 		
-		JLabel lblNewLabel = new JLabel("Cognome\n");
-		lblNewLabel.setBounds(227, 101, 70, 15);
-		contentPane.add(lblNewLabel);
+		JLabel labelVerifyCognome = new JLabel("");
+        labelVerifyCognome.setBounds(295, 96, 114, 25);
+        contentPane.add(labelVerifyCognome);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(296, 99, 114, 19);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		JLabel lblCognome = new JLabel("Cognome\n");
+		lblCognome.setBounds(226, 81, 70, 15);
+		contentPane.add(lblCognome);
+		
+		textFieldCognome = new JTextField();
+		textFieldCognome.setBounds(295, 79, 114, 19);
+		contentPane.add(textFieldCognome);
+		textFieldCognome.setColumns(10);
+		textFieldCognome.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String text = textFieldCognome.getText();
+                if (c.isValidNome(text)) {
+                    labelVerifyCognome.setText("Cognome valido ✔️");
+                    labelVerifyCognome.setForeground(Color.GREEN);
+                    
+                } else {
+                    labelVerifyCognome.setText("Cognome non valido ❌");
+                    labelVerifyCognome.setForeground(Color.RED);
+                }
+            }
+        });
 		
 		JLabel lblDataDiNascita = new JLabel("Data di Nascita");
-		lblDataDiNascita.setBounds(33, 153, 159, 15);
+		lblDataDiNascita.setBounds(32, 133, 159, 15);
 		contentPane.add(lblDataDiNascita);
+		
 		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("dd-MM-yyyy");
+		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
+
 		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-        dateChooser.setBounds(153, 148, 200, 30);
-        dateChooser.setSelectableDateRange(new Date(), new Date(System.currentTimeMillis()));
+        dateChooser.setBounds(152, 128, 200, 30);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -18); 
+        Date dataMassima = cal.getTime();
+        cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 82); 
+        Date dataMinima = cal.getTime(); 
+        dateChooser.setSelectableDateRange(dataMinima, dataMassima);
         contentPane.add(dateChooser);
         
         JLabel lblIndirizzoMail = new JLabel("Indirizzo Mail");
-        lblIndirizzoMail.setBounds(33, 219, 119, 15);
+        lblIndirizzoMail.setBounds(32, 199, 119, 15);
         contentPane.add(lblIndirizzoMail);
         
         
         JLabel validationLabel = new JLabel("");
-        validationLabel.setBounds(136, 245, 161, 14);
+        validationLabel.setBounds(135, 225, 161, 14);
         contentPane.add(validationLabel);
         
         
-        textField_2 = new JTextField();
-        textField_2.setBounds(136, 217, 114, 19);
-        contentPane.add(textField_2);
-        textField_2.setColumns(10);
-        textField_2.addKeyListener(new KeyAdapter() {
+        textFieldMail = new JTextField();
+        textFieldMail.setBounds(135, 197, 114, 19);
+        contentPane.add(textFieldMail);
+        textFieldMail.setColumns(10);
+        textFieldMail.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                String text = textFieldNome.getText();
+                String text = textFieldMail.getText();
                 if (c.isValidEmail(text)) {
                     validationLabel.setText("Email valida ✔️");
                     validationLabel.setForeground(Color.GREEN);
@@ -146,29 +177,124 @@ public class FinestraRegistrazione extends JFrame {
         });
         
         JLabel lblTelefono = new JLabel("Telefono");
-        lblTelefono.setBounds(311, 219, 70, 15);
+        lblTelefono.setBounds(310, 199, 70, 15);
         contentPane.add(lblTelefono);
+        JLabel labelConfermaTelefono = new JLabel("");
+        labelConfermaTelefono.setBounds(391, 224, 104, 19);
+        contentPane.add(labelConfermaTelefono);
+        textFieldTelefono = new JTextField();
+        textFieldTelefono.setBounds(381, 197, 114, 19);
+        contentPane.add(textFieldTelefono);
+        textFieldTelefono.setColumns(10);
+        textFieldTelefono.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+            	String text = textFieldTelefono.getText();
+            	if (c.isValidNumero(text)) {
+                    labelConfermaTelefono.setText("Numero valida ✔️");
+                    labelConfermaTelefono.setForeground(Color.GREEN);
+                    
+                } else {
+                	labelConfermaTelefono.setText("Numero non valido ❌");
+                	labelConfermaTelefono.setForeground(Color.RED);
+                }
+            }
+        });
         
-        textField_3 = new JTextField();
-        textField_3.setBounds(382, 217, 114, 19);
-        contentPane.add(textField_3);
-        textField_3.setColumns(10);
         
         JButton btnAnnulla = new JButton("Annulla");
-        btnAnnulla.setBounds(54, 276, 117, 25);
+        btnAnnulla.setBounds(22, 561, 117, 25);
         contentPane.add(btnAnnulla);
         
         JButton btnConferma = new JButton("Conferma");
         btnConferma.setEnabled(false);
+        
         btnConferma.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        btnConferma.setBounds(342, 276, 117, 25);
+        btnConferma.setBounds(408, 561, 117, 25);
         contentPane.add(btnConferma);
         
-       
+        JLabel lblPassword = new JLabel("Password");
+        lblPassword.setBounds(32, 257, 70, 15);
+        contentPane.add(lblPassword);
         
+        JLabel lblRequisiti = new JLabel("La password deve:");
+        lblRequisiti.setBounds(276, 284, 159, 15);
+        contentPane.add(lblRequisiti);
+        
+        JLabel lblLunghezza = new JLabel("· essere lunga almeno 6 caratteri");
+        lblLunghezza.setBounds(225, 311, 258, 15);
+        contentPane.add(lblLunghezza);
+        
+        JLabel lblMaiuscola = new JLabel("· contenere almeno una lettera maiuscola");
+        lblMaiuscola.setBounds(213, 338, 329, 15);
+        contentPane.add(lblMaiuscola);
+        
+        JLabel lblMinuscola = new JLabel("· contenere almeno una lettera minuscola");
+        lblMinuscola.setBounds(211, 366, 319, 15);
+        contentPane.add(lblMinuscola);
+        
+        JLabel lblNumero = new JLabel("· contenere almeno un numero");
+        lblNumero.setBounds(238, 394, 257, 15);
+        contentPane.add(lblNumero);
+        
+        passwordField = new JPasswordField();
+        passwordField.setBounds(266, 255, 183, 19);
+        contentPane.add(passwordField);
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                char[] text = passwordField.getPassword();
+                boolean[] valori = {false, false, false, false};
+                c.isValidPassword(text, valori);
+                if (valori[0]) {
+                    lblLunghezza.setForeground(Color.GREEN);
+                } else {
+                    lblLunghezza.setForeground(Color.RED);
+                }
+                if (valori[1]) {
+                	lblMaiuscola.setForeground(Color.GREEN);
+                } else {
+                	lblMaiuscola.setForeground(Color.RED);
+                }
+                if (valori[2]) {
+                	lblMinuscola.setForeground(Color.GREEN);
+                } else {
+                	lblMinuscola.setForeground(Color.RED);
+                }
+                if (valori[3]) {
+                	lblNumero.setForeground(Color.GREEN);
+                } else {
+                	lblNumero.setForeground(Color.RED);
+                }
+            }
+        });
+       
+        JLabel lblConferma = new JLabel("Conferma Password");
+        lblConferma.setBounds(22, 469, 169, 15);
+        contentPane.add(lblConferma);
+        
+        JLabel lblCheckPassword = new JLabel("");
+        lblCheckPassword.setBounds(266, 498, 229, 15);
+        contentPane.add(lblCheckPassword);
+        
+        passwordFieldConferma = new JPasswordField();
+        passwordFieldConferma.setBounds(266, 467, 183, 19);
+        contentPane.add(passwordFieldConferma);
+        passwordFieldConferma.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+            	if (c.verifyPassword(passwordField.getPassword(), passwordFieldConferma.getPassword())) {
+            		lblCheckPassword.setText("La password combacia ✔️");
+                    lblCheckPassword.setForeground(Color.GREEN);
+            	} else {
+            		lblCheckPassword.setText("La password non combacia ❌");
+                    lblCheckPassword.setForeground(Color.RED);
+            	}
+            }
+        });
 		
 	}
 }

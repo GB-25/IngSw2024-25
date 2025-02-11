@@ -109,7 +109,7 @@ public class FinestraLogin extends JFrame {
         btnAccesso.setForeground(new Color(0, 153, 255));
         btnAccesso.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		//c.handleLogin(textField.getText(), passwordField.getSelectedText());
+        		//c.handleLogin(textField.getText(), passwordField.getPassword());
         	}
         });
         btnAccesso.setBounds(418, 146, 89, 23);
