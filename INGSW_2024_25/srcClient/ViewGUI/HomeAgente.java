@@ -5,6 +5,8 @@ import javax.swing.*;
 import Controller.Controller;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class HomeAgente extends JFrame {
 
@@ -17,14 +19,21 @@ public class HomeAgente extends JFrame {
 
         // Pannello principale con BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE);
-        setContentPane(mainPanel);
+        mainPanel.setBackground(new Color(0, 212, 255));
+        setContentPane(mainPanel);    
+        
+     // Creazione di un separatore orizzontale
+        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+        separator.setBackground(Color.BLACK);  // Imposta il colore della linea
+        separator.setPreferredSize(new Dimension(600, 2));  // Lunghezza e spessore della linea
+
 
         // Pannello superiore con logo e icone
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(Color.WHITE);
+        topPanel.setPreferredSize(new Dimension(600, 120));
+        topPanel.setBackground(new Color(40, 132, 212));
 
-        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/immagini/LOGO.png"));
+        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/immagini/logopngwhite.png"));
         Image imgLogo = iconLogo.getImage();
         Image imgLogoScaled = imgLogo.getScaledInstance(200, 120, Image.SCALE_SMOOTH);
         ImageIcon finalLogoIcon = new ImageIcon(imgLogoScaled);
@@ -33,6 +42,7 @@ public class HomeAgente extends JFrame {
         logoButton.setBorderPainted(false);
         logoButton.setFocusPainted(false);
         logoButton.setContentAreaFilled(false);
+        logoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         logoButton.addActionListener(e -> {
             dispose(); // Chiude la schermata attuale
@@ -41,23 +51,23 @@ public class HomeAgente extends JFrame {
 
         // Menu a tendina per le notifiche
         JPopupMenu popupMenu = new JPopupMenu();
-        popupMenu.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
         // Esempio di notifiche
         JMenuItem notifica1 = new JMenuItem("Nuova prenotazione per Appartamento Roma");
-        JMenuItem notifica2 = new JMenuItem("Visita per Villa Roma confermata");
-        JMenuItem notifica3 = new JMenuItem("Visita per Casa Tivoli confermata");
+        JMenuItem notifica2 = new JMenuItem("Visita per Villa Milano confermata");
+        JMenuItem notifica3 = new JMenuItem("Messaggio da Mario Rossi");
 
         popupMenu.add(notifica1);
         popupMenu.add(notifica2);
         popupMenu.add(notifica3);
 
-        JButton bellButton = createIconButton("/immagini/bell.png", 30, 30);
+        JButton bellButton = createIconButton("/immagini/bellwhite.png", 30, 30);
         bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
 
         // Menu a tendina per lo user
         JPopupMenu popupUser = new JPopupMenu();
-        popupUser.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
         // Nome e Cognome dell’utente
         JMenuItem userInfo = new JMenuItem("Mario Rossi"); // Modifica con il nome utente
@@ -93,26 +103,28 @@ public class HomeAgente extends JFrame {
         popupUser.add(cambiaPassword);
         popupUser.add(logout);
 
-        ImageIcon userIcon = new ImageIcon(getClass().getResource("/immagini/user.png"));
+        ImageIcon userIcon = new ImageIcon(getClass().getResource("/immagini/userwhite.png"));
         Image userImage = userIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon finalUserIcon = new ImageIcon(userImage);
         JButton userButton = new JButton(finalUserIcon);
         userButton.addActionListener(e -> popupUser.show(userButton, 0, userButton.getHeight()));
-        userButton.setBackground(new Color(255, 255, 255));
+        userButton.setBackground(new Color(40, 132, 212));
         userButton.setBorderPainted(false);
         userButton.setFocusPainted(false);
         userButton.setContentAreaFilled(false);
+        userButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
         // Pannello per icone in alto a destra
-        JPanel topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        topRightPanel.setBackground(Color.WHITE);
+        JPanel topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 30));
+        topRightPanel.setBackground(new Color(40, 132, 212));
         topRightPanel.add(bellButton);
         topRightPanel.add(userButton);
 
         // Aggiunta al topPanel
         topPanel.add(logoButton, BorderLayout.WEST);
         topPanel.add(topRightPanel, BorderLayout.EAST);
+        topPanel.add(separator, BorderLayout.SOUTH);
 
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
@@ -123,14 +135,63 @@ public class HomeAgente extends JFrame {
         JButton addPropertyButton = new JButton("Inserisci un nuovo immobile sulla piattaforma");
         addPropertyButton.addActionListener(e -> {
             dispose(); // Chiude la schermata attuale
-            new CaricamentoProprietaNuovo(); // Porta alla schermata di inserimento della proprietà
+            new CaricamentoProprietaNuovo(c); // Porta alla schermata di inserimento della proprietà
         });
         JButton viewRequestsButton = new JButton("Visualizza le richieste di appuntamento");
         JButton viewCalendarButton = new JButton("Visualizza il calendario con gli appuntamenti concordati");
 
         addPropertyButton.setPreferredSize(new Dimension(500, 120));
+        addPropertyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        addPropertyButton.setFont(new Font("Helvetica", Font.PLAIN, 18));
+        addPropertyButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
+        addPropertyButton.setBackground(new Color(210, 224, 239));
         viewRequestsButton.setPreferredSize(new Dimension(500, 120));
+        viewRequestsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        viewRequestsButton.setFont(new Font("Helvetica", Font.PLAIN, 18));
+        viewRequestsButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
+        viewRequestsButton.setBackground(new Color(210, 224, 239));
         viewCalendarButton.setPreferredSize(new Dimension(500, 120));
+        viewCalendarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        viewCalendarButton.setFont(new Font("Helvetica", Font.PLAIN, 18));
+        viewCalendarButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
+        viewCalendarButton.setBackground(new Color(210, 224, 239));
+        
+        addPropertyButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                addPropertyButton.setBackground(new Color(180, 224, 239));  // Colore più chiaro al passaggio
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                addPropertyButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
+            }
+        });
+        
+        viewRequestsButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            	viewRequestsButton.setBackground(new Color(180, 224, 239));  // Colore più chiaro al passaggio
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	viewRequestsButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
+            }
+        });
+        
+        viewCalendarButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            	viewCalendarButton.setBackground(new Color(180, 224, 239));  // Colore più chiaro al passaggio
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	viewCalendarButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
+            }
+        });
+
 
         // Aggiungi i pulsanti al GridBagLayout
         GridBagConstraints gbc = new GridBagConstraints();
@@ -170,8 +231,11 @@ public class HomeAgente extends JFrame {
         button.setContentAreaFilled(false);
         button.setFocusPainted(false);
         button.setOpaque(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         return button;
+        
+        
     }
 
     // Codice per far partire la finestra senza la necessità del controller
