@@ -3,7 +3,7 @@ package ViewGUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import Class.Controller;
+import Controller.Controller;
 
 public class VisioneImmobile extends JFrame {
 
