@@ -4,23 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Controller.Controller;
 
 public class CaricamentoProprietaNuovo extends JFrame {
 
     // Dichiarazione dei campi da controllare
-    private JTextField txtTitle;
+    private JComboBox<String> cmbGarden;
     private JComboBox<String> cmbType;
     private JComboBox<String> cmbAdType;
     private JTextField txtPrice;
     private JTextArea txtDescription;
     private JTextField txtWidth;
-    private JTextField txtHeight;
     private JTextField txtRooms;
     private JComboBox<String> cmbCondo;
     private JComboBox<String> cmbEnergyClass;
     private JComboBox<String> cmbElevator;
 
-    public CaricamentoProprietaNuovo() {
+    public CaricamentoProprietaNuovo(Controller c) {
         // Configura la finestra
         setTitle("Caricamento Immobile - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,9 +38,6 @@ public class CaricamentoProprietaNuovo extends JFrame {
         leftPanel.setBackground(Color.WHITE);
 
         // Campi di input
-        leftPanel.add(new JLabel("Titolo:"));
-        txtTitle = new JTextField(20);
-        leftPanel.add(txtTitle);
 
         leftPanel.add(new JLabel("Tipo di immobile:"));
         cmbType = new JComboBox<>(new String[]{"", "Casa", "Appartamento", "Villa"});
@@ -61,13 +58,8 @@ public class CaricamentoProprietaNuovo extends JFrame {
         leftPanel.add(new JScrollPane(txtDescription));
 
         leftPanel.add(new JLabel("Dimensioni alloggio:"));
-        JPanel dimensionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        txtWidth = new JTextField(5);
-        txtHeight = new JTextField(5);
-        dimensionPanel.add(txtWidth);
-        dimensionPanel.add(new JLabel("X"));
-        dimensionPanel.add(txtHeight);
-        leftPanel.add(dimensionPanel);
+        txtWidth = new JTextField(10);
+        leftPanel.add(txtWidth);
 
         leftPanel.add(new JLabel("Numero di stanze:"));
         txtRooms = new JTextField(10);
@@ -80,6 +72,10 @@ public class CaricamentoProprietaNuovo extends JFrame {
         leftPanel.add(new JLabel("Classe energetica:"));
         cmbEnergyClass = new JComboBox<>(new String[]{"", "A", "B", "C", "D", "E", "F", "G"});
         leftPanel.add(cmbEnergyClass);
+        
+        leftPanel.add(new JLabel("Giardino:"));
+        cmbGarden = new JComboBox<>(new String[]{"No", "Sì"});
+        leftPanel.add(cmbGarden);
 
         leftPanel.add(new JLabel("Ascensore:"));
         cmbElevator = new JComboBox<>(new String[]{"No", "Sì"});
@@ -115,13 +111,11 @@ public class CaricamentoProprietaNuovo extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Controlla se tutti i campi obbligatori sono compilati
-                if (txtTitle.getText().trim().isEmpty() ||
-                        cmbType.getSelectedIndex() == 0 ||
+            	if (cmbType.getSelectedIndex() == 0 ||
                         cmbAdType.getSelectedIndex() == 0 ||
                         txtPrice.getText().trim().isEmpty() ||
                         txtDescription.getText().trim().isEmpty() ||
                         txtWidth.getText().trim().isEmpty() ||
-                        txtHeight.getText().trim().isEmpty() ||
                         txtRooms.getText().trim().isEmpty()) {
 
                     JOptionPane.showMessageDialog(null,
@@ -138,7 +132,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
 
                     if (response == JOptionPane.YES_OPTION) {
                         dispose();
-                        new CaricamentoConfermato();
+                        new CaricamentoConfermato(c);
                     }
                 }
             }
@@ -150,7 +144,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
 
     // Avvio dell'interfaccia
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CaricamentoProprietaNuovo::new);
+        //SwingUtilities.invokeLater(CaricamentoProprietaNuovo::new);
     }
 }
 
