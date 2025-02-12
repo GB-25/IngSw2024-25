@@ -132,7 +132,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
 
                     if (response == JOptionPane.YES_OPTION) {
                         dispose();
-                        new CaricamentoConfermato(c);
+                        //new CaricamentoConfermato(c);
                     }
                 }
             }

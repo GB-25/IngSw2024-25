@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 
 public class FinestraRegistrazione extends JFrame {
@@ -26,6 +28,11 @@ public class FinestraRegistrazione extends JFrame {
 	private JTextField textFieldTelefono;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldConferma;
+	private JDateChooser dateChooser;
+	private boolean[] controllo = {false, false, false, false};
+	private boolean[] valori = {false, false, false, false};
+	private boolean enable = false;
+	private boolean combacia = false;
 
 	/**
 	 * Launch the application.
@@ -64,6 +71,37 @@ public class FinestraRegistrazione extends JFrame {
         logoLabel.setIcon(new ImageIcon(imageLogo)); 
 		contentPane.add(logoLabel);
 		
+		JButton btnConferma = new JButton("Conferma");
+        btnConferma.setEnabled(false);
+        btnConferma.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        		c.handleRegistration(textFieldNome.getText(), textFieldCognome.getText(), data, textFieldMail.getText(), textFieldTelefono.getText(), passwordField.getPassword());
+        	}
+        });
+        btnConferma.setBounds(408, 561, 117, 25);
+        contentPane.add(btnConferma);
+		
+        dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("dd-MM-yyyy");
+		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
+
+		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+        dateChooser.setBounds(152, 128, 200, 30);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -18); 
+        Date dataMassima = cal.getTime();
+        cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 82); 
+        Date dataMinima = cal.getTime(); 
+        dateChooser.setSelectableDateRange(dataMinima, dataMassima);
+        contentPane.add(dateChooser);
+        
+        
+		
 		JLabel lblRegistratiInPochi = new JLabel("Registrati in pochi passi!");
 		lblRegistratiInPochi.setFont(new Font("Dialog", Font.BOLD, 26));
 		lblRegistratiInPochi.setForeground(new Color(0, 153, 255));
@@ -90,10 +128,16 @@ public class FinestraRegistrazione extends JFrame {
                 if (c.isValidNome(text)) {
                     labelVerifyNome.setText("Nome valido ✔️");
                     labelVerifyNome.setForeground(Color.GREEN);
+                    controllo[0] = true;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
                     
                 } else {
                     labelVerifyNome.setText("Nome non valido ❌");
                     labelVerifyNome.setForeground(Color.RED);
+                    controllo[0] = false;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
                 }
             }
         });
@@ -117,10 +161,16 @@ public class FinestraRegistrazione extends JFrame {
                 if (c.isValidNome(text)) {
                     labelVerifyCognome.setText("Cognome valido ✔️");
                     labelVerifyCognome.setForeground(Color.GREEN);
+                    controllo[1] = true;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
                     
                 } else {
                     labelVerifyCognome.setText("Cognome non valido ❌");
                     labelVerifyCognome.setForeground(Color.RED);
+                    controllo[1] = false;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
                 }
             }
         });
@@ -129,23 +179,7 @@ public class FinestraRegistrazione extends JFrame {
 		lblDataDiNascita.setBounds(32, 133, 159, 15);
 		contentPane.add(lblDataDiNascita);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd-MM-yyyy");
-		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
-
-		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-        dateChooser.setBounds(152, 128, 200, 30);
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -18); 
-        Date dataMassima = cal.getTime();
-        cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 82); 
-        Date dataMinima = cal.getTime(); 
-        dateChooser.setSelectableDateRange(dataMinima, dataMassima);
-        contentPane.add(dateChooser);
+		
         
         JLabel lblIndirizzoMail = new JLabel("Indirizzo Mail");
         lblIndirizzoMail.setBounds(32, 199, 119, 15);
@@ -168,10 +202,16 @@ public class FinestraRegistrazione extends JFrame {
                 if (c.isValidEmail(text)) {
                     validationLabel.setText("Email valida ✔️");
                     validationLabel.setForeground(Color.GREEN);
+                    controllo[2] = true;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
                     
                 } else {
                     validationLabel.setText("Email non valida ❌");
                     validationLabel.setForeground(Color.RED);
+                    controllo[2] = false;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
                 }
             }
         });
@@ -193,10 +233,16 @@ public class FinestraRegistrazione extends JFrame {
             	if (c.isValidNumero(text)) {
                     labelConfermaTelefono.setText("Numero valida ✔️");
                     labelConfermaTelefono.setForeground(Color.GREEN);
+                    controllo[3]= true;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
                     
                 } else {
                 	labelConfermaTelefono.setText("Numero non valido ❌");
                 	labelConfermaTelefono.setForeground(Color.RED);
+                	controllo[3] = false;
+                	enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
                 }
             }
         });
@@ -206,15 +252,7 @@ public class FinestraRegistrazione extends JFrame {
         btnAnnulla.setBounds(22, 561, 117, 25);
         contentPane.add(btnAnnulla);
         
-        JButton btnConferma = new JButton("Conferma");
-        btnConferma.setEnabled(false);
         
-        btnConferma.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnConferma.setBounds(408, 561, 117, 25);
-        contentPane.add(btnConferma);
         
         JLabel lblPassword = new JLabel("Password");
         lblPassword.setBounds(32, 257, 70, 15);
@@ -240,6 +278,14 @@ public class FinestraRegistrazione extends JFrame {
         lblNumero.setBounds(238, 394, 257, 15);
         contentPane.add(lblNumero);
         
+        JLabel lblConferma = new JLabel("Conferma Password");
+        lblConferma.setBounds(22, 469, 169, 15);
+        contentPane.add(lblConferma);
+        
+        JLabel lblCheckPassword = new JLabel("");
+        lblCheckPassword.setBounds(266, 498, 229, 15);
+        contentPane.add(lblCheckPassword);
+        
         passwordField = new JPasswordField();
         passwordField.setBounds(266, 255, 183, 19);
         contentPane.add(passwordField);
@@ -247,7 +293,6 @@ public class FinestraRegistrazione extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                 char[] text = passwordField.getPassword();
-                boolean[] valori = {false, false, false, false};
                 c.isValidPassword(text, valori);
                 if (valori[0]) {
                     lblLunghezza.setForeground(Color.GREEN);
@@ -269,16 +314,22 @@ public class FinestraRegistrazione extends JFrame {
                 } else {
                 	lblNumero.setForeground(Color.RED);
                 }
+                if (c.verifyPassword(passwordField.getPassword(), passwordFieldConferma.getPassword())) {
+            		lblCheckPassword.setText("La password combacia ✔️");
+                    lblCheckPassword.setForeground(Color.GREEN);
+                    combacia = true;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
+            	} else {
+            		lblCheckPassword.setText("La password non combacia ❌");
+                    lblCheckPassword.setForeground(Color.RED);
+                    combacia = false;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
+            	}
             }
         });
        
-        JLabel lblConferma = new JLabel("Conferma Password");
-        lblConferma.setBounds(22, 469, 169, 15);
-        contentPane.add(lblConferma);
-        
-        JLabel lblCheckPassword = new JLabel("");
-        lblCheckPassword.setBounds(266, 498, 229, 15);
-        contentPane.add(lblCheckPassword);
         
         passwordFieldConferma = new JPasswordField();
         passwordFieldConferma.setBounds(266, 467, 183, 19);
@@ -289,12 +340,52 @@ public class FinestraRegistrazione extends JFrame {
             	if (c.verifyPassword(passwordField.getPassword(), passwordFieldConferma.getPassword())) {
             		lblCheckPassword.setText("La password combacia ✔️");
                     lblCheckPassword.setForeground(Color.GREEN);
+                    combacia = true;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
             	} else {
             		lblCheckPassword.setText("La password non combacia ❌");
                     lblCheckPassword.setForeground(Color.RED);
+                    combacia = false;
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    btnConferma.setEnabled(enable);
             	}
             }
         });
-		
-	}
+        
+//        DocumentListener documentListener = new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+//                btnConferma.setEnabled(enable);
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//            	enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+//                btnConferma.setEnabled(enable);
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//            	enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+//                btnConferma.setEnabled(enable);
+//            }
+//        };
+//        
+//        textFieldNome.getDocument().addDocumentListener(documentListener);
+//        textFieldCognome.getDocument().addDocumentListener(documentListener);
+//        textFieldMail.getDocument().addDocumentListener(documentListener);
+//        textFieldTelefono.getDocument().addDocumentListener(documentListener);
+//        passwordField.getDocument().addDocumentListener(documentListener);
+//        passwordFieldConferma.getDocument().addDocumentListener(documentListener);
+//        ((JTextField) dateChooser.getDateEditor().getUiComponent()).getDocument().addDocumentListener(documentListener);
+//        
+
+		};
+
 }
+	
+	
+	
+

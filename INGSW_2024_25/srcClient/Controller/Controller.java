@@ -3,6 +3,8 @@ package Controller;
 import ViewGUI.*;
 import model.ClientModel;
 import java.util.Arrays;
+import java.util.Date;
+
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,6 +51,18 @@ public class Controller {
 		}
 		
 		
+	}
+	
+	public void handleRegistration (String nome, String cognome, String data, String mail, String telefono, char[] pass) {
+		String password = new String(pass);
+		JSONObject response = model.registerModel(nome, cognome, data, mail, telefono, password);
+		if (response.getString("status").equals("error")) {
+			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
+		} else {
+			finestraRegistrazione.setVisible(false);
+			homeUtente = new FinestraHome(this);
+			homeUtente.setVisible(true);
+		}
 	}
 	
 	public boolean isValidEmail(String email) {
@@ -100,7 +114,14 @@ public class Controller {
 		return Arrays.equals(password1, password2);
 	}
 	
-
+	public boolean checkFields(boolean[] controllo) {
+		for (boolean value : controllo) {
+	        if (!value) { // Se almeno uno è false, restituisci false
+	            return false;
+	        }
+	    }
+	    return true;
+	}
 	
 	public static void main(String[] args)
 	{

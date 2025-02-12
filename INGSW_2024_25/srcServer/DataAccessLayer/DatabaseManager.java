@@ -20,7 +20,7 @@ public class DatabaseManager {
         }
     }
 
-    public  User getUserByMail(String mail) {
+    public User getUserByMail(String mail) {
         User user = null;
 
         String query = "SELECT * FROM users WHERE mail = ?";
@@ -39,6 +39,21 @@ public class DatabaseManager {
 
         return user;
     }
+    
+    public void register(String nome, String cognome, String data, String mail, String telefono, String password) {
+    	String query = "INSERT INTO users(mail, password, nome, cognome, numerotelefono, datanascita, isagente)"
+    			+ "VALUES('"+ mail +"','"+password+"','"+nome+"','"+cognome+"','"+telefono+"','"+data+"','FALSE');";
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+               //si deve vedere la compatibilià nel db perché data la passiamo come tipo stringa
+    			//nel db è salvato ovviamente come date
+               stmt.executeUpdate(query);
+    		
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+    }
+    
     
     
     public void closeConnection() {

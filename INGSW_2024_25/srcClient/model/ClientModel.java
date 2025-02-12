@@ -3,6 +3,8 @@ package model;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Date;
+
 import org.json.JSONObject;
 
 public class ClientModel {
@@ -45,6 +47,17 @@ public class ClientModel {
         return sendRequest(request);
     }
     
+    public JSONObject registerModel (String nome, String cognome, String data, String mail, String telefono, String password) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "register");
+    	request.put("name", nome);
+    	request.put("surname", cognome);
+    	request.put("birthdate", data);
+    	request.put("mail", mail);
+    	request.put("cellphone", telefono);
+    	request.put("password", password);
+    	return sendRequest(request);
+    }
     
  
 }

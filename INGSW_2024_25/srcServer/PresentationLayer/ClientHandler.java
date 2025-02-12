@@ -36,7 +36,7 @@ public class ClientHandler extends Thread { //implements Runnable???
                 		response = handleLogin(request);
                 		break;
                 	case "register":
-                		// response = handleRegister(request);
+                		response = handleRegister(request);
                 		break;
                 	case "addProperty":
                 		//response = handleAddProperty(request);
@@ -73,5 +73,22 @@ public class ClientHandler extends Thread { //implements Runnable???
             response.put("isAdmin", agente); // Aggiungi l'attributo booleano
         }
         return response;
+    }
+    
+    private JSONObject handleRegister(JSONObject request) {
+    	String nome = request.getString("name");
+    	String cognome = request.getString("surname");
+    	String data = request.getString("birthdate");
+    	String mail = request.getString("mail");
+    	String telefono = request.getString("cellphone");
+    	String password = request.getString("password");
+    	userService = new UserService();
+    	
+    	boolean notRegistered = userService.registerUser(nome, cognome, data, mail, telefono, password);
+    	
+    	JSONObject response = new JSONObject();
+        response.put("status", notRegistered ? "success" : "error");
+        response.put("message", notRegistered ? "Registrazione riuscita" : "Utente esistente");
+    	return response;
     }
 }

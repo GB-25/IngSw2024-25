@@ -23,6 +23,16 @@ public class UserService {
          }
          return false;
      }
+    
+    public boolean registerUser(String nome, String cognome, String data, String mail, String telefono, String password) {
+    	User user = dbManager.getUserByMail(mail);
+    	
+    	if (user == null) {
+    		dbManager.register(nome, cognome, data, mail, telefono, password);
+    		return true;
+    	}
+    	return false;
+    }
 
     public void close() {
         dbManager.closeConnection();
