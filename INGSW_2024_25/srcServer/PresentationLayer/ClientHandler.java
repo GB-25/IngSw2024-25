@@ -86,9 +86,10 @@ public class ClientHandler extends Thread { //implements Runnable???
     	String mail = request.getString("mail");
     	String telefono = request.getString("cellphone");
     	String password = request.getString("password");
+    	Boolean isAgente = request.getBoolean("isAgente");
     	userService = new UserService();
     	
-    	boolean notRegistered = userService.registerUser(nome, cognome, data, mail, telefono, password);
+    	boolean notRegistered = userService.registerUser(nome, cognome, data, mail, telefono, password, isAgente);
     	
     	JSONObject response = new JSONObject();
         response.put("status", notRegistered ? "success" : "error");

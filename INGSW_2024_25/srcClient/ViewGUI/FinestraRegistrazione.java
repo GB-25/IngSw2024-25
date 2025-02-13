@@ -79,7 +79,7 @@ public class FinestraRegistrazione extends JFrame {
         btnConferma.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-        		c.handleRegistration(textFieldNome.getText(), textFieldCognome.getText(), data, textFieldMail.getText(), textFieldTelefono.getText(), passwordField.getPassword());
+        		c.handleRegistration(textFieldNome.getText(), textFieldCognome.getText(), data, textFieldMail.getText(), textFieldTelefono.getText(), passwordField.getPassword(), false);
         	}
         });
         btnConferma.setBounds(408, 561, 117, 25);

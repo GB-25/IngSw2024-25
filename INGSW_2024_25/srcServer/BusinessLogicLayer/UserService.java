@@ -26,11 +26,11 @@ public class UserService {
          return false;
      }
     
-    public boolean registerUser(String nome, String cognome, String data, String mail, String telefono, String password) {
+    public boolean registerUser(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
     	User user = dbManager.getUserByMail(mail);
     	
     	if (user == null) {
-    		dbManager.register(nome, cognome, data, mail, telefono, password);
+    		dbManager.register(nome, cognome, data, mail, telefono, password, isAgente);
     		return true;
     	}
     	return false;

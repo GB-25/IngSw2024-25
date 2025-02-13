@@ -26,7 +26,7 @@ public class Controller {
 	
 	//costruttore
 	public Controller() {
-		homeAgente = new HomeAgente(this, "", "");
+		homeAgente = new HomeAgente(this, "", "", "");
 		homeAgente.setVisible(true);
 		//model = new ClientModel(ip, porta);
 		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
@@ -48,7 +48,7 @@ public class Controller {
 				if(response.getBoolean("agente")) {
 					String nome = response.getString("nome");
 					String cognome = response.getString("cognome");
-					homeAgente= new HomeAgente(this, nome, cognome);
+					homeAgente= new HomeAgente(this, nome, cognome, mail);
 					homeAgente.setVisible(true);
 				} else {
 					homeUtente = new FinestraHome(this);
@@ -59,9 +59,9 @@ public class Controller {
 		
 	}
 	
-	public void handleRegistration (String nome, String cognome, String data, String mail, String telefono, char[] pass) {
+	public void handleRegistration (String nome, String cognome, String data, String mail, String telefono, char[] pass, boolean isAgente) {
 		String password = new String(pass);
-		JSONObject response = model.registerModel(nome, cognome, data, mail, telefono, password);
+		JSONObject response = model.registerModel(nome, cognome, data, mail, telefono, password, isAgente);
 		if (response.getString("status").equals("error")) {
 			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {

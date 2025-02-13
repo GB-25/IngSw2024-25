@@ -40,9 +40,9 @@ public class DatabaseManager {
         return user;
     }
     
-    public void register(String nome, String cognome, String data, String mail, String telefono, String password) {
+    public void register(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
     	String query = "INSERT INTO users(mail, password, nome, cognome, numerotelefono, datanascita, isagente)"
-    			+ "VALUES('"+ mail +"','"+password+"','"+nome+"','"+cognome+"','"+telefono+"','"+data+"','FALSE');";
+    			+ "VALUES('"+ mail +"','"+password+"','"+nome+"','"+cognome+"','"+telefono+"','"+data+"','"+isAgente+"');";
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
                //si deve vedere la compatibilià nel db perché data la passiamo come tipo stringa

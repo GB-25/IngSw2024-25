@@ -20,7 +20,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
     private JComboBox<String> cmbEnergyClass;
     private JComboBox<String> cmbElevator;
 
-    public CaricamentoProprietaNuovo(Controller c) {
+    public CaricamentoProprietaNuovo(Controller c, String nome, String cognome, String mail) {
         // Configura la finestra
         setTitle("Caricamento Immobile - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,9 +41,9 @@ public class CaricamentoProprietaNuovo extends JFrame {
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         indietroPanel.setBackground(Color.WHITE);
         JButton indietroButton = new JButton("←");
-        indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
+        indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridott, e
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
-        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c);});
+        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, nome, cognome, mail);});
         indietroPanel.add(indietroButton);
 
         // Aggiungi il pannello del pulsante "Indietro" al pannello sinistro

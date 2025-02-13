@@ -12,7 +12,7 @@ public class CambioPassword extends JFrame {
     private JPasswordField txtNuovaPassword;
     private JPasswordField txtConfermaPassword;
     
-    public CambioPassword(Controller c, String nome, String cognome) {
+    public CambioPassword(Controller c, String nome, String cognome, String mail) {
         // Configurazione finestra
         setTitle("Cambio Password - Admin");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,7 +28,7 @@ public class CambioPassword extends JFrame {
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
-        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c);});
+        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, nome, cognome, mail);});
         indietroPanel.add(indietroButton);
         mainPanel.add(indietroPanel);
 
@@ -40,7 +40,7 @@ public class CambioPassword extends JFrame {
         // **Bottone di cambio password**
         JButton btnCambiaPassword = new JButton("Cambia Password");
         btnCambiaPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnCambiaPassword.addActionListener(e -> cambiaPassword(c, nome, cognome));
+        btnCambiaPassword.addActionListener(e -> cambiaPassword(c, nome, cognome, mail));
 
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Spazio
         mainPanel.add(btnCambiaPassword);
@@ -67,7 +67,7 @@ public class CambioPassword extends JFrame {
     /**
      * Metodo per cambiare la password con verifica
      */
-    private void cambiaPassword(Controller c, String nome, String cognome) {
+    private void cambiaPassword(Controller c, String nome, String cognome, String mail) {
         String passwordAttuale = new String(txtPasswordAttuale.getPassword());
         String nuovaPassword = new String(txtNuovaPassword.getPassword());
         String confermaPassword = new String(txtConfermaPassword.getPassword());
@@ -102,7 +102,7 @@ public class CambioPassword extends JFrame {
         if (response == JOptionPane.YES_OPTION) {
         	JOptionPane.showMessageDialog(this, "Password cambiata con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            new HomeAgente(c, nome, cognome);
+            new HomeAgente(c, nome, cognome, mail);
         }
     }
 

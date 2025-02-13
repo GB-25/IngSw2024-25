@@ -47,7 +47,7 @@ public class ClientModel {
         return sendRequest(request);
     }
     
-    public JSONObject registerModel (String nome, String cognome, String data, String mail, String telefono, String password) {
+    public JSONObject registerModel (String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
     	JSONObject request = new JSONObject();
     	request.put("action", "register");
     	request.put("name", nome);
@@ -56,6 +56,7 @@ public class ClientModel {
     	request.put("mail", mail);
     	request.put("cellphone", telefono);
     	request.put("password", password);
+    	request.put("isAgente", isAgente);
     	return sendRequest(request);
     }
     

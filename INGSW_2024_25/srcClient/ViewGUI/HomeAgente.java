@@ -13,7 +13,7 @@ public class HomeAgente extends JFrame {
 	private FinestraLogin finestraLogin;
 	private JFrame finestraCorrente = this;
 
-    public HomeAgente(Controller c, String nome, String cognome) {
+    public HomeAgente(Controller c, String nome, String cognome, String mail) {
         // Imposta il titolo della finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +49,7 @@ public class HomeAgente extends JFrame {
 
         logoButton.addActionListener(e -> {
             dispose(); // Chiude la schermata attuale
-            new HomeAgente(c, nome, cognome); // Torna alla home
+            new HomeAgente(c, nome, cognome, mail); // Torna alla home
         });
 
         // Menu a tendina per le notifiche
@@ -80,13 +80,13 @@ public class HomeAgente extends JFrame {
         JMenuItem cambiaPassword = new JMenuItem("Cambia password");
         cambiaPassword.addActionListener(e -> {
         	dispose();
-        	new CambioPassword(c, nome, cognome);
+        	new CambioPassword(c, nome, cognome, mail);
         });
 
         JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
         creaAccount.addActionListener(e -> {
         	dispose();
-    	    new CreazioneAccountAdmin(c,nome, cognome);
+    	    new CreazioneAccountAdmin(c,nome, cognome, mail);
     });
 
         // Logout
@@ -140,7 +140,7 @@ public class HomeAgente extends JFrame {
         JButton addPropertyButton = new JButton("Inserisci un nuovo immobile sulla piattaforma");
         addPropertyButton.addActionListener(e -> {
             dispose(); // Chiude la schermata attuale
-            new CaricamentoProprietaNuovo(c); // Porta alla schermata di inserimento della proprietà
+            new CaricamentoProprietaNuovo(c, nome, cognome, mail); // Porta alla schermata di inserimento della proprietà
         });
         JButton viewRequestsButton = new JButton("Visualizza le richieste di appuntamento");
         JButton viewCalendarButton = new JButton("Visualizza il calendario con gli appuntamenti concordati");
