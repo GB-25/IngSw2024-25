@@ -20,7 +20,15 @@ public class CreazioneAccountAdmin extends JFrame {
         // Pannello principale
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton indietroButton = new JButton("←");
+        indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
+        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
+        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c);});
+        indietroPanel.add(indietroButton);
+        mainPanel.add(indietroPanel);
 
         // Campi per input
         mainPanel.add(createLabelFieldPanel("Nome:", txtNome = new JTextField(15)));
