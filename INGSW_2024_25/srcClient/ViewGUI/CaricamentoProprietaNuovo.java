@@ -37,8 +37,20 @@ public class CaricamentoProprietaNuovo extends JFrame {
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         leftPanel.setBackground(Color.WHITE);
 
-        // Campi di input
+        // Pannello per il pulsante "Indietro"
+        JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        indietroPanel.setBackground(Color.WHITE);
+        JButton indietroButton = new JButton("←");
+        indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
+        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
+        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c);});
+        indietroPanel.add(indietroButton);
 
+        // Aggiungi il pannello del pulsante "Indietro" al pannello sinistro
+        leftPanel.add(indietroPanel);
+        leftPanel.add(new JLabel()); // Spazio vuoto per allineamento
+
+        // Campi di input
         leftPanel.add(new JLabel("Tipo di immobile:"));
         cmbType = new JComboBox<>(new String[]{"", "Casa", "Appartamento", "Villa"});
         leftPanel.add(cmbType);
@@ -72,7 +84,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
         leftPanel.add(new JLabel("Classe energetica:"));
         cmbEnergyClass = new JComboBox<>(new String[]{"", "A", "B", "C", "D", "E", "F", "G"});
         leftPanel.add(cmbEnergyClass);
-        
+
         leftPanel.add(new JLabel("Giardino:"));
         cmbGarden = new JComboBox<>(new String[]{"No", "Sì"});
         leftPanel.add(cmbGarden);
@@ -83,8 +95,8 @@ public class CaricamentoProprietaNuovo extends JFrame {
 
         // Pulsante CARICA
         JButton btnUpload = new JButton("CARICA");
-        btnUpload.setPreferredSize(new Dimension(250, 40));
-        btnUpload.setFont(new Font("Arial", Font.BOLD, 16));
+        btnUpload.setPreferredSize(new Dimension(250, 30));
+        btnUpload.setFont(new Font("Helvetica", Font.BOLD, 16));
         btnUpload.setBackground(new Color(0, 153, 51));
         btnUpload.setForeground(Color.WHITE);
         JPanel buttonPanel = new JPanel();
@@ -111,7 +123,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Controlla se tutti i campi obbligatori sono compilati
-            	if (cmbType.getSelectedIndex() == 0 ||
+                if (cmbType.getSelectedIndex() == 0 ||
                         cmbAdType.getSelectedIndex() == 0 ||
                         txtPrice.getText().trim().isEmpty() ||
                         txtDescription.getText().trim().isEmpty() ||
@@ -132,9 +144,17 @@ public class CaricamentoProprietaNuovo extends JFrame {
 
                     if (response == JOptionPane.YES_OPTION) {
                         dispose();
-                        //new CaricamentoConfermato(c);
+                        new CaricamentoConfermato(c);
                     }
                 }
+            }
+        });
+
+        // Listener per il pulsante "Indietro"
+        indietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Chiude la finestra corrente
             }
         });
 
@@ -147,4 +167,3 @@ public class CaricamentoProprietaNuovo extends JFrame {
         //SwingUtilities.invokeLater(CaricamentoProprietaNuovo::new);
     }
 }
-
