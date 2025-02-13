@@ -23,6 +23,14 @@ public class CambioPassword extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        
+        JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton indietroButton = new JButton("←");
+        indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
+        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
+        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c);});
+        indietroPanel.add(indietroButton);
+        mainPanel.add(indietroPanel);
 
         // **Aggiunta dei campi**
         mainPanel.add(createLabelFieldPanel("Password Attuale:", txtPasswordAttuale = new JPasswordField(15)));
@@ -64,7 +72,7 @@ public class CambioPassword extends JFrame {
         String nuovaPassword = new String(txtNuovaPassword.getPassword());
         String confermaPassword = new String(txtConfermaPassword.getPassword());
 
-        // Password attuale (dummy)
+        // Simuliamo la password attuale (da sostituire con query al database)
         String passwordSalvata = "admin123"; 
 
         // **Verifica password attuale**
@@ -84,7 +92,7 @@ public class CambioPassword extends JFrame {
             return;
         }
 
-        // Simulazione di salvataggio nel database
+        // Simulazione salvataggio nel database
         int response = JOptionPane.showConfirmDialog(null,
                 "I campi sono stati riempiti ed è possibile cambiare la password. Procedere?",
                 "Conferma cambio password",
@@ -99,6 +107,6 @@ public class CambioPassword extends JFrame {
     }
 
     public static void main(String[] args) {
-       // SwingUtilities.invokeLater(CambioPassword::new);
+        //SwingUtilities.invokeLater(CambioPassword::new);
     }
 }
