@@ -9,8 +9,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class HomeAgente extends JFrame {
+	
+	private FinestraLogin finestraLogin;
+	private JFrame finestraCorrente = this;
 
-    public HomeAgente(Controller c) {
+    public HomeAgente(Controller c, String nome, String cognome) {
         // Imposta il titolo della finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +49,7 @@ public class HomeAgente extends JFrame {
 
         logoButton.addActionListener(e -> {
             dispose(); // Chiude la schermata attuale
-            new HomeAgente(c); // Torna alla home
+            new HomeAgente(c, nome, cognome); // Torna alla home
         });
 
         // Menu a tendina per le notifiche
@@ -70,20 +73,20 @@ public class HomeAgente extends JFrame {
         popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
         // Nome e Cognome dell’utente
-        JMenuItem userInfo = new JMenuItem("Mario Rossi"); // Modifica con il nome utente
+        JMenuItem userInfo = new JMenuItem(nome+cognome); // Modifica con il nome utente
         userInfo.setEnabled(false); // Non cliccabile
 
         // Gestione Account
         JMenuItem cambiaPassword = new JMenuItem("Cambia password");
         cambiaPassword.addActionListener(e -> {
         	dispose();
-        	new CambioPassword(c);
+        	new CambioPassword(c, nome, cognome);
         });
 
         JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
         creaAccount.addActionListener(e -> {
         	dispose();
-    	    new CreazioneAccountAdmin(c);
+    	    new CreazioneAccountAdmin(c,nome, cognome);
     });
 
         // Logout
@@ -93,7 +96,9 @@ public class HomeAgente extends JFrame {
             if (response == JOptionPane.YES_OPTION) {
                 dispose(); // Chiude la finestra attuale
                 JOptionPane.showMessageDialog(this, "Logout effettuato!");
-                System.exit(0);
+                finestraLogin= new FinestraLogin(c);
+                c.cambiaFinestra(finestraCorrente, finestraLogin);
+                
             }
         });
 

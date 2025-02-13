@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -25,8 +26,8 @@ public class Controller {
 	
 	//costruttore
 	public Controller() {
-		finestraRegistrazione = new FinestraRegistrazione(this);
-		finestraRegistrazione.setVisible(true);
+		homeAgente = new HomeAgente(this, "", "");
+		homeAgente.setVisible(true);
 		//model = new ClientModel(ip, porta);
 		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
 	}
@@ -34,22 +35,27 @@ public class Controller {
 	
 	public void handleLogin (String mail, char[] pass) {
 		String password = new String(pass);
-		JSONObject response = model.loginModel(mail, password);
-		if (response.getString("status").equals("error")) {
-			 JOptionPane.showMessageDialog(null, "Credenziali errate!", "Errore di Login", JOptionPane.ERROR_MESSAGE);
-		} else {
-			
-			finestraPrincipale.setVisible(false);
-			
-			if(response.getBoolean("agente")) {
-				homeAgente= new HomeAgente(this);
-				homeAgente.setVisible(true);
+		if (mail == null || password == null) {
+			JOptionPane.showMessageDialog(null, "Almeno uno dei campi è vuoto", "Errore di Login", JOptionPane.ERROR_MESSAGE);
+		}else {
+			JSONObject response = model.loginModel(mail, password);
+			if (response.getString("status").equals("error")) {
+				JOptionPane.showMessageDialog(null, "Credenziali errate!", "Errore di Login", JOptionPane.ERROR_MESSAGE);
 			} else {
-				homeUtente = new FinestraHome(this);
-				homeUtente.setVisible(true);
+			
+				finestraPrincipale.setVisible(false);
+			
+				if(response.getBoolean("agente")) {
+					String nome = response.getString("nome");
+					String cognome = response.getString("cognome");
+					homeAgente= new HomeAgente(this, nome, cognome);
+					homeAgente.setVisible(true);
+				} else {
+					homeUtente = new FinestraHome(this);
+					homeUtente.setVisible(true);
+				}
 			}
 		}
-		
 		
 	}
 	
@@ -121,6 +127,12 @@ public class Controller {
 	        }
 	    }
 	    return true;
+	}
+	
+	
+	public void cambiaFinestra(JFrame vecchiaFinestra, JFrame nuovaFinestra) {
+		vecchiaFinestra.setVisible(false);
+		nuovaFinestra.setVisible(true);
 	}
 	
 	public static void main(String[] args)

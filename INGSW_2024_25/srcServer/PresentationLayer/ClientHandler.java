@@ -62,15 +62,19 @@ public class ClientHandler extends Thread { //implements Runnable???
         String mail = request.getString("mail");
         String password = request.getString("password");
         boolean agente=false;
+        String nome="";
+        String cognome="";
         userService = new UserService();
         
-        boolean isAuthenticated = userService.authenticateUser(mail, password, agente);
+        boolean isAuthenticated = userService.authenticateUser(mail, password, agente, nome, cognome);
 
         JSONObject response = new JSONObject();
         response.put("status", isAuthenticated ? "success" : "error");
         response.put("message", isAuthenticated ? "Login riuscito" : "Credenziali errate");
         if (isAuthenticated) {
-            response.put("isAdmin", agente); // Aggiungi l'attributo booleano
+            response.put("isAdmin", agente);
+            response.put("nome",nome);
+            response.put("cognome", cognome);
         }
         return response;
     }

@@ -10,7 +10,7 @@ public class CreazioneAccountAdmin extends JFrame {
     private JTextField txtNome, txtCognome, txtEmail;
     private JPasswordField txtPassword, txtConfermaPassword;
 
-    public CreazioneAccountAdmin(Controller c) {
+    public CreazioneAccountAdmin(Controller c, String nome, String cognome) {
         // Configurazione finestra
         setTitle("Creazione Account - Admin");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -32,7 +32,7 @@ public class CreazioneAccountAdmin extends JFrame {
         // Pulsante per la creazione account
         JButton btnCreaAccount = new JButton("Crea Account");
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnCreaAccount.addActionListener(e -> creaAccount(c));
+        btnCreaAccount.addActionListener(e -> creaAccount(c, nome, cognome));
 
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Spazio tra i campi
         mainPanel.add(btnCreaAccount);
@@ -56,7 +56,7 @@ public class CreazioneAccountAdmin extends JFrame {
     }
 
     // Metodo per creare l'account con verifica dei campi
-    private void creaAccount(Controller c) {
+    private void creaAccount(Controller c, String nomeAgenteChiamante, String cognomeAgenteChiamante) {
         String nome = txtNome.getText().trim();
         String cognome = txtCognome.getText().trim();
         String email = txtEmail.getText().trim();
@@ -96,7 +96,7 @@ public class CreazioneAccountAdmin extends JFrame {
         if (response == JOptionPane.YES_OPTION) {
         	JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            new HomeAgente(c);
+            new HomeAgente(c, nomeAgenteChiamante, cognomeAgenteChiamante);
         }
     }
 

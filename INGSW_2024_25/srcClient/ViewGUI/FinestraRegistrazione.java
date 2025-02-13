@@ -22,6 +22,8 @@ public class FinestraRegistrazione extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JFrame finestraCorrente;
+	private JFrame finestraLogin;
 	private JTextField textFieldNome;
 	private JTextField textFieldCognome;
 	private JTextField textFieldMail;
@@ -54,6 +56,7 @@ public class FinestraRegistrazione extends JFrame {
 	 * Create the frame.
 	 */
 	public FinestraRegistrazione(Controller c) {
+		finestraCorrente = this;
 		setBackground(new Color(0, 153, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 542, 635);
@@ -250,6 +253,21 @@ public class FinestraRegistrazione extends JFrame {
         
         JButton btnAnnulla = new JButton("Annulla");
         btnAnnulla.setBounds(22, 561, 117, 25);
+        btnAnnulla.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int risposta = JOptionPane.showConfirmDialog(
+        		        finestraCorrente, 
+        		        "Sei sicuro di non voler continuare la registrazione?", 
+        		        "Attenzione", 
+        		        JOptionPane.YES_NO_OPTION
+        		);
+
+        		if (risposta == JOptionPane.YES_OPTION) {
+        		    finestraLogin = new FinestraLogin(c);
+        		    c.cambiaFinestra(finestraCorrente, finestraLogin);
+        		}
+
+        	}});
         contentPane.add(btnAnnulla);
         
         

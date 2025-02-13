@@ -20,6 +20,8 @@ public class FinestraLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private JFrame finestraCorrente;
+	private FinestraRegistrazione finestraRegistrazione;
 	
 	
 
@@ -43,6 +45,7 @@ public class FinestraLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public FinestraLogin(Controller c) {
+		finestraCorrente= this;
 		setBackground(new Color(0, 153, 255));
 		setTitle("DietiEstates25");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,7 +112,7 @@ public class FinestraLogin extends JFrame {
         btnAccesso.setForeground(new Color(0, 153, 255));
         btnAccesso.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		//c.handleLogin(textField.getText(), passwordField.getPassword());
+        		c.handleLogin(textField.getText(), passwordField.getPassword());
         	}
         });
         btnAccesso.setBounds(418, 146, 89, 23);
@@ -119,6 +122,12 @@ public class FinestraLogin extends JFrame {
         btnIscrizione.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnIscrizione.setForeground(new Color(0, 153, 255));
         btnIscrizione.setBounds(409, 263, 135, 40);
+        btnIscrizione.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		finestraRegistrazione = new FinestraRegistrazione(c);
+        		c.cambiaFinestra(finestraCorrente, finestraRegistrazione);
+        	}
+        });
         contentPane.add(btnIscrizione);
         
         JLabel caseLabel = new JLabel();
