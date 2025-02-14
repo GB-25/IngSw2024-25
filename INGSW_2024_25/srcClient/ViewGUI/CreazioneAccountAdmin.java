@@ -41,7 +41,6 @@ public class CreazioneAccountAdmin extends JFrame {
         dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd-MM-yyyy");
 		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
-
 		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -58,7 +57,7 @@ public class CreazioneAccountAdmin extends JFrame {
         // Campi per input
         mainPanel.add(createLabelFieldPanel("Nome:", txtNome = new JTextField(15)));
         mainPanel.add(createLabelFieldPanel("Cognome:", txtCognome = new JTextField(15)));
-        mainPanel.add(createDateFieldPanel("Data di nascita:", dateChooser = new JDateChooser()));
+        mainPanel.add(createDateFieldPanel("Data di nascita:", dateChooser));
         mainPanel.add(createLabelFieldPanel("Telefono:", txtTelefono = new JTextField(15)));        
         mainPanel.add(createLabelFieldPanel("E-mail:", txtEmail = new JTextField(15)));
         mainPanel.add(createLabelFieldPanel("Password:", txtPassword = new JPasswordField(15)));
