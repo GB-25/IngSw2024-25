@@ -36,7 +36,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
         // Configura la finestra
         setTitle("Caricamento Immobile - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1400, 800);
+        setSize(800, 800);
         setLocationRelativeTo(null); // Centra la finestra
 
         // Pannello principale
@@ -46,7 +46,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
 
         // Pannello sinistro
         JPanel leftPanel = new JPanel(new GridLayout(0, 2, 10, 10)); // 2 colonne, spazio 10px
-        leftPanel.setPreferredSize(new Dimension (700, 800));
+        leftPanel.setPreferredSize(new Dimension (400, 400));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         leftPanel.setBackground(Color.WHITE);
 
@@ -111,7 +111,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
         leftPanel.add(cmbElevator);
         
         JPanel rightPanel = new JPanel();
-        rightPanel.setPreferredSize(new Dimension (700, 800));
+        rightPanel.setPreferredSize(new Dimension (400, 800));
 
         // Pulsante CARICA
         JButton btnUpload = new JButton("CARICA");
@@ -128,7 +128,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
         // Mappa
         JPanel mapPanel = new JPanel();
         mapPanel.setBackground(Color.LIGHT_GRAY);
-        mapPanel.setPreferredSize(new Dimension(670, 400));
+        mapPanel.setPreferredSize(new Dimension(380, 320));
         mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione:"));
 
         JLabel mapPlaceholder = new JLabel("Mappa non disponibile", SwingConstants.CENTER);
@@ -138,7 +138,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
 
         // Pannello per le foto
         photoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Layout dinamico
-        photoPanel.setPreferredSize(new Dimension(670, 400)); // Imposta dimensioni fisse
+        photoPanel.setPreferredSize(new Dimension(380, 480)); // Imposta dimensioni fisse
         photoPanel.setBorder(BorderFactory.createTitledBorder("Foto caricate:"));
 
         btnCaricaFoto = new JButton("Carica Foto");
