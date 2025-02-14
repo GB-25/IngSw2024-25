@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 
 import org.json.JSONObject;
 
+import Class.User;
+
 public class Controller {
 
 	//frame
@@ -26,7 +28,8 @@ public class Controller {
 	
 	//costruttore
 	public Controller() {
-		homeAgente = new HomeAgente(this, "", "", "");
+		User user = new User("", "", "", "", "", "", true);
+		homeAgente = new HomeAgente(this, user);
 		homeAgente.setVisible(true);
 		//model = new ClientModel(ip, porta);
 		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
@@ -42,13 +45,18 @@ public class Controller {
 			if (response.getString("status").equals("error")) {
 				JOptionPane.showMessageDialog(null, "Credenziali errate!", "Errore di Login", JOptionPane.ERROR_MESSAGE);
 			} else {
-			
+				
 				finestraPrincipale.setVisible(false);
-			
-				if(response.getBoolean("agente")) {
-					String nome = response.getString("nome");
-					String cognome = response.getString("cognome");
-					homeAgente= new HomeAgente(this, nome, cognome, mail);
+				String nome = response.getString("nome");
+				String cognome = response.getString("cognome");
+				String dataNascita = response.getString("dataNascita");
+				String telefono = response.getString("telefono");
+				Boolean isAgente = response.getBoolean("isAgente");
+				
+				User user = new User(mail, password, nome, cognome, telefono, dataNascita, isAgente );
+				if(user.getIsAgente()) {
+					
+					homeAgente= new HomeAgente(this, user);
 					homeAgente.setVisible(true);
 				} else {
 					homeUtente = new FinestraHome(this);
@@ -133,6 +141,13 @@ public class Controller {
 	public void cambiaFinestra(JFrame vecchiaFinestra, JFrame nuovaFinestra) {
 		vecchiaFinestra.setVisible(false);
 		nuovaFinestra.setVisible(true);
+	}
+	
+	public void updatePassword(User user, char[] pass) {
+		String password = new String(pass);
+		String mail = user.getMail();
+		model.newPasswordModel(mail, password);
+		
 	}
 	
 	public static void main(String[] args)

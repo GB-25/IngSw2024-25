@@ -60,5 +60,13 @@ public class ClientModel {
     	return sendRequest(request);
     }
     
+    public void newPasswordModel(String mail, String nuovaPassword) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "updatePassword");
+    	request.put("mail", mail);
+    	request.put("newPassword", nuovaPassword);
+    	sendRequest(request);
+    	
+    }
  
 }

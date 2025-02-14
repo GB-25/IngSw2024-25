@@ -2,6 +2,7 @@ package ViewGUI;
 
 import javax.swing.*;
 
+import Class.User;
 import Controller.Controller;
 
 import java.awt.*;
@@ -13,7 +14,7 @@ public class HomeAgente extends JFrame {
 	private FinestraLogin finestraLogin;
 	private JFrame finestraCorrente = this;
 
-    public HomeAgente(Controller c, String nome, String cognome, String mail) {
+    public HomeAgente(Controller c, User user) {
         // Imposta il titolo della finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +50,7 @@ public class HomeAgente extends JFrame {
 
         logoButton.addActionListener(e -> {
             dispose(); // Chiude la schermata attuale
-            new HomeAgente(c, nome, cognome, mail); // Torna alla home
+            new HomeAgente(c, user); // Torna alla home
         });
 
         // Menu a tendina per le notifiche
@@ -73,20 +74,20 @@ public class HomeAgente extends JFrame {
         popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
         // Nome e Cognome dell’utente
-        JMenuItem userInfo = new JMenuItem(nome+cognome); // Modifica con il nome utente
+        JMenuItem userInfo = new JMenuItem(user.getNome()+user.getCognome()); // Modifica con il nome utente
         userInfo.setEnabled(false); // Non cliccabile
 
         // Gestione Account
         JMenuItem cambiaPassword = new JMenuItem("Cambia password");
         cambiaPassword.addActionListener(e -> {
         	dispose();
-        	new CambioPassword(c, nome, cognome, mail);
+        	new CambioPassword(c, user);
         });
 
         JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
         creaAccount.addActionListener(e -> {
         	dispose();
-    	    new CreazioneAccountAdmin(c,nome, cognome, mail);
+    	    new CreazioneAccountAdmin(c,user);
     });
 
         // Logout
@@ -140,7 +141,7 @@ public class HomeAgente extends JFrame {
         JButton addPropertyButton = new JButton("Inserisci un nuovo immobile sulla piattaforma");
         addPropertyButton.addActionListener(e -> {
             dispose(); // Chiude la schermata attuale
-            new CaricamentoProprietaNuovo(c, nome, cognome, mail); // Porta alla schermata di inserimento della proprietà
+            new CaricamentoProprietaNuovo(c, user); // Porta alla schermata di inserimento della proprietà
         });
         JButton viewRequestsButton = new JButton("Visualizza le richieste di appuntamento");
         JButton viewCalendarButton = new JButton("Visualizza il calendario con gli appuntamenti concordati");

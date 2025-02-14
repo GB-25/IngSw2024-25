@@ -9,11 +9,11 @@ public class User {
 	private String nome;
 	private String cognome;
 	private String numeroTelefono;
-	private Date dataNascita;
+	private String dataNascita;
 	private boolean isAgente;
     
 	
-	public User(String mail, String password, String nome, String cognome, String numeroTelefono, Date dataNascita, boolean isAgente) {
+	public User(String mail, String password, String nome, String cognome, String numeroTelefono, String dataNascita, boolean isAgente) {
     	this.mail = mail;
         this.password = password;
         this.nome = nome;
@@ -40,7 +40,7 @@ public class User {
 	}
 	
 	
-	public Date getDataNascita() {
+	public String getDataNascita() {
 		return dataNascita;
 	}
 	
@@ -74,7 +74,7 @@ public class User {
 	}
 
 
-	public void setDataNascita(Date dataNascita) {
+	public void setDataNascita(String dataNascita) {
 		this.dataNascita = dataNascita;
 	}
 

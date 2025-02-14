@@ -1,6 +1,9 @@
 package ViewGUI;
 
 import javax.swing.*;
+
+import Class.User;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +23,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
     private JComboBox<String> cmbEnergyClass;
     private JComboBox<String> cmbElevator;
 
-    public CaricamentoProprietaNuovo(Controller c, String nome, String cognome, String mail) {
+    public CaricamentoProprietaNuovo(Controller c, User user) {
         // Configura la finestra
         setTitle("Caricamento Immobile - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +46,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridott, e
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
-        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, nome, cognome, mail);});
+        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, user);});
         indietroPanel.add(indietroButton);
 
         // Aggiungi il pannello del pulsante "Indietro" al pannello sinistro

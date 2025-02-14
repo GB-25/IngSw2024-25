@@ -2,6 +2,7 @@ package ViewGUI;
 
 import javax.swing.*;
 
+import Class.User;
 import Controller.Controller;
 
 import java.awt.*;
@@ -11,8 +12,9 @@ public class CambioPassword extends JFrame {
     private JPasswordField txtPasswordAttuale;
     private JPasswordField txtNuovaPassword;
     private JPasswordField txtConfermaPassword;
+    private boolean[] valori = {false, false, false, false};
     
-    public CambioPassword(Controller c, String nome, String cognome, String mail) {
+    public CambioPassword(Controller c, User user) {
         // Configurazione finestra
         setTitle("Cambio Password - Admin");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,7 +30,7 @@ public class CambioPassword extends JFrame {
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
-        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, nome, cognome, mail);});
+        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, user);});
         indietroPanel.add(indietroButton);
         mainPanel.add(indietroPanel);
 
@@ -40,7 +42,7 @@ public class CambioPassword extends JFrame {
         // **Bottone di cambio password**
         JButton btnCambiaPassword = new JButton("Cambia Password");
         btnCambiaPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnCambiaPassword.addActionListener(e -> cambiaPassword(c, nome, cognome, mail));
+        btnCambiaPassword.addActionListener(e -> cambiaPassword(c, user));
 
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Spazio
         mainPanel.add(btnCambiaPassword);
@@ -67,14 +69,13 @@ public class CambioPassword extends JFrame {
     /**
      * Metodo per cambiare la password con verifica
      */
-    private void cambiaPassword(Controller c, String nome, String cognome, String mail) {
+    private void cambiaPassword(Controller c, User user) {
         String passwordAttuale = new String(txtPasswordAttuale.getPassword());
-        String nuovaPassword = new String(txtNuovaPassword.getPassword());
-        String confermaPassword = new String(txtConfermaPassword.getPassword());
+        //String nuovaPassword = new String(txtNuovaPassword.getPassword());
+        //String confermaPassword = new String(txtConfermaPassword.getPassword());
 
         // Simuliamo la password attuale (da sostituire con query al database)
-        String passwordSalvata = "admin123"; 
-
+        String passwordSalvata = user.getPassword();
         // **Verifica password attuale**
         if (!passwordAttuale.equals(passwordSalvata)) {
             JOptionPane.showMessageDialog(this, "La password attuale non è corretta!", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -82,12 +83,19 @@ public class CambioPassword extends JFrame {
         }
 
         // **Verifica nuova password**
-        if (nuovaPassword.length() < 6) {
-            JOptionPane.showMessageDialog(this, "La nuova password deve essere lunga almeno 6 caratteri!", "Errore", JOptionPane.ERROR_MESSAGE);
+        c.isValidPassword(txtNuovaPassword.getPassword(), valori);
+        if (!c.checkFields(valori)){
+        	
+            JOptionPane.showMessageDialog(this, "La password deve contenere almeno 6 caratteri, una lettera minuscola, una lettera maiuscola e una cifra!", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        String nuovaPassword = new String(txtNuovaPassword.getPassword());
+        if (passwordSalvata.equals(nuovaPassword)) {
+        	 JOptionPane.showMessageDialog(this, "La nuova password non può essere uguale alla precedente", "Errore", JOptionPane.ERROR_MESSAGE);
+             return;
+        }
 
-        if (!nuovaPassword.equals(confermaPassword)) {
+        if (!c.verifyPassword(txtNuovaPassword.getPassword(),txtConfermaPassword.getPassword())) {
             JOptionPane.showMessageDialog(this, "Le nuove password non coincidono!", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -100,9 +108,10 @@ public class CambioPassword extends JFrame {
                 JOptionPane.QUESTION_MESSAGE);
 
         if (response == JOptionPane.YES_OPTION) {
+        	c.updatePassword(user,txtNuovaPassword.getPassword() );
         	JOptionPane.showMessageDialog(this, "Password cambiata con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            new HomeAgente(c, nome, cognome, mail);
+            new HomeAgente(c, user);
         }
     }
 

@@ -2,6 +2,8 @@ package PresentationLayer;
 
 import java.io.*;
 import java.net.*;
+import java.util.Date;
+
 import BusinessLogicLayer.UserService;
 import org.json.JSONObject;
 
@@ -44,6 +46,9 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "bookProperty":
                 		//response = handleBookProperty(request);
                 		break;
+                	case "updatePassword":
+                		this.handleNewPassword(request);
+                		break;
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non riconosciuta");
@@ -64,17 +69,21 @@ public class ClientHandler extends Thread { //implements Runnable???
         boolean agente=false;
         String nome="";
         String cognome="";
+        String telefono="";
+        String dataNascita = "";
         userService = new UserService();
         
-        boolean isAuthenticated = userService.authenticateUser(mail, password, agente, nome, cognome);
+        boolean isAuthenticated = userService.authenticateUser(mail, password, agente, nome, cognome, telefono, dataNascita);
 
         JSONObject response = new JSONObject();
         response.put("status", isAuthenticated ? "success" : "error");
         response.put("message", isAuthenticated ? "Login riuscito" : "Credenziali errate");
         if (isAuthenticated) {
-            response.put("isAdmin", agente);
+            response.put("isAgente", agente);
             response.put("nome",nome);
             response.put("cognome", cognome);
+            response.put("telefono", telefono);
+            response.put("dataNascita", dataNascita);
         }
         return response;
     }
@@ -96,4 +105,13 @@ public class ClientHandler extends Thread { //implements Runnable???
         response.put("message", notRegistered ? "Registrazione riuscita" : "Utente esistente");
     	return response;
     }
+    
+   private void handleNewPassword(JSONObject request) {
+	   
+	   String mail = request.getString("mail");
+	   String nuovaPassword = request.getString("newPassword");
+	   userService = new UserService();
+	   
+	   userService.updatePassword(mail, nuovaPassword);
+   }
 }

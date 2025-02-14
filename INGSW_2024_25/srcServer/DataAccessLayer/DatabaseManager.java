@@ -31,7 +31,7 @@ public class DatabaseManager {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                user = new User(rs.getString("mail"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("numeroTelefono"), rs.getDate("dataNascita"), rs.getBoolean("isAgente"));
+                user = new User(rs.getString("mail"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("numeroTelefono"), rs.getString("dataNascita"), rs.getBoolean("isAgente"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,6 +54,17 @@ public class DatabaseManager {
            }
     }
     
+    public void updatePassword(String mail, String nuovaPassword) {
+    	String query = "UPDATE users SET password = '"+nuovaPassword+"' WHERE mail = '"+mail+"';";
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+               
+               stmt.executeUpdate(query);
+    		
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+    }
     
     
     public void closeConnection() {

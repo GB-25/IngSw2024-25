@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
 
+import Class.User;
 import Controller.Controller;
 
 import java.awt.*;
@@ -18,7 +19,7 @@ public class CreazioneAccountAdmin extends JFrame {
     private JDateChooser dateChooser;
     private boolean[] valori = {false, false, false, false};
 
-    public CreazioneAccountAdmin(Controller c, String nome, String cognome, String mail) {
+    public CreazioneAccountAdmin(Controller c, User user) {
         // Configurazione finestra
         setTitle("Creazione Account - Admin");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -34,7 +35,7 @@ public class CreazioneAccountAdmin extends JFrame {
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
-        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, nome, cognome, mail);});
+        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, user);});
         indietroPanel.add(indietroButton);
         mainPanel.add(indietroPanel);
         
@@ -66,7 +67,7 @@ public class CreazioneAccountAdmin extends JFrame {
         // Pulsante per la creazione account
         JButton btnCreaAccount = new JButton("Crea Account");
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnCreaAccount.addActionListener(e -> creaAccount(c, nome, cognome, mail));
+        btnCreaAccount.addActionListener(e -> creaAccount(c, user));
 
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Spazio tra i campi
         mainPanel.add(btnCreaAccount);
@@ -100,7 +101,7 @@ public class CreazioneAccountAdmin extends JFrame {
     }
 
     // Metodo per creare l'account con verifica dei campi
-    private void creaAccount(Controller c, String nomeAgenteChiamante, String cognomeAgenteChiamante, String mailAgenteChiamante) {
+    private void creaAccount(Controller c, User agenteChiamante) {
         String nome = txtNome.getText().trim();
         String cognome = txtCognome.getText().trim();
         String email = txtEmail.getText().trim();
@@ -151,7 +152,7 @@ public class CreazioneAccountAdmin extends JFrame {
         	c.handleRegistration(nome, cognome, data, email, telefono, password, true);
         	JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            new HomeAgente(c, nomeAgenteChiamante, cognomeAgenteChiamante, mailAgenteChiamante);
+            new HomeAgente(c, agenteChiamante);
         }
     }
 

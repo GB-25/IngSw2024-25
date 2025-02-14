@@ -1,5 +1,7 @@
 package BusinessLogicLayer;
 
+import java.util.Date;
+
 import Class.User;
 import DataAccessLayer.DatabaseManager;
 
@@ -11,7 +13,7 @@ public class UserService {
         dbManager = new DatabaseManager();
     }
 
-    public boolean authenticateUser(String mail, String password, boolean agente, String nome, String cognome) {
+    public boolean authenticateUser(String mail, String password, boolean agente, String nome, String cognome, String telefono, String dataNascita) {
     	 User user = dbManager.getUserByMail(mail);
     	 boolean loginSuccess;
          if (user != null) {
@@ -20,6 +22,8 @@ public class UserService {
             	 nome= user.getNome();
             	 cognome= user.getCognome();
             	 agente= user.getIsAgente();
+            	 telefono = user.getNumeroTelefono();
+            	 dataNascita = user.getDataNascita();
             	 return true;
             }
          }
@@ -36,6 +40,10 @@ public class UserService {
     	return false;
     }
 
+    public void updatePassword(String mail, String nuovaPassword) {
+    	dbManager.updatePassword(mail, nuovaPassword);
+    }
+    
     public void close() {
         dbManager.closeConnection();
     }
