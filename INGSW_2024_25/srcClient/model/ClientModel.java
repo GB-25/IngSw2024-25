@@ -4,6 +4,9 @@ package model;
 import java.io.*;
 import java.net.Socket;
 import java.util.Date;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 
 import org.json.JSONObject;
 
@@ -69,4 +72,13 @@ public class ClientModel {
     	
     }
  
+    public JSONObject uploadFileModel(String filePath) {
+    	JSONObject request = new JSONObject();
+        request.put("action", "uploadFile");
+        request.put("filePath", filePath);  // Invia solo il percorso del file al server
+
+        // Invio della richiesta al server
+        return sendRequest(request);
+    }
+    
 }

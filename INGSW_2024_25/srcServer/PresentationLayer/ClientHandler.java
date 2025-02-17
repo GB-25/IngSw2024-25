@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Date;
 
-import BusinessLogicLayer.UserService;
+import BusinessLogicLayer.*;
 import org.json.JSONObject;
 
 public class ClientHandler extends Thread { //implements Runnable???
@@ -12,6 +12,7 @@ public class ClientHandler extends Thread { //implements Runnable???
     private BufferedReader in;
     private PrintWriter out;
     private UserService userService;
+    private GoogleCloudStorageService storageService;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -49,6 +50,9 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "updatePassword":
                 		this.handleNewPassword(request);
                 		break;
+                	case "uploadFile":  
+                        response = handleUploadRequest(request);
+                        break;
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non riconosciuta");
@@ -114,4 +118,20 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   
 	   userService.updatePassword(mail, nuovaPassword);
    }
+   
+   private JSONObject handleUploadRequest(JSONObject request) {
+       JSONObject response = new JSONObject();
+       try {
+           String filePath = request.getString("filePath");  // Il client invia il percorso del file da caricare
+           String fileUrl = storageService.uploadUserImage(filePath);  // Carica il file su Google Cloud Storage
+
+           response.put("status", "success");
+           response.put("fileUrl", fileUrl);
+       } catch (IOException e) {
+           response.put("status", "error");
+           response.put("message", "Errore durante l'upload: " + e.getMessage());
+       }
+       return response;
+   }
+
 }

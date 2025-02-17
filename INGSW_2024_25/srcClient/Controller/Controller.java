@@ -150,6 +150,19 @@ public class Controller {
 		
 	}
 	
+	public String handleFileUpload(String filePath) {
+	    JSONObject response = model.uploadFileModel(filePath);
+
+	    if (response.getString("status").equals("success")) {
+	        String fileUrl = response.getString("fileUrl"); // URL del file caricato
+	        System.out.println("File caricato con successo: " + fileUrl);
+	        return fileUrl;  // Restituisce l'URL del file per essere salvato nel database
+	    } else {
+	        System.err.println("Errore durante l'upload: " + response.getString("message"));
+	        return null;
+	    }
+	}
+	
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();
