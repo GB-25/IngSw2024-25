@@ -3,17 +3,36 @@ package ViewGUI;
 import Class.User;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.net.URLEncoder;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+
+import org.json.JSONObject;
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.OSMTileFactoryInfo;
+import org.jxmapviewer.viewer.DefaultTileFactory;
+import org.jxmapviewer.viewer.GeoPosition;
+import org.jxmapviewer.viewer.TileFactoryInfo;
+import org.jxmapviewer.viewer.WaypointPainter;
+import org.jxmapviewer.viewer.DefaultWaypoint;
 import Controller.Controller;
 
-public class CaricamentoProprietaNuovo extends JFrame {
+public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, MouseMotionListener{
 
     // Dichiarazione dei campi da controllare
+	private JXMapViewer mapViewer;
+	private Point lastPoint;
     private JPanel photoPanel; // Pannello per le foto
+    private JPanel mapPanel;
     private JButton btnCaricaFoto;
     private JComboBox<String> cmbGarden;
     private JComboBox<String> cmbType;
@@ -58,10 +77,20 @@ public class CaricamentoProprietaNuovo extends JFrame {
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
         indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, user);});
         indietroPanel.add(indietroButton);
+        JButton buttonSearch = new JButton("↻");
+        buttonSearch.setPreferredSize(new Dimension(100, 25));
+        buttonSearch.addActionListener(e -> getCoordinates(txtPosition.getText().trim()));
+        indietroPanel.add(buttonSearch);
 
         // Aggiungi il pannello del pulsante "Indietro" al pannello sinistro
         leftPanel.add(indietroPanel);
         leftPanel.add(new JLabel()); // Spazio vuoto per allineamento
+        
+     // Mappa
+        mapPanel = new JPanel(new BorderLayout());
+        mapPanel.setBackground(Color.LIGHT_GRAY);
+        mapPanel.setPreferredSize(new Dimension(380, 320));
+        mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione:"));
 
         // Campi di input
         leftPanel.add(new JLabel("Tipo di immobile:"));
@@ -125,17 +154,6 @@ public class CaricamentoProprietaNuovo extends JFrame {
         leftPanel.add(new JLabel()); // Spazio vuoto per allineamento
         leftPanel.add(buttonPanel);
 
-        // Mappa
-        JPanel mapPanel = new JPanel();
-        mapPanel.setBackground(Color.LIGHT_GRAY);
-        mapPanel.setPreferredSize(new Dimension(380, 320));
-        mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione:"));
-
-        JLabel mapPlaceholder = new JLabel("Mappa non disponibile", SwingConstants.CENTER);
-        mapPlaceholder.setForeground(Color.DARK_GRAY);
-        mapPlaceholder.setFont(new Font("Arial", Font.ITALIC, 14));
-        mapPanel.add(mapPlaceholder, BorderLayout.WEST);
-
         // Pannello per le foto
         photoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Layout dinamico
         photoPanel.setPreferredSize(new Dimension(380, 480)); // Imposta dimensioni fisse
@@ -195,6 +213,7 @@ public class CaricamentoProprietaNuovo extends JFrame {
         setVisible(true);
     }
 
+
     public void caricaFoto() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Seleziona un'immagine");
@@ -241,11 +260,156 @@ public class CaricamentoProprietaNuovo extends JFrame {
             // Aggiorna il pannello
             photoPanel.revalidate();
             photoPanel.repaint();
+        }}
+    
+    private void aggiornaMappa(double lat, double lon) {
+        // Rimuove la vecchia mappa se esiste
+        if (mapViewer != null) {
+            mapPanel.remove(mapViewer);
+        }
+
+        // Creazione della nuova mappa
+        mapViewer = new JXMapViewer();
+
+        TileFactoryInfo info = new OSMTileFactoryInfo();
+        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+        mapViewer.setTileFactory(tileFactory);
+
+        // Imposta la posizione iniziale e lo zoom
+        GeoPosition position = new GeoPosition(lat, lon);
+        mapViewer.setAddressLocation(position);
+        mapViewer.setZoom(34);
+        
+        Set<DefaultWaypoint> waypoints = new HashSet<>();
+        waypoints.add(new DefaultWaypoint(position));
+     // Create a waypoint painter
+        WaypointPainter<DefaultWaypoint> waypointPainter = new WaypointPainter<>();
+        waypointPainter.setWaypoints(waypoints);
+
+        // Set the overlay painter
+        mapViewer.setOverlayPainter(waypointPainter);
+
+        // Aggiunge i listener per interattività
+        mapViewer.addMouseListener(this);
+        mapViewer.addMouseMotionListener(this);
+        mapViewer.addMouseWheelListener(e -> {
+            int zoom = mapViewer.getZoom();
+            if (e.getWheelRotation() < 0) {
+                mapViewer.setZoom(Math.max(zoom - 1, 0)); // Zoom in
+            } else {
+                mapViewer.setZoom(Math.min(zoom + 1, 15)); // Zoom out
+            }
+        });
+
+        // Aggiunge la mappa al pannello
+        mapViewer.setVisible(true);
+        mapPanel.add(mapViewer, BorderLayout.CENTER);
+    }
+
+
+        
+    public void getCoordinates(String address) {
+        try {
+            // Rimossa chiave API giusto per sicurezza, dovresti averla
+            String apiKey = "API_KEY";  
+            String encodedAddress = URLEncoder.encode(address, "UTF-8");
+
+            // Costruzione dell'URL per la richiesta di geocoding
+            String url = "https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + apiKey;
+
+            // Connessione alla API
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            conn.setRequestMethod("GET");
+
+            // Lettura della risposta JSON
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+
+            // Analisi della risposta JSON
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            if (jsonResponse.getJSONArray("features").length() > 0) {
+                // Estrazione delle coordinate (latitudine e longitudine)
+                JSONObject location = jsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
+                double lat = location.getJSONArray("coordinates").getDouble(1);
+                double lon = location.getJSONArray("coordinates").getDouble(0);
+
+                // Aggiorna la mappa con le nuove coordinate
+                aggiornaMappa(lat, lon);
+            } else {
+                JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", "Errore", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Errore nel recupero della posizione!", "Errore", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        lastPoint = e.getPoint();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (lastPoint != null) {
+            Point newPoint = e.getPoint();
+
+            // Calcola la differenza in pixel tra la posizione corrente e quella precedente
+            int dx = newPoint.x - lastPoint.x;
+            int dy = newPoint.y - lastPoint.y;
+
+            // Converti il movimento del mouse in un cambiamento di posizione geografica
+            GeoPosition newCenter = mapViewer.convertPointToGeoPosition(new Point(
+                mapViewer.getWidth() / 2 - dx,  // Calcola la nuova posizione X
+                mapViewer.getHeight() / 2 - dy  // Calcola la nuova posizione Y
+            ));
+
+            // Aggiorna il centro della mappa
+            mapViewer.setCenterPosition(newCenter);
+
+            // Aggiorna lastPoint per il prossimo evento di trascinamento
+            lastPoint = newPoint;
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        lastPoint = null;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) {
+            mapViewer.setZoom(mapViewer.getZoom() - 1); // Doppio clic per zoom in
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // gestione eventi di movimento del mouse
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Metodo vuoto
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Metodo vuoto
+    }   
+     
 
     // Avvio dell'interfaccia
     public static void main(String[] args) {
         //SwingUtilities.invokeLater(CaricamentoProprietaNuovo::new);
     }
+	
 }
