@@ -53,6 +53,8 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "uploadFile":  
                         response = handleUploadRequest(request);
                         break;
+                	case "downloadFile":
+                		response = handleDownloadRequest(request);
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non riconosciuta");
@@ -120,18 +122,39 @@ public class ClientHandler extends Thread { //implements Runnable???
    }
    
    private JSONObject handleUploadRequest(JSONObject request) {
+	    JSONObject response = new JSONObject();
+	    try {
+	        // Estrai dal JSON il nome del file e i dati in Base64
+	        String fileName = request.getString("fileName");
+	        String base64Data = request.getString("fileData");
+	        
+	        // Carica l'immagine su Cloud Storage tramite il service
+	        String fileUrl = storageService.uploadHouseImage(fileName, base64Data);
+	        
+	        response.put("status", "success");
+	        response.put("fileUrl", fileUrl);
+	    } catch (IOException e) {
+	        response.put("status", "error");
+	        response.put("message", "Errore durante l'upload: " + e.getMessage());
+	    }
+	    return response;
+	}
+   
+   private JSONObject handleDownloadRequest(JSONObject request) {
        JSONObject response = new JSONObject();
        try {
-           String filePath = request.getString("filePath");  // Il client invia il percorso del file da caricare
-           String fileUrl = storageService.uploadUserImage(filePath);  // Carica il file su Google Cloud Storage
-
+           // Estrai il nome del file dal JSON
+           String fileName = request.getString("fileName");
+           // Richiama il service per scaricare l'immagine in Base64
+           String base64Image = storageService.downloadHouseImage(fileName);
            response.put("status", "success");
-           response.put("fileUrl", fileUrl);
-       } catch (IOException e) {
+           response.put("fileData", base64Image);
+       } catch (Exception e) {
            response.put("status", "error");
-           response.put("message", "Errore durante l'upload: " + e.getMessage());
+           response.put("message", "Errore durante il download: " + e.getMessage());
        }
        return response;
    }
+
 
 }

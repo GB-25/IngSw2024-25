@@ -23,6 +23,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.util.Base64;
 public class FinestraHome extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -93,6 +99,14 @@ public class FinestraHome extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new LoadingDialog(FinestraHome.this).setVisible(true);
+                
+//              String fileData = c.fileDownload(fileName)
+//              byte[] imageBytes = Base64.getDecoder().decode(fileData);
+//              ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
+//              BufferedImage image = ImageIO.read(bais);
+//              JLabel label = new JLabel(new ImageIcon(image));
+// questo è il codice che ci permetterà di riprendere le immagini in base 64 che ci manderà il server e
+// convertirle per farle apparire nelle label, lascio qui per ora ma dovrà essere gestito a parte
             }
         });
 		btnLente.setBounds(323, 12, 33, 24);

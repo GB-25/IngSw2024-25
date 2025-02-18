@@ -10,9 +10,14 @@ public class GoogleCloudStorageService {
         this.storageManager = new GoogleCloudStorageManager();
     }
 
-    public String uploadUserImage(String filePath) throws IOException {
-        // Eventuale logica di validazione (es. verificare tipo di file, dimensione, etc.)
-        return storageManager.uploadFile(filePath);
+    public String uploadHouseImage(String fileName, String base64Data) throws IOException {
+        // Qui puoi aggiungere logica di validazione (tipo file, dimensione, ecc.)
+        return storageManager.uploadFile(fileName, base64Data);
+    }
+    
+    public String downloadHouseImage(String fileName) throws IOException {
+        // Eventuali controlli o logiche di validazione possono essere inseriti qui
+        return storageManager.downloadImageAsBase64(fileName);
     }
 }
 

@@ -150,7 +150,7 @@ public class Controller {
 		
 	}
 	
-	public String handleFileUpload(String filePath) {
+	public String fileUpload(String filePath) {
 	    JSONObject response = model.uploadFileModel(filePath);
 
 	    if (response.getString("status").equals("success")) {
@@ -162,6 +162,18 @@ public class Controller {
 	        return null;
 	    }
 	}
+	
+	public String fileDownload(String fileName) {
+        JSONObject response = model.downloadFileModel(fileName);
+        if (response.getString("status").equals("success")) {
+            String fileData = response.getString("fileData");
+            System.out.println("File scaricato con successo.");
+            return fileData;  // Questa stringa Base64 potrà essere decodificata dal client per visualizzare l'immagine
+        } else {
+            System.err.println("Errore durante il download: " + response.getString("message"));
+            return null;
+        }
+    }
 	
 	public static void main(String[] args)
 	{

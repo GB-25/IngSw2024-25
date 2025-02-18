@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Base64;
+import java.io.FileNotFoundException;
 
 public class GoogleCloudStorageManager {
     private static final String BUCKET_NAME = "foto-ingsw-2024-25";
@@ -18,13 +20,41 @@ public class GoogleCloudStorageManager {
         this.storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
     }
 
-    public String uploadFile(String filePath) throws IOException {
-        String objectName = "immobili/" + Paths.get(filePath).getFileName();
-
+    public String uploadFile(String fileName, String base64Data) throws IOException {
+        // Decodifica la stringa Base64 per ottenere i byte originali
+        byte[] fileBytes = Base64.getDecoder().decode(base64Data);
+        
+        // Costruisci l'objectName: ad esempio, inserisci in una "cartella" chiamata "immobili"
+        String objectName = "immobili/" + fileName;
+        
+        // Prepara l'oggetto Blob per Cloud Storage
         BlobId blobId = BlobId.of(BUCKET_NAME, objectName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/jpeg").build();
-        storage.create(blobInfo, Files.readAllBytes(Paths.get(filePath)));
-
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
+                                    .setContentType("image/jpeg")
+                                    .build();
+        
+        // Carica il file su Cloud Storage
+        storage.create(blobInfo, fileBytes);
+        
+        // Costruisci e restituisci l'URL pubblico del file
         return "https://storage.googleapis.com/" + BUCKET_NAME + "/" + objectName;
+    }
+    
+    public String downloadImageAsBase64(String fileName) throws IOException {
+        // Costruisci l'objectName: ad esempio, in una "cartella" chiamata "immobili"
+        String objectName = "immobili/" + fileName;
+        
+        // Recupera il blob dal bucket
+        Blob blob = storage.get(BlobId.of(BUCKET_NAME, objectName));
+        if (blob == null) {
+            throw new FileNotFoundException("Immagine non trovata: " + objectName);
+        }
+        
+        // Legge i byte dell'immagine
+        byte[] imageBytes = blob.getContent();
+        
+        // Converte i byte in una stringa Base64
+        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+        return base64Image;
     }
 }

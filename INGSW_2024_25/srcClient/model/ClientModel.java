@@ -3,9 +3,10 @@ package model;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Date;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Base64;
 
 import org.json.JSONObject;
@@ -73,11 +74,31 @@ public class ClientModel {
     }
  
     public JSONObject uploadFileModel(String filePath) {
-    	JSONObject request = new JSONObject();
+        JSONObject request = new JSONObject();
         request.put("action", "uploadFile");
-        request.put("filePath", filePath);  // Invia solo il percorso del file al server
-
-        // Invio della richiesta al server
+        
+        try {
+            Path path = Paths.get(filePath);
+            byte[] fileBytes = Files.readAllBytes(path);
+            String base64Data = Base64.getEncoder().encodeToString(fileBytes);
+            
+            // Inviamo sia il nome del file che i dati in Base64
+            request.put("fileName", path.getFileName().toString());
+            request.put("fileData", base64Data);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Puoi decidere come gestire l'errore (ad es. inserendo un campo "error" nel JSON)
+        }
+        return sendRequest(request);
+    }
+    
+    public JSONObject downloadFileModel(String fileName) {
+        JSONObject request = new JSONObject();
+        request.put("action", "downloadFile");
+        request.put("fileName", fileName);
+        
+        // Invio della richiesta al server.
+        // Il metodo sendRequest è da implementare per la comunicazione (es. via socket o HTTP)
         return sendRequest(request);
     }
     
