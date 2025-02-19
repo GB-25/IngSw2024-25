@@ -1,5 +1,6 @@
 package ViewGUI;
 
+import Class.ComposizioneImmobile;
 import Class.User;
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +46,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     private JComboBox<String> cmbCondo;
     private JComboBox<String> cmbEnergyClass;
     private JComboBox<String> cmbElevator;
-
+    private File[] files;
     // Lista per memorizzare le immagini caricate
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();
 
@@ -203,8 +204,31 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
                     if (response == JOptionPane.YES_OPTION) {
                         dispose();
-                        //int idImmobile = c.createComposition(txtWidth, txtRooms, piani, cmbCondo, cmbGarden, cmbElevator, terrazzo);
-                        //c.uploadHouse();
+                    	StringBuilder sb = new StringBuilder();
+                        for (File file : files) {
+                        	if (sb.length() > 0) {
+                                sb.append(",");
+                            }
+                            sb.append(c.fileUpload(file.getAbsolutePath()));    
+                        }
+                        String urls = sb.toString();
+                        int grandezza = Integer.parseInt(txtWidth.getText());
+                        int stanze = Integer.parseInt(txtRooms.getText());
+                        //int piani = Integer.parseInt(txtFloors.getText());
+                        boolean condominio = c.checkComboBox(cmbCondo);
+                        boolean giardino = c.checkComboBox(cmbGarden);
+                        boolean ascensore = c.checkComboBox(cmbElevator);
+                        int prezzo = Integer.parseInt(txtPrice.getText());
+                        String indirizzo = txtPosition.getText();
+                        String annuncio = (String) cmbAdType.getSelectedItem();
+                        String tipo = (String) cmbType.getSelectedItem();
+                        String descrizione = txtDescription.getText();
+                        String classeEnergetica = (String) cmbEnergyClass.getSelectedItem();
+                        String agente = user.getMail();
+                        //boolean terrazzo = c.CheckComboBox();
+                        //int idComposizioneImmobile = c.createComposition(grandezza, stanze, piani, condominio, giardino, ascensore, terrazzo);
+                        //c.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione,
+                        //urls, agente);
                         //new CaricamentoConfermato(c);
                     }
                 }
@@ -238,7 +262,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         int result = fileChooser.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            File[] files = fileChooser.getSelectedFiles(); // Ottieni tutti i file selezionati
+            files = fileChooser.getSelectedFiles(); // Ottieni tutti i file selezionati
 
             for (File file : files) {
                 try {

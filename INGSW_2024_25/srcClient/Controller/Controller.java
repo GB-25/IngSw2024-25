@@ -5,6 +5,7 @@ import model.ClientModel;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -185,6 +186,15 @@ public class Controller {
 			id = response.getInt("id");
 		}
 		return id;
+	}
+	
+	public boolean checkComboBox(JComboBox comboBox) {
+		String valore = (String) comboBox.getSelectedItem();
+        if (valore.matches("No")){
+        	return false;
+        } else {
+        	return true;
+        }
 	}
 	
 	public static void main(String[] args)

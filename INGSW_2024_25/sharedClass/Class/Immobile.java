@@ -10,11 +10,12 @@ public class Immobile {
 	private String tipo;
 	private String classeEnergetica; 
 	private String descrizione;
+	private String urls;
 	private User agente;
 	
 	
 	public Immobile(int id, double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio,
-			String tipo, String classeEnergetica, String descrizione, User agente) {
+			String tipo, String classeEnergetica, String descrizione, String urls, User agente) {
 		
 		this.id = id;
 		this.prezzo = prezzo;
@@ -23,6 +24,7 @@ public class Immobile {
 		this.tipo = tipo;
 		this.classeEnergetica = classeEnergetica;
 		this.descrizione = descrizione;
+		this.urls = urls;
 		this.agente = agente;
 	}
 
@@ -105,6 +107,16 @@ public class Immobile {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+
+
+	public String getUrls() {
+		return urls;
+	}
+
+
+	public void setUrls(String urls) {
+		this.urls = urls;
 	}
 
 
