@@ -402,7 +402,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // Se vuoi gestire eventi di movimento del mouse senza trascinamento, usa questo metodo
+        // gestione eventi di movimento del mouse
     }
 
     @Override
