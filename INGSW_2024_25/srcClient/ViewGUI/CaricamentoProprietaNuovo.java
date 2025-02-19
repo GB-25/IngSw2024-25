@@ -402,7 +402,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // gestione eventi di movimento del mouse
+        // gestione eventi di movimento del mouse 
     }
 
     @Override
