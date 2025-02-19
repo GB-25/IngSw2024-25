@@ -175,6 +175,18 @@ public class Controller {
         }
     }
 	
+	public int createComposition(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
+		int id = 0;
+		JSONObject response = model.uploadComposition(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
+		if (response.getString("status").equals("error")) {
+			JOptionPane.showMessageDialog(null, "Errore nel caricamento dell'immobile", "Errore", JOptionPane.ERROR_MESSAGE);	
+		}
+		else {
+			id = response.getInt("id");
+		}
+		return id;
+	}
+	
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();

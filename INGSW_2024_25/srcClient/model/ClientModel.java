@@ -98,8 +98,21 @@ public class ClientModel {
         request.put("fileName", fileName);
         
         // Invio della richiesta al server.
-        // Il metodo sendRequest è da implementare per la comunicazione (es. via socket o HTTP)
+       
         return sendRequest(request);
     }
     
+    public JSONObject uploadComposition(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "uploadComposition");
+    	request.put("quadratura", quadratura);
+    	request.put("stanze", stanze);
+    	request.put("piani", piani);
+    	request.put("giardino", giardino);
+    	request.put("condominio", condominio);
+    	request.put("ascensore", ascensore);
+    	request.put("terrazzo", terrazzo);
+    	
+    	return sendRequest(request);
+    }
 }

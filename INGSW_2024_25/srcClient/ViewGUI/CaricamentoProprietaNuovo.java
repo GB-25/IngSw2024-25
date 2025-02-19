@@ -203,6 +203,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
                     if (response == JOptionPane.YES_OPTION) {
                         dispose();
+                        //int idImmobile = c.createComposition(txtWidth, txtRooms, piani, cmbCondo, cmbGarden, cmbElevator, terrazzo);
+                        //c.uploadHouse();
                         //new CaricamentoConfermato(c);
                     }
                 }
@@ -311,7 +313,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     public void getCoordinates(String address) {
         try {
             // Rimossa chiave API giusto per sicurezza, dovresti averla
-            String apiKey = "API_KEY";  
+            String apiKey = "API_KEY";
+            //String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
             String encodedAddress = URLEncoder.encode(address, "UTF-8");
 
             // Costruzione dell'URL per la richiesta di geocoding

@@ -13,6 +13,7 @@ public class ClientHandler extends Thread { //implements Runnable???
     private PrintWriter out;
     private UserService userService;
     private GoogleCloudStorageService storageService;
+    private HouseService houseService;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -55,6 +56,9 @@ public class ClientHandler extends Thread { //implements Runnable???
                         break;
                 	case "downloadFile":
                 		response = handleDownloadRequest(request);
+                	case "uploadComposition":
+                		response = handleUploadComposition(request);
+                		break;
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non riconosciuta");
@@ -154,6 +158,26 @@ public class ClientHandler extends Thread { //implements Runnable???
            response.put("message", "Errore durante il download: " + e.getMessage());
        }
        return response;
+   }
+   
+   private JSONObject handleUploadComposition(JSONObject request) {
+	   JSONObject response = new JSONObject();
+	   try {
+		   int quadratura = request.getInt("quadratura");
+		   int stanze = request.getInt("stanze"); 
+		   int piani = request.getInt("piani"); 
+		   boolean giardino = request.getBoolean("giardino");
+		   boolean condominio = request.getBoolean("condominio");
+		   boolean ascensore = request.getBoolean("ascensore"); 
+		   boolean terrazzo = request.getBoolean("terrazzo");
+		   int id = houseService.uploadComposizioneImmobile(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
+		   response.put("status", "success");
+           response.put("id", id);
+	   } catch (Exception e) {
+           response.put("status", "error");
+           response.put("message", "Errore durante il caricamento: " + e.getMessage());
+       }
+	   return response;
    }
 
 

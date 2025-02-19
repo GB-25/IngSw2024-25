@@ -66,6 +66,24 @@ public class DatabaseManager {
            }
     }
     
+    public int uploadComposizione(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
+    	String query = "INSERT INTO composizione_immobile (quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo) "
+    			+ "VALUES ('"+quadratura+"'.'"+stanze+"','"+piani+"','"+giardino+"','"+condominio+"','"+ascensore+"','"+terrazzo+"') RETURNING id;";
+    	int id=0;
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+    			
+    		
+    		ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+    	} catch (SQLException e) {
+            e.printStackTrace();
+        }
+    	return id;
+    }
+    
     
     public void closeConnection() {
         try {

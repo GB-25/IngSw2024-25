@@ -3,14 +3,8 @@ package Class;
 public class Immobile {
 
 	private int id;
-	private int quadratura;
-	private int piani;
-	private int numeroStanze;
-	private boolean terrazzo;
-	private boolean giardino;
-	private boolean ascensore;
-	private boolean condominio;
 	private double prezzo;
+	private ComposizioneImmobile composizione;
 	private String indirizzo;
 	private String annuncio;
 	private String tipo;
@@ -19,19 +13,12 @@ public class Immobile {
 	private User agente;
 	
 	
-	public Immobile(int id, int quadratura, int piani, int numeroStanze, boolean terrazzo, boolean giardino,
-			boolean ascensore, boolean condominio, double prezzo, String indirizzo, String annuncio,
+	public Immobile(int id, double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio,
 			String tipo, String classeEnergetica, String descrizione, User agente) {
 		
 		this.id = id;
-		this.quadratura = quadratura;
-		this.piani = piani;
-		this.numeroStanze = numeroStanze;
-		this.terrazzo = terrazzo;
-		this.giardino = giardino;
-		this.ascensore = ascensore;
-		this.condominio = condominio;
 		this.prezzo = prezzo;
+		this.composizione = composizione;
 		this.annuncio = annuncio;
 		this.tipo = tipo;
 		this.classeEnergetica = classeEnergetica;
@@ -50,75 +37,6 @@ public class Immobile {
 	}
 
 
-	public int getQuadratura() {
-		return quadratura;
-	}
-
-
-	public void setQuadratura(int quadratura) {
-		this.quadratura = quadratura;
-	}
-
-
-	public int getPiani() {
-		return piani;
-	}
-
-
-	public void setPiani(int piani) {
-		this.piani = piani;
-	}
-
-
-	public int getNumeroStanze() {
-		return numeroStanze;
-	}
-
-
-	public void setNumeroStanze(int numeroStanze) {
-		this.numeroStanze = numeroStanze;
-	}
-
-
-	public boolean isTerrazzo() {
-		return terrazzo;
-	}
-
-
-	public void setTerrazzo(boolean terrazzo) {
-		this.terrazzo = terrazzo;
-	}
-
-
-	public boolean isGiardino() {
-		return giardino;
-	}
-
-
-	public void setGiardino(boolean giardino) {
-		this.giardino = giardino;
-	}
-
-
-	public boolean isAscensore() {
-		return ascensore;
-	}
-
-
-	public void setAscensore(boolean ascensore) {
-		this.ascensore = ascensore;
-	}
-
-
-	public boolean isCondominio() {
-		return condominio;
-	}
-
-
-	public void setCondominio(boolean condominio) {
-		this.condominio = condominio;
-	}
-
 
 	public double getPrezzo() {
 		return prezzo;
@@ -127,6 +45,16 @@ public class Immobile {
 
 	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
+	}
+
+
+	public ComposizioneImmobile getComposizione() {
+		return composizione;
+	}
+
+
+	public void setComposizione(ComposizioneImmobile composizione) {
+		this.composizione = composizione;
 	}
 
 
