@@ -1,6 +1,5 @@
 package ViewGUI;
 
-import Class.ComposizioneImmobile;
 import Class.User;
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +12,13 @@ import java.util.HashSet;
 import java.net.URLEncoder;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
+import okhttp3.*;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.viewer.DefaultTileFactory;
@@ -30,23 +31,26 @@ import Controller.Controller;
 public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, MouseMotionListener{
 
     // Dichiarazione dei campi da controllare
+	private File[] files;
 	private JXMapViewer mapViewer;
 	private Point lastPoint;
     private JPanel photoPanel; // Pannello per le foto
     private JPanel mapPanel;
     private JButton btnCaricaFoto;
+    private JComboBox<String> cmbBalcony;
     private JComboBox<String> cmbGarden;
     private JComboBox<String> cmbType;
     private JComboBox<String> cmbAdType;
     private JTextField txtPosition;
     private JTextField txtPrice;
+    private JTextField txtFloors;
     private JTextArea txtDescription;
     private JTextField txtWidth;
     private JTextField txtRooms;
     private JComboBox<String> cmbCondo;
     private JComboBox<String> cmbEnergyClass;
     private JComboBox<String> cmbElevator;
-    private File[] files;
+
     // Lista per memorizzare le immagini caricate
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();
 
@@ -66,9 +70,15 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
         // Pannello sinistro
         JPanel leftPanel = new JPanel(new GridLayout(0, 2, 10, 10)); // 2 colonne, spazio 10px
-        leftPanel.setPreferredSize(new Dimension (400, 400));
+        leftPanel.setPreferredSize(new Dimension (370, 400));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         leftPanel.setBackground(Color.WHITE);
+        
+     // Mappa
+        mapPanel = new JPanel(new BorderLayout());
+        mapPanel.setBackground(Color.LIGHT_GRAY);
+        mapPanel.setPreferredSize(new Dimension(380, 320));
+        mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione:"));
 
         // Pannello per il pulsante "Indietro"
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -78,20 +88,14 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
         indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, user);});
         indietroPanel.add(indietroButton);
-        JButton buttonSearch = new JButton("↻");
-        buttonSearch.setPreferredSize(new Dimension(100, 25));
-        buttonSearch.addActionListener(e -> getCoordinates(txtPosition.getText().trim()));
-        indietroPanel.add(buttonSearch);
+        JPanel searchPanel = new JPanel();
+        searchPanel.setBackground(Color.WHITE);
+        searchPanel.setPreferredSize(new Dimension (400, 60));
 
         // Aggiungi il pannello del pulsante "Indietro" al pannello sinistro
         leftPanel.add(indietroPanel);
         leftPanel.add(new JLabel()); // Spazio vuoto per allineamento
         
-     // Mappa
-        mapPanel = new JPanel(new BorderLayout());
-        mapPanel.setBackground(Color.LIGHT_GRAY);
-        mapPanel.setPreferredSize(new Dimension(380, 320));
-        mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione:"));
 
         // Campi di input
         leftPanel.add(new JLabel("Tipo di immobile:"));
@@ -106,10 +110,65 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         txtPrice = new JTextField(10);
         leftPanel.add(txtPrice);
 
-        leftPanel.add(new JLabel("Posizione:"));
-        txtPosition = new JTextField(10);
-        leftPanel.add(txtPosition);
+        JXMapViewer mapViewer = new JXMapViewer();
+        JTextField searchField = new JTextField();
+        JList<String> suggestionList = new JList<>();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        suggestionList.setModel(listModel);
+        JScrollPane scrollPane = new JScrollPane(suggestionList);
+        scrollPane.getViewport().getView().setBackground(new Color(235, 245, 223));
+        leftPanel.add(new JLabel("Indirizzo:"));
+        leftPanel.add(searchField);
+        leftPanel.add(new JLabel(""));
+        JButton buttonSearch = new JButton("Mostra sulla mappa");
+        buttonSearch.setMaximumSize(new Dimension(100, 25));
+        buttonSearch.addActionListener(e -> c.getCoordinates(searchField.getText().trim(), mapPanel, mapViewer));
+        leftPanel.add(scrollPane);
+        leftPanel.add(new JLabel(""));
+        leftPanel.add(buttonSearch);
+        
+     // Listener per la barra di ricerca
+        searchField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String query = searchField.getText();
+                if (!query.isEmpty()) {
+                    c.fetchAddressSuggestions(query, listModel);
+                } else {
+                    listModel.clear();
+                }
+            }
+        });
+        
+     // Selezione di un indirizzo dalla lista con il mouse
+        suggestionList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) { // Se viene fatto un singolo clic
+                    int index = suggestionList.locationToIndex(e.getPoint());
+                    if (index != -1) {
+                        searchField.setText(suggestionList.getModel().getElementAt(index)); // Copia il valore nel textfield
+                        listModel.clear(); // Pulisce la lista dei suggerimenti
+                    }
+                }
+            }
+        });
 
+        // Selezione con il tasto Invio
+        suggestionList.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    int index = suggestionList.getSelectedIndex();
+                    if (index != -1) {
+                        searchField.setText(suggestionList.getModel().getElementAt(index)); // Copia il valore nel textfield
+                        listModel.clear(); // Pulisce la lista dei suggerimenti
+                    }
+                }
+            }
+        });
+
+        
         leftPanel.add(new JLabel("Descrizione:"));
         txtDescription = new JTextArea(4, 20);
         txtDescription.setLineWrap(true);
@@ -123,8 +182,12 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         leftPanel.add(new JLabel("Numero di stanze:"));
         txtRooms = new JTextField(10);
         leftPanel.add(txtRooms);
+        
+        leftPanel.add(new JLabel("Piani:"));
+        txtFloors = new JTextField(10);
+        leftPanel.add(txtFloors);
 
-        leftPanel.add(new JLabel("Appartamento in condominio:"));
+        leftPanel.add(new JLabel("Condominiale:"));
         cmbCondo = new JComboBox<>(new String[]{"No", "Sì"});
         leftPanel.add(cmbCondo);
 
@@ -135,6 +198,10 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         leftPanel.add(new JLabel("Giardino:"));
         cmbGarden = new JComboBox<>(new String[]{"No", "Sì"});
         leftPanel.add(cmbGarden);
+        
+        leftPanel.add(new JLabel("Terrazzo:"));
+        cmbBalcony = new JComboBox<>(new String[]{"No", "Sì"});
+        leftPanel.add(cmbBalcony);
 
         leftPanel.add(new JLabel("Ascensore:"));
         cmbElevator = new JComboBox<>(new String[]{"No", "Sì"});
@@ -179,10 +246,11 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                 if (cmbType.getSelectedIndex() == 0 ||
                         cmbAdType.getSelectedIndex() == 0 ||
                         txtPrice.getText().trim().isEmpty() ||
-                        txtPosition.getText().trim().isEmpty() ||
+                        txtFloors.getText().trim().isEmpty() ||
                         txtDescription.getText().trim().isEmpty() ||
                         txtWidth.getText().trim().isEmpty() ||
-                        txtRooms.getText().trim().isEmpty()) {
+                        txtRooms.getText().trim().isEmpty() ||
+                        searchField.getText().trim().isEmpty()) {
 
                     JOptionPane.showMessageDialog(null,
                             "Non sono stati riempiti tutti i campi. Controllare che tutti i campi siano stati riempiti, per poi procedere con il caricamento sulla piattaforma.",
@@ -204,7 +272,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
                     if (response == JOptionPane.YES_OPTION) {
                         dispose();
-                    	StringBuilder sb = new StringBuilder();
+                        StringBuilder sb = new StringBuilder();
                         for (File file : files) {
                         	if (sb.length() > 0) {
                                 sb.append(",");
@@ -288,94 +356,6 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
             photoPanel.repaint();
         }}
     
-    private void aggiornaMappa(double lat, double lon) {
-        // Rimuove la vecchia mappa se esiste
-        if (mapViewer != null) {
-            mapPanel.remove(mapViewer);
-        }
-
-        // Creazione della nuova mappa
-        mapViewer = new JXMapViewer();
-
-        TileFactoryInfo info = new OSMTileFactoryInfo();
-        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-        mapViewer.setTileFactory(tileFactory);
-
-        // Imposta la posizione iniziale e lo zoom
-        GeoPosition position = new GeoPosition(lat, lon);
-        mapViewer.setAddressLocation(position);
-        mapViewer.setZoom(34);
-        
-        Set<DefaultWaypoint> waypoints = new HashSet<>();
-        waypoints.add(new DefaultWaypoint(position));
-     // Create a waypoint painter
-        WaypointPainter<DefaultWaypoint> waypointPainter = new WaypointPainter<>();
-        waypointPainter.setWaypoints(waypoints);
-
-        // Set the overlay painter
-        mapViewer.setOverlayPainter(waypointPainter);
-
-        // Aggiunge i listener per interattività
-        mapViewer.addMouseListener(this);
-        mapViewer.addMouseMotionListener(this);
-        mapViewer.addMouseWheelListener(e -> {
-            int zoom = mapViewer.getZoom();
-            if (e.getWheelRotation() < 0) {
-                mapViewer.setZoom(Math.max(zoom - 1, 0)); // Zoom in
-            } else {
-                mapViewer.setZoom(Math.min(zoom + 1, 15)); // Zoom out
-            }
-        });
-
-        // Aggiunge la mappa al pannello
-        mapViewer.setVisible(true);
-        mapPanel.add(mapViewer, BorderLayout.CENTER);
-    }
-
-
-        
-    public void getCoordinates(String address) {
-        try {
-            // Rimossa chiave API giusto per sicurezza, dovresti averla
-            String apiKey = "API_KEY";
-            //String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
-            String encodedAddress = URLEncoder.encode(address, "UTF-8");
-
-            // Costruzione dell'URL per la richiesta di geocoding
-            String url = "https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + apiKey;
-
-            // Connessione alla API
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-            conn.setRequestMethod("GET");
-
-            // Lettura della risposta JSON
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
-
-            // Analisi della risposta JSON
-            JSONObject jsonResponse = new JSONObject(response.toString());
-            if (jsonResponse.getJSONArray("features").length() > 0) {
-                // Estrazione delle coordinate (latitudine e longitudine)
-                JSONObject location = jsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
-                double lat = location.getJSONArray("coordinates").getDouble(1);
-                double lon = location.getJSONArray("coordinates").getDouble(0);
-
-                // Aggiorna la mappa con le nuove coordinate
-                aggiornaMappa(lat, lon);
-            } else {
-                JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", "Errore", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Errore nel recupero della posizione!", "Errore", JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
 
     @Override
@@ -405,6 +385,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
             lastPoint = newPoint;
         }
     }
+    
+    
 
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -420,7 +402,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // gestione eventi di movimento del mouse
+        // Se vuoi gestire eventi di movimento del mouse senza trascinamento, usa questo metodo
     }
 
     @Override
