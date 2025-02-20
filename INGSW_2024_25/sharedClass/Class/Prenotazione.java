@@ -5,18 +5,20 @@ import java.util.Date;
 public class Prenotazione {
 	
 	private int id;
-	private Date dataPrenotazione;
+	private String dataPrenotazione;
+	private String oraPrenotazione;
 	private User user;
 	private Immobile immobile;
 	private User agente;
+	private boolean isConfirmed;
 	
-	public Prenotazione(int id, Date dataPrenotazione, User user, Immobile immobile, User agente) {
-		super();
+	public Prenotazione(int id, String dataPrenotazione, String oraPrenotazione, User user, Immobile immobile, User agente, boolean isConfirmed) {
 		this.id = id;
 		this.dataPrenotazione = dataPrenotazione;
 		this.user = user;
 		this.immobile = immobile;
 		this.agente = agente;
+		this.isConfirmed = isConfirmed;
 	}
 
 	public int getId() {
@@ -27,12 +29,20 @@ public class Prenotazione {
 		this.id = id;
 	}
 
-	public Date getDataPrenotazione() {
+	public String getDataPrenotazione() {
 		return dataPrenotazione;
 	}
 
-	public void setDataPrenotazione(Date dataPrenotazione) {
+	public void setDataPrenotazione(String dataPrenotazione) {
 		this.dataPrenotazione = dataPrenotazione;
+	}
+
+	public String getOraPrenotazione() {
+		return oraPrenotazione;
+	}
+
+	public void setOraPrenotazione(String oraPrenotazione) {
+		this.oraPrenotazione = oraPrenotazione;
 	}
 
 	public User getUser() {
@@ -57,5 +67,13 @@ public class Prenotazione {
 
 	public void setAgente(User agente) {
 		this.agente = agente;
+	}
+
+	public boolean isConfirmed() {
+		return isConfirmed;
+	}
+
+	public void setConfirmed(boolean isConfirmed) {
+		this.isConfirmed = isConfirmed;
 	}
 }

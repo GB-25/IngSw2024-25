@@ -292,11 +292,10 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                         String tipo = (String) cmbType.getSelectedItem();
                         String descrizione = txtDescription.getText();
                         String classeEnergetica = (String) cmbEnergyClass.getSelectedItem();
-                        String agente = user.getMail();
                         boolean terrazzo = c.checkComboBox(cmbBalcony);
                         int idComposizioneImmobile = c.createComposition(grandezza, stanze, piani, condominio, giardino, ascensore, terrazzo);
                         c.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione,
-                        urls, agente);
+                        urls, user);
                         
                     }
                 }

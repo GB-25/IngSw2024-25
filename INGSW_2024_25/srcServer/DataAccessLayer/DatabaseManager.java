@@ -1,6 +1,8 @@
 package DataAccessLayer;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import Class.*;
 
 public class DatabaseManager {
@@ -142,6 +144,97 @@ public class DatabaseManager {
            } catch (SQLException e) {
                e.printStackTrace();
            }
+    }
+    
+    public void createReservation(String data, String ora,  String cliente, String indirizzoImmobile, String agente) {
+    	String query = "INSERT INTO prenotazioni (data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed)"
+    			+"VALUES ('"+data+"','"+ ora+"','"+cliente+"','"+ indirizzoImmobile+"','"+agente+"','FALSE');";
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+               
+               stmt.executeUpdate(query);
+    		
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+    }
+    
+    public ArrayList<Prenotazione> getReservationByAgentId(String mailAgente) {
+    	User agente;
+    	Immobile immobile;
+    	User cliente;
+    	ArrayList<Prenotazione> lista = new ArrayList<Prenotazione>();
+    	String query = "SELECT * FROM prenotazioni WHERE agente_id = "+mailAgente+" AND isConfirmed = 'FALSE';";
+    	 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+                
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                	agente = this.getUserByMail(mailAgente);
+                	immobile = this.getHouseByAddress(rs.getString("immobile_id"));
+                	cliente = this.getUserByMail(rs.getString("user_id"));
+                	Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), 
+                			cliente , immobile, agente, rs.getBoolean("isConfirmed"));
+                	lista.add(prenotazione);
+                }
+                
+                
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+    	 return lista;
+    }
+    
+    public void deleteReservation(int id) {
+    	String query = "DELETE FROM prenotazioni WHERE id = "+id+";";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+    		stmt.executeUpdate(query);
+    		
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    	
+    }
+    
+    public void confirmReservation(int id) {
+    	String query = "UPDATE prenotazioni SET isConfirmed = 'TRUE' WHERE id = '"+id+"';";
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+    		stmt.executeUpdate(query);
+    		
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public ArrayList<Prenotazione> getReservationByClientId(String mailCliente) {
+    	User agente;
+    	Immobile immobile;
+    	User cliente;
+    	ArrayList<Prenotazione> lista = new ArrayList<Prenotazione>();
+    	String query = "SELECT * FROM prenotazioni WHERE user_id = "+mailCliente+";";
+    	 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+                
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                	cliente = this.getUserByMail(mailCliente);
+                	immobile = this.getHouseByAddress(rs.getString("immobile_id"));
+                	agente = this.getUserByMail(rs.getString("agente_id"));
+                	Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), 
+                			cliente , immobile, agente, rs.getBoolean("isConfirmed"));
+                	lista.add(prenotazione);
+                }
+                
+                
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+    	 return lista;
     }
     
     public void closeConnection() {

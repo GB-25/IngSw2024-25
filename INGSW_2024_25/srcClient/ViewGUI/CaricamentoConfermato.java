@@ -2,11 +2,18 @@ package ViewGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import Controller.Controller;
+import Class.*;
 
 public class CaricamentoConfermato extends JFrame {
 
-    public CaricamentoConfermato(Controller c) {
+	HomeAgente homeAgente;
+	JFrame finestraCorrente = this;
+	
+    public CaricamentoConfermato(Controller c, User user) {
         // Imposta la finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,8 +62,13 @@ public class CaricamentoConfermato extends JFrame {
         JButton btnHome = new JButton("Home");
         btnHome.setFont(new Font("Arial", Font.PLAIN, 16));
         btnHome.setPreferredSize(new Dimension(100, 40));
-        btnHome.addActionListener(e ->
-            dispose() // Chiude la schermata attuale
+        btnHome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	homeAgente = new HomeAgente(c, user);
+            	c.cambiaFinestra(finestraCorrente, homeAgente);
+            }}
+            // Chiude la schermata attuale
         );
 
         // Pannello per il pulsante

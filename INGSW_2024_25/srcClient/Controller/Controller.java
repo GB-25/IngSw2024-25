@@ -96,7 +96,7 @@ public class Controller {
 					homeAgente= new HomeAgente(this, user);
 					homeAgente.setVisible(true);
 				} else {
-					homeUtente = new FinestraHome(this);
+					homeUtente = new FinestraHome(this, user);
 					homeUtente.setVisible(true);
 				}
 			}
@@ -110,8 +110,9 @@ public class Controller {
 		if (response.getString("status").equals("error")) {
 			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
+			User user = new User(mail, password, nome, cognome, telefono, data, isAgente );
 			finestraRegistrazione.setVisible(false);
-			homeUtente = new FinestraHome(this);
+			homeUtente = new FinestraHome(this, user);
 			homeUtente.setVisible(true);
 		}
 	}
@@ -403,12 +404,13 @@ public class Controller {
     }
 	
 	public void uploadHouse(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
-            String urls, String agente) {
-		JSONObject response = model.uploadHouseModel(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, agente);
+            String urls, User user) {
+		String mail = user.getMail();
+		JSONObject response = model.uploadHouseModel(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, mail);
 		if (response.getString("status").equals("error")) {
 			 JOptionPane.showMessageDialog(null, "Immobile già presente", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
-			new CaricamentoConfermato(this);
+			new CaricamentoConfermato(this, user);
 		}
 	}
 	

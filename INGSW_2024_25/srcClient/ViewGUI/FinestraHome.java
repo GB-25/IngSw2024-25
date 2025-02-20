@@ -29,6 +29,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.util.Base64;
+import Class.*;
 public class FinestraHome extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -54,7 +55,7 @@ public class FinestraHome extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FinestraHome(Controller c) {
+	public FinestraHome(Controller c, User user) {
 		setBackground(new Color(0, 153, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 548, 422);
