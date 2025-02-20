@@ -3,6 +3,7 @@ package ViewGUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import org.jxmapviewer.JXMapViewer;
 import Controller.Controller;
 
 public class VisioneImmobile extends JFrame {
@@ -70,15 +71,13 @@ public class VisioneImmobile extends JFrame {
         JPanel buttonPanel = createButtonPanel();
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         
-        JLabel mapPlaceholder = new JLabel("Mappa non disponibile");
-        mapPlaceholder.setForeground(Color.DARK_GRAY);
-        mapPlaceholder.setFont(new Font("Arial", Font.ITALIC, 14));
-        mapPlaceholder.setPreferredSize(new Dimension(210, 210));
+       JXMapViewer mapViewer = new JXMapViewer();
+        mapViewer.setPreferredSize(new Dimension (300, 320));
         JPanel mapPanel = new JPanel();
         mapPanel.setBackground(Color.LIGHT_GRAY);
         mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione"));
         mapPanel.setPreferredSize(new Dimension(200, 200));
-        mapPanel.add(mapPlaceholder);
+        c.getCoordinates("Via Appia Nuova, 35, 00043 Ciampino RM, Italia", mapPanel, mapViewer);
         carouselPanel.add(mapPanel, BorderLayout.SOUTH);
         
 
