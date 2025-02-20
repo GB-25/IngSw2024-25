@@ -402,6 +402,16 @@ public class Controller {
         });
     }
 	
+	public void uploadHouse(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
+            String urls, String agente) {
+		JSONObject response = model.uploadHouseModel(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, agente);
+		if (response.getString("status").equals("error")) {
+			 JOptionPane.showMessageDialog(null, "Immobile già presente", "Errore", JOptionPane.ERROR_MESSAGE);
+		} else {
+			new CaricamentoConfermato(this);
+		}
+	}
+	
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();

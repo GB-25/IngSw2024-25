@@ -2,10 +2,11 @@ package ViewGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import Controller.Controller;
 
 public class CaricamentoConfermato extends JFrame {
 
-    public CaricamentoConfermato() {
+    public CaricamentoConfermato(Controller c) {
         // Imposta la finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,6 +86,6 @@ public class CaricamentoConfermato extends JFrame {
     // Codice per far partire la finestra senza la necessità del controller
     // Ovviamente metteremo a posto appena abbiamo tutto a disposizione
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CaricamentoConfermato::new);
+        //SwingUtilities.invokeLater(CaricamentoConfermato::new);
     }
 }

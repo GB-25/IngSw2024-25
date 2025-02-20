@@ -115,4 +115,21 @@ public class ClientModel {
     	
     	return sendRequest(request);
     }
+    
+    public JSONObject uploadHouseModel(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
+            String urls, String agente) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "uploadHouse");
+    	request.put("prezzo", prezzo);
+    	request.put("idComposizione", idComposizioneImmobile);
+    	request.put("indirizzo", indirizzo);
+    	request.put("annuncio", annuncio);
+    	request.put("tipo", tipo);
+    	request.put("classeEnergetica", classeEnergetica);
+    	request.put("descrizione", descrizione);
+    	request.put("urls", urls);
+    	request.put("agente", agente);
+    	
+    	return sendRequest(request);
+    }
 }

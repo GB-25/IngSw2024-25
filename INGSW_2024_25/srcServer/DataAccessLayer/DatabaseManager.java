@@ -1,7 +1,7 @@
 package DataAccessLayer;
 
 import java.sql.*;
-import Class.User;
+import Class.*;
 
 public class DatabaseManager {
     private static final String URL = "jdbc:postgresql://35.241.167.132:5432/app-db";
@@ -23,11 +23,10 @@ public class DatabaseManager {
     public User getUserByMail(String mail) {
         User user = null;
 
-        String query = "SELECT * FROM users WHERE mail = ?";
+        String query = "SELECT * FROM users WHERE mail = "+mail+";";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             
-            stmt.setString(1, mail);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -84,6 +83,66 @@ public class DatabaseManager {
     	return id;
     }
     
+    
+    public ComposizioneImmobile getComposizioneById(int id) {
+    	ComposizioneImmobile composizione = null;
+    	
+    	String query = "SELECT * FROM composizioneImmobile WHERE id ="+id+";";
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+    			
+    		
+    		ResultSet rs = stmt.executeQuery();
+    		
+    		if (rs.next()) {
+    			composizione = new ComposizioneImmobile(rs.getInt("id"), rs.getInt("quadratura"), rs.getInt("piani"), rs.getInt("numeroStanze"), 
+    					rs.getBoolean("terrazzo"), rs.getBoolean("giardino"), rs.getBoolean("ascensore"), rs.getBoolean("condominio"));
+    		}
+    	}catch (SQLException e) {
+            e.printStackTrace();
+    	}
+    	
+    	return composizione;
+    }
+  
+    
+    
+    public Immobile getHouseByAddress(String indirizzo) {
+    	Immobile immobile = null;
+    	
+    	String query = "SELECT * FROM immobili WHERE indirizzo = "+indirizzo+";";
+    	
+    	 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                 PreparedStatement stmt = conn.prepareStatement(query)) {
+                
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                	User agente = this.getUserByMail(rs.getString("agente_id"));
+                	ComposizioneImmobile composizione = this.getComposizioneById(rs.getInt("idComposizione"));
+                	immobile = new Immobile(rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
+                			rs.getString("tipo"), rs.getString("classe_energetica"), rs.getString("descrizione"), rs.getString("urls"), agente);
+                	}
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+    	 return immobile;
+    	 
+    }
+    
+    public void uploadHouse(double prezzo,int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, 
+					String descrizione, String urls, String agente) {
+    	String query = "INSERT INTO immobili (prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classe_energetica, descrizione, urls, agente_id)"
+    			+ "VALUES ('"+prezzo+"','"+idComposizioneImmobile+"','"+indirizzo+"','"+annuncio+"','"+tipo+"','" +classeEnergetica+"','"+descrizione+"','"+urls+"','" +agente+"');";
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+               
+               stmt.executeUpdate(query);
+    		
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+    }
     
     public void closeConnection() {
         try {

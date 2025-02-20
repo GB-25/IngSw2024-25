@@ -282,22 +282,22 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                         String urls = sb.toString();
                         int grandezza = Integer.parseInt(txtWidth.getText());
                         int stanze = Integer.parseInt(txtRooms.getText());
-                        //int piani = Integer.parseInt(txtFloors.getText());
+                        int piani = Integer.parseInt(txtFloors.getText());
                         boolean condominio = c.checkComboBox(cmbCondo);
                         boolean giardino = c.checkComboBox(cmbGarden);
                         boolean ascensore = c.checkComboBox(cmbElevator);
-                        int prezzo = Integer.parseInt(txtPrice.getText());
+                        double prezzo = Double.parseDouble(txtPrice.getText());
                         String indirizzo = txtPosition.getText();
                         String annuncio = (String) cmbAdType.getSelectedItem();
                         String tipo = (String) cmbType.getSelectedItem();
                         String descrizione = txtDescription.getText();
                         String classeEnergetica = (String) cmbEnergyClass.getSelectedItem();
                         String agente = user.getMail();
-                        //boolean terrazzo = c.CheckComboBox();
-                        //int idComposizioneImmobile = c.createComposition(grandezza, stanze, piani, condominio, giardino, ascensore, terrazzo);
-                        //c.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione,
-                        //urls, agente);
-                        //new CaricamentoConfermato(c);
+                        boolean terrazzo = c.checkComboBox(cmbBalcony);
+                        int idComposizioneImmobile = c.createComposition(grandezza, stanze, piani, condominio, giardino, ascensore, terrazzo);
+                        c.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione,
+                        urls, agente);
+                        
                     }
                 }
             }

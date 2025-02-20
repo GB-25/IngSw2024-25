@@ -19,4 +19,21 @@ public class HouseService {
 	
 	
 	
+	public boolean uploadNewHouse(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica,
+        		   String descrizione,String urls, String agente) {
+		
+		Immobile immobile = dbManager.getHouseByAddress(indirizzo);
+		
+		if (immobile == null) {
+			dbManager.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, 
+					descrizione, urls, agente);
+			return true;
+			
+		}
+		return false;
+		
+	}
+	
+	
+	
 }

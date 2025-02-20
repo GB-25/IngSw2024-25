@@ -59,6 +59,9 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "uploadComposition":
                 		response = handleUploadComposition(request);
                 		break;
+                	case "uploadHouse":
+                		response = handleUploadHouse(request);
+                		break;
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non riconosciuta");
@@ -131,7 +134,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	        // Estrai dal JSON il nome del file e i dati in Base64
 	        String fileName = request.getString("fileName");
 	        String base64Data = request.getString("fileData");
-	        
+	        storageService = new GoogleCloudStorageService();
 	        // Carica l'immagine su Cloud Storage tramite il service
 	        String fileUrl = storageService.uploadHouseImage(fileName, base64Data);
 	        
@@ -149,6 +152,7 @@ public class ClientHandler extends Thread { //implements Runnable???
        try {
            // Estrai il nome del file dal JSON
            String fileName = request.getString("fileName");
+           storageService = new GoogleCloudStorageService();
            // Richiama il service per scaricare l'immagine in Base64
            String base64Image = storageService.downloadHouseImage(fileName);
            response.put("status", "success");
@@ -170,6 +174,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   boolean condominio = request.getBoolean("condominio");
 		   boolean ascensore = request.getBoolean("ascensore"); 
 		   boolean terrazzo = request.getBoolean("terrazzo");
+		   houseService = new HouseService();
 		   int id = houseService.uploadComposizioneImmobile(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
 		   response.put("status", "success");
            response.put("id", id);
@@ -180,5 +185,24 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   return response;
    }
 
+   private JSONObject handleUploadHouse (JSONObject request) {
+	   
+	   double prezzo = request.getInt("prezzo");
+	   int idComposizioneImmobile = request.getInt("idComposizione");
+	   String indirizzo = request.getString("indirizzo");
+	   String annuncio = request.getString("annuncio");
+	   String tipo = request.getString("tipo");
+	   String classeEnergetica = request.getString("classeEnergetica");
+	   String descrizione = request.getString("descrizione");
+       String urls = request.getString("urls");
+       String agente = request.getString("agente");
+       houseService = new HouseService();
+       boolean uploaded = houseService.uploadNewHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica,
+    		   descrizione, urls, agente);
+       JSONObject response = new JSONObject();
+       response.put("status", uploaded ? "success" : "error");
+       response.put("message", uploaded ? "Caricamento riuscito" : "Immobile già presente");
+	   return response;
+	   }
+   }
 
-}

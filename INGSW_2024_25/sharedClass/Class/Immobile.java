@@ -2,7 +2,7 @@ package Class;
 
 public class Immobile {
 
-	private int id;
+	
 	private double prezzo;
 	private ComposizioneImmobile composizione;
 	private String indirizzo;
@@ -14,10 +14,10 @@ public class Immobile {
 	private User agente;
 	
 	
-	public Immobile(int id, double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio,
+	public Immobile(double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio,
 			String tipo, String classeEnergetica, String descrizione, String urls, User agente) {
 		
-		this.id = id;
+		
 		this.prezzo = prezzo;
 		this.composizione = composizione;
 		this.annuncio = annuncio;
@@ -27,17 +27,6 @@ public class Immobile {
 		this.urls = urls;
 		this.agente = agente;
 	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 
 
 	public double getPrezzo() {
