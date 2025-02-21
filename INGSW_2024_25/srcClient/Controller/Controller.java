@@ -48,6 +48,7 @@ import org.jxmapviewer.viewer.TileFactory;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.WaypointPainter;
 
+import Class.Immobile;
 import Class.User;
 
 public class Controller {
@@ -413,6 +414,28 @@ public class Controller {
 			new CaricamentoConfermato(this, user);
 		}
 	}
+	
+	
+	public void showReservation(User user, boolean isConfirmed) {
+		String mail = user.getMail();
+		boolean isAgente = user.getIsAgente();
+		JSONObject response = model.getReservation(mail, isConfirmed, isAgente);
+		if (response.getString("status").equals("success")) {}// da implementare, dipende dalla view
+	}
+	
+	public void createReservation(User user, Immobile immobile, String data, String ora) {
+		String mailCliente=user.getMail();
+		String indirizzo=immobile.getIndirizzo();
+		String mailAgente=immobile.getAgente().getMail();
+		JSONObject response = model.makeReservation(data, ora, mailCliente, indirizzo, mailAgente);
+		if (response.getString("status").equals("error")) {
+			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile", "Errore", JOptionPane.ERROR_MESSAGE);
+		} else {
+			//metodo per mostrare "bravo hai prenotato"
+		}
+	}
+	
+	//da fare conferma ed elimina prenotazione
 	
 	public static void main(String[] args)
 	{

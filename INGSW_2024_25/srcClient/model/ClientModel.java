@@ -132,4 +132,43 @@ public class ClientModel {
     	
     	return sendRequest(request);
     }
+    
+    public JSONObject getReservation(String mail, boolean isConfirmed, boolean isAgente) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "getReservation");
+    	request.put("mail", mail);
+    	request.put("isConfirmed", isConfirmed);
+    	request.put("isAgente", isAgente);
+    	
+    	return sendRequest(request);
+    }
+    
+    
+    public JSONObject makeReservation(String data, String ora, String mailCliente, String indirizzo, String mailAgente) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "makeNewReservation");
+    	request.put("data", data);
+    	request.put("ora", ora);
+    	request.put("mailCliente", mailCliente);
+    	request.put("indirizzo", indirizzo);
+    	request.put("mailAgente", mailAgente);
+    	
+    	return sendRequest(request);
+    }
+    
+    public JSONObject confirmReservation(int id) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "reservationConfirmed");
+    	request.put("id", id);
+    	
+    	return sendRequest(request);
+    }
+    
+    public JSONObject denyReservation(int id) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "reservationDenied");
+    	request.put("id", id);
+    	
+    	return sendRequest(request);
+    }
 }

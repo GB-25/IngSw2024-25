@@ -3,8 +3,12 @@ package PresentationLayer;
 import java.io.*;
 import java.net.*;
 import java.util.Date;
+import java.util.List;
+import Class.*;
 
 import BusinessLogicLayer.*;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ClientHandler extends Thread { //implements Runnable???
@@ -14,6 +18,7 @@ public class ClientHandler extends Thread { //implements Runnable???
     private UserService userService;
     private GoogleCloudStorageService storageService;
     private HouseService houseService;
+    private ReservationService reservationService;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -61,6 +66,18 @@ public class ClientHandler extends Thread { //implements Runnable???
                 		break;
                 	case "uploadHouse":
                 		response = handleUploadHouse(request);
+                		break;
+                	case "makeNewReservation":
+                		response = makeNewReservation(request);
+                		break;
+                	case "reservationConfirmed":
+                		response = reservationConfirmed(request);
+                		break;
+                	case "reservationDenied":
+                		response = reservationDenied(request);
+                		break;
+                	case "getReservation":
+                		response = getMailReservation(request);
                 		break;
                 	default:
                 		response.put("status", "error");
@@ -204,5 +221,84 @@ public class ClientHandler extends Thread { //implements Runnable???
        response.put("message", uploaded ? "Caricamento riuscito" : "Immobile già presente");
 	   return response;
 	   }
+   
+   private JSONObject makeNewReservation(JSONObject request) {
+	   
+	  JSONObject response = new JSONObject();
+	  String data = request.getString("data");
+	  String ora = request.getString("ora");
+	  String cliente = request.getString("mailCliente");
+	  String indirizzoImmobile = request.getString("indirizzo");
+	  String agente = request.getString("mailAgente");
+	  reservationService = new ReservationService();
+	  boolean firstReservation = reservationService.newReservation(data, ora, cliente, indirizzoImmobile, agente);
+	  response.put("status", firstReservation ? "success" : "error");
+	  response.put("message", firstReservation ? "Prenotazione riuscita" : "Prenotazione già effettuata");
+	  return response;
+   }
+   
+   private JSONObject reservationConfirmed(JSONObject request) {
+	   JSONObject response = new JSONObject();
+	   
+	   try {
+		   int id = request.getInt("id");
+		   reservationService = new ReservationService();
+		   reservationService.acceptReservation(id);
+		   response.put("status", "success");
+	   } catch (Exception e) {
+           response.put("status", "error");
+           response.put("message", "Errore durante la conferma: " + e.getMessage());
+       }
+	   return response;
+   }
+   
+   private JSONObject reservationDenied(JSONObject request) {
+	   JSONObject response = new JSONObject();
+	   
+	   try {
+		   int id = request.getInt("id");
+		   reservationService = new ReservationService();
+		   reservationService.refusedReservation(id);
+		   response.put("status", "success");
+	   } catch (Exception e) {
+           response.put("status", "error");
+           response.put("message", "Errore durante la cancellazione: " + e.getMessage());
+       }
+	   return response;
+   }
+   
+
+   
+   private JSONObject getMailReservation(JSONObject request) {
+	   JSONObject response = new JSONObject();
+	   try {
+		   String mail = request.getString("mail");
+		   boolean isConfirmed = request.getBoolean("isConfirmed");
+		   boolean isAgente = request.getBoolean("isAgente");
+		   reservationService = new ReservationService();
+		   List<Prenotazione> lista = reservationService.getReservation(mail, isConfirmed, isAgente);
+		   response.put("status", "success");
+		   JSONArray jsonArray = new JSONArray();
+		   for (Prenotazione p : lista) {
+			   JSONObject jsonPrenotazione = new JSONObject();
+	           jsonPrenotazione.put("id", p.getId());
+	           jsonPrenotazione.put("data", p.getDataPrenotazione());
+	           jsonPrenotazione.put("ora", p.getOraPrenotazione());
+	           jsonPrenotazione.put("mailCliente", p.getUser().getMail());
+	           jsonPrenotazione.put("indirizzo", p.getImmobile().getIndirizzo());
+	           jsonPrenotazione.put("mailAgente", p.getAgente().getMail());;
+	           jsonPrenotazione.put("confermato", p.isConfirmed());
+	           jsonArray.put(jsonPrenotazione);
+		   }
+		   response.put("status", "success");
+	       response.put("prenotazioni", jsonArray); 
+	   }catch (Exception e) {
+           response.put("status", "error");
+           response.put("message", "Errore durante il recupero delle prenotazioni: " + e.getMessage());
+       }
+	   return response;
+   }
+   
+   
    }
 
