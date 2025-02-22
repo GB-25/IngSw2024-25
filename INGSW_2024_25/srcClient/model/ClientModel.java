@@ -156,11 +156,13 @@ public class ClientModel {
     	return sendRequest(request);
     }
     
-    public JSONObject confirmReservation(int id) {
+    public JSONObject confirmReservation(int id, String mail, String data, String ora) {
     	JSONObject request = new JSONObject();
     	request.put("action", "reservationConfirmed");
     	request.put("id", id);
-    	
+    	request.put("mail", mail);
+    	request.put("data", data);
+    	request.put("ora", ora);
     	return sendRequest(request);
     }
     

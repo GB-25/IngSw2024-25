@@ -146,6 +146,30 @@ public class DatabaseManager {
            }
     }
     
+    
+    public boolean alreadyGotAppointment(String mail, boolean isAgente, String data, String ora) {
+    	
+    	String query;
+    	if(isAgente) {
+    		query = "SELECT * FROM prenotazioni WHERE agente_id = "+mail+" AND data_prenotazione = "+data+" AND ora_prenotazione = "+ora+";";
+    	} else {
+    		query = "SELECT * FROM prenotazioni WHERE user_id = "+mail+" AND data_prenotazione = "+data+" AND ora_prenotazione = "+ora+";";
+    	}
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+               
+               ResultSet rs = stmt.executeQuery();
+
+               if (rs.next()) {
+            	   return true;
+               }
+    	} catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
     public Prenotazione checkReservation(String mailCliente, String indirizzo) {
     	Prenotazione prenotazione = null;
     	String query = "SELECT * FROM prenotazioni WHERE user_id ="+mailCliente+"AND immobile_id="+indirizzo+";";

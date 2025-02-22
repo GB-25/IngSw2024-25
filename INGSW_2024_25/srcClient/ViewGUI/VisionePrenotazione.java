@@ -1,7 +1,14 @@
 package ViewGUI;
 
 import javax.swing.*;
+
+import Class.Prenotazione;
+import Class.User;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import Controller.Controller;
 
 public class VisionePrenotazione extends JFrame {
@@ -15,8 +22,11 @@ public class VisionePrenotazione extends JFrame {
     private JButton rifiutaButton;
     private JButton indietroButton;
     private JPanel topPanel;
+    private FinestraLogin finestraLogin;
+	private JFrame finestraCorrente = this;
     
-    public VisionePrenotazione(String cliente, String data, String ora, Controller c) {
+    
+    public VisionePrenotazione(User user, Prenotazione prenotazione, Controller c) {
         setTitle("Visione Prenotazione");
         setSize(600, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,18 +40,18 @@ public class VisionePrenotazione extends JFrame {
         // Creazione dei componenti per i dettagli della prenotazione
         titoloLabel = new JLabel("Dettagli Prenotazione", SwingConstants.CENTER);
         titoloLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
-        clienteLabel = new JLabel("Cliente: " + cliente, SwingConstants.CENTER);
+        clienteLabel = new JLabel("Cliente: " + prenotazione.getUser().getNome()+prenotazione.getUser().getCognome(), SwingConstants.CENTER);
         clienteLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
-        dataLabel = new JLabel("Data: " + data, SwingConstants.CENTER);
+        dataLabel = new JLabel("Data: " + prenotazione.getDataPrenotazione(), SwingConstants.CENTER);
         dataLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
-        oraLabel = new JLabel("Ora: " + ora, SwingConstants.CENTER);
+        oraLabel = new JLabel("Ora: " + prenotazione.getOraPrenotazione(), SwingConstants.CENTER);
         oraLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
-        posizioneLabel = new JLabel("Posizione: Via Andrea Costa, 13, Roma");
+        posizioneLabel = new JLabel("Posizione: "+prenotazione.getImmobile().getIndirizzo());
         posizioneLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
-        idCasaLabel = new JLabel("ID Casa: 19062021");
+        idCasaLabel = new JLabel("ID Prenotazione: "+prenotazione.getId());
         idCasaLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
         
-        topPanel = createTopPanel();
+        topPanel = createTopPanel(user, c);
 
         // Pannello per i dettagli dell'immobile
         JPanel detailsPanel = new JPanel();
@@ -71,9 +81,36 @@ public class VisionePrenotazione extends JFrame {
         confermaButton.setBackground(new Color(0, 153, 51));
         confermaButton.setForeground(Color.WHITE);
 
-        indietroButton.addActionListener(e -> {dispose();});
-        confermaButton.addActionListener(e -> {JOptionPane.showMessageDialog(this, "Prenotazione confermata!"); dispose();});
-        rifiutaButton.addActionListener(e -> {JOptionPane.showMessageDialog(this, "Prenotazione annullata!"); dispose();});
+        indietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	//qual è la schermata prima non si sa
+            }
+        });
+        
+        
+        confermaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	int id = prenotazione.getId();
+            	String mail = prenotazione.getAgente().getMail();
+            	String data = prenotazione.getDataPrenotazione();
+            	String ora= prenotazione.getOraPrenotazione();
+            	if(c.reservationConfirm(id, mail, data, ora)) {
+            		//metodo per tornare alla schermata precedente che non so qual è
+            	}
+            }
+        });
+        
+        
+        rifiutaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	int id = prenotazione.getId();
+            	c.reservationDeny(id);
+            	//metodo per tornare alla schermata precedente che non so qual è
+            }
+        });
 
         buttonPanel.add(rifiutaButton);
         buttonPanel.add(confermaButton);
@@ -84,7 +121,7 @@ public class VisionePrenotazione extends JFrame {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
     
-    private JPanel createTopPanel() {
+    private JPanel createTopPanel(User user, Controller c) {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(40, 132, 212));
         topPanel.setPreferredSize(new Dimension(600, 120));
@@ -106,15 +143,13 @@ public class VisionePrenotazione extends JFrame {
         JPopupMenu popupUser = new JPopupMenu();
         popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-        JMenuItem userInfo = new JMenuItem("Mario Rossi");
+        JMenuItem userInfo = new JMenuItem(user.getNome()+user.getCognome());
         userInfo.setEnabled(false);
         JMenuItem logout = new JMenuItem("Logout");
         logout.addActionListener(e -> {
             int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
-                dispose();
-                JOptionPane.showMessageDialog(this, "Logout effettuato!");
-                System.exit(0);
+            	c.cambiaFinestra(finestraCorrente, finestraLogin);
             }
         });
 

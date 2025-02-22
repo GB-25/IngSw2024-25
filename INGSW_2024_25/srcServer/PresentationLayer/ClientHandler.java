@@ -233,23 +233,23 @@ public class ClientHandler extends Thread { //implements Runnable???
 	  reservationService = new ReservationService();
 	  boolean firstReservation = reservationService.newReservation(data, ora, cliente, indirizzoImmobile, agente);
 	  response.put("status", firstReservation ? "success" : "error");
-	  response.put("message", firstReservation ? "Prenotazione riuscita" : "Prenotazione già effettuata");
+	  response.put("message", firstReservation ? "Prenotazione riuscita" : "Prenotazione già effettuata o già impegnato");
 	  return response;
    }
    
    private JSONObject reservationConfirmed(JSONObject request) {
 	   JSONObject response = new JSONObject();
-	   
-	   try {
-		   int id = request.getInt("id");
-		   reservationService = new ReservationService();
-		   reservationService.acceptReservation(id);
-		   response.put("status", "success");
-	   } catch (Exception e) {
-           response.put("status", "error");
-           response.put("message", "Errore durante la conferma: " + e.getMessage());
-       }
+	 
+	   int id = request.getInt("id");
+	   String mail = request.getString("mail");
+	   String data = request.getString("data");
+	   String ora = request.getString("ora");
+	   reservationService = new ReservationService();
+	   boolean noProbelmInReservation = reservationService.acceptReservation(id, mail, data, ora);
+	   response.put("status", noProbelmInReservation ? "success" : "error");
+	   response.put("message", noProbelmInReservation ? "Prenotazione Confermata" : "Sei già impegnato");
 	   return response;
+	  
    }
    
    private JSONObject reservationDenied(JSONObject request) {

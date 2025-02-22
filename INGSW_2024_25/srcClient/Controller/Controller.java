@@ -429,13 +429,32 @@ public class Controller {
 		String mailAgente=immobile.getAgente().getMail();
 		JSONObject response = model.makeReservation(data, ora, mailCliente, indirizzo, mailAgente);
 		if (response.getString("status").equals("error")) {
-			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile", "Errore", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile o sei già impegnato quel giorno", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
 			//metodo per mostrare "bravo hai prenotato"
 		}
 	}
 	
-	//da fare conferma ed elimina prenotazione
+
+	public boolean reservationConfirm(int id, String mail, String data, String ora) {
+		JSONObject response = model.confirmReservation(id, mail, data, ora);
+		if (response.getString("status").equals("error")) {
+			 JOptionPane.showMessageDialog(null, "Errore durante la conferma: Sei già impeganto quel giorno", "Errore", JOptionPane.ERROR_MESSAGE);
+			 return false;
+		} else {
+			JOptionPane.showMessageDialog(null, "Prenotazione confermata! Sarà visualizzabile nel calendario", "Nuova visita!", JOptionPane.INFORMATION_MESSAGE);
+			return true;
+		}
+	}
+	
+	public void reservationDeny(int id) {
+		JSONObject response = model.denyReservation(id);
+		if (response.getString("status").equals("error")) {
+			 JOptionPane.showMessageDialog(null, "Errore durante la cancellazione", "Errore", JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "Prenotazione rifiutata! Avviseremo il cliente per te ;)", "Rifiutato", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
 	
 	public static void main(String[] args)
 	{

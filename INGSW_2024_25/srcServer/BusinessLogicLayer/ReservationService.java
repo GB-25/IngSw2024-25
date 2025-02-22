@@ -18,7 +18,9 @@ public class ReservationService {
 		Prenotazione prenotazione = dbManager.checkReservation(cliente, indirizzoImmobile);
 		if(prenotazione !=null) {
 			return false;
-		
+		}
+		if (dbManager.alreadyGotAppointment(cliente, false, data, ora)) {
+			return false;
 		} else {
 			dbManager.createReservation(data, ora, cliente, indirizzoImmobile, agente);
 			return true;
@@ -29,8 +31,14 @@ public class ReservationService {
 		dbManager.deleteReservation(id);
 	}
 	
-	public void acceptReservation(int id) {
-		dbManager.confirmReservation(id);
+	public boolean acceptReservation(int id, String mail, String data, String ora) {
+		if(!dbManager.alreadyGotAppointment(mail, true, data, ora)) {
+			dbManager.confirmReservation(id);
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 	
 	public ArrayList<Prenotazione> getReservation(String mail, boolean isConfirmed, boolean isAgente){
