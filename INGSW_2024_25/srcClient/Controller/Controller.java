@@ -447,6 +447,7 @@ public class Controller {
 		}
 	}
 	
+	
 	public void reservationDeny(int id) {
 		JSONObject response = model.denyReservation(id);
 		if (response.getString("status").equals("error")) {
@@ -455,6 +456,20 @@ public class Controller {
 			JOptionPane.showMessageDialog(null, "Prenotazione rifiutata! Avviseremo il cliente per te ;)", "Rifiutato", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
+	
+	public String[] getUrls(Immobile immobile) {// o passiamo direttamente le stringhe
+		
+		String urls = immobile.getUrls();
+		String[] urlArray = urls.split(",");
+
+        // Stampare gli URL uno per uno
+//        for (String url : urlArray) {
+//           this.fileDownload(urls);
+//        } ha senso che poi io gli passi direttamente l'array e poi dalla view un metodo che associa una label con un elemento dell'array, per avere l'immagine
+		return urlArray;
+	}
+	
+	
 	
 	public static void main(String[] args)
 	{
