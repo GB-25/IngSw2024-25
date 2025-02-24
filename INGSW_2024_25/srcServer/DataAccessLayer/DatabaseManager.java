@@ -261,6 +261,29 @@ public class DatabaseManager {
         }
     }
     
+    
+    public ArrayList<Immobile> findHouses(String query){
+    	ComposizioneImmobile composizione;
+    	User agente;
+    	ArrayList<Immobile> lista = new ArrayList<Immobile>();
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+               PreparedStatement stmt = conn.prepareStatement(query)) {
+               
+               ResultSet rs = stmt.executeQuery();
+               
+               while (rs.next()) {
+            	   agente = this.getUserByMail(rs.getString("agente_id"));
+            	   composizione = this.getComposizioneById(rs.getInt("composizione_id"));
+            	   Immobile immobile = new Immobile(rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
+            			   rs.getString("tipo"), rs.getString("classee_energetica"), rs.getString("descrizione"),rs.getString("urls"), agente);
+            	   lista.add(immobile);
+               }
+    	} catch (SQLException e) {
+            e.printStackTrace();
+        }
+    	return lista;
+    }
+    
     public void closeConnection() {
         try {
             if (conn != null) conn.close();

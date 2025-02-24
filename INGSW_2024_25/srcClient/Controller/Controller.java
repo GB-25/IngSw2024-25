@@ -491,8 +491,50 @@ public class Controller {
 //        } ha senso che poi io gli passi direttamente l'array e poi dalla view un metodo che associa una label con un elemento dell'array, per avere l'immagine
 		return urlArray;
 	}
-	
-	
+	//boh cosa gli deve tornare, le istanze singole, una lista?
+	public void ricercaImmobili(int prezzoMin, int prezzoMax, String classeEnergetica, String posizione, String tipoImmobile, String annuncio){
+		StringBuilder sql = new StringBuilder("SELECT * FROM immobili");
+		if (prezzoMin > 0) {
+			sql.append(" AND prezzo >= "+prezzoMin);
+		}
+		if (prezzoMax > 0 && prezzoMax>=prezzoMin) {
+			sql.append(" AND prezzo <= "+prezzoMin);
+		}
+		if (posizione != null) {
+			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) LIKE '%"+posizione+"%'");
+		}
+		if (classeEnergetica != null) {
+			sql.append(" AND classe_energetica = "+classeEnergetica);
+		}
+		if (tipoImmobile != null) {
+			sql.append(" AND tipo = "+tipoImmobile);
+		}
+		if (annuncio != null) {
+			sql.append(" AND annuncio = "+annuncio);
+		}
+		sql.append(";");
+		String query = sql.toString();
+		JSONObject response = model.searchHouse(query);
+		if (response.getString("status").equals("error")) {
+			JOptionPane.showMessageDialog(null, "Errore durante la ricerca", "Errore", JOptionPane.ERROR_MESSAGE);
+		}else {
+			JSONArray jsonArray = response.getJSONArray("immobilii");
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				String indirizzo = jsonObject.getString("indirizzo");
+				int composizione = jsonObject.getInt("composizione");
+				String mailAgente = jsonObject.getString("agente");
+				double prezzo = jsonObject.getDouble("prezzo");
+				String tipoAnnuncio = jsonObject.getString("annuncio");
+				String tipo = jsonObject.getString("tipo");
+				String descrizione = jsonObject.getString("descrizione");
+				String classe = jsonObject.getString("classe");
+			   	String urls = jsonObject.getString("urls");
+			   	//vanno create le istanze di immobile e messe in una lista, probabile nuovi
+			   	//metodi del controller per ottenere gli oggetti composizione e agente
+			}
+		}
+	}
 	
 	public static void main(String[] args)
 	{

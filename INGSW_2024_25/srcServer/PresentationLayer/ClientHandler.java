@@ -79,6 +79,9 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "getReservation":
                 		response = getMailReservation(request);
                 		break;
+                	case "findHouse":
+                		response = getHouse(request);
+                		break;
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non riconosciuta");
@@ -291,7 +294,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	           jsonPrenotazione.put("confermato", p.isConfirmed());
 	           jsonArray.put(jsonPrenotazione);
 		   }
-		   response.put("status", "success");
+		   
 	       response.put("prenotazioni", jsonArray); 
 	   }catch (Exception e) {
            response.put("status", "error");
@@ -300,6 +303,33 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   return response;
    }
    
-   
+   public JSONObject getHouse(JSONObject request) {
+	   JSONObject response = new JSONObject();
+	   String query = request.getString("query");
+	   houseService = new HouseService();
+	   try {
+		   List<Immobile> lista = houseService.retrieveHouse(query);
+		   response.put("status", "success");
+		   JSONArray jsonArray = new JSONArray();
+		   for(Immobile i : lista) {
+			   JSONObject jsonImmobile = new JSONObject();
+			   jsonImmobile.put("indirizzo", i.getIndirizzo());
+			   jsonImmobile.put("composizione", i.getComposizione().getId());
+			   jsonImmobile.put("agente", i.getAgente().getMail());
+			   jsonImmobile.put("prezzo", i.getPrezzo());
+			   jsonImmobile.put("annuncio", i.getAnnuncio());
+			   jsonImmobile.put("tipo", i.getTipo());
+			   jsonImmobile.put("descrizione", i.getDescrizione());
+			   jsonImmobile.put("classe", i.getClasseEnergetica());
+			   jsonImmobile.put("urls", i.getUrls());
+			   jsonArray.put(jsonImmobile);
+		   }
+		   response.put("immobili", jsonArray); 
+	   }catch (Exception e) {
+           response.put("status", "error");
+           response.put("message", "Errore durante il recupero degli immobili: " + e.getMessage());
+       }
+	   return response;
    }
+}
 

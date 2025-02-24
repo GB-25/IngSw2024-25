@@ -173,4 +173,12 @@ public class ClientModel {
     	
     	return sendRequest(request);
     }
+    
+    public JSONObject searchHouse(String query) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "findHouse");
+    	request.put("query", query);
+    	
+    	return sendRequest(request);
+    }
 }

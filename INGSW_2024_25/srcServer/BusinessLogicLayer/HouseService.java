@@ -1,6 +1,9 @@
 package BusinessLogicLayer;
 
 import DataAccessLayer.DatabaseManager;
+
+import java.util.ArrayList;
+
 import Class.*;
 
 
@@ -32,6 +35,10 @@ public class HouseService {
 		}
 		return false;
 		
+	}
+	
+	public ArrayList<Immobile> retrieveHouse(String query){
+		return dbManager.findHouses(query);
 	}
 	
 	
