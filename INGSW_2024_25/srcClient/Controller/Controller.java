@@ -416,11 +416,34 @@ public class Controller {
 	}
 	
 	
-	public void showReservation(User user, boolean isConfirmed) {
+	public ArrayList<String> showReservation(User user, boolean isConfirmed, String data) {
+		ArrayList<String> prenotazioni = new ArrayList<String>(); 
 		String mail = user.getMail();
 		boolean isAgente = user.getIsAgente();
-		JSONObject response = model.getReservation(mail, isConfirmed, isAgente);
-		if (response.getString("status").equals("success")) {}// da implementare, dipende dalla view
+		JSONObject response = model.getReservation(mail, isConfirmed, isAgente, data);
+		if (response.getString("status").equals("success")) {
+			JSONArray jsonArray = response.getJSONArray("prenotazioni");
+			for (int i = 0; i < jsonArray.length(); i++) {
+				StringBuilder sb = new StringBuilder();
+			    JSONObject jsonObject = jsonArray.getJSONObject(i);
+			    int id = jsonObject.getInt("id");
+			    String indirizzo = jsonObject.getString("indirizzo");
+			    String ora = jsonObject.getString("ora");
+			    if(isAgente) {
+			    	String cliente = jsonObject.getString("Cliente");
+			    	sb.append("prenotazione "+id+", Sig/ra "+cliente+", "+indirizzo+", alle ore "+ora);
+			    } else {
+			    	String agente = jsonObject.getString("Agente");
+			    	sb.append("prenotazione "+id+", Agente "+agente+", "+indirizzo+", alle ore "+ora);
+			    }
+			    String prenotazione = sb.toString();
+			    prenotazioni.add(prenotazione);
+		   }
+			
+		} else {
+			JOptionPane.showMessageDialog(null, "Errore nel recupero delle prenotazioni", "Errore", JOptionPane.ERROR_MESSAGE);
+		}
+		return prenotazioni;
 	}
 	
 	public void createReservation(User user, Immobile immobile, String data, String ora) {

@@ -275,8 +275,9 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   String mail = request.getString("mail");
 		   boolean isConfirmed = request.getBoolean("isConfirmed");
 		   boolean isAgente = request.getBoolean("isAgente");
+		   String data = request.getString("data");
 		   reservationService = new ReservationService();
-		   List<Prenotazione> lista = reservationService.getReservation(mail, isConfirmed, isAgente);
+		   List<Prenotazione> lista = reservationService.getReservation(mail, isConfirmed, isAgente, data);
 		   response.put("status", "success");
 		   JSONArray jsonArray = new JSONArray();
 		   for (Prenotazione p : lista) {
@@ -284,9 +285,9 @@ public class ClientHandler extends Thread { //implements Runnable???
 	           jsonPrenotazione.put("id", p.getId());
 	           jsonPrenotazione.put("data", p.getDataPrenotazione());
 	           jsonPrenotazione.put("ora", p.getOraPrenotazione());
-	           jsonPrenotazione.put("mailCliente", p.getUser().getMail());
+	           jsonPrenotazione.put("Cliente", p.getUser().getNome()+" "+p.getUser().getCognome());
 	           jsonPrenotazione.put("indirizzo", p.getImmobile().getIndirizzo());
-	           jsonPrenotazione.put("mailAgente", p.getAgente().getMail());;
+	           jsonPrenotazione.put("Agente", p.getAgente().getNome()+" "+p.getAgente().getCognome());;
 	           jsonPrenotazione.put("confermato", p.isConfirmed());
 	           jsonArray.put(jsonPrenotazione);
 		   }

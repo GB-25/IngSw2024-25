@@ -205,16 +205,16 @@ public class DatabaseManager {
            }
     }
     
-    public ArrayList<Prenotazione> getReservationByMail(String mail, boolean isConfirmed, boolean isAgente) {
+    public ArrayList<Prenotazione> getReservationByMail(String mail, boolean isConfirmed, boolean isAgente, String data) {
     	User agente;
     	Immobile immobile;
     	User cliente;
     	String query;
     	ArrayList<Prenotazione> lista = new ArrayList<Prenotazione>();
     	if(isAgente) {
-    		query = "SELECT * FROM prenotazioni WHERE agente_id = "+mail+" AND isConfirmed = "+isConfirmed+";";
+    		query = "SELECT * FROM prenotazioni WHERE agente_id = "+mail+" AND isConfirmed = "+isConfirmed+" AND data_prenotazione = "+data+";";
     	} else {
-    		query = "SELECT * FROM prenotazioni WHERE user_id = "+mail+" AND isConfirmed = "+isConfirmed+";";
+    		query = "SELECT * FROM prenotazioni WHERE user_id = "+mail+" AND isConfirmed = "+isConfirmed+"AND data_prenotazione = "+data+";";
     	}
     	 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {

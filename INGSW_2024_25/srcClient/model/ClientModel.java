@@ -133,13 +133,13 @@ public class ClientModel {
     	return sendRequest(request);
     }
     
-    public JSONObject getReservation(String mail, boolean isConfirmed, boolean isAgente) {
+    public JSONObject getReservation(String mail, boolean isConfirmed, boolean isAgente, String data) {
     	JSONObject request = new JSONObject();
     	request.put("action", "getReservation");
     	request.put("mail", mail);
     	request.put("isConfirmed", isConfirmed);
     	request.put("isAgente", isAgente);
-    	
+    	request.put("data", data);
     	return sendRequest(request);
     }
     

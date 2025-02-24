@@ -3,6 +3,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
+import Class.User;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.time.DayOfWeek;
@@ -22,8 +24,9 @@ public class VisioneCalendario extends JFrame {
     private LocalDate startDate;
     private Map<LocalDate, List<String>> confirmedAppointments = new HashMap<>();
     private Map<LocalDate, List<String>> pendingAppointments = new HashMap<>();
+    private ArrayList<String> prenotazioni;
     
-    public VisioneCalendario(Controller c) {
+    public VisioneCalendario(Controller c, User user) {
     	frame = new JFrame("Calendario");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
@@ -85,6 +88,8 @@ public class VisioneCalendario extends JFrame {
         // Pulsanti che mostrano gli appuntamenti della data selezionata (in attesa o confermati)
         showConfirmedBtn.addActionListener((ActionEvent e) -> {
             if (selectedDateGlobal != null) {
+            	prenotazioni = c.showReservation(user, true, selectedDateGlobal.toString());
+            	confirmedAppointments.put(selectedDateGlobal, prenotazioni);
                 showAppointmentsForDate(confirmedAppointments, selectedDateGlobal, "Prenotazioni Confermate");
             } else {
                 JOptionPane.showMessageDialog(frame, "Seleziona prima una data!", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -93,6 +98,8 @@ public class VisioneCalendario extends JFrame {
 
         showPendingBtn.addActionListener((ActionEvent e) -> {
             if (selectedDateGlobal != null) {
+            	prenotazioni = c.showReservation(user, false, selectedDateGlobal.toString());
+            	pendingAppointments.put(selectedDateGlobal, prenotazioni);
                 showAppointmentsForDate(pendingAppointments, selectedDateGlobal, "Prenotazioni in Attesa");
             } else {
                 JOptionPane.showMessageDialog(frame, "Seleziona prima una data!", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -125,7 +132,9 @@ public class VisioneCalendario extends JFrame {
     
  // Nuovo metodo per mostrare gli appuntamenti di una data specifica
     private void showAppointmentsForDate(Map<LocalDate, List<String>> appointments, LocalDate date, String title) {
-        List<String> appointmentList = appointments.getOrDefault(date, new ArrayList<>());
+        
+    	
+    	List<String> appointmentList = appointments.getOrDefault(date, new ArrayList<>());
         
         String message = appointmentList.isEmpty() ? "Nessun appuntamento per questa data." :
                          String.join("\n", appointmentList);
