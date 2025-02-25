@@ -7,11 +7,16 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Base64;
 
+import javax.swing.JOptionPane;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import Class.ComposizioneImmobile;
+import Class.Immobile;
 import Class.User;
 
 public class ClientModel {
@@ -179,18 +184,35 @@ public class ClientModel {
     	return uploaded;
     }
     
-    public JSONObject getReservation(String mail, boolean isConfirmed, boolean isAgente, String data) {
+    public ArrayList<String> getReservation(String mail, boolean isConfirmed, String data) {
     	JSONObject request = new JSONObject();
     	request.put("action", "getReservation");
     	request.put("mail", mail);
     	request.put("isConfirmed", isConfirmed);
-    	request.put("isAgente", isAgente);
     	request.put("data", data);
-    	return sendRequest(request);
+    	JSONObject response = sendRequest(request);
+    	ArrayList<String> prenotazioni = new ArrayList<String>(); 
+    	if (response.getString("status").equals("success")) {
+    		JSONArray jsonArray = response.getJSONArray("prenotazioni");
+			for (int i = 0; i < jsonArray.length(); i++) {
+				StringBuilder sb = new StringBuilder();
+			    JSONObject jsonObject = jsonArray.getJSONObject(i);
+			    int id = jsonObject.getInt("id");
+			    String indirizzo = jsonObject.getString("indirizzo");
+			    String ora = jsonObject.getString("ora");
+			    String cliente = jsonObject.getString("Cliente");
+			    sb.append("prenotazione "+id+", Sig/ra "+cliente+", "+indirizzo+", alle ore "+ora);
+			    String prenotazione = sb.toString();
+			    prenotazioni.add(prenotazione);
+			}
+    	} else {
+    		prenotazioni = null;
+    	}
+    	return prenotazioni;
     }
     
     
-    public JSONObject makeReservation(String data, String ora, String mailCliente, String indirizzo, String mailAgente) {
+    public boolean makeReservation(String data, String ora, String mailCliente, String indirizzo, String mailAgente) {
     	JSONObject request = new JSONObject();
     	request.put("action", "makeNewReservation");
     	request.put("data", data);
@@ -199,33 +221,76 @@ public class ClientModel {
     	request.put("indirizzo", indirizzo);
     	request.put("mailAgente", mailAgente);
     	
-    	return sendRequest(request);
+    	JSONObject response = sendRequest(request);
+    	if (response.getString("status").equals("error")) {
+    		return false;
+    	} else {
+    		return true;
+    	}
     }
     
-    public JSONObject confirmReservation(int id, String mail, String data, String ora) {
+    public boolean confirmReservation(int id, String mail, String data, String ora) {
     	JSONObject request = new JSONObject();
     	request.put("action", "reservationConfirmed");
     	request.put("id", id);
     	request.put("mail", mail);
     	request.put("data", data);
     	request.put("ora", ora);
-    	return sendRequest(request);
+    	JSONObject response = sendRequest(request);
+    	if (response.getString("status").equals("error")) {
+    		return false;
+    	} else {
+    		return true;
+    	}
     }
     
-    public JSONObject denyReservation(int id) {
+    public boolean denyReservation(int id) {
     	JSONObject request = new JSONObject();
     	request.put("action", "reservationDenied");
     	request.put("id", id);
     	
-    	return sendRequest(request);
+    	JSONObject response = sendRequest(request);
+    	if (response.getString("status").equals("error")) {
+    		return false;
+    	} else {
+    		return true;
+    	}
     }
     
-    public JSONObject searchHouse(String query) {
+    public ArrayList<Immobile> searchHouse(String query) {
     	JSONObject request = new JSONObject();
     	request.put("action", "findHouse");
     	request.put("query", query);
     	
-    	return sendRequest(request);
+    	JSONObject response = sendRequest(request);
+    	
+    	ArrayList<Immobile> immobili = new ArrayList<Immobile>();
+		Immobile casa;
+		if (response.getString("status").equals("success")) {
+			
+			JSONArray jsonArray = response.getJSONArray("immobilii");
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				String indirizzo = jsonObject.getString("indirizzo");
+				int idComposizione = jsonObject.getInt("composizione");
+				String mailAgente = jsonObject.getString("agente");
+				double prezzo = jsonObject.getDouble("prezzo");
+				String tipoAnnuncio = jsonObject.getString("annuncio");
+				String tipo = jsonObject.getString("tipo");
+				String descrizione = jsonObject.getString("descrizione");
+				String classe = jsonObject.getString("classe");
+			   	String urls = jsonObject.getString("urls");
+			   	User agente = this.getAgente(mailAgente);
+			   	ComposizioneImmobile composizione = this.getComposizione(idComposizione);
+			   	casa = new Immobile(prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
+			   			classe, descrizione, urls, agente);
+			   	immobili.add(casa);
+			   	//da capire come visualizzare le foto, però immagino sarà a parte dalla gui
+			}
+		} else {
+			immobili = null;
+		}
+		return immobili;
     }
     
     public User getAgente(String mailAgente) {

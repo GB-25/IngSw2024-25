@@ -205,18 +205,16 @@ public class DatabaseManager {
            }
     }
     
-    public ArrayList<Prenotazione> getReservationByMail(String mail, boolean isConfirmed, boolean isAgente, String data) {
+    public ArrayList<Prenotazione> getReservationByMail(String mail, boolean isConfirmed, String data) {
     	User agente;
     	Immobile immobile;
     	User cliente;
     	String query;
     	ArrayList<Prenotazione> lista = new ArrayList<Prenotazione>();
-    	if(isAgente) {
-    		query = "SELECT * FROM prenotazioni WHERE agente_id = "+mail+" AND isConfirmed = "+isConfirmed+" AND data_prenotazione = "+data+";";
-    	} else {
-    		query = "SELECT * FROM prenotazioni WHERE user_id = "+mail+" AND isConfirmed = "+isConfirmed+"AND data_prenotazione = "+data+";";
-    	}
-    	 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+    	
+    	query = "SELECT * FROM prenotazioni WHERE agente_id = "+mail+" AND isConfirmed = "+isConfirmed+" AND data_prenotazione = "+data+";";
+    	
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
                 
                 ResultSet rs = stmt.executeQuery();
@@ -226,7 +224,7 @@ public class DatabaseManager {
                 	immobile = this.getHouseByAddress(rs.getString("immobile_id"));
                 	cliente = this.getUserByMail(rs.getString("user_id"));
                 	Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), 
-                			cliente , immobile, agente, isConfirmed);
+                			cliente, immobile, agente, isConfirmed);
                 	lista.add(prenotazione);
                 }
                 

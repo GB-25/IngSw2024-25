@@ -400,32 +400,13 @@ public class Controller {
 	
 	
 	public ArrayList<String> showReservation(User user, boolean isConfirmed, String data) {
-		ArrayList<String> prenotazioni = new ArrayList<String>(); 
+		
 		String mail = user.getMail();
-		boolean isAgente = user.getIsAgente();
-		JSONObject response = model.getReservation(mail, isConfirmed, isAgente, data);
-		if (response.getString("status").equals("success")) {
-			JSONArray jsonArray = response.getJSONArray("prenotazioni");
-			for (int i = 0; i < jsonArray.length(); i++) {
-				StringBuilder sb = new StringBuilder();
-			    JSONObject jsonObject = jsonArray.getJSONObject(i);
-			    int id = jsonObject.getInt("id");
-			    String indirizzo = jsonObject.getString("indirizzo");
-			    String ora = jsonObject.getString("ora");
-			    if(isAgente) {
-			    	String cliente = jsonObject.getString("Cliente");
-			    	sb.append("prenotazione "+id+", Sig/ra "+cliente+", "+indirizzo+", alle ore "+ora);
-			    } else {
-			    	String agente = jsonObject.getString("Agente");
-			    	sb.append("prenotazione "+id+", Agente "+agente+", "+indirizzo+", alle ore "+ora);
-			    }
-			    String prenotazione = sb.toString();
-			    prenotazioni.add(prenotazione);
-		   }
-			
-		} else {
-			JOptionPane.showMessageDialog(null, "Errore nel recupero delle prenotazioni", "Errore", JOptionPane.ERROR_MESSAGE);
-		}
+		
+		ArrayList<String> prenotazioni = model.getReservation(mail, isConfirmed, data);
+		if(prenotazioni.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Non sono presenti prenotazioni", "Errore", JOptionPane.ERROR_MESSAGE);
+		} 
 		return prenotazioni;
 	}
 	
@@ -433,8 +414,8 @@ public class Controller {
 		String mailCliente=user.getMail();
 		String indirizzo=immobile.getIndirizzo();
 		String mailAgente=immobile.getAgente().getMail();
-		JSONObject response = model.makeReservation(data, ora, mailCliente, indirizzo, mailAgente);
-		if (response.getString("status").equals("error")) {
+		boolean reservation = model.makeReservation(data, ora, mailCliente, indirizzo, mailAgente);
+		if (!reservation) {
 			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile o sei già impegnato quel giorno", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
 			//metodo per mostrare "bravo hai prenotato"
@@ -443,8 +424,8 @@ public class Controller {
 	
 
 	public boolean reservationConfirm(int id, String mail, String data, String ora) {
-		JSONObject response = model.confirmReservation(id, mail, data, ora);
-		if (response.getString("status").equals("error")) {
+		boolean confirmed = model.confirmReservation(id, mail, data, ora);
+		if (!confirmed) {
 			 JOptionPane.showMessageDialog(null, "Errore durante la conferma: Sei già impeganto quel giorno", "Errore", JOptionPane.ERROR_MESSAGE);
 			 return false;
 		} else {
@@ -455,8 +436,8 @@ public class Controller {
 	
 	
 	public void reservationDeny(int id) {
-		JSONObject response = model.denyReservation(id);
-		if (response.getString("status").equals("error")) {
+		boolean deleted = model.denyReservation(id);
+		if (!deleted) {
 			 JOptionPane.showMessageDialog(null, "Errore durante la cancellazione", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(null, "Prenotazione rifiutata! Avviseremo il cliente per te ;)", "Rifiutato", JOptionPane.INFORMATION_MESSAGE);
@@ -497,31 +478,11 @@ public class Controller {
 		}
 		sql.append(";");
 		String query = sql.toString();
-		JSONObject response = model.searchHouse(query);
-		ArrayList<Immobile> immobili = new ArrayList<Immobile>();
+		
+		ArrayList<Immobile> immobili = model.searchHouse(query);
 		Immobile casa;
-		if (response.getString("status").equals("error")) {
-			JOptionPane.showMessageDialog(null, "Errore durante la ricerca", "Errore", JOptionPane.ERROR_MESSAGE);
-		}else {
-			JSONArray jsonArray = response.getJSONArray("immobilii");
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				String indirizzo = jsonObject.getString("indirizzo");
-				int idComposizione = jsonObject.getInt("composizione");
-				String mailAgente = jsonObject.getString("agente");
-				double prezzo = jsonObject.getDouble("prezzo");
-				String tipoAnnuncio = jsonObject.getString("annuncio");
-				String tipo = jsonObject.getString("tipo");
-				String descrizione = jsonObject.getString("descrizione");
-				String classe = jsonObject.getString("classe");
-			   	String urls = jsonObject.getString("urls");
-			   	User agente = model.getAgente(mailAgente);
-			   	ComposizioneImmobile composizione = model.getComposizione(idComposizione);
-			   	casa = new Immobile(prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
-			   			classe, descrizione, urls, agente);
-			   	immobili.add(casa);
-			   	//da capire come visualizzare le foto, però immagino sarà a parte dalla gui
-			}
+		if (immobili.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", "Errore", JOptionPane.ERROR_MESSAGE);
 		}
 		return immobili;
 	}
