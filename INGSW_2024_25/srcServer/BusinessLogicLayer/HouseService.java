@@ -41,6 +41,10 @@ public class HouseService {
 		return dbManager.findHouses(query);
 	}
 	
+	public ComposizioneImmobile getComposizione(int id) {
+		return dbManager.getComposizioneById(id);
+	}
+	
 	
 	
 }

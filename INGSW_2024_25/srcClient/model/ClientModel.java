@@ -11,6 +11,9 @@ import java.util.Base64;
 
 import org.json.JSONObject;
 
+import Class.ComposizioneImmobile;
+import Class.User;
+
 public class ClientModel {
     private String serverIP; //34.78.163.251
     private int port;
@@ -43,16 +46,30 @@ public class ClientModel {
     }
     
     
-    public JSONObject loginModel(String mail, String password) {
+    public User loginModel(String mail, String password) {
     	JSONObject request = new JSONObject();
         request.put("action", "login");
         request.put("mail", mail);
         request.put("password", password);
-        return sendRequest(request);
+        User user;
+        JSONObject response = sendRequest(request);
+        if (response.getString("status").equals("success")) {
+        	String nome = response.getString("nome");
+        	String cognome = response.getString("cognome");
+        	String dataNascita = response.getString("dataNascita");
+        	String telefono = response.getString("telefono");
+        	boolean isAgente = response.getBoolean("isAgente");
+		
+        	user = new User(mail, password, nome, cognome, telefono, dataNascita, isAgente);
+        } else {
+        	user = null;
+        }
+        return user;
     }
     
-    public JSONObject registerModel (String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
+    public User registerModel (String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
     	JSONObject request = new JSONObject();
+    	User user;
     	request.put("action", "register");
     	request.put("name", nome);
     	request.put("surname", cognome);
@@ -61,7 +78,13 @@ public class ClientModel {
     	request.put("cellphone", telefono);
     	request.put("password", password);
     	request.put("isAgente", isAgente);
-    	return sendRequest(request);
+    	JSONObject response = sendRequest(request);
+    	if (response.getString("status").equals("success")) {
+    		user = new User(mail, password, nome, cognome, telefono, data, isAgente );
+    	} else {
+    		user = null;
+    	}
+    	return user;
     }
     
     public void newPasswordModel(String mail, String nuovaPassword) {
@@ -73,10 +96,10 @@ public class ClientModel {
     	
     }
  
-    public JSONObject uploadFileModel(String filePath) {
+    public String uploadFileModel(String filePath) {
         JSONObject request = new JSONObject();
         request.put("action", "uploadFile");
-        
+        String fileUrl = null;
         try {
             Path path = Paths.get(filePath);
             byte[] fileBytes = Files.readAllBytes(path);
@@ -85,24 +108,35 @@ public class ClientModel {
             // Inviamo sia il nome del file che i dati in Base64
             request.put("fileName", path.getFileName().toString());
             request.put("fileData", base64Data);
+            JSONObject response = sendRequest(request);
+            if (response.getString("status").equals("success")) {
+            	fileUrl = response.getString("fileUrl"); 
+            } else {
+            	System.err.println("Errore durante l'upload: " + response.getString("message"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
             // Puoi decidere come gestire l'errore (ad es. inserendo un campo "error" nel JSON)
         }
-        return sendRequest(request);
+        return fileUrl;
     }
     
-    public JSONObject downloadFileModel(String fileName) {
+    public String downloadFileModel(String fileName) {
         JSONObject request = new JSONObject();
         request.put("action", "downloadFile");
         request.put("fileName", fileName);
-        
-        // Invio della richiesta al server.
+        String fileData = null;
        
-        return sendRequest(request);
+        JSONObject response = sendRequest(request);
+        if (response.getString("status").equals("success")) {
+        	fileData = response.getString("fileData");
+        } else {
+            System.err.println("Errore durante il download: " + response.getString("message"));
+        }
+        return fileData;
     }
     
-    public JSONObject uploadComposition(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
+    public int uploadComposition(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
     	JSONObject request = new JSONObject();
     	request.put("action", "uploadComposition");
     	request.put("quadratura", quadratura);
@@ -112,11 +146,17 @@ public class ClientModel {
     	request.put("condominio", condominio);
     	request.put("ascensore", ascensore);
     	request.put("terrazzo", terrazzo);
-    	
-    	return sendRequest(request);
+    	int id;
+    	JSONObject response = sendRequest(request);
+    	if (response.getString("status").equals("error")) {
+    		id=0;
+    	} else {
+    		id = response.getInt("id");
+    	}
+    	return id;
     }
     
-    public JSONObject uploadHouseModel(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
+    public boolean uploadHouseModel(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
             String urls, String agente) {
     	JSONObject request = new JSONObject();
     	request.put("action", "uploadHouse");
@@ -129,8 +169,14 @@ public class ClientModel {
     	request.put("descrizione", descrizione);
     	request.put("urls", urls);
     	request.put("agente", agente);
-    	
-    	return sendRequest(request);
+    	boolean uploaded;
+    	JSONObject response = sendRequest(request);
+    	if (response.getString("status").equals("error")) {
+    		uploaded = false;
+    	} else {
+    		uploaded = true;
+    	}
+    	return uploaded;
     }
     
     public JSONObject getReservation(String mail, boolean isConfirmed, boolean isAgente, String data) {
@@ -180,5 +226,44 @@ public class ClientModel {
     	request.put("query", query);
     	
     	return sendRequest(request);
+    }
+    
+    public User getAgente(String mailAgente) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "findAgente");
+    	request.put("mail", mailAgente);
+    	
+    	JSONObject response = sendRequest(request);
+    	
+    	String mail = response.getString("mail");
+    	String password = response.getString("password");
+    	String nome = response.getString("nome");
+		String cognome = response.getString("cognome");
+		String dataNascita = response.getString("dataNascita");
+		String telefono = response.getString("telefono");
+		Boolean isAgente = response.getBoolean("isAgente");
+		
+		return new User(mail, password, nome, cognome, telefono, dataNascita, isAgente);
+    }
+    
+    public ComposizioneImmobile getComposizione(int idComposizione) {
+    	JSONObject request = new JSONObject();
+    	request.put("action", "findComposzione");
+    	request.put("id", idComposizione);
+    	
+    	JSONObject response = sendRequest(request);
+    	
+    	int id = request.getInt("idComposizione");
+    	int quadratura = request.getInt("quadratura");
+    	int stanze = request.getInt("stanze"); 
+		int piani = request.getInt("piani"); 
+		boolean giardino = request.getBoolean("giardino");
+		boolean condominio = request.getBoolean("condominio");
+		boolean ascensore = request.getBoolean("ascensore"); 
+		boolean terrazzo = request.getBoolean("terrazzo");
+		
+		return new ComposizioneImmobile(id, quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
+    	
+    	
     }
 }

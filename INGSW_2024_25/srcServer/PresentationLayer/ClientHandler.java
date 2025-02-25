@@ -82,6 +82,11 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "findHouse":
                 		response = getHouse(request);
                 		break;
+                	case "findAgente":
+                		response = fetchAgente(request);
+                		break;
+                	case "findComposzione":
+                		response = fetchComposizione(request);
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non riconosciuta");
@@ -329,6 +334,50 @@ public class ClientHandler extends Thread { //implements Runnable???
            response.put("status", "error");
            response.put("message", "Errore durante il recupero degli immobili: " + e.getMessage());
        }
+	   return response;
+   }
+   
+   public JSONObject fetchAgente(JSONObject request) {
+	   JSONObject response = new JSONObject();
+	   try {
+		   String mail = request.getString("mail");
+		   userService = new UserService();
+		   User user = userService.getUser(mail);
+		   response.put("status", "success");
+		   response.put("mail", user.getMail());
+		   response.put("password", user.getPassword());
+		   response.put("nome", user.getNome());
+		   response.put("cognome", user.getCognome());
+		   response.put("telefono", user.getNumeroTelefono());
+		   response.put("dataNascita", user.getDataNascita());
+		   response.put("isAgente", user.getIsAgente());
+		  
+	   } catch (Exception e) {
+           response.put("status", "error");
+           response.put("message", "Errore durante il recupero degli agenti: " + e.getMessage());
+       }
+	   return response;
+   }
+   
+   public JSONObject fetchComposizione(JSONObject request) {
+	   JSONObject response = new JSONObject();
+	   try {
+		   int id = request.getInt("idComposizione");
+		   houseService = new HouseService();
+		   ComposizioneImmobile composizione = houseService.getComposizione(id);
+		   response.put("status", "success");
+		   response.put("idComposizione", id);
+		   response.put("quadratura",composizione.getQuadratura());
+		   response.put("piani",composizione.getPiani());
+		   response.put("stanze",composizione.getNumeroStanze());
+		   response.put("terrazzo",composizione.isTerrazzo());
+		   response.put("giardino",composizione.isGiardino());
+		   response.put("ascensore",composizione.isAscensore());
+		   response.put("condominio",composizione.isCondominio());
+	   }catch (Exception e) {
+		   response.put("status", "error");
+		   response.put("message", "Errore durante il recupero delle composizioni degli immobili: " + e.getMessage());
+	   }
 	   return response;
    }
 }

@@ -48,6 +48,7 @@ import org.jxmapviewer.viewer.TileFactory;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.WaypointPainter;
 
+import Class.ComposizioneImmobile;
 import Class.Immobile;
 import Class.User;
 
@@ -79,19 +80,13 @@ public class Controller {
 		if (mail == null || password == null) {
 			JOptionPane.showMessageDialog(null, "Almeno uno dei campi è vuoto", "Errore di Login", JOptionPane.ERROR_MESSAGE);
 		}else {
-			JSONObject response = model.loginModel(mail, password);
-			if (response.getString("status").equals("error")) {
+			User user = model.loginModel(mail, password);
+			if (user == null) {
 				JOptionPane.showMessageDialog(null, "Credenziali errate!", "Errore di Login", JOptionPane.ERROR_MESSAGE);
 			} else {
 				
 				finestraPrincipale.setVisible(false);
-				String nome = response.getString("nome");
-				String cognome = response.getString("cognome");
-				String dataNascita = response.getString("dataNascita");
-				String telefono = response.getString("telefono");
-				Boolean isAgente = response.getBoolean("isAgente");
 				
-				User user = new User(mail, password, nome, cognome, telefono, dataNascita, isAgente );
 				if(user.getIsAgente()) {
 					
 					homeAgente= new HomeAgente(this, user);
@@ -107,11 +102,10 @@ public class Controller {
 	
 	public void handleRegistration (String nome, String cognome, String data, String mail, String telefono, char[] pass, boolean isAgente) {
 		String password = new String(pass);
-		JSONObject response = model.registerModel(nome, cognome, data, mail, telefono, password, isAgente);
-		if (response.getString("status").equals("error")) {
+		User user = model.registerModel(nome, cognome, data, mail, telefono, password, isAgente);
+		if (user == null) {
 			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
-			User user = new User(mail, password, nome, cognome, telefono, data, isAgente );
 			finestraRegistrazione.setVisible(false);
 			homeUtente = new FinestraHome(this, user);
 			homeUtente.setVisible(true);
@@ -190,40 +184,29 @@ public class Controller {
 	}
 	
 	public String fileUpload(String filePath) {
-	    JSONObject response = model.uploadFileModel(filePath);
-
-	    if (response.getString("status").equals("success")) {
-	        String fileUrl = response.getString("fileUrl"); // URL del file caricato
-	        System.out.println("File caricato con successo: " + fileUrl);
+	    String fileUrl = model.uploadFileModel(filePath);
+	    if (!fileUrl.isEmpty()) {
 	        return fileUrl;  // Restituisce l'URL del file per essere salvato nel database
-	    } else {
-	        System.err.println("Errore durante l'upload: " + response.getString("message"));
+	    } else {	        
 	        return null;
 	    }
 	}
 	
 	public String fileDownload(String fileName) {
-        JSONObject response = model.downloadFileModel(fileName);
-        if (response.getString("status").equals("success")) {
-            String fileData = response.getString("fileData");
-            System.out.println("File scaricato con successo.");
+		String fileData = model.downloadFileModel(fileName);
+        if (!fileData.isEmpty()) {
             return fileData;  // Questa stringa Base64 potrà essere decodificata dal client per visualizzare l'immagine
         } else {
-            System.err.println("Errore durante il download: " + response.getString("message"));
             return null;
         }
     }
 	
 	public int createComposition(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
-		int id = 0;
-		JSONObject response = model.uploadComposition(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
-		if (response.getString("status").equals("error")) {
+		int id = model.uploadComposition(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
+		if (id==0) {
 			JOptionPane.showMessageDialog(null, "Errore nel caricamento dell'immobile", "Errore", JOptionPane.ERROR_MESSAGE);	
 		}
-		else {
-			id = response.getInt("id");
-		}
-		return id;
+		return id; //da verificare se da problemi il ritorno
 	}
 	
 	public boolean checkComboBox(JComboBox comboBox) {
@@ -407,8 +390,8 @@ public class Controller {
 	public void uploadHouse(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
             String urls, User user) {
 		String mail = user.getMail();
-		JSONObject response = model.uploadHouseModel(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, mail);
-		if (response.getString("status").equals("error")) {
+		boolean confermato = model.uploadHouseModel(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, mail);
+		if (!confermato) {
 			 JOptionPane.showMessageDialog(null, "Immobile già presente", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
 			new CaricamentoConfermato(this, user);
@@ -492,7 +475,7 @@ public class Controller {
 		return urlArray;
 	}
 	//boh cosa gli deve tornare, le istanze singole, una lista?
-	public void ricercaImmobili(int prezzoMin, int prezzoMax, String classeEnergetica, String posizione, String tipoImmobile, String annuncio){
+	public ArrayList<Immobile> ricercaImmobili(int prezzoMin, int prezzoMax, String classeEnergetica, String posizione, String tipoImmobile, String annuncio){
 		StringBuilder sql = new StringBuilder("SELECT * FROM immobili");
 		if (prezzoMin > 0) {
 			sql.append(" AND prezzo >= "+prezzoMin);
@@ -515,6 +498,8 @@ public class Controller {
 		sql.append(";");
 		String query = sql.toString();
 		JSONObject response = model.searchHouse(query);
+		ArrayList<Immobile> immobili = new ArrayList<Immobile>();
+		Immobile casa;
 		if (response.getString("status").equals("error")) {
 			JOptionPane.showMessageDialog(null, "Errore durante la ricerca", "Errore", JOptionPane.ERROR_MESSAGE);
 		}else {
@@ -522,7 +507,7 @@ public class Controller {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				String indirizzo = jsonObject.getString("indirizzo");
-				int composizione = jsonObject.getInt("composizione");
+				int idComposizione = jsonObject.getInt("composizione");
 				String mailAgente = jsonObject.getString("agente");
 				double prezzo = jsonObject.getDouble("prezzo");
 				String tipoAnnuncio = jsonObject.getString("annuncio");
@@ -530,10 +515,15 @@ public class Controller {
 				String descrizione = jsonObject.getString("descrizione");
 				String classe = jsonObject.getString("classe");
 			   	String urls = jsonObject.getString("urls");
-			   	//vanno create le istanze di immobile e messe in una lista, probabile nuovi
-			   	//metodi del controller per ottenere gli oggetti composizione e agente
+			   	User agente = model.getAgente(mailAgente);
+			   	ComposizioneImmobile composizione = model.getComposizione(idComposizione);
+			   	casa = new Immobile(prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
+			   			classe, descrizione, urls, agente);
+			   	immobili.add(casa);
+			   	//da capire come visualizzare le foto, però immagino sarà a parte dalla gui
 			}
 		}
+		return immobili;
 	}
 	
 	public static void main(String[] args)

@@ -44,6 +44,10 @@ public class UserService {
     	dbManager.updatePassword(mail, nuovaPassword);
     }
     
+    public User getUser(String mail) {
+    	return dbManager.getUserByMail(mail);
+    }
+    
     public void close() {
         dbManager.closeConnection();
     }
