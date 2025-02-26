@@ -282,10 +282,10 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   try {
 		   String mail = request.getString("mail");
 		   boolean isConfirmed = request.getBoolean("isConfirmed");
-	
+		   boolean isAgente = request.getBoolean("isAgente");
 		   String data = request.getString("data");
 		   reservationService = new ReservationService();
-		   List<Prenotazione> lista = reservationService.getReservation(mail, isConfirmed, data);
+		   List<Prenotazione> lista = reservationService.getReservation(mail, isConfirmed, data, isAgente);
 		   response.put("status", "success");
 		   JSONArray jsonArray = new JSONArray();
 		   for (Prenotazione p : lista) {

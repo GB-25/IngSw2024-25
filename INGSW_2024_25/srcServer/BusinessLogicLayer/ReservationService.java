@@ -41,8 +41,7 @@ public class ReservationService {
 		
 	}
 	
-	public ArrayList<Prenotazione> getReservation(String mail, boolean isConfirmed, String data){
-		return dbManager.getReservationByMail(mail, isConfirmed, data);
+	public ArrayList<Prenotazione> getReservation(String mail, boolean isConfirmed, String data,  boolean isAgente){
+		return dbManager.getReservationByMail(mail, isConfirmed, data, isAgente);
 	}
-	
 }

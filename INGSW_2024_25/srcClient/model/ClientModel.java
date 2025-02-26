@@ -184,12 +184,13 @@ public class ClientModel {
     	return uploaded;
     }
     
-    public ArrayList<String> getReservation(String mail, boolean isConfirmed, String data) {
+    public ArrayList<String> getReservation(String mail, boolean isConfirmed, String data, boolean isAgente) {
     	JSONObject request = new JSONObject();
     	request.put("action", "getReservation");
     	request.put("mail", mail);
     	request.put("isConfirmed", isConfirmed);
     	request.put("data", data);
+    	request.put("isAgente", isAgente);
     	JSONObject response = sendRequest(request);
     	ArrayList<String> prenotazioni = new ArrayList<String>(); 
     	if (response.getString("status").equals("success")) {
@@ -200,8 +201,13 @@ public class ClientModel {
 			    int id = jsonObject.getInt("id");
 			    String indirizzo = jsonObject.getString("indirizzo");
 			    String ora = jsonObject.getString("ora");
-			    String cliente = jsonObject.getString("Cliente");
-			    sb.append("prenotazione "+id+", Sig/ra "+cliente+", "+indirizzo+", alle ore "+ora);
+			    if(isAgente) {
+			    	String cliente = jsonObject.getString("Cliente");
+			    	sb.append("prenotazione "+id+", Sig/ra "+cliente+", "+indirizzo+", alle ore "+ora);
+			    } else {
+			    	String agente = jsonObject.getString("Agente");
+			    	sb.append("prenotazione "+id+", Agente "+agente+", "+indirizzo+", alle ore "+ora);
+			    }
 			    String prenotazione = sb.toString();
 			    prenotazioni.add(prenotazione);
 			}

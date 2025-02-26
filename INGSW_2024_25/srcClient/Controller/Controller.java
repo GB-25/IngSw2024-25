@@ -402,8 +402,8 @@ public class Controller {
 	public ArrayList<String> showReservation(User user, boolean isConfirmed, String data) {
 		
 		String mail = user.getMail();
-		
-		ArrayList<String> prenotazioni = model.getReservation(mail, isConfirmed, data);
+		boolean isAgente = user.getIsAgente();
+		ArrayList<String> prenotazioni = model.getReservation(mail, isConfirmed, data, isAgente);
 		if(prenotazioni.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Non sono presenti prenotazioni", "Errore", JOptionPane.ERROR_MESSAGE);
 		} 
