@@ -148,17 +148,17 @@ public class HomeAgente extends JFrame {
 
         addPropertyButton.setPreferredSize(new Dimension(500, 120));
         addPropertyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        addPropertyButton.setFont(new Font("Helvetica", Font.PLAIN, 18));
+        addPropertyButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
         addPropertyButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         addPropertyButton.setBackground(new Color(210, 224, 239));
         viewRequestsButton.setPreferredSize(new Dimension(500, 120));
         viewRequestsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        viewRequestsButton.setFont(new Font("Helvetica", Font.PLAIN, 18));
+        viewRequestsButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
         viewRequestsButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         viewRequestsButton.setBackground(new Color(210, 224, 239));
         viewCalendarButton.setPreferredSize(new Dimension(500, 120));
         viewCalendarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        viewCalendarButton.setFont(new Font("Helvetica", Font.PLAIN, 18));
+        viewCalendarButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
         viewCalendarButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         viewCalendarButton.setBackground(new Color(210, 224, 239));
         
