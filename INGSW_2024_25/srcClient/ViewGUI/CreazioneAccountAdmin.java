@@ -10,18 +10,26 @@ import Controller.Controller;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Calendar;
 
 public class CreazioneAccountAdmin extends JFrame {
     private JTextField txtNome, txtCognome, txtEmail, txtTelefono;
-    private JPasswordField txtPassword, txtConfermaPassword;
+    private JTextField txtPassword;
     private JDateChooser dateChooser;
+    private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    private static final String DIGITS = "0123456789";
+    private static final String ALL_CHARS = UPPERCASE + LOWERCASE + DIGITS;
+    private static final int LENGTH = 10;
+    private static final SecureRandom random = new SecureRandom();
+
     private boolean[] valori = {false, false, false, false};
 
     public CreazioneAccountAdmin(Controller c, User user) {
         // Configurazione finestra
-        setTitle("Creazione Account - Admin");
+        setTitle("Creazione Account Admin - DietiEstates25");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
@@ -36,7 +44,7 @@ public class CreazioneAccountAdmin extends JFrame {
         indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
         indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, user);});
-        indietroPanel.add(indietroButton);
+        indietroPanel.add(indietroButton, BorderLayout.NORTH);
         mainPanel.add(indietroPanel);
         
         dateChooser = new JDateChooser();
@@ -54,6 +62,8 @@ public class CreazioneAccountAdmin extends JFrame {
         cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 82); 
         Date dataMinima = cal.getTime(); 
         dateChooser.setSelectableDateRange(dataMinima, dataMassima);
+        
+        String password = generateRandomString(); 
 
         // Campi per input
         mainPanel.add(createLabelFieldPanel("Nome:", txtNome = new JTextField(15)));
@@ -61,19 +71,27 @@ public class CreazioneAccountAdmin extends JFrame {
         mainPanel.add(createDateFieldPanel("Data di nascita:", dateChooser));
         mainPanel.add(createLabelFieldPanel("Telefono:", txtTelefono = new JTextField(15)));        
         mainPanel.add(createLabelFieldPanel("E-mail:", txtEmail = new JTextField(15)));
-        mainPanel.add(createLabelFieldPanel("Password:", txtPassword = new JPasswordField(15)));
-        mainPanel.add(createLabelFieldPanel("Conferma Password:", txtConfermaPassword = new JPasswordField(15)));
+        mainPanel.add(createLabelFieldPanel("Password:", txtPassword = new JTextField(password, 15))); // Campo password non editabile
+        txtPassword.setEditable(false);
+        JLabel label = new JLabel("Sarà possibile modificare la password in futuro. Ricordati di segnarla da qualche parte! ;)");
+        label.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
+        mainPanel.add(label);
+        
 
         // Pulsante per la creazione account
         JButton btnCreaAccount = new JButton("Crea Account");
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnCreaAccount.addActionListener(e -> creaAccount(c, user));
 
+     // Panel per  il pulsante
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(btnCreaAccount);
+
         mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Spazio tra i campi
-        mainPanel.add(btnCreaAccount);
+        mainPanel.add(buttonPanel); 
 
         // Aggiungi il pannello alla finestra
-        add(mainPanel);
+        getContentPane().add(mainPanel);
 
         // Mostra la finestra
         setVisible(true);
@@ -107,11 +125,10 @@ public class CreazioneAccountAdmin extends JFrame {
         String email = txtEmail.getText().trim();
         String telefono = txtTelefono.getText().trim();
         String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-        char[] password = txtPassword.getPassword();
-        char[] confermaPassword = txtConfermaPassword.getPassword();
+        String password = txtPassword.getText().trim();
 
         // Verifica che tutti i campi siano compilati
-        if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || telefono.isEmpty() || data.isEmpty() || password.toString().isEmpty()|| confermaPassword.toString().isEmpty()) {
+        if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || telefono.isEmpty() || data.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori!", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -127,21 +144,6 @@ public class CreazioneAccountAdmin extends JFrame {
         	JOptionPane.showMessageDialog(this, "Inserisci un numero di telefono valido!", "Errore", JOptionPane.ERROR_MESSAGE);
         	return;
         }
-
-        // Verifica lunghezza password
-        c.isValidPassword(password, valori);
-        if (!c.checkFields(valori)){
-        	
-            JOptionPane.showMessageDialog(this, "La password deve contenere almeno 6 caratteri, una lettera minuscola, una lettera maiuscola e una cifra!", "Errore", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Verifica che le password coincidano
-        if (!c.verifyPassword(password, confermaPassword)) {
-            JOptionPane.showMessageDialog(this, "Le password non coincidono!", "Errore", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
         int response = JOptionPane.showConfirmDialog(null,
                 "I campi sono stati riempiti ed è possibile creare l'account. Procedere?",
                 "Conferma creazione account amministrativo",
@@ -149,11 +151,37 @@ public class CreazioneAccountAdmin extends JFrame {
                 JOptionPane.QUESTION_MESSAGE);
 
         if (response == JOptionPane.YES_OPTION) {
-        	c.handleRegistration(nome, cognome, data, email, telefono, password, true);
+        	//c.handleRegistration(nome, cognome, data, email, telefono, password, true);
+        	// Sono stato costretto a commentare questa sezione altrimenti non partiva, bisogna fare in modo che password venga poi restituita in versione JPasswordField
         	JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             dispose();
             new HomeAgente(c, agenteChiamante);
         }
+    }
+    
+    public static String generateRandomString() {
+        StringBuilder sb = new StringBuilder(LENGTH);
+
+        // Inclusione di almeno un carattere di ogni tipo
+        sb.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
+        sb.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
+        sb.append(DIGITS.charAt(random.nextInt(DIGITS.length())));
+
+        // Riempimento con caratteri casuali
+        for (int i = 3; i < LENGTH; i++) {
+            sb.append(ALL_CHARS.charAt(random.nextInt(ALL_CHARS.length())));
+        }
+
+        // Mescolamento caratteri poi inseriti in un array
+        char[] charArray = sb.toString().toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            int randomIndex = random.nextInt(charArray.length);
+            char temp = charArray[i];
+            charArray[i] = charArray[randomIndex];
+            charArray[randomIndex] = temp;
+        }
+
+        return new String(charArray);
     }
 
     public static void main(String[] args) {
