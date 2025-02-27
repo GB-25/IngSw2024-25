@@ -77,7 +77,7 @@ public class VisioneImmobile extends JFrame {
         mapPanel.setBackground(Color.LIGHT_GRAY);
         mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione"));
         mapPanel.setPreferredSize(new Dimension(200, 200));
-        c.getCoordinates("Via Appia Nuova, 35, 00043 Ciampino RM, Italia", mapPanel, mapViewer);
+        c.getCoordinates(c, "Via Appia Nuova, 35, 00043 Ciampino RM, Italia", mapPanel, mapViewer, false);
         carouselPanel.add(mapPanel, BorderLayout.SOUTH);
         
 
