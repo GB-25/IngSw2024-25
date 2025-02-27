@@ -122,7 +122,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         leftPanel.add(new JLabel(""));
         JButton buttonSearch = new JButton("Mostra sulla mappa");
         buttonSearch.setMaximumSize(new Dimension(100, 25));
-        buttonSearch.addActionListener(e -> c.getCoordinates(searchField.getText().trim(), mapPanel, mapViewer));
+        buttonSearch.addActionListener(e -> c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false));
         leftPanel.add(scrollPane);
         leftPanel.add(new JLabel(""));
         leftPanel.add(buttonSearch);
