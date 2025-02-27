@@ -6,7 +6,11 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+
+import Controller.Controller;
+
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -31,28 +35,32 @@ public class ProvaLogin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField passwordField;
+	private JFrame finestraCorrente;
+	private FinestraRegistrazione finestraRegistrazione;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ProvaLogin frame = new ProvaLogin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ProvaLogin frame = new ProvaLogin();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public ProvaLogin() {
+	public ProvaLogin(Controller c) {
+		finestraCorrente= this;
+		this.setResizable(false);
 		setPreferredSize(new Dimension(800, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
@@ -98,17 +106,17 @@ public class ProvaLogin extends JFrame {
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		JLabel lblNewLabel = new JLabel("                          La casa dei tuoi sogni a portata di mano!");
-		lblNewLabel.setBackground(new Color(255, 255, 255));
-		lblNewLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		lblNewLabel.setFont(new Font("Microsoft JhengHei UI Light", Font.ITALIC, 24));
+		JLabel lblSottoTitolo = new JLabel("                          La casa dei tuoi sogni a portata di mano!");
+		lblSottoTitolo.setBackground(new Color(255, 255, 255));
+		lblSottoTitolo.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		lblSottoTitolo.setFont(new Font("Microsoft JhengHei UI Light", Font.ITALIC, 24));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.NORTH;
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
-		panel_1.add(lblNewLabel, gbc_lblNewLabel);
+		panel_1.add(lblSottoTitolo, gbc_lblNewLabel);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 255, 255));
@@ -125,14 +133,14 @@ public class ProvaLogin extends JFrame {
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		JLabel lblNewLabel_1 = new JLabel("E-mail:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		JLabel lblMail = new JLabel("E-mail:");
+		lblMail.setFont(new Font("Tahoma", Font.BOLD, 13));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 2;
-		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		panel_2.add(lblMail, gbc_lblNewLabel_1);
 		
 		textField = new JTextField();
 		textField.setPreferredSize(new Dimension(20, 19));
@@ -144,44 +152,47 @@ public class ProvaLogin extends JFrame {
 		panel_2.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Password:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 13));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 3;
-		panel_2.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		panel_2.add(lblPassword, gbc_lblNewLabel_2);
 		
-		JButton btnNewButton_1 = new JButton("Accedi");
-		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_1.setBackground(new Color(166, 204, 238));
-		btnNewButton_1.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 13));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnAccedi = new JButton("Accedi");
+		btnAccedi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAccedi.setBackground(new Color(166, 204, 238));
+		btnAccedi.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 13));
+		btnAccedi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				c.handleLogin(textField.getText(), passwordField.getPassword());
 			}
 		});
 		
-		textField_1 = new JTextField();
-		textField_1.setPreferredSize(new Dimension(20, 19));
+		passwordField = new JPasswordField();
+		passwordField.setPreferredSize(new Dimension(20, 19));
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_1.gridx = 2;
 		gbc_textField_1.gridy = 3;
-		panel_2.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		panel_2.add(passwordField, gbc_textField_1);
+		passwordField.setColumns(10);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_1.gridx = 2;
 		gbc_btnNewButton_1.gridy = 4;
-		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
+		panel_2.add(btnAccedi, gbc_btnNewButton_1);
 		
-		JButton btnNewButton = new JButton("Registrati!");
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnRegistrati = new JButton("Registrati!");
+		btnRegistrati.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRegistrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				finestraRegistrazione = new FinestraRegistrazione(c);
+        		c.cambiaFinestra(finestraCorrente, finestraRegistrazione);
 			}
 		});
 		
@@ -230,13 +241,13 @@ public class ProvaLogin extends JFrame {
 		gbc_label.gridx = 2;
 		gbc_label.gridy = 7;
 		panel_2.add(label, gbc_label);
-		btnNewButton.setBackground(new Color(166, 204, 238));
-		btnNewButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 13));
+		btnRegistrati.setBackground(new Color(166, 204, 238));
+		btnRegistrati.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 13));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 8;
-		panel_2.add(btnNewButton, gbc_btnNewButton);
+		panel_2.add(btnRegistrati, gbc_btnNewButton);
 	}
 	
 }

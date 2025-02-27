@@ -26,8 +26,8 @@ public class HouseService {
         		   String descrizione,String urls, String agente) {
 		
 		Immobile immobile = dbManager.getHouseByAddress(indirizzo);
-		
-		if (immobile == null) {
+		ComposizioneImmobile composizione = dbManager.getComposizioneById(idComposizioneImmobile);
+		if ((immobile == null) || (composizione.isCondominio())) {
 			dbManager.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, 
 					descrizione, urls, agente);
 			return true;

@@ -285,6 +285,23 @@ public class DatabaseManager {
     	return lista;
     }
     
+    public int getReservationId(String mailCliente, String mailAgente, String data, String ora, String indirizzo, boolean confirmed) {
+    	String query = "SELECT * FROM prenotazioni WHERE data_prenotazione = '"+data+"' AND user_id = '"+mailCliente+"' AND ora_prenotazione = '"+ora+"' AND immobile_id ='"+indirizzo+"' AND agente_id = '"+mailAgente+" AND isConfirmed = '"+confirmed+"';";
+    	int id=0;
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+                
+                ResultSet rs = stmt.executeQuery();
+                
+                while (rs.next()) {
+                	id=rs.getInt("id");
+                	}
+    		}catch (SQLException e) {
+                e.printStackTrace();
+            }
+    	   return id;
+    }
+    
     public void closeConnection() {
         try {
             if (conn != null) conn.close();

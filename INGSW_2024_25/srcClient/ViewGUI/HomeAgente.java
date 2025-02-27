@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import Class.User;
 import Controller.Controller;
-
+import java.util.List;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,6 +15,8 @@ public class HomeAgente extends JFrame {
 	private JFrame finestraCorrente = this;
 
     public HomeAgente(Controller c, User user) {
+    	List<Runnable> notifiche = c.getNotificheUtente(user.getMail());
+
         // Imposta il titolo della finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,13 +60,11 @@ public class HomeAgente extends JFrame {
         popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
         // Esempio di notifiche
-        JMenuItem notifica1 = new JMenuItem("Nuova prenotazione per Appartamento Roma");
-        JMenuItem notifica2 = new JMenuItem("Visita per Villa Milano confermata");
-        JMenuItem notifica3 = new JMenuItem("Messaggio da Mario Rossi");
-
-        popupMenu.add(notifica1);
-        popupMenu.add(notifica2);
-        popupMenu.add(notifica3);
+        for (Runnable notifica : notifiche) {
+            JMenuItem menuItem = new JMenuItem("Notifica");
+            menuItem.addActionListener(e -> notifica.run()); // Esegui l'azione associata alla notifica
+            popupMenu.add(menuItem);
+        }
 
         JButton bellButton = createIconButton("/immagini/bellwhite.png", 30, 30);
         bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
@@ -243,6 +243,8 @@ public class HomeAgente extends JFrame {
         
         
     }
+    
+    
 
     // Codice per far partire la finestra senza la necessità del controller
     // Ovviamente metteremo a posto appena abbiamo tutto a disposizione

@@ -44,4 +44,8 @@ public class ReservationService {
 	public ArrayList<Prenotazione> getReservation(String mail, boolean isConfirmed, String data,  boolean isAgente){
 		return dbManager.getReservationByMail(mail, isConfirmed, data, isAgente);
 	}
+	
+	public int retrieveId(String mailCliente, String mailAgente, String data, String ora, String indirizzo ) {
+		return dbManager.getReservationId(mailCliente, mailAgente, data, ora, indirizzo, false);
+	}
 }

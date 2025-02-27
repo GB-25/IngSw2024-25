@@ -240,8 +240,16 @@ public class ClientHandler extends Thread { //implements Runnable???
 	  String agente = request.getString("mailAgente");
 	  reservationService = new ReservationService();
 	  boolean firstReservation = reservationService.newReservation(data, ora, cliente, indirizzoImmobile, agente);
-	  response.put("status", firstReservation ? "success" : "error");
-	  response.put("message", firstReservation ? "Prenotazione riuscita" : "Prenotazione già effettuata o già impegnato");
+	  if (firstReservation) {
+		  response.put("status", "success");
+		  response.put("message", "Prenotazione riuscita");
+		  response.put("id", reservationService.retrieveId(cliente, agente, data, ora, indirizzoImmobile) );
+		  
+	  } else {
+		  response.put("status", "error");
+		  response.put("message", "Prenotazione già effettuata o già impegnato");
+	  }
+	  
 	  return response;
    }
    

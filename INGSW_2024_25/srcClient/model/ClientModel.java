@@ -218,7 +218,7 @@ public class ClientModel {
     }
     
     
-    public boolean makeReservation(String data, String ora, String mailCliente, String indirizzo, String mailAgente) {
+    public boolean makeReservation(String data, String ora, String mailCliente, String indirizzo, String mailAgente, int id) {
     	JSONObject request = new JSONObject();
     	request.put("action", "makeNewReservation");
     	request.put("data", data);
@@ -231,6 +231,7 @@ public class ClientModel {
     	if (response.getString("status").equals("error")) {
     		return false;
     	} else {
+    		id = response.getInt("id");
     		return true;
     	}
     }

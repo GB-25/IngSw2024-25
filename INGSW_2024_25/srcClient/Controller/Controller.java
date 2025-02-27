@@ -1,6 +1,7 @@
 package Controller;
 
 import ViewGUI.*;
+
 import model.ClientModel;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -9,6 +10,7 @@ import okhttp3.OkHttpClient;
 import javax.swing.JComboBox;
 import okhttp3.Request;
 import okhttp3.Response;
+import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +27,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.DefaultListModel;
@@ -50,13 +54,14 @@ import org.jxmapviewer.viewer.WaypointPainter;
 
 import Class.ComposizioneImmobile;
 import Class.Immobile;
+import Class.Prenotazione;
 import Class.User;
 
 public class Controller {
 
 	private Point lastPoint;
 	//frame
-	
+	ProvaLogin finestra;
 	FinestraLogin finestraPrincipale;
 	ClientModel model;
 	FinestraHome homeUtente;
@@ -64,12 +69,16 @@ public class Controller {
 	FinestraRegistrazione finestraRegistrazione;
 	String ip = "34.78.163.251";
 	int porta = 12345;
+	private Map<String, List<Runnable>> notificheUtenti = new HashMap<>();
 	
 	//costruttore
 	public Controller() {
 		User user = new User("", "", "", "", "", "", true);
 		homeAgente = new HomeAgente(this, user);
 		homeAgente.setVisible(true);
+//		finestra = new ProvaLogin(this);
+//		finestra.setVisible(true);
+		
 		//model = new ClientModel(ip, porta);
 		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
 	}
@@ -411,14 +420,18 @@ public class Controller {
 	}
 	
 	public void createReservation(User user, Immobile immobile, String data, String ora) {
+		int id=0;
 		String mailCliente=user.getMail();
 		String indirizzo=immobile.getIndirizzo();
 		String mailAgente=immobile.getAgente().getMail();
-		boolean reservation = model.makeReservation(data, ora, mailCliente, indirizzo, mailAgente);
+		User agente= immobile.getAgente();
+		boolean reservation = model.makeReservation(data, ora, mailCliente, indirizzo, mailAgente, id);
 		if (!reservation) {
 			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile o sei già impegnato quel giorno", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
 			//metodo per mostrare "bravo hai prenotato"
+			Prenotazione prenotazione = new Prenotazione(id, data, ora, user, immobile, agente, false);
+			this.notifyAgente( prenotazione);
 		}
 	}
 	
@@ -486,6 +499,50 @@ public class Controller {
 		}
 		return immobili;
 	}
+	
+	public void notifyAgente(Prenotazione prenotazione) {
+		User agente = prenotazione.getAgente(); // Supponendo che tu abbia accesso all'oggetto Immobile
+	   
+
+	    // Verifica che i dati siano validi
+	    if (agente == null || prenotazione == null) {
+	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", "Errore", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+
+	    // Crea il messaggio della notifica
+	    String messaggioNotifica = "Nuova prenotazione con ID: " + prenotazione.getId();
+
+	    // Definisci l'azione da eseguire quando la notifica viene cliccata
+	    Runnable azioneNotifica = () -> {
+	        // Apri una nuova finestra passando i parametri richiesti
+	        VisionePrenotazione visione = new VisionePrenotazione(agente, prenotazione, this);
+	        visione.setVisible(true);
+	    };
+
+	    // Aggiungi la notifica all'agente
+	    aggiungiNotifica(agente.getMail(), messaggioNotifica, azioneNotifica);
+	}
+	
+	private void aggiungiNotifica(String mail, String messaggio, Runnable azione) {
+        // Recupera la lista di notifiche dell'utente (o crea una nuova lista se non esiste)
+        List<Runnable> notifiche = notificheUtenti.getOrDefault(mail, new ArrayList<>());
+
+        // Aggiungi la notifica come un oggetto Runnable
+        notifiche.add(() -> {
+            System.out.println("Notifica per " + mail + ": " + messaggio);
+            azione.run(); // Esegui l'azione associata alla notifica
+        });
+
+        // Aggiorna la mappa delle notifiche
+        notificheUtenti.put(mail, notifiche);
+    }
+
+    // Metodo per recuperare le notifiche di un utente
+    public List<Runnable> getNotificheUtente(String mail) {
+        return notificheUtenti.getOrDefault(mail, new ArrayList<>());
+    }
+	
 	
 	public static void main(String[] args)
 	{
