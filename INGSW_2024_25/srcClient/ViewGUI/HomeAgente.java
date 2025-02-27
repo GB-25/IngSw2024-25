@@ -65,6 +65,7 @@ public class HomeAgente extends JFrame {
             menuItem.addActionListener(e -> {
             	notifica.run(); 
             	popupMenu.remove(this);
+            	notifiche.remove(notifica);
             }); // Esegui l'azione associata alla notifica
             popupMenu.add(menuItem);
         }
