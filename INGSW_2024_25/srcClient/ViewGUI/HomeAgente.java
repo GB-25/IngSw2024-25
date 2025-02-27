@@ -62,7 +62,10 @@ public class HomeAgente extends JFrame {
         // Esempio di notifiche
         for (Runnable notifica : notifiche) {
             JMenuItem menuItem = new JMenuItem("Notifica");
-            menuItem.addActionListener(e -> notifica.run()); // Esegui l'azione associata alla notifica
+            menuItem.addActionListener(e -> {
+            	notifica.run(); 
+            	popupMenu.remove(this);
+            }); // Esegui l'azione associata alla notifica
             popupMenu.add(menuItem);
         }
 
