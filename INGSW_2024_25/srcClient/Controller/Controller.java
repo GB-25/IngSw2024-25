@@ -227,174 +227,172 @@ public class Controller {
         }
 	}
 
-	public void getCoordinates(String address, JPanel mapPanel, JXMapViewer mapViewer) {
-        try {
-            String apiKey = "7a5d95a05b0245eb865812ff441e5e43";  
-            String encodedAddress = URLEncoder.encode(address, "UTF-8");
-            double lat = 0;
-            double lon = 0;
+	private double calculateDistance(GeoPosition pos1, GeoPosition pos2) {
+	    double lat1 = pos1.getLatitude();
+	    double lon1 = pos1.getLongitude();
+	    double lat2 = pos2.getLatitude();
+	    double lon2 = pos2.getLongitude();
 
-            // Costruzione dell'URL per la richiesta di geocoding
-            String url = "https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + apiKey;
-
-            // Connessione alla API
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-            conn.setRequestMethod("GET");
-
-            // Lettura della risposta JSON
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
-
-            // Analisi della risposta JSON
-            JSONObject jsonResponse = new JSONObject(response.toString());
-            if (jsonResponse.getJSONArray("features").length() > 0) {
-                // Estrazione delle coordinate (latitudine e longitudine)
-                JSONObject location = jsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
-                lat = location.getJSONArray("coordinates").getDouble(1);
-                lon = location.getJSONArray("coordinates").getDouble(0);
-            } else {
-                JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", "Errore", JOptionPane.ERROR_MESSAGE);
-            } 
-	// Creazione della nuova mappa
-    if (mapViewer != null) {
-        mapPanel.remove(mapViewer);
-        System.out.println("Mappa precedente rimossa.");
-    }
-
-
-    TileFactoryInfo info = new OSMTileFactoryInfo();
-    DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-    mapViewer.setTileFactory(tileFactory);
-
-    // Imposta la posizione iniziale e lo zoom
-    GeoPosition position = new GeoPosition(lat, lon);
-    mapViewer.setAddressLocation(position);
-    mapViewer.setZoom(34);
-    
-    Set<DefaultWaypoint> waypoints = new HashSet<>();
-    waypoints.add(new DefaultWaypoint(position));
- // Create a waypoint painter
-    WaypointPainter<DefaultWaypoint> waypointPainter = new WaypointPainter<>();
-    waypointPainter.setWaypoints(waypoints);
-
-    // Set the overlay painter
-    mapViewer.setOverlayPainter(waypointPainter);
-
- // Implementazione del drag della mappa
-    mapViewer.addMouseListener(new MouseAdapter() {
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            lastPoint = e.getPoint();
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            lastPoint = null;
-        }
-    });
-
-    mapViewer.addMouseMotionListener(new MouseMotionAdapter() {
-        @Override
-        public void mouseDragged(MouseEvent e) {
-        	if (lastPoint != null) {
-                Point newPoint = e.getPoint();
-
-                // Differenza in pixel tra la posizione corrente e quella precedente
-                int dx = newPoint.x - lastPoint.x;
-                int dy = newPoint.y - lastPoint.y;
-
-                // Ottieni la posizione geografica corrente del centro della mappa
-                GeoPosition center = mapViewer.getCenterPosition();
-
-                // Usa TileFactory per convertire GeoPosition in Point
-                TileFactory tileFactory = mapViewer.getTileFactory();
-                Point2D centerPoint = tileFactory.geoToPixel(center, mapViewer.getZoom());
-
-                // Calcola il nuovo centro in base al trascinamento
-                Point2D newCenterPoint = new Point2D.Double(centerPoint.getX() - dx, centerPoint.getY() - dy);
-                GeoPosition newCenter = tileFactory.pixelToGeo(newCenterPoint, mapViewer.getZoom());
-
-                // Imposta il nuovo centro della mappa
-                mapViewer.setCenterPosition(newCenter);
-
-                // Aggiorna lastPoint per il prossimo evento di trascinamento
-                lastPoint = newPoint;
-            }
-        }
-    });
-    mapViewer.addMouseWheelListener(e -> {
-        int zoom = mapViewer.getZoom();
-        if (e.getWheelRotation() < 0) {
-            mapViewer.setZoom(Math.max(zoom - 1, 0)); // Zoom in
-        } else {
-            mapViewer.setZoom(Math.min(zoom + 1, 15)); // Zoom out
-        }
-        
-    });
-
-    // Aggiunge la mappa al pannello
-    mapViewer.setVisible(true);
-    mapPanel.add(mapViewer);
-    mapViewer.revalidate(); 
-    mapViewer.repaint();
-}catch (Exception e) {
-    e.printStackTrace();
-    JOptionPane.showMessageDialog(null, "Errore nel recupero della posizione!", "Errore", JOptionPane.ERROR_MESSAGE);
-}}
+	    // Formula di Haversine per calcolare la distanza tra due coordinate
+	    double R = 6371; // Raggio della Terra in km
+	    double dLat = Math.toRadians(lat2 - lat1);
+	    double dLon = Math.toRadians(lon2 - lon1);
+	    double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+	               Math.sin(dLon / 2) * Math.sin(dLon / 2);
+	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	    return R * c;
+	}
 	
-	public void fetchAddressSuggestions(String query, DefaultListModel<String> listModel) {
-    	String API_KEY = "7a5d95a05b0245eb865812ff441e5e43";
-    	String API_URL = "https://api.geoapify.com/v1/geocode/autocomplete?apiKey=" + API_KEY;
-        OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();
-        urlBuilder.addQueryParameter("text", query);
-        urlBuilder.addQueryParameter("lang", "it"); // Lingua italiana
-        urlBuilder.addQueryParameter("limit", "5"); // Massimo 5 suggerimenti
+	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, boolean isSearchMode) {
+	    try {
+	        String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
+	        String encodedAddress = URLEncoder.encode(address, "UTF-8");
+	        double lat = 0;
+	        double lon = 0;
 
-        Request request = new Request.Builder().url(urlBuilder.build().toString()).build();
+	        // Richiesta API per ottenere le coordinate
+	        String url = "https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + apiKey;
+	        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+	        conn.setRequestMethod("GET");
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                System.err.println("Errore nella richiesta: " + e.getMessage());
-            }
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        StringBuilder response = new StringBuilder();
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            response.append(line);
+	        }
+	        reader.close();
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    System.err.println("Errore nella risposta: " + response.code());
-                    return;
-                }
+	        JSONObject jsonResponse = new JSONObject(response.toString());
+	        if (jsonResponse.getJSONArray("features").length() > 0) {
+	            JSONObject location = jsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
+	            lat = location.getJSONArray("coordinates").getDouble(1);
+	            lon = location.getJSONArray("coordinates").getDouble(0);
+	        } else {
+	            JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", "Errore", JOptionPane.ERROR_MESSAGE);
+	        }
 
-                String responseData = response.body().string();
-                try {
-                    JSONObject json = new JSONObject(responseData);
-                    JSONArray features = json.getJSONArray("features");
+	        // Rimuovi la mappa precedente se esiste
+	        if (mapViewer != null) {
+	            mapPanel.remove(mapViewer);
+	            System.out.println("Mappa precedente rimossa.");
+	        }
 
-                    ArrayList<String> addresses = new ArrayList<>();
-                    for (int i = 0; i < features.length(); i++) {
-                        JSONObject feature = features.getJSONObject(i);
-                        String address = feature.getJSONObject("properties").getString("formatted");
-                        addresses.add(address);
-                    }
+	        // Configura la mappa
+	        TileFactoryInfo info = new OSMTileFactoryInfo();
+	        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+	        mapViewer.setTileFactory(tileFactory);
 
-                    SwingUtilities.invokeLater(() -> {
-                        listModel.clear();
-                        addresses.forEach(listModel::addElement);
-                    });
+	        GeoPosition position = new GeoPosition(lat, lon);
+	        mapViewer.setAddressLocation(position);
+	        mapViewer.setZoom(34);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	        // Waypoint inseriti in base al boolean
+	        Set<DefaultWaypoint> waypoints = new HashSet<>();
+	        if (isSearchMode) {
+	            // Modalità ricerca, quindi più waypoint
+	            waypoints.add(new DefaultWaypoint(position));
+	            // Qui bisogna poi aggiungere tutti i marker degli immobili nella zona
+	            // Sono stati aggiunti esempi per vedere come fungeva il tutto
+	            waypoints.add(new DefaultWaypoint(new GeoPosition(lat + 0.01, lon + 0.01)));
+	            waypoints.add(new DefaultWaypoint(new GeoPosition(lat - 0.01, lon - 0.01)));
+	        } else {
+	            // Modalità visualizzazione, solo il waypoint inserito
+	            waypoints.add(new DefaultWaypoint(position));
+	        }
+
+	        // Configura il painter dei waypoint
+	        WaypointPainter<DefaultWaypoint> waypointPainter = new WaypointPainter<>();
+	        waypointPainter.setWaypoints(waypoints);
+	        mapViewer.setOverlayPainter(waypointPainter);
+
+	        // Listener per i click solo in modalità ricerca
+	        if (isSearchMode) {
+	        	mapViewer.addMouseListener(new MouseAdapter() {
+	        	    @Override
+	        	    public void mouseClicked(MouseEvent e) {
+	        	        Point clickPoint = e.getPoint();
+	        	        GeoPosition clickGeoPosition = mapViewer.convertPointToGeoPosition(clickPoint);
+
+	        	        for (DefaultWaypoint waypoint : waypoints) {
+	        	            GeoPosition waypointGeoPosition = waypoint.getPosition();
+	        	            double distance = calculateDistance(clickGeoPosition, waypointGeoPosition);
+
+	        	            if (distance < 0.006) { // Soglia di distanza tra click e waypoint
+	        	                new VisioneImmobile(c); // ho aggiunto la schermata base così com'è
+	        	                break;
+	        	            }
+	        	        }
+	        	    }
+	        	});
+	        }
+	        
+
+	        // Implementazione del drag della mappa
+	           mapViewer.addMouseListener(new MouseAdapter() {
+
+	               @Override
+	               public void mousePressed(MouseEvent e) {
+	                   lastPoint = e.getPoint();
+	               }
+
+	               @Override
+	               public void mouseReleased(MouseEvent e) {
+	                   lastPoint = null;
+	               }
+	           });
+
+	           mapViewer.addMouseMotionListener(new MouseMotionAdapter() {
+	               @Override
+	               public void mouseDragged(MouseEvent e) {
+	               	if (lastPoint != null) {
+	                       Point newPoint = e.getPoint();
+
+	                       // Differenza in pixel tra la posizione corrente e quella precedente
+	                       int dx = newPoint.x - lastPoint.x;
+	                       int dy = newPoint.y - lastPoint.y;
+
+	                       // Ottieni la posizione geografica corrente del centro della mappa
+	                       GeoPosition center = mapViewer.getCenterPosition();
+
+	                       // Usa TileFactory per convertire GeoPosition in Point
+	                       TileFactory tileFactory = mapViewer.getTileFactory();
+	                       Point2D centerPoint = tileFactory.geoToPixel(center, mapViewer.getZoom());
+
+	                       // Calcola il nuovo centro in base al trascinamento
+	                       Point2D newCenterPoint = new Point2D.Double(centerPoint.getX() - dx, centerPoint.getY() - dy);
+	                       GeoPosition newCenter = tileFactory.pixelToGeo(newCenterPoint, mapViewer.getZoom());
+
+	                       // Imposta il nuovo centro della mappa
+	                       mapViewer.setCenterPosition(newCenter);
+
+	                       // Aggiorna lastPoint per il prossimo evento di trascinamento
+	                       lastPoint = newPoint;
+	                   }
+	               }
+	           });
+	           mapViewer.addMouseWheelListener(e -> {
+	               int zoom = mapViewer.getZoom();
+	               if (e.getWheelRotation() < 0) {
+	                   mapViewer.setZoom(Math.max(zoom - 1, 0)); // Zoom in
+	               } else {
+	                   mapViewer.setZoom(Math.min(zoom + 1, 15)); // Zoom out
+	               }
+	               
+	           });
+
+
+	        // Aggiungi la mappa al pannello
+	        mapViewer.setVisible(true);
+	        mapPanel.add(mapViewer);
+	        mapViewer.revalidate();
+	        mapViewer.repaint();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Errore nel recupero della posizione!", "Errore", JOptionPane.ERROR_MESSAGE);
+	    }
+	}
 	
 	public void uploadHouse(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
             String urls, User user) {
