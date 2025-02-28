@@ -15,6 +15,7 @@ public class HomeAgente extends JFrame {
 	private JFrame finestraCorrente = this;
 
     public HomeAgente(Controller c, User user) {
+    	JButton bellButton;
     	List<Runnable> notifiche = c.getNotificheUtente(user.getMail());
 
         // Imposta il titolo della finestra
@@ -64,14 +65,23 @@ public class HomeAgente extends JFrame {
             JMenuItem menuItem = new JMenuItem("Notifica");
             menuItem.addActionListener(e -> {
             	notifica.run(); 
-            	popupMenu.remove(this);
+            	popupMenu.remove(menuItem);
             	notifiche.remove(notifica);
             }); // Esegui l'azione associata alla notifica
             popupMenu.add(menuItem);
         }
-
-        JButton bellButton = createIconButton("/immagini/bellwhite.png", 30, 30);
-        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
+        if(notifiche.isEmpty()){
+        	bellButton = createIconButton("/immagini/bellwhite.png", 30, 30);
+        } else {
+        	bellButton = createIconButton("/immagini/whitenotifiche.png", 30, 30);
+        }
+        bellButton.addActionListener(e -> {
+        	ImageIcon bellLogo = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
+            Image imgBell = bellLogo.getImage();
+            Image imgBellScaled = imgBell.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        	bellButton.setIcon(new ImageIcon(imgBellScaled));
+        	popupMenu.show(bellButton, 0, bellButton.getHeight());
+        });
 
         // Menu a tendina per lo user
         JPopupMenu popupUser = new JPopupMenu();
