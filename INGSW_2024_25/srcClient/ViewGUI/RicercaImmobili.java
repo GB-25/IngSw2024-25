@@ -1,6 +1,6 @@
 package ViewGUI;
 import javax.swing.*;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import Class.Immobile;
 import Class.User;
 import Controller.Controller;
@@ -15,6 +15,7 @@ public class RicercaImmobili extends JFrame {
 	private JFrame finestraCorrente;
 	
     public RicercaImmobili(Controller c, User user) {
+    	FlatLightLaf.install();
     	finestraCorrente = this;
         setTitle("Ricerca immobili - DietiEstates25");
         setSize(500, 500);
