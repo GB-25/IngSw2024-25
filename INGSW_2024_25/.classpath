@@ -24,6 +24,7 @@
         <classpathentry kind="lib" path="okio-1.6.0.jar"/>
 	<classpathentry kind="lib" path="okhttp-3.0.0.jar"/>
         <classpathentry kind="lib" path="sdk-1.10.0-javadoc.jar"/>
+        <classpathentry kind="lib" path="flatlaf-3.2.jar"/>
 
 	<classpathentry kind="output" path="bin"/>
 </classpath>
