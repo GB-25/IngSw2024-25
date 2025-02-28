@@ -393,6 +393,54 @@ public class Controller {
 	        JOptionPane.showMessageDialog(null, "Errore nel recupero della posizione!", "Errore", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+
+	public void fetchAddressSuggestions(String query, DefaultListModel<String> listModel) {
+    	String API_KEY = "7a5d95a05b0245eb865812ff441e5e43";
+    	String API_URL = "https://api.geoapify.com/v1/geocode/autocomplete?apiKey=" + API_KEY;
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();
+        urlBuilder.addQueryParameter("text", query);
+        urlBuilder.addQueryParameter("lang", "it"); // Lingua italiana
+        urlBuilder.addQueryParameter("limit", "5"); // Massimo 5 suggerimenti
+
+        Request request = new Request.Builder().url(urlBuilder.build().toString()).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.err.println("Errore nella richiesta: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    System.err.println("Errore nella risposta: " + response.code());
+                    return;
+                }
+
+                String responseData = response.body().string();
+                try {
+                    JSONObject json = new JSONObject(responseData);
+                    JSONArray features = json.getJSONArray("features");
+
+                    ArrayList<String> addresses = new ArrayList<>();
+                    for (int i = 0; i < features.length(); i++) {
+                        JSONObject feature = features.getJSONObject(i);
+                        String address = feature.getJSONObject("properties").getString("formatted");
+                        addresses.add(address);
+                    }
+
+                    SwingUtilities.invokeLater(() -> {
+                        listModel.clear();
+                        addresses.forEach(listModel::addElement);
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 	
 	public void uploadHouse(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
             String urls, User user) {
