@@ -1,11 +1,13 @@
 package ViewGUI;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import org.jxmapviewer.JXMapViewer;
 
-
+import Class.Immobile;
+import Class.User;
 import Controller.Controller;
 
 public class RisultatoRicerca extends JFrame {
@@ -13,7 +15,7 @@ public class RisultatoRicerca extends JFrame {
     private JXMapViewer mapViewer;
     private JPanel mapPanel;
 
-    public RisultatoRicerca(Controller c) {
+    public RisultatoRicerca(Controller c, User user, ArrayList<Immobile> ricerca) {
         // Configura il JFrame
         setTitle("Risultato Ricerca - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

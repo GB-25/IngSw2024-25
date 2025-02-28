@@ -8,14 +8,21 @@ import Controller.Controller;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class HomeCliente extends JFrame {
 	
 	private JPanel mainPanel;
 	private JPanel topPanel;
 	private JPanel centerPanel;
-
+	private JFrame finestraCorrente;
+	private ProvaLogin finestraLogin;
+	List<Runnable> notifiche;
+	ImageIcon bellIcon;
+	
 	public HomeCliente(Controller c, User user) {
+		notifiche=c.getNotificheUtente(user.getMail());
+		finestraCorrente = this;
 		setTitle("Home Cliente - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 500);
@@ -56,6 +63,10 @@ public class HomeCliente extends JFrame {
             	searchButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
             }
         });
+        searchButton.addActionListener(e -> {
+        	RicercaImmobili ricerca = new RicercaImmobili(c, user);
+        	c.cambiaFinestra(finestraCorrente, ricerca);
+        });
         
         viewCalendarButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -67,6 +78,10 @@ public class HomeCliente extends JFrame {
             public void mouseExited(MouseEvent e) {
             	viewCalendarButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
             }
+        });
+        viewCalendarButton.addActionListener(e -> {
+        	VisioneCalendario visione = new VisioneCalendario(c, user);
+        	c.cambiaFinestra(finestraCorrente, visione);
         });
         
         GridBagConstraints gbc1 = new GridBagConstraints();
@@ -109,15 +124,17 @@ public class HomeCliente extends JFrame {
 	        JPopupMenu popupUser = new JPopupMenu();
 	        popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-	        JMenuItem userInfo = new JMenuItem("Mario Rossi");
+	        JMenuItem userInfo = new JMenuItem(user.getNome()+" "+user.getCognome());
 	        userInfo.setEnabled(false);
 	        JMenuItem logout = new JMenuItem("Logout");
 	        logout.addActionListener(e -> {
 	            int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
 	            if (response == JOptionPane.YES_OPTION) {
-	                dispose();
-	                JOptionPane.showMessageDialog(this, "Logout effettuato!");
-	                System.exit(0);
+	                
+	                //JOptionPane.showMessageDialog(this, "Logout effettuato!");
+	            
+	                finestraLogin= new ProvaLogin(c);
+	                c.cambiaFinestra(finestraCorrente, finestraLogin);
 	            }
 	        });
 
@@ -137,16 +154,23 @@ public class HomeCliente extends JFrame {
 
 	        JPopupMenu popupMenu = new JPopupMenu();
 	        popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-
-	        JMenuItem notifica1 = new JMenuItem("Prenotazione confermata per Appartamento Roma");
-	        JMenuItem notifica2 = new JMenuItem("Prenotazione rifiutata per Casa Tivoli");
-	        JMenuItem notifica3 = new JMenuItem("Messaggio da Mario Rossi");
-
-	        popupMenu.add(notifica1);
-	        popupMenu.add(notifica2);
-	        popupMenu.add(notifica3);
-
-	        ImageIcon bellIcon = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
+	        for (Runnable notifica : notifiche) {
+	            JMenuItem menuItem = new JMenuItem("Notifica");
+	            menuItem.addActionListener(e -> {
+	            	notifica.run(); 
+	            	popupMenu.remove(menuItem);
+	            	notifiche.remove(notifica);
+	            }); // Esegui l'azione associata alla notifica
+	            popupMenu.add(menuItem);
+	        }
+	       
+	        if(notifiche.isEmpty()){
+	        	bellIcon = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
+	        } else {
+	        	bellIcon = new ImageIcon(getClass().getResource("/immagini/whitenotifiche.png"));
+	        	
+	        }
+	    
 	        Image bellImage = bellIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 	        JButton bellButton = new JButton(new ImageIcon(bellImage));
 	        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));

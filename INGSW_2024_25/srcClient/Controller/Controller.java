@@ -64,9 +64,10 @@ public class Controller {
 	ProvaLogin finestra;
 	FinestraLogin finestraPrincipale;
 	ClientModel model;
-	FinestraHome homeUtente;
+	HomeCliente homeUtente;
 	HomeAgente homeAgente;
 	FinestraRegistrazione finestraRegistrazione;
+	CaricamentoProprietaNuovo caricamento;
 	String ip = "34.78.163.251";
 	int porta = 12345;
 	private Map<String, List<Runnable>> notificheUtenti = new HashMap<>();
@@ -78,7 +79,10 @@ public class Controller {
 		homeAgente.setVisible(true);
 //		finestra = new ProvaLogin(this);
 //		finestra.setVisible(true);
-		
+//		caricamento = new CaricamentoProprietaNuovo(this, user);
+//		caricamento.setVisible(true);
+//		homeUtente= new HomeCliente(this, user);
+//		homeUtente.setVisible(true);
 		//model = new ClientModel(ip, porta);
 		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
 	}
@@ -101,7 +105,7 @@ public class Controller {
 					homeAgente= new HomeAgente(this, user);
 					homeAgente.setVisible(true);
 				} else {
-					homeUtente = new FinestraHome(this, user);
+					homeUtente = new HomeCliente(this, user);
 					homeUtente.setVisible(true);
 				}
 			}
@@ -116,7 +120,7 @@ public class Controller {
 			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
 			finestraRegistrazione.setVisible(false);
-			homeUtente = new FinestraHome(this, user);
+			homeUtente = new HomeCliente(this, user);
 			homeUtente.setVisible(true);
 		}
 	}
@@ -320,7 +324,8 @@ public class Controller {
 	        	            double distance = calculateDistance(clickGeoPosition, waypointGeoPosition);
 
 	        	            if (distance < 0.006) { // Soglia di distanza tra click e waypoint
-	        	                new VisioneImmobile(c); // ho aggiunto la schermata base così com'è
+	        	            	//new VisioneImmobile(c); // ho aggiunto la schermata base così com'è
+	        	            	//ci dobbiamo mettere l'immobile
 	        	                break;
 	        	            }
 	        	        }
@@ -515,7 +520,7 @@ public class Controller {
 		return urlArray;
 	}
 	//boh cosa gli deve tornare, le istanze singole, una lista?
-	public ArrayList<Immobile> ricercaImmobili(int prezzoMin, int prezzoMax, String classeEnergetica, String posizione, String tipoImmobile, String annuncio){
+	public ArrayList<Immobile> ricercaImmobili(double prezzoMin, double prezzoMax, String classeEnergetica, String posizione, String tipoImmobile, String annuncio, boolean ascensore, boolean condominio, boolean terrazzo, boolean giardino){
 		StringBuilder sql = new StringBuilder("SELECT * FROM immobili");
 		if (prezzoMin > 0) {
 			sql.append(" AND prezzo >= "+prezzoMin);
@@ -535,6 +540,18 @@ public class Controller {
 		if (annuncio != null) {
 			sql.append(" AND annuncio = "+annuncio);
 		}
+		if (ascensore) {
+			sql.append(" AND ascensore = 'TRUE'");
+		}
+		if (condominio) {
+			sql.append(" AND condominio = 'TRUE'");
+		}
+		if (terrazzo) {
+			sql.append(" AND terrazzo = 'TRUE'");
+		}
+		if (giardino) {
+			sql.append(" AND giardino = 'TRUE'");
+		}
 		sql.append(";");
 		String query = sql.toString();
 		
@@ -547,7 +564,7 @@ public class Controller {
 	}
 	
 	public void notifyAgente(Prenotazione prenotazione) {
-		User agente = prenotazione.getAgente(); // Supponendo che tu abbia accesso all'oggetto Immobile
+		User agente = prenotazione.getAgente(); // Supponendo che tu abAcquistobia accesso all'oggetto Immobile
 	   
 
 	    // Verifica che i dati siano validi
@@ -589,7 +606,46 @@ public class Controller {
         return notificheUtenti.getOrDefault(mail, new ArrayList<>());
     }
 	
+    public void notifyCliente(Prenotazione prenotazione, boolean confirmed) {
+    	User cliente = prenotazione.getUser(); // Supponendo che tu abbia accesso all'oggetto Immobile
+    	String messaggioNotifica;
+    	Runnable azioneNotifica;
+	    // Verifica che i dati siano validi
+	    if (cliente == null || prenotazione == null) {
+	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", "Errore", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    if(confirmed) {
+	    	// Crea il messaggio della notifica
+	    	messaggioNotifica = "La tua prenotazione è stata confermata! Puoi vederla nel calendario";
+	    	// Definisci l'azione da eseguire quando la notifica viene cliccata
+		    azioneNotifica = () -> {
+		        // Apri una nuova finestra passando i parametri richiesti
+		        VisioneCalendario visione = new VisioneCalendario(this, cliente);
+		        visione.setVisible(true);
+		    };
+	    } else {
+	    	messaggioNotifica = "La tua prenotazione è stata rifiutata... Prova a chiedere un nuovo appuntamento"; 
+	    	// Definisci l'azione da eseguire quando la notifica viene cliccata
+		    azioneNotifica = () -> {
+		        // Apri una nuova finestra passando i parametri richiesti
+		        VisioneImmobile visione = new VisioneImmobile(this, prenotazione.getImmobile(), cliente);//in teoria anche l'user poi lo setto e l'immobile
+		        visione.setVisible(true);
+		    };
+	    }
+	    
+
+	    // Aggiungi la notifica all'agente
+	    aggiungiNotifica(cliente.getMail(), messaggioNotifica, azioneNotifica);
+    }
 	
+    public boolean controlCheckBox(JCheckBox box) {
+    	if(box.isSelected()) {
+    		return true;
+    	}
+    	return false;
+    }
+    
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();

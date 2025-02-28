@@ -50,11 +50,13 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     private JComboBox<String> cmbCondo;
     private JComboBox<String> cmbEnergyClass;
     private JComboBox<String> cmbElevator;
-
+    private CaricamentoConfermato caricamento;
+    private JFrame finestraCorrente;
     // Lista per memorizzare le immagini caricate
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();
 
     public CaricamentoProprietaNuovo(Controller c, User user) {
+    	finestraCorrente = this;
     	int MIN_FOTO = 5;
     	int MAX_FOTO = 10;
         // Configura la finestra
@@ -296,7 +298,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                         int idComposizioneImmobile = c.createComposition(grandezza, stanze, piani, condominio, giardino, ascensore, terrazzo);
                         c.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione,
                         urls, user);
-                        
+                        caricamento = new CaricamentoConfermato(c, user);
+                        c.cambiaFinestra(finestraCorrente, caricamento);
                     }
                 }
             }

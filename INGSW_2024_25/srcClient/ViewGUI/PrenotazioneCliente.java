@@ -7,6 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.swing.*;
 import com.toedter.calendar.JDateChooser;
+
+import Class.Immobile;
+import Class.User;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +24,7 @@ public class PrenotazioneCliente extends JFrame {
     private JDateChooser dateChooser;
     private JPanel mainPanel;
 
-    public PrenotazioneCliente(Controller c) {
+    public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
         setTitle("Prenotazione Cliente - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);

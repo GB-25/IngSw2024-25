@@ -22,7 +22,7 @@ public class VisionePrenotazione extends JFrame {
     private JButton rifiutaButton;
     private JButton indietroButton;
     private JPanel topPanel;
-    private FinestraLogin finestraLogin;
+    private ProvaLogin finestraLogin;
 	private JFrame finestraCorrente = this;
     
     
@@ -97,6 +97,7 @@ public class VisionePrenotazione extends JFrame {
             	String data = prenotazione.getDataPrenotazione();
             	String ora= prenotazione.getOraPrenotazione();
             	if(c.reservationConfirm(id, mail, data, ora)) {
+            		c.notifyCliente(prenotazione, true);
             		//metodo per tornare alla schermata precedente che non so qual è
             	}
             }
@@ -108,6 +109,7 @@ public class VisionePrenotazione extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	int id = prenotazione.getId();
             	c.reservationDeny(id);
+            	c.notifyCliente(prenotazione, false);
             	//metodo per tornare alla schermata precedente che non so qual è
             }
         });
@@ -143,7 +145,7 @@ public class VisionePrenotazione extends JFrame {
         JPopupMenu popupUser = new JPopupMenu();
         popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-        JMenuItem userInfo = new JMenuItem(user.getNome()+user.getCognome());
+        JMenuItem userInfo = new JMenuItem(user.getNome()+" "+user.getCognome());
         userInfo.setEnabled(false);
         JMenuItem logout = new JMenuItem("Logout");
         logout.addActionListener(e -> {

@@ -1,14 +1,21 @@
 package ViewGUI;
 import javax.swing.*;
 
+import Class.Immobile;
 import Class.User;
 import Controller.Controller;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class RicercaImmobili extends JFrame {
 
+	private JFrame finestraCorrente;
+	
     public RicercaImmobili(Controller c, User user) {
+    	finestraCorrente = this;
         setTitle("Ricerca immobili - DietiEstates25");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,7 +153,7 @@ public class RicercaImmobili extends JFrame {
         gbc_lblAscensore.insets = new Insets(0, 0, 5, 5);
         gbc_lblAscensore.gridx = 1;
         gbc_lblAscensore.gridy = 9;
-        JLabel lblAscensore = new JLabel("Ascensore");
+        JLabel lblAscensore = new JLabel("AscmbTypecensore");
         mainPanel.add(lblAscensore, gbc_lblAscensore);
         
         GridBagConstraints gbc_lblGiardino = new GridBagConstraints();
@@ -206,6 +213,22 @@ public class RicercaImmobili extends JFrame {
 		
 		// Bottone di ricerca
 		JButton cercaButton = new JButton("Cerca");
+		cercaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				double prezzoMin = Double.parseDouble(prezzoMinField.getText());
+				double prezzoMax = Double.parseDouble(prezzoMaxField.getText());
+				String classe = (String) tipoClasse.getSelectedItem();
+				String indirizzo = posizioneField.getText();
+				String tipo = (String) tipoCasa.getSelectedItem();
+				String annuncio = (String) tipoAnnuncio.getSelectedItem();
+				boolean giardino = c.controlCheckBox(giardinoCheckBox);
+				boolean terrazzo = c.controlCheckBox(terrazzoCheckBox);
+				boolean condominio = c.controlCheckBox(condominioCheckBox);
+				boolean ascensore = c.controlCheckBox(ascensoreCheckBox);
+				ArrayList<Immobile> ricerca = c.ricercaImmobili(prezzoMin, prezzoMax, classe, indirizzo, tipo, annuncio, ascensore, condominio, terrazzo, giardino);
+				RisultatoRicerca risultato = new RisultatoRicerca(c, user, ricerca);
+				c.cambiaFinestra(finestraCorrente, risultato);
+			}});
 		cercaButton.setForeground(new Color(255, 255, 255));
 		cercaButton.setBackground(new Color(40, 132, 212));
 		cercaButton.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 12));

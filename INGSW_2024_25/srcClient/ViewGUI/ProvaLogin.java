@@ -106,7 +106,7 @@ public class ProvaLogin extends JFrame {
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		JLabel lblSottoTitolo = new JLabel("                          La casa dei tuoi sogni a portata di mano!");
+		JLabel lblSottoTitolo = new JLabel("                    La casa dei tuoi sogni a portata di mano!");
 		lblSottoTitolo.setBackground(new Color(255, 255, 255));
 		lblSottoTitolo.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		lblSottoTitolo.setFont(new Font("Microsoft JhengHei UI Light", Font.ITALIC, 24));

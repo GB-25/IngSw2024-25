@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 
 public class HomeAgente extends JFrame {
 	
-	private FinestraLogin finestraLogin;
+	private ProvaLogin finestraLogin;
 	private JFrame finestraCorrente = this;
 
     public HomeAgente(Controller c, User user) {
@@ -109,9 +109,9 @@ public class HomeAgente extends JFrame {
         logout.addActionListener(e -> {
             int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
-                dispose(); // Chiude la finestra attuale
-                JOptionPane.showMessageDialog(this, "Logout effettuato!");
-                finestraLogin= new FinestraLogin(c);
+                
+                //JOptionPane.showMessageDialog(this, "Logout effettuato!");
+                finestraLogin= new ProvaLogin(c);
                 c.cambiaFinestra(finestraCorrente, finestraLogin);
                 
             }
@@ -175,7 +175,10 @@ public class HomeAgente extends JFrame {
         viewCalendarButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
         viewCalendarButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         viewCalendarButton.setBackground(new Color(210, 224, 239));
-        
+        viewCalendarButton.addActionListener(e -> {
+        	VisioneCalendario visione = new VisioneCalendario(c, user);
+        	c.cambiaFinestra(finestraCorrente, visione);
+    });
         addPropertyButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {

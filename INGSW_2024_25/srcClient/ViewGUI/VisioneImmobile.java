@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import org.jxmapviewer.JXMapViewer;
+
+import Class.ComposizioneImmobile;
+import Class.Immobile;
+import Class.User;
 import Controller.Controller;
 
 public class VisioneImmobile extends JFrame {
@@ -11,8 +15,11 @@ public class VisioneImmobile extends JFrame {
     private JPanel imagePanel; // Pannello per l'immagine
     private CardLayout cardLayout; // Layout per il carosello
     private JButton prevButton, nextButton; // Navigation buttons
+    private ProvaLogin finestraLogin;
+    private JFrame finestraCorrente;
 
-    public VisioneImmobile(Controller c) {
+    public VisioneImmobile(Controller c, Immobile immobile, User user) {
+    	finestraCorrente=this;
         // Configurazione della finestra
         setTitle("Visualizzazione Immobile - DietiEstates25");
         setSize(600, 640);
@@ -25,7 +32,7 @@ public class VisioneImmobile extends JFrame {
         setContentPane(mainPanel);
 
         // **Pannello superiore con titolo e pulsante "Indietro"**
-        JPanel topPanel = createTopPanel();
+        JPanel topPanel = createTopPanel(c, user);
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // **Pannello centrale con immagini e dettagli**
@@ -39,10 +46,13 @@ public class VisioneImmobile extends JFrame {
         imagePanel.setBackground(Color.WHITE);
 
         // Immagini per il carosello
-        addImageToCarousel("/immagini/casa1.jpeg");
-        addImageToCarousel("/immagini/casa2.jpeg");
-        addImageToCarousel("/immagini/casa3.jpeg");
-
+//        addImageToCarousel("/immagini/casa1.jpeg");
+//        addImageToCarousel("/immagini/casa2.jpeg");
+//        addImageToCarousel("/immagini/casa3.jpeg");
+        String[] urlArray = c.getUrls(immobile);
+        for(String url : urlArray) {
+        	addImageToCarousel(c.fileDownload(url));
+        }
         // Tasti per navigare tra le foto
         JPanel carouselControlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         prevButton = new JButton("←");
@@ -60,7 +70,7 @@ public class VisioneImmobile extends JFrame {
         carouselPanel.add(carouselControlPanel, BorderLayout.CENTER);
 
         // ---- PANNELLO DESTRO: Dettagli dell'immobile ----
-        JPanel detailsPanel = createDetailsPanel();
+        JPanel detailsPanel = createDetailsPanel(c, immobile);
 
         // **Aggiunta dei pannelli principali**
         centerPanel.add(detailsPanel, BorderLayout.WEST);
@@ -68,7 +78,7 @@ public class VisioneImmobile extends JFrame {
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
         // **Pulsanti Prenota Visita e Indietro**
-        JPanel buttonPanel = createButtonPanel();
+        JPanel buttonPanel = createButtonPanel(c, immobile, user);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         
        JXMapViewer mapViewer = new JXMapViewer();
@@ -77,7 +87,7 @@ public class VisioneImmobile extends JFrame {
         mapPanel.setBackground(Color.LIGHT_GRAY);
         mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione"));
         mapPanel.setPreferredSize(new Dimension(200, 200));
-        c.getCoordinates(c, "Via Appia Nuova, 35, 00043 Ciampino RM, Italia", mapPanel, mapViewer, false);
+        c.getCoordinates(c, immobile.getIndirizzo(), mapPanel, mapViewer, false);
         carouselPanel.add(mapPanel, BorderLayout.SOUTH);
         
 
@@ -85,7 +95,7 @@ public class VisioneImmobile extends JFrame {
         setVisible(true);
     }
 
-    private JPanel createTopPanel() {
+    private JPanel createTopPanel(Controller c, User user) {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(40, 132, 212));
         topPanel.setPreferredSize(new Dimension(600, 120));
@@ -107,15 +117,14 @@ public class VisioneImmobile extends JFrame {
         JPopupMenu popupUser = new JPopupMenu();
         popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-        JMenuItem userInfo = new JMenuItem("Mario Rossi");
+        JMenuItem userInfo = new JMenuItem(user.getNome()+" "+user.getCognome());
         userInfo.setEnabled(false);
         JMenuItem logout = new JMenuItem("Logout");
         logout.addActionListener(e -> {
             int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
-                dispose();
-                JOptionPane.showMessageDialog(this, "Logout effettuato!");
-                System.exit(0);
+            	finestraLogin= new ProvaLogin(c);
+                c.cambiaFinestra(finestraCorrente, finestraLogin);
             }
         });
 
@@ -166,26 +175,27 @@ public class VisioneImmobile extends JFrame {
         return topPanel;
     }
 
-    private JPanel createDetailsPanel() {
+    private JPanel createDetailsPanel(Controller c, Immobile immobile) {
+    	ComposizioneImmobile composizione = immobile.getComposizione();
         JPanel detailsPanel = new JPanel();
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
         detailsPanel.setBackground(Color.WHITE);
         detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        JLabel priceLabel = new JLabel("Prezzo: € 350,000");
+        JLabel priceLabel = new JLabel("Prezzo: "+immobile.getPrezzo());
         priceLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
         priceLabel.setForeground(Color.BLACK);
 
-        JLabel adLabel = new JLabel("Annuncio: Acquisto");
-        JLabel surfaceLabel = new JLabel("Superficie: 200 m²");
-        JLabel roomsLabel = new JLabel("Stanze: 3");
-        JLabel energyLabel = new JLabel("Classe Energetica: B");
-        JLabel condoLabel = new JLabel("Appartamento: ✓");
-        JLabel elevatorLabel = new JLabel("Ascensore: ✓");
-        JLabel gardenLabel = new JLabel("Giardino: ✗");
+        JLabel adLabel = new JLabel("Annuncio: "+immobile.getAnnuncio());
+        JLabel surfaceLabel = new JLabel("Superficie: "+composizione.getQuadratura()+" m²");
+        JLabel roomsLabel = new JLabel("Stanze: "+composizione.getNumeroStanze());
+        JLabel energyLabel = new JLabel("Classe Energetica: "+immobile.getClasseEnergetica());
+        JLabel condoLabel = new JLabel(immobile.getTipo());
+        JLabel elevatorLabel = new JLabel("Ascensore: "+(composizione.isAscensore() ? "✓" : "✗"));
+        JLabel gardenLabel = new JLabel("Giardino: "+(composizione.isGiardino() ? "✓" : "✗"));
         JLabel descriptionLabel = new JLabel("Descrizione: ");
 
-        JTextArea descriptionArea = new JTextArea("Appartamento moderno situato nel cuore di Roma, a pochi passi dal Colosseo. Luminoso, recentemente ristrutturato con finiture di pregio.");
+        JTextArea descriptionArea = new JTextArea(immobile.getDescrizione());
         descriptionArea.setWrapStyleWord(true);
         descriptionArea.setLineWrap(true);
         descriptionArea.setEditable(false);
@@ -212,7 +222,7 @@ public class VisioneImmobile extends JFrame {
         return detailsPanel;
     }
 
-    private JPanel createButtonPanel() {
+    private JPanel createButtonPanel(Controller c, Immobile immobile, User user) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.WHITE);
 
@@ -222,7 +232,10 @@ public class VisioneImmobile extends JFrame {
         prenotaButton.setFont(new Font("Helvetica", Font.BOLD, 13));
         prenotaButton.setFocusPainted(false);
         prenotaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        prenotaButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Visita prenotata con successo!"));
+        prenotaButton.addActionListener(e -> {
+        	PrenotazioneCliente prenota = new PrenotazioneCliente(c, immobile, user);
+        	c.cambiaFinestra(finestraCorrente, prenota);
+        });
 
         JButton indietroButton = new JButton("Indietro");
         indietroButton.setBackground(Color.GRAY);
