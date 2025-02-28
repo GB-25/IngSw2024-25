@@ -1,5 +1,6 @@
 package ViewGUI;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import Class.User;
 import javax.swing.*;
 import java.awt.*;
@@ -56,6 +57,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();
 
     public CaricamentoProprietaNuovo(Controller c, User user) {
+    	FlatLightLaf.install();
     	finestraCorrente = this;
     	int MIN_FOTO = 5;
     	int MAX_FOTO = 10;
