@@ -25,7 +25,7 @@ public class DatabaseManager {
     public User getUserByMail(String mail) {
         User user = null;
 
-        String query = "SELECT * FROM users WHERE mail = "+mail+";";
+        String query = "SELECT * FROM users WHERE mail = '"+mail+"';";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             
@@ -112,7 +112,7 @@ public class DatabaseManager {
     public Immobile getHouseByAddress(String indirizzo) {
     	Immobile immobile = null;
     	
-    	String query = "SELECT * FROM immobili WHERE indirizzo = "+indirizzo+";";
+    	String query = "SELECT * FROM immobili WHERE indirizzo = '"+indirizzo+"';";
     	
     	 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                  PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -151,9 +151,9 @@ public class DatabaseManager {
     	
     	String query;
     	if(isAgente) {
-    		query = "SELECT * FROM prenotazioni WHERE agente_id = "+mail+" AND data_prenotazione = "+data+" AND ora_prenotazione = "+ora+";";
+    		query = "SELECT * FROM prenotazioni WHERE agente_id = '"+mail+"' AND data_prenotazione = '"+data+"' AND ora_prenotazione = '"+ora+"';";
     	} else {
-    		query = "SELECT * FROM prenotazioni WHERE user_id = "+mail+" AND data_prenotazione = "+data+" AND ora_prenotazione = "+ora+";";
+    		query = "SELECT * FROM prenotazioni WHERE user_id = '"+mail+"' AND data_prenotazione = '"+data+"' AND ora_prenotazione = '"+ora+"';";
     	}
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -172,7 +172,7 @@ public class DatabaseManager {
     
     public Prenotazione checkReservation(String mailCliente, String indirizzo) {
     	Prenotazione prenotazione = null;
-    	String query = "SELECT * FROM prenotazioni WHERE user_id ="+mailCliente+"AND immobile_id="+indirizzo+";";
+    	String query = "SELECT * FROM prenotazioni WHERE user_id = '"+mailCliente+"' AND immobile_id = '"+indirizzo+"';";
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
                
@@ -213,9 +213,9 @@ public class DatabaseManager {
     	ArrayList<Prenotazione> lista = new ArrayList<Prenotazione>();
     	
     	if(isAgente) {
-    		query = "SELECT * FROM prenotazioni WHERE agente_id = "+mail+" AND isConfirmed = "+isConfirmed+" AND data_prenotazione = "+data+";";
+    		query = "SELECT * FROM prenotazioni WHERE agente_id = '"+mail+"' AND isConfirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
     	} else {
-    		query = "SELECT * FROM prenotazioni WHERE user_id = "+mail+" AND isConfirmed = "+isConfirmed+"AND data_prenotazione = "+data+";";
+    		query = "SELECT * FROM prenotazioni WHERE user_id = '"+mail+"' AND isConfirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
     	}
     	 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {

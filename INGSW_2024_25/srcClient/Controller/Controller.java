@@ -532,13 +532,13 @@ public class Controller {
 			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) LIKE '%"+posizione+"%'");
 		}
 		if (classeEnergetica != null) {
-			sql.append(" AND classe_energetica = "+classeEnergetica);
+			sql.append(" AND classe_energetica = '"+classeEnergetica+"'");
 		}
 		if (tipoImmobile != null) {
-			sql.append(" AND tipo = "+tipoImmobile);
+			sql.append(" AND tipo = '"+tipoImmobile+"'");
 		}
 		if (annuncio != null) {
-			sql.append(" AND annuncio = "+annuncio);
+			sql.append(" AND annuncio = '"+annuncio+"'");
 		}
 		if (ascensore) {
 			sql.append(" AND ascensore = 'TRUE'");
