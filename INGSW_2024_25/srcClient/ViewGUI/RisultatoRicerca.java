@@ -15,7 +15,7 @@ public class RisultatoRicerca extends JFrame {
     private JXMapViewer mapViewer;
     private JPanel mapPanel;
 
-    public RisultatoRicerca(Controller c, User user, ArrayList<Immobile> ricerca) {
+    public RisultatoRicerca(Controller c, User user, ArrayList<Immobile> ricerca, String posizione) {
         // Configura il JFrame
         setTitle("Risultato Ricerca - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +45,7 @@ public class RisultatoRicerca extends JFrame {
         setContentPane(mainPanel);
 
         // Ottieni le coordinate e visualizza la mappa
-        c.getCoordinates(c, "Bologna", mapPanel, mapViewer, true);
+        c.getCoordinates(c, posizione , mapPanel, mapViewer, true);
 
         // Mostra la finestra
         setVisible(true);

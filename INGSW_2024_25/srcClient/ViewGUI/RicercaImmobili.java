@@ -216,19 +216,23 @@ public class RicercaImmobili extends JFrame {
 		JButton cercaButton = new JButton("Cerca");
 		cercaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				double prezzoMin = Double.parseDouble(prezzoMinField.getText());
-				double prezzoMax = Double.parseDouble(prezzoMaxField.getText());
-				String classe = (String) tipoClasse.getSelectedItem();
 				String indirizzo = posizioneField.getText();
-				String tipo = (String) tipoCasa.getSelectedItem();
-				String annuncio = (String) tipoAnnuncio.getSelectedItem();
-				boolean giardino = c.controlCheckBox(giardinoCheckBox);
-				boolean terrazzo = c.controlCheckBox(terrazzoCheckBox);
-				boolean condominio = c.controlCheckBox(condominioCheckBox);
-				boolean ascensore = c.controlCheckBox(ascensoreCheckBox);
-				ArrayList<Immobile> ricerca = c.ricercaImmobili(prezzoMin, prezzoMax, classe, indirizzo, tipo, annuncio, ascensore, condominio, terrazzo, giardino);
-				RisultatoRicerca risultato = new RisultatoRicerca(c, user, ricerca);
-				c.cambiaFinestra(finestraCorrente, risultato);
+				if (indirizzo.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Devi inserire almeno una città dove cercare", "Errore", JOptionPane.ERROR_MESSAGE);
+				} else {
+					double prezzoMin = Double.parseDouble(prezzoMinField.getText());
+					double prezzoMax = Double.parseDouble(prezzoMaxField.getText());
+					String classe = (String) tipoClasse.getSelectedItem();
+					String tipo = (String) tipoCasa.getSelectedItem();
+					String annuncio = (String) tipoAnnuncio.getSelectedItem();
+					boolean giardino = c.controlCheckBox(giardinoCheckBox);
+					boolean terrazzo = c.controlCheckBox(terrazzoCheckBox);
+					boolean condominio = c.controlCheckBox(condominioCheckBox);
+					boolean ascensore = c.controlCheckBox(ascensoreCheckBox);
+					ArrayList<Immobile> ricerca = c.ricercaImmobili(prezzoMin, prezzoMax, classe, indirizzo, tipo, annuncio, ascensore, condominio, terrazzo, giardino);
+					RisultatoRicerca risultato = new RisultatoRicerca(c, user, ricerca, indirizzo);
+					c.cambiaFinestra(finestraCorrente, risultato);
+				}
 			}});
 		cercaButton.setForeground(new Color(255, 255, 255));
 		cercaButton.setBackground(new Color(40, 132, 212));
