@@ -17,7 +17,7 @@ public class HomeAgente extends JFrame {
     public HomeAgente(Controller c, User user) {
     	JButton bellButton;
     	List<Runnable> notifiche = c.getNotificheUtente(user.getMail());
-        FlatLightLaf.install();
+        FlatLightLaf.setup(new FlatLightLaf());
         // Imposta il titolo della finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
