@@ -28,7 +28,7 @@ public class VisionePrenotazione extends JFrame {
     
     
     public VisionePrenotazione(User user, Prenotazione prenotazione, Controller c) {
-        FlatLightLaf.install();
+        FlatLightLaf.setup(new FlatLightLaf());
         setTitle("Visione Prenotazione");
         setSize(600, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
