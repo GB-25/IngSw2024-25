@@ -14,7 +14,7 @@ public class CaricamentoConfermato extends JFrame {
 	JFrame finestraCorrente = this;
 	
     public CaricamentoConfermato(Controller c, User user) {
-        FlatLightLaf.install();
+        FlatLightLaf.setup(new FlatLightLaf());
         // Imposta la finestra
         setTitle("DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
