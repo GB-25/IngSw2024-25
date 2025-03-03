@@ -16,7 +16,7 @@ public class CambioPassword extends JFrame {
     
     public CambioPassword(Controller c, User user) {
         // Configurazione finestra
-	FlatLightLaf.install();
+	FlatLightLaf.setup(new FlatLightLaf());
         setTitle("Cambio Password - Admin");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 640);
