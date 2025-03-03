@@ -59,7 +59,7 @@ public class ProvaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public ProvaLogin(Controller c) {
-                FlatLightLaf.install();
+                FlatLightLaf.setup(new FlatLightLaf());
 		finestraCorrente= this;
 		this.setResizable(false);
 		setPreferredSize(new Dimension(800, 600));
