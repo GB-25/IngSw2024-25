@@ -2,7 +2,7 @@ package ViewGUI;
 
 import java.awt.*;
 import java.util.ArrayList;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import org.jxmapviewer.JXMapViewer;
 
@@ -16,6 +16,7 @@ public class RisultatoRicerca extends JFrame {
     private JPanel mapPanel;
 
     public RisultatoRicerca(Controller c, User user, ArrayList<Immobile> ricerca, String posizione) {
+        FlatLightLaf.install();
         // Configura il JFrame
         setTitle("Risultato Ricerca - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
