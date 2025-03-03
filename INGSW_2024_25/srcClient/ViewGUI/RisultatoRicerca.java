@@ -16,7 +16,7 @@ public class RisultatoRicerca extends JFrame {
     private JPanel mapPanel;
 
     public RisultatoRicerca(Controller c, User user, ArrayList<Immobile> ricerca, String posizione) {
-        FlatLightLaf.install();
+        FlatLightLaf.setup(new FlatLightLaf());
         // Configura il JFrame
         setTitle("Risultato Ricerca - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
