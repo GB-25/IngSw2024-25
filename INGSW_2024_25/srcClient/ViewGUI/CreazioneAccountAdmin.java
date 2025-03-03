@@ -3,7 +3,7 @@ package ViewGUI;
 import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import Class.User;
 import Controller.Controller;
 
@@ -28,6 +28,7 @@ public class CreazioneAccountAdmin extends JFrame {
     private boolean[] valori = {false, false, false, false};
 
     public CreazioneAccountAdmin(Controller c, User user) {
+	FlatLightLaf.install();
         // Configurazione finestra
         setTitle("Creazione Account Admin - DietiEstates25");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
