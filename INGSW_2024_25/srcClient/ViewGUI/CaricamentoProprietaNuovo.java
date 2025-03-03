@@ -57,7 +57,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();
 
     public CaricamentoProprietaNuovo(Controller c, User user) {
-    	FlatLightLaf.install();
+    	FlatLightLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
     	int MIN_FOTO = 5;
     	int MAX_FOTO = 10;
