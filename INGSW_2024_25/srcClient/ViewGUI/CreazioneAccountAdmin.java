@@ -151,7 +151,7 @@ public class CreazioneAccountAdmin extends JFrame {
                 JOptionPane.QUESTION_MESSAGE);
 
         if (response == JOptionPane.YES_OPTION) {
-        	//c.handleRegistration(nome, cognome, data, email, telefono, password, true);
+        	c.handleRegistration(nome, cognome, data, email, telefono, password, true);
         	// Sono stato costretto a commentare questa sezione altrimenti non partiva, bisogna fare in modo che password venga poi restituita in versione JPasswordField
         	JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             dispose();

@@ -113,8 +113,8 @@ public class Controller {
 		
 	}
 	
-	public void handleRegistration (String nome, String cognome, String data, String mail, String telefono, char[] pass, boolean isAgente) {
-		String password = new String(pass);
+	public void handleRegistration (String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
+		
 		User user = model.registerModel(nome, cognome, data, mail, telefono, password, isAgente);
 		if (user == null) {
 			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
