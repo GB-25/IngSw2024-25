@@ -15,7 +15,7 @@ public class RicercaImmobili extends JFrame {
 	private JFrame finestraCorrente;
 	
     public RicercaImmobili(Controller c, User user) {
-    	FlatLightLaf.install();
+    	FlatLightLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Ricerca immobili - DietiEstates25");
         setSize(500, 500);
