@@ -28,7 +28,7 @@ public class CreazioneAccountAdmin extends JFrame {
     private boolean[] valori = {false, false, false, false};
 
     public CreazioneAccountAdmin(Controller c, User user) {
-	FlatLightLaf.install();
+	FlatLightLaf.setup(new FlatLightLaf());
         // Configurazione finestra
         setTitle("Creazione Account Admin - DietiEstates25");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
