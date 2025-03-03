@@ -21,7 +21,7 @@ public class VisioneImmobile extends JFrame {
     public VisioneImmobile(Controller c, Immobile immobile, User user) {
     	finestraCorrente=this;
         // Configurazione della finestra
-    	FlatLightLaf.install();
+    	FlatLightLaf.setup(new FlatLightLaf());
         setTitle("Visualizzazione Immobile - DietiEstates25");
         setSize(600, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
