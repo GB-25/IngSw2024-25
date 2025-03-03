@@ -1,7 +1,7 @@
 package ViewGUI;
 
 import javax.swing.*;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import Class.Prenotazione;
 import Class.User;
 
@@ -27,6 +27,7 @@ public class VisionePrenotazione extends JFrame {
     
     
     public VisionePrenotazione(User user, Prenotazione prenotazione, Controller c) {
+        FlatLightLaf.install();
         setTitle("Visione Prenotazione");
         setSize(600, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,17 +40,17 @@ public class VisionePrenotazione extends JFrame {
 
         // Creazione dei componenti per i dettagli della prenotazione
         titoloLabel = new JLabel("Dettagli Prenotazione", SwingConstants.CENTER);
-        titoloLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
+        titoloLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 20));
         clienteLabel = new JLabel("Cliente: " + prenotazione.getUser().getNome()+prenotazione.getUser().getCognome(), SwingConstants.CENTER);
-        clienteLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        clienteLabel.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 20));
         dataLabel = new JLabel("Data: " + prenotazione.getDataPrenotazione(), SwingConstants.CENTER);
-        dataLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        dataLabel.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 20));
         oraLabel = new JLabel("Ora: " + prenotazione.getOraPrenotazione(), SwingConstants.CENTER);
-        oraLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        oraLabel.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 20));
         posizioneLabel = new JLabel("Posizione: "+prenotazione.getImmobile().getIndirizzo());
-        posizioneLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
+        posizioneLabel.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 20));
         idCasaLabel = new JLabel("ID Prenotazione: "+prenotazione.getId());
-        idCasaLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
+        idCasaLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 20));
         
         topPanel = createTopPanel(user, c);
 
