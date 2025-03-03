@@ -8,6 +8,7 @@ import Class.User;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import Controller.Controller;
 
@@ -27,6 +28,7 @@ public class VisionePrenotazione extends JFrame {
     
     
     public VisionePrenotazione(User user, Prenotazione prenotazione, Controller c) {
+    	
         setTitle("Visione Prenotazione");
         setSize(600, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,6 +126,8 @@ public class VisionePrenotazione extends JFrame {
     }
     
     private JPanel createTopPanel(User user, Controller c) {
+    	ImageIcon bellIcon;
+    	List<Runnable> notifiche = c.getNotificheUtente(user.getMail());
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(40, 132, 212));
         topPanel.setPreferredSize(new Dimension(600, 120));
@@ -172,18 +176,30 @@ public class VisionePrenotazione extends JFrame {
         JPopupMenu popupMenu = new JPopupMenu();
         popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-        JMenuItem notifica1 = new JMenuItem("Prenotazione confermata per Appartamento Roma");
-        JMenuItem notifica2 = new JMenuItem("Prenotazione rifiutata per Casa Tivoli");
-        JMenuItem notifica3 = new JMenuItem("Messaggio da Mario Rossi");
-
-        popupMenu.add(notifica1);
-        popupMenu.add(notifica2);
-        popupMenu.add(notifica3);
-
-        ImageIcon bellIcon = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
+        for (Runnable notifica : notifiche) {
+            JMenuItem menuItem = new JMenuItem("Notifica");
+            menuItem.addActionListener(e -> {
+            	notifica.run(); 
+            	popupMenu.remove(menuItem);
+            	notifiche.remove(notifica);
+            }); // Esegui l'azione associata alla notifica
+            popupMenu.add(menuItem);
+        }
+       
+        if(notifiche.isEmpty()) {
+        	bellIcon = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
+        } else {
+        	bellIcon = new ImageIcon(getClass().getResource("/immagini/whitenotifiche.png"));
+        }
         Image bellImage = bellIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         JButton bellButton = new JButton(new ImageIcon(bellImage));
-        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
+        bellButton.addActionListener(e -> {
+        	popupMenu.show(bellButton, 0, bellButton.getHeight());
+        	ImageIcon bellLogo = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
+            Image imgBell = bellLogo.getImage();
+            Image imgBellScaled = imgBell.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        	bellButton.setIcon(new ImageIcon(imgBellScaled));
+        });
         bellButton.setBackground(new Color(40, 132, 212));
         bellButton.setBorderPainted(false);
         bellButton.setFocusPainted(false);
