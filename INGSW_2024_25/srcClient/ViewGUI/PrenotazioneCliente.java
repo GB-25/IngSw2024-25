@@ -27,7 +27,7 @@ public class PrenotazioneCliente extends JFrame {
     private JPanel mainPanel;
 
     public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
-    	FlatLightLaf.install();
+    	FlatLightLaf.setup(new FlatLightLaf());
         setTitle("Prenotazione Cliente - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
