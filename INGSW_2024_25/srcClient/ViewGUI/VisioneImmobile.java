@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import org.jxmapviewer.JXMapViewer;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import Class.ComposizioneImmobile;
 import Class.Immobile;
 import Class.User;
@@ -21,6 +21,7 @@ public class VisioneImmobile extends JFrame {
     public VisioneImmobile(Controller c, Immobile immobile, User user) {
     	finestraCorrente=this;
         // Configurazione della finestra
+    	FlatLightLaf.install();
         setTitle("Visualizzazione Immobile - DietiEstates25");
         setSize(600, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

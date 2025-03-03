@@ -2,6 +2,8 @@ package ViewGUI;
 
 import javax.swing.*;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import Class.User;
 import Controller.Controller;
 
@@ -23,9 +25,10 @@ public class HomeCliente extends JFrame {
 	public HomeCliente(Controller c, User user) {
 		notifiche=c.getNotificheUtente(user.getMail());
 		finestraCorrente = this;
+		FlatLightLaf.install();
 		setTitle("Home Cliente - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 500);
+        setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
         
         mainPanel = new JPanel(new BorderLayout());
@@ -39,6 +42,7 @@ public class HomeCliente extends JFrame {
         
         JButton searchButton = new JButton("Ricerca immobile");
         JButton viewCalendarButton = new JButton("Visualizza il calendario con gli appuntamenti");
+        JButton changePasswordButton = new JButton("Cambia password di questo account");
 
         searchButton.setPreferredSize(new Dimension(500, 120));
         searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -51,6 +55,15 @@ public class HomeCliente extends JFrame {
         viewCalendarButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
         viewCalendarButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         viewCalendarButton.setBackground(new Color(210, 224, 239));
+        changePasswordButton.setPreferredSize(new Dimension(500, 120));
+        changePasswordButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        changePasswordButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
+        changePasswordButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
+        changePasswordButton.setBackground(new Color(210, 224, 239));
+        changePasswordButton.addActionListener(e -> {
+        	dispose();
+        	new CambioPassword(c, user);
+        });
         
         searchButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -79,6 +92,18 @@ public class HomeCliente extends JFrame {
             	viewCalendarButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
             }
         });
+        
+        viewCalendarButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            	viewCalendarButton.setBackground(new Color(180, 224, 239));  // Colore più chiaro al passaggio
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	viewCalendarButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
+            }
+        });
         viewCalendarButton.addActionListener(e -> {
         	VisioneCalendario visione = new VisioneCalendario(c, user);
         	c.cambiaFinestra(finestraCorrente, visione);
@@ -87,7 +112,7 @@ public class HomeCliente extends JFrame {
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
         gbc1.gridy = 1;
-
+        gbc1.insets = new Insets(10, 0, 10, 0);
         centerPanel.add(searchButton, gbc1);
 
         GridBagConstraints gbc2 = new GridBagConstraints();
@@ -95,6 +120,12 @@ public class HomeCliente extends JFrame {
         gbc2.gridy = 2;
         gbc2.insets = new Insets(10, 0, 10, 0);
         centerPanel.add(viewCalendarButton, gbc2);
+        
+        GridBagConstraints gbc3 = new GridBagConstraints();
+        gbc3.gridx = 0;
+        gbc3.gridy = 3;
+        gbc3.insets = new Insets(10, 0, 10, 0);
+        centerPanel.add(changePasswordButton, gbc3);
 
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 

@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.swing.*;
+
+import com.formdev.flatlaf.FlatLightLaf;
 import com.toedter.calendar.JDateChooser;
 
 import Class.Immobile;
@@ -25,6 +27,7 @@ public class PrenotazioneCliente extends JFrame {
     private JPanel mainPanel;
 
     public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
+    	FlatLightLaf.install();
         setTitle("Prenotazione Cliente - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -37,6 +40,28 @@ public class PrenotazioneCliente extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        gbc1.insets = new Insets(10, 10, 10, 10);
+        gbc1.anchor = GridBagConstraints.WEST;
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        gbc2.insets = new Insets(10, 10, 10, 10);
+        gbc2.anchor = GridBagConstraints.WEST;
+        GridBagConstraints gbc3 = new GridBagConstraints();
+        gbc3.insets = new Insets(10, 10, 10, 10);
+        gbc3.anchor = GridBagConstraints.WEST;
+        GridBagConstraints gbc4 = new GridBagConstraints();
+        gbc4.insets = new Insets(10, 10, 10, 10);
+        gbc4.anchor = GridBagConstraints.WEST;
+        GridBagConstraints gbc5 = new GridBagConstraints();
+        gbc5.gridwidth = 2;
+        gbc5.insets = new Insets(10, 10, 10, 10);
+        GridBagConstraints gbc6 = new GridBagConstraints();
+        gbc6.insets = new Insets(10, 10, 10, 10);
+        gbc6.anchor = GridBagConstraints.WEST;
+        GridBagConstraints gbc7 = new GridBagConstraints();
+        gbc7.gridwidth = 2;
+        gbc7.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.WEST;
 
         // Panel per il tasto indietro ed il titolo
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -46,8 +71,8 @@ public class PrenotazioneCliente extends JFrame {
         indietroButton.addActionListener(e -> dispose());
         indietroPanel.add(indietroButton);
 
-        JLabel phraseLabel = new JLabel("Specifica la data e l'orario di prenotazione.");
-        phraseLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
+        JLabel phraseLabel = new JLabel("      Specifica la data e l'orario di prenotazione.");
+        phraseLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 20));
         phraseLabel.setForeground(Color.BLACK);
         indietroPanel.add(phraseLabel);
         mainPanel.add(indietroPanel, BorderLayout.NORTH);
@@ -70,8 +95,8 @@ public class PrenotazioneCliente extends JFrame {
 
         gbc.gridx = 0; gbc.gridy = 0;
         middlePanel.add(dateLabel, gbc);
-        gbc.gridx = 1; gbc.gridy = 0;
-        middlePanel.add(dateChooser, gbc);
+        gbc1.gridx = 1; gbc1.gridy = 0;
+        middlePanel.add(dateChooser, gbc1);
 
         // Selezione dell'orario
         SpinnerDateModel model = new SpinnerDateModel();
@@ -83,28 +108,31 @@ public class PrenotazioneCliente extends JFrame {
         JLabel timeLabel = new JLabel("Orario:");
         timeLabel.setPreferredSize(new Dimension(150, 25));
 
-        gbc.gridx = 0; gbc.gridy = 1;
-        middlePanel.add(timeLabel, gbc);
-        gbc.gridx = 1; gbc.gridy = 1;
-        middlePanel.add(timeSpinner, gbc);
+        gbc2.gridx = 0; gbc2.gridy = 1;
+        middlePanel.add(timeLabel, gbc2);
+        gbc3.gridx = 1; gbc3.gridy = 1;
+        middlePanel.add(timeSpinner, gbc3);
 
         JButton confirmButton = new JButton("Conferma Orario");
-        gbc.gridx = 0; gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
-        middlePanel.add(confirmButton, gbc);
+        gbc4.gridx = 0; gbc4.gridy = 2;
+        gbc4.gridwidth = 2;
+        gbc4.anchor = GridBagConstraints.CENTER;
+        middlePanel.add(confirmButton, gbc4);
 
         JLabel outputLabel = new JLabel(" ");
-        gbc.gridy = 3;
-        middlePanel.add(outputLabel, gbc);
+        gbc5.gridx = 0;
+        gbc5.gridy = 3;
+        middlePanel.add(outputLabel, gbc5);
 
         JLabel weatherLabel = new JLabel(" ");
-        gbc.gridy = 4;
-        middlePanel.add(weatherLabel, gbc);
+        gbc6.gridx = 0;
+        gbc6.gridy = 4;
+        middlePanel.add(weatherLabel, gbc6);
         
         JButton weatherButton = new JButton("Controlla meteo");
-        gbc.gridy = 5;
-        middlePanel.add(weatherButton, gbc);
+        gbc7.gridx = 0;
+        gbc7.gridy = 5;
+        middlePanel.add(weatherButton, gbc7);
         
         // Tasto per sapere il meteo della data inserita nell'orario inserito
         weatherButton.addActionListener(e -> {

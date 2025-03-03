@@ -2,7 +2,7 @@ package ViewGUI;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import Class.User;
 
 import java.awt.*;
@@ -27,6 +27,7 @@ public class VisioneCalendario extends JFrame {
     private ArrayList<String> prenotazioni;
     
     public VisioneCalendario(Controller c, User user) {
+        FlatLightLaf.install();
     	frame = new JFrame("Calendario");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
@@ -62,6 +63,9 @@ public class VisioneCalendario extends JFrame {
 
         calendarTable = new JTable(tableModel);
         calendarTable.setRowHeight(50);
+
+	calendarTable.setShowGrid(true); // Griglia aggiunta perché FlatLightLaf la faceva sparire prima
+        calendarTable.setGridColor(new Color(200, 200, 200));
         
         // Riempie la tabella con le date delle prossime due settimane
         fillCalendarTable();

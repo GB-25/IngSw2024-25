@@ -1,7 +1,7 @@
 package ViewGUI;
 
 import javax.swing.*;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import Class.User;
 import Controller.Controller;
 
@@ -16,6 +16,7 @@ public class CambioPassword extends JFrame {
     
     public CambioPassword(Controller c, User user) {
         // Configurazione finestra
+	FlatLightLaf.install();
         setTitle("Cambio Password - Admin");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 640);
