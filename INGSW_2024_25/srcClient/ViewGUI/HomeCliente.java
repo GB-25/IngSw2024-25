@@ -25,7 +25,7 @@ public class HomeCliente extends JFrame {
 	public HomeCliente(Controller c, User user) {
 		notifiche=c.getNotificheUtente(user.getMail());
 		finestraCorrente = this;
-		FlatLightLaf.install();
+		FlatLightLaf.setup(new FlatLightLaf());
 		setTitle("Home Cliente - DietiEstates25");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 640);
