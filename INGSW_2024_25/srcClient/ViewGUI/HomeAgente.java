@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 
 public class HomeAgente extends JFrame {
 	
-	private ProvaLogin finestraLogin;
+	private JFrame finestraLogin;
 	private JFrame finestraCorrente = this;
 
     public HomeAgente(Controller c, User user) {

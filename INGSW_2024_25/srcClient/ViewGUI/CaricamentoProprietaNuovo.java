@@ -51,7 +51,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     private JComboBox<String> cmbCondo;
     private JComboBox<String> cmbEnergyClass;
     private JComboBox<String> cmbElevator;
-    private CaricamentoConfermato caricamento;
+    private JFrame caricamento;
     private JFrame finestraCorrente;
     // Lista per memorizzare le immagini caricate
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();

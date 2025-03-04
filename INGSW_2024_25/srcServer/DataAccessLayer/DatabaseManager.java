@@ -4,8 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import Class.*;
+import DataAccessLayer.Interfaces.*;
 
-public class DatabaseManager {
+public class DatabaseManager implements UserRepositoryInterface, HouseRepositoryInterface, ReservationRepositoryInterface{
     private static final String URL = "jdbc:postgresql://35.241.167.132:5432/app-db";
     private static final String USER = "postgres";
     private static final String PASSWORD = "passwordpocosicura"; 
@@ -21,7 +22,8 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
+    
+    @Override
     public User getUserByMail(String mail) {
         User user = null;
 
@@ -41,6 +43,7 @@ public class DatabaseManager {
         return user;
     }
     
+    @Override
     public void register(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
     	String query = "INSERT INTO users(mail, password, nome, cognome, numerotelefono, datanascita, isagente)"
     			+ "VALUES('"+ mail +"','"+password+"','"+nome+"','"+cognome+"','"+telefono+"','"+data+"','"+isAgente+"');";
@@ -55,6 +58,8 @@ public class DatabaseManager {
            }
     }
     
+    
+    @Override
     public void updatePassword(String mail, String nuovaPassword) {
     	String query = "UPDATE users SET password = '"+nuovaPassword+"' WHERE mail = '"+mail+"';";
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -67,6 +72,8 @@ public class DatabaseManager {
            }
     }
     
+    
+    @Override
     public int uploadComposizione(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
     	String query = "INSERT INTO composizione_immobile (quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo) "
     			+ "VALUES ('"+quadratura+"'.'"+stanze+"','"+piani+"','"+giardino+"','"+condominio+"','"+ascensore+"','"+terrazzo+"') RETURNING id;";
@@ -86,6 +93,8 @@ public class DatabaseManager {
     }
     
     
+    
+    @Override
     public ComposizioneImmobile getComposizioneById(int id) {
     	ComposizioneImmobile composizione = null;
     	
@@ -108,7 +117,7 @@ public class DatabaseManager {
     }
   
     
-    
+    @Override
     public Immobile getHouseByAddress(String indirizzo) {
     	Immobile immobile = null;
     	
@@ -132,6 +141,8 @@ public class DatabaseManager {
     	 
     }
     
+    
+    @Override
     public void uploadHouse(double prezzo,int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, 
 					String descrizione, String urls, String agente) {
     	String query = "INSERT INTO immobili (prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classe_energetica, descrizione, urls, agente_id)"
@@ -146,7 +157,7 @@ public class DatabaseManager {
            }
     }
     
-    
+    @Override
     public boolean alreadyGotAppointment(String mail, boolean isAgente, String data, String ora) {
     	
     	String query;
@@ -170,6 +181,8 @@ public class DatabaseManager {
         return false;
     }
     
+    
+    @Override
     public Prenotazione checkReservation(String mailCliente, String indirizzo) {
     	Prenotazione prenotazione = null;
     	String query = "SELECT * FROM prenotazioni WHERE user_id = '"+mailCliente+"' AND immobile_id = '"+indirizzo+"';";
@@ -192,6 +205,8 @@ public class DatabaseManager {
        }
 
     
+    
+    @Override
     public void createReservation(String data, String ora,  String cliente, String indirizzoImmobile, String agente) {
     	String query = "INSERT INTO prenotazioni (data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed)"
     			+"VALUES ('"+data+"','"+ ora+"','"+cliente+"','"+ indirizzoImmobile+"','"+agente+"','FALSE');";
@@ -205,6 +220,8 @@ public class DatabaseManager {
            }
     }
     
+    
+    @Override
     public ArrayList<Prenotazione> getReservationByMail(String mail, boolean isConfirmed, String data, boolean isAgente) {
     	User agente;
     	Immobile immobile;
@@ -238,6 +255,8 @@ public class DatabaseManager {
     	 return lista;
     }
     
+    
+    @Override
     public void deleteReservation(int id) {
     	String query = "DELETE FROM prenotazioni WHERE id = "+id+";";
     	
@@ -251,6 +270,8 @@ public class DatabaseManager {
     	
     }
     
+    
+    @Override
     public void confirmReservation(int id) {
     	String query = "UPDATE prenotazioni SET isConfirmed = 'TRUE' WHERE id = '"+id+"';";
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -263,6 +284,8 @@ public class DatabaseManager {
     }
     
     
+    
+    @Override
     public ArrayList<Immobile> findHouses(String query){
     	ComposizioneImmobile composizione;
     	User agente;
@@ -285,6 +308,8 @@ public class DatabaseManager {
     	return lista;
     }
     
+    
+    @Override
     public int getReservationId(String mailCliente, String mailAgente, String data, String ora, String indirizzo, boolean confirmed) {
     	String query = "SELECT * FROM prenotazioni WHERE data_prenotazione = '"+data+"' AND user_id = '"+mailCliente+"' AND ora_prenotazione = '"+ora+"' AND immobile_id ='"+indirizzo+"' AND agente_id = '"+mailAgente+" AND isConfirmed = '"+confirmed+"';";
     	int id=0;

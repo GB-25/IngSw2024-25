@@ -37,7 +37,7 @@ public class ProvaLogin extends JFrame {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JFrame finestraCorrente;
-	private FinestraRegistrazione finestraRegistrazione;
+	private JFrame finestraRegistrazione;
 
 	/**
 	 * Launch the application.

@@ -265,7 +265,7 @@ public class FinestraRegistrazione extends JFrame {
         		);
 
         		if (risposta == JOptionPane.YES_OPTION) {
-        		    finestraLogin = new FinestraLogin(c);
+        		    finestraLogin = new ProvaLogin(c);
         		    c.cambiaFinestra(finestraCorrente, finestraLogin);
         		}
 

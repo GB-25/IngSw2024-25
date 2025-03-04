@@ -23,7 +23,7 @@ public class VisionePrenotazione extends JFrame {
     private JButton rifiutaButton;
     private JButton indietroButton;
     private JPanel topPanel;
-    private ProvaLogin finestraLogin;
+    private JFrame finestraLogin;
 	private JFrame finestraCorrente = this;
     
     

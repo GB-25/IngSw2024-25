@@ -10,7 +10,7 @@ import Class.*;
 
 public class CaricamentoConfermato extends JFrame {
 
-	HomeAgente homeAgente;
+	JFrame homeAgente;
 	JFrame finestraCorrente = this;
 	
     public CaricamentoConfermato(Controller c, User user) {

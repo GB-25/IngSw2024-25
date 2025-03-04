@@ -4,17 +4,20 @@ import java.util.Date;
 
 import Class.User;
 import DataAccessLayer.DatabaseManager;
+import DataAccessLayer.Interfaces.UserRepositoryInterface;
 
 
 public class UserService {
-    private DatabaseManager dbManager;
+  
+    private UserRepositoryInterface userRepository;
 
-    public UserService() {
-        dbManager = new DatabaseManager();
+    public UserService(UserRepositoryInterface userRepository) {
+
+        this.userRepository = userRepository;
     }
 
     public boolean authenticateUser(String mail, String password, boolean agente, String nome, String cognome, String telefono, String dataNascita) {
-    	 User user = dbManager.getUserByMail(mail);
+    	 User user = userRepository.getUserByMail(mail);
     	 boolean loginSuccess;
          if (user != null) {
              loginSuccess= user.getPassword().equals(password);
@@ -31,24 +34,24 @@ public class UserService {
      }
     
     public boolean registerUser(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
-    	User user = dbManager.getUserByMail(mail);
+    	User user = userRepository.getUserByMail(mail);
     	
     	if (user == null) {
-    		dbManager.register(nome, cognome, data, mail, telefono, password, isAgente);
+    		userRepository.register(nome, cognome, data, mail, telefono, password, isAgente);
     		return true;
     	}
     	return false;
     }
 
     public void updatePassword(String mail, String nuovaPassword) {
-    	dbManager.updatePassword(mail, nuovaPassword);
+    	userRepository.updatePassword(mail, nuovaPassword);
     }
     
     public User getUser(String mail) {
-    	return dbManager.getUserByMail(mail);
+    	return userRepository.getUserByMail(mail);
     }
     
-    public void close() {
-        dbManager.closeConnection();
-    }
+//    public void close() {
+//        userRepository.closeConnection();
+//    }
 }

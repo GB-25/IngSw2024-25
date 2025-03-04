@@ -2,6 +2,9 @@ package DataAccessLayer;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.*;
+
+import DataAccessLayer.Interfaces.StorageManagerInterface;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.Base64;
 import java.io.FileNotFoundException;
 
-public class GoogleCloudStorageManager {
+public class GoogleCloudStorageManager implements StorageManagerInterface{
     private static final String BUCKET_NAME = "foto-ingsw-2024-25";
     private static final String CREDENTIALS_PATH = "/INGSW_2024_25/scientific-base-449814-j0-e3a3cf2780c9.json";
     private final Storage storage;
@@ -20,6 +23,8 @@ public class GoogleCloudStorageManager {
         this.storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
     }
 
+    
+    @Override
     public String uploadFile(String fileName, String base64Data) throws IOException {
         // Decodifica la stringa Base64 per ottenere i byte originali
         byte[] fileBytes = Base64.getDecoder().decode(base64Data);
@@ -40,6 +45,8 @@ public class GoogleCloudStorageManager {
         return "https://storage.googleapis.com/" + BUCKET_NAME + "/" + objectName;
     }
     
+    
+    @Override
     public String downloadImageAsBase64(String fileName) throws IOException {
         // Costruisci l'objectName: ad esempio, in una "cartella" chiamata "immobili"
         String objectName = "immobili/" + fileName;

@@ -18,7 +18,7 @@ public class HomeCliente extends JFrame {
 	private JPanel topPanel;
 	private JPanel centerPanel;
 	private JFrame finestraCorrente;
-	private ProvaLogin finestraLogin;
+	private JFrame finestraLogin;
 	List<Runnable> notifiche;
 	ImageIcon bellIcon;
 	

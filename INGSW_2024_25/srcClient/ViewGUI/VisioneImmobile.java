@@ -15,7 +15,7 @@ public class VisioneImmobile extends JFrame {
     private JPanel imagePanel; // Pannello per l'immagine
     private CardLayout cardLayout; // Layout per il carosello
     private JButton prevButton, nextButton; // Navigation buttons
-    private ProvaLogin finestraLogin;
+    private JFrame finestraLogin;
     private JFrame finestraCorrente;
 
     public VisioneImmobile(Controller c, Immobile immobile, User user) {

@@ -61,8 +61,8 @@ public class Controller {
 
 	private Point lastPoint;
 	//frame
-	ProvaLogin finestra;
-	FinestraLogin finestraPrincipale;
+	
+	ProvaLogin finestraPrincipale;
 	ClientModel model;
 	HomeCliente homeUtente;
 	HomeAgente homeAgente;
@@ -77,8 +77,11 @@ public class Controller {
 		User user = new User("", "", "", "", "", "", true);
 		homeAgente = new HomeAgente(this, user);
 		homeAgente.setVisible(true);
-//		finestra = new ProvaLogin(this);
-//		finestra.setVisible(true);
+		//qua dobbiamo impostare tutte queste variabili a JFRAME
+		
+		
+//		finestraPrincipale = new ProvaLogin(this);
+//		finestraPrincipale.setVisible(true);
 //		caricamento = new CaricamentoProprietaNuovo(this, user);
 //		caricamento.setVisible(true);
 //		homeUtente= new HomeCliente(this, user);
@@ -514,8 +517,6 @@ public class Controller {
 		String[] urlArray = urls.split(",");
 
         // Stampare gli URL uno per uno
-//        for (String url : urlArray) {
-//           this.fileDownload(urls);
 //        } ha senso che poi io gli passi direttamente l'array e poi dalla view un metodo che associa una label con un elemento dell'array, per avere l'immagine
 		return urlArray;
 	}
