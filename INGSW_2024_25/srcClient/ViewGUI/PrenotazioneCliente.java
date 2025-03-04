@@ -113,7 +113,7 @@ public class PrenotazioneCliente extends JFrame {
         gbc3.gridx = 1; gbc3.gridy = 1;
         middlePanel.add(timeSpinner, gbc3);
 
-        JButton confirmButton = new JButton("Conferma Orario");
+        JButton confirmButton = new JButton("Prenota");
         gbc4.gridx = 0; gbc4.gridy = 2;
         gbc4.gridwidth = 2;
         gbc4.anchor = GridBagConstraints.CENTER;
