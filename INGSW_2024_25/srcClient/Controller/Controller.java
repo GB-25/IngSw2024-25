@@ -75,6 +75,7 @@ public class Controller {
 	JFrame ricerca;
 	JFrame risultato;
 	JFrame prenota;
+	JFrame visioneImmobile;
 	String ip = "34.78.163.251";
 	int porta = 12345;
 	private Map<String, List<Runnable>> notificheUtenti = new HashMap<>();
@@ -492,7 +493,7 @@ public class Controller {
 		} else {
 			//metodo per mostrare "bravo hai prenotato"
 			Prenotazione prenotazione = new Prenotazione(id, data, ora, user, immobile, agente, false);
-			this.notifyAgente( prenotazione);
+			this.notifyAgente(prenotazione);
 		}
 	}
 	
@@ -719,6 +720,13 @@ public class Controller {
     	finestraCorrente.setVisible(false);
     	prenota.setVisible(true);
     }
+    
+    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user) {
+    	visioneImmobile = new VisioneImmobile(this, immobile, user);
+    	finestraCorrente.setVisible(false);
+    	visioneImmobile.setVisible(true);
+    }
+    
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();
