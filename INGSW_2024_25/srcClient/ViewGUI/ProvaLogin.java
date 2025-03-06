@@ -192,8 +192,7 @@ public class ProvaLogin extends JFrame {
 		btnRegistrati.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				finestraRegistrazione = new FinestraRegistrazione(c);
-        		c.cambiaFinestra(finestraCorrente, finestraRegistrazione);
+				c.registerUser(finestraCorrente);
 			}
 		});
 		

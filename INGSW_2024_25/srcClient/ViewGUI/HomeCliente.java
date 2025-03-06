@@ -61,8 +61,7 @@ public class HomeCliente extends JFrame {
         changePasswordButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         changePasswordButton.setBackground(new Color(210, 224, 239));
         changePasswordButton.addActionListener(e -> {
-        	dispose();
-        	new CambioPassword(c, user);
+        	c.changePassword(finestraCorrente, user);
         });
         
         searchButton.addMouseListener(new MouseAdapter() {
@@ -77,8 +76,7 @@ public class HomeCliente extends JFrame {
             }
         });
         searchButton.addActionListener(e -> {
-        	RicercaImmobili ricerca = new RicercaImmobili(c, user);
-        	c.cambiaFinestra(finestraCorrente, ricerca);
+        	c.findImmobili(finestraCorrente, user);
         });
         
         viewCalendarButton.addMouseListener(new MouseAdapter() {
@@ -105,8 +103,7 @@ public class HomeCliente extends JFrame {
             }
         });
         viewCalendarButton.addActionListener(e -> {
-        	VisioneCalendario visione = new VisioneCalendario(c, user);
-        	c.cambiaFinestra(finestraCorrente, visione);
+        	c.viewCalendar(finestraCorrente, user);
         });
         
         GridBagConstraints gbc1 = new GridBagConstraints();
@@ -164,8 +161,7 @@ public class HomeCliente extends JFrame {
 	                
 	                //JOptionPane.showMessageDialog(this, "Logout effettuato!");
 	            
-	                finestraLogin= new ProvaLogin(c);
-	                c.cambiaFinestra(finestraCorrente, finestraLogin);
+	                c.returnLogin(finestraCorrente);
 	            }
 	        });
 

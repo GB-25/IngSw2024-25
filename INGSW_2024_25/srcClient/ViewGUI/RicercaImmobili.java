@@ -230,8 +230,7 @@ public class RicercaImmobili extends JFrame {
 					boolean condominio = c.controlCheckBox(condominioCheckBox);
 					boolean ascensore = c.controlCheckBox(ascensoreCheckBox);
 					ArrayList<Immobile> ricerca = c.ricercaImmobili(prezzoMin, prezzoMax, classe, indirizzo, tipo, annuncio, ascensore, condominio, terrazzo, giardino);
-					JFrame risultato = new RisultatoRicerca(c, user, ricerca, indirizzo);
-					c.cambiaFinestra(finestraCorrente, risultato);
+					c.showResultImmobili(finestraCorrente, user, ricerca, indirizzo);
 				}
 			}});
 		cercaButton.setForeground(new Color(255, 255, 255));

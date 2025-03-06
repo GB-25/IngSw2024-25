@@ -62,12 +62,19 @@ public class Controller {
 	private Point lastPoint;
 	//frame
 	
-	ProvaLogin finestraPrincipale;
+	JFrame finestraPrincipale;
 	ClientModel model;
-	HomeCliente homeUtente;
-	HomeAgente homeAgente;
-	FinestraRegistrazione finestraRegistrazione;
-	CaricamentoProprietaNuovo caricamento;
+	JFrame homeUtente;
+	JFrame homeAgente;
+	JFrame finestraRegistrazione;
+	JFrame caricamento;
+	JFrame caricamentoConfermato;
+	JFrame creazioneAdmin;
+	JFrame cambioPassword;
+	JFrame visioneCalendario;
+	JFrame ricerca;
+	JFrame risultato;
+	JFrame prenota;
 	String ip = "34.78.163.251";
 	int porta = 12345;
 	private Map<String, List<Runnable>> notificheUtenti = new HashMap<>();
@@ -647,6 +654,71 @@ public class Controller {
     	return false;
     }
     
+    public void createHomeAgente(JFrame finestraCorrente, User user) {
+    	homeAgente = new HomeAgente(this, user);
+    	finestraCorrente.setVisible(false);
+    	homeAgente.setVisible(true);
+    	}
+    
+    public void confermaCaricamento(JFrame finestraCorrente, User user) {
+    	caricamentoConfermato = new CaricamentoConfermato (this, user);
+    	finestraCorrente.setVisible(false);
+    	caricamentoConfermato.setVisible(true);
+    }
+    
+    public void returnLogin(JFrame finestraCorrente) {
+    	finestraPrincipale = new ProvaLogin(this);
+    	finestraCorrente.setVisible(false);
+    	finestraPrincipale.setVisible(true);
+    }
+    
+    public void createAdmin(JFrame finestraCorrente, User user) {
+    	creazioneAdmin = new CreazioneAccountAdmin(this, user);
+    	finestraCorrente.setVisible(false);
+    	creazioneAdmin.setVisible(true);
+    }
+    
+    public void createCaricamentoImmobile(JFrame finestraCorrente, User user) {
+    	caricamento = new CaricamentoProprietaNuovo(this, user);
+    	finestraCorrente.setVisible(false);
+    	caricamento.setVisible(true);
+    }
+    
+    public void changePassword(JFrame finestraCorrente, User user) {
+    	cambioPassword = new CambioPassword(this, user);
+    	finestraCorrente.setVisible(false);
+    	cambioPassword.setVisible(true);
+    }
+    
+    public void viewCalendar(JFrame finestraCorrente, User user) {
+    	visioneCalendario = new VisioneCalendario(this, user);
+    	finestraCorrente.setVisible(false);
+    	visioneCalendario.setVisible(true);
+    }
+    
+    public void findImmobili(JFrame finestraCorrente, User user) {
+    	ricerca = new RicercaImmobili(this, user);
+    	finestraCorrente.setVisible(false);
+    	ricerca.setVisible(true);
+    }
+    
+    public void registerUser(JFrame finestraCorrente) {
+    	finestraRegistrazione = new FinestraRegistrazione(this);
+    	finestraCorrente.setVisible(false);
+    	finestraRegistrazione.setVisible(true);
+    }
+    
+    public void showResultImmobili(JFrame finestraCorrente, User user, ArrayList<Immobile> ricerca, String indirizzo) {
+    	risultato = new RisultatoRicerca(this, user, ricerca, indirizzo);
+    	finestraCorrente.setVisible(false);
+    	risultato.setVisible(true);
+    }
+    
+    public void makeReservationClient(JFrame finestraCorrente, Immobile immobile, User user) {
+    	prenota = new PrenotazioneCliente(this, immobile, user);
+    	finestraCorrente.setVisible(false);
+    	prenota.setVisible(true);
+    }
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();

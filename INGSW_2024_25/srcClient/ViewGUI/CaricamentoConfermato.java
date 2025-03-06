@@ -66,8 +66,7 @@ public class CaricamentoConfermato extends JFrame {
         btnHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	homeAgente = new HomeAgente(c, user);
-            	c.cambiaFinestra(finestraCorrente, homeAgente);
+            	c.createHomeAgente(finestraCorrente, user);
             }}
             // Chiude la schermata attuale
         );

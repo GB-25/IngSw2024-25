@@ -18,6 +18,7 @@ public class CreazioneAccountAdmin extends JFrame {
     private JTextField txtNome, txtCognome, txtEmail, txtTelefono;
     private JTextField txtPassword;
     private JDateChooser dateChooser;
+    private JFrame finestraCorrente;
     private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
     private static final String DIGITS = "0123456789";
@@ -28,8 +29,9 @@ public class CreazioneAccountAdmin extends JFrame {
     private boolean[] valori = {false, false, false, false};
 
     public CreazioneAccountAdmin(Controller c, User user) {
-	FlatLightLaf.setup(new FlatLightLaf());
+    	FlatLightLaf.setup(new FlatLightLaf());
         // Configurazione finestra
+    	finestraCorrente=this;
         setTitle("Creazione Account Admin - DietiEstates25");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 640);
@@ -155,8 +157,7 @@ public class CreazioneAccountAdmin extends JFrame {
         	c.handleRegistration(nome, cognome, data, email, telefono, password, true);
         	// Sono stato costretto a commentare questa sezione altrimenti non partiva, bisogna fare in modo che password venga poi restituita in versione JPasswordField
         	JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-            new HomeAgente(c, agenteChiamante);
+            c.createHomeAgente(finestraCorrente, agenteChiamante);
         }
     }
     

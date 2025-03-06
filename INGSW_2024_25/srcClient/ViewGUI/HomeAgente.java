@@ -52,8 +52,7 @@ public class HomeAgente extends JFrame {
         logoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         logoButton.addActionListener(e -> {
-            dispose(); // Chiude la schermata attuale
-            new HomeAgente(c, user); // Torna alla home
+            c.createHomeAgente(finestraCorrente, user);
         });
 
         // Menu a tendina per le notifiche
@@ -93,8 +92,7 @@ public class HomeAgente extends JFrame {
 
         JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
         creaAccount.addActionListener(e -> {
-        	dispose();
-    	    new CreazioneAccountAdmin(c,user);
+        	c.createAdmin(finestraCorrente, user);
     });
 
         // Logout
@@ -146,8 +144,7 @@ public class HomeAgente extends JFrame {
 
         JButton addPropertyButton = new JButton("Inserisci un nuovo immobile sulla piattaforma");
         addPropertyButton.addActionListener(e -> {
-            dispose(); // Chiude la schermata attuale
-            new CaricamentoProprietaNuovo(c, user); // Porta alla schermata di inserimento della proprietà
+            c.createCaricamentoImmobile(finestraCorrente, user);
         });
         JButton changePasswordButton = new JButton("Cambia password di questo account");
         JButton viewCalendarButton = new JButton("Visualizza il calendario con gli appuntamenti concordati");
@@ -163,8 +160,7 @@ public class HomeAgente extends JFrame {
         changePasswordButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         changePasswordButton.setBackground(new Color(210, 224, 239));
         changePasswordButton.addActionListener(e -> {
-        	dispose();
-        	new CambioPassword(c, user);
+        	c.changePassword(finestraCorrente, user);
         });
         viewCalendarButton.setPreferredSize(new Dimension(500, 120));
         viewCalendarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -172,8 +168,7 @@ public class HomeAgente extends JFrame {
         viewCalendarButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         viewCalendarButton.setBackground(new Color(210, 224, 239));
         viewCalendarButton.addActionListener(e -> {
-        	VisioneCalendario visione = new VisioneCalendario(c, user);
-        	c.cambiaFinestra(finestraCorrente, visione);
+        	c.viewCalendar(finestraCorrente, user);
     });
         addPropertyButton.addMouseListener(new MouseAdapter() {
             @Override

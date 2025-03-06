@@ -300,8 +300,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                         int idComposizioneImmobile = c.createComposition(grandezza, stanze, piani, condominio, giardino, ascensore, terrazzo);
                         c.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione,
                         urls, user);
-                        caricamento = new CaricamentoConfermato(c, user);
-                        c.cambiaFinestra(finestraCorrente, caricamento);
+                        c.confermaCaricamento(finestraCorrente, user);
                     }
                 }
             }

@@ -100,7 +100,7 @@ public class VisionePrenotazione extends JFrame {
             	String ora= prenotazione.getOraPrenotazione();
             	if(c.reservationConfirm(id, mail, data, ora)) {
             		c.notifyCliente(prenotazione, true);
-            		//metodo per tornare alla schermata precedente che non so qual è
+            		c.createHomeAgente(finestraCorrente, user);
             	}
             }
         });
@@ -112,7 +112,7 @@ public class VisionePrenotazione extends JFrame {
             	int id = prenotazione.getId();
             	c.reservationDeny(id);
             	c.notifyCliente(prenotazione, false);
-            	//metodo per tornare alla schermata precedente che non so qual è
+            	c.createHomeAgente(finestraCorrente, user);
             }
         });
 

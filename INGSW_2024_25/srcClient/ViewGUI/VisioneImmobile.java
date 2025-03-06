@@ -124,8 +124,7 @@ public class VisioneImmobile extends JFrame {
         logout.addActionListener(e -> {
             int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
-            	finestraLogin= new ProvaLogin(c);
-                c.cambiaFinestra(finestraCorrente, finestraLogin);
+            	c.returnLogin(finestraCorrente);
             }
         });
 
@@ -234,8 +233,7 @@ public class VisioneImmobile extends JFrame {
         prenotaButton.setFocusPainted(false);
         prenotaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         prenotaButton.addActionListener(e -> {
-        	PrenotazioneCliente prenota = new PrenotazioneCliente(c, immobile, user);
-        	c.cambiaFinestra(finestraCorrente, prenota);
+        	c.makeReservationClient(finestraCorrente, immobile, user);
         });
 
         JButton indietroButton = new JButton("Indietro");

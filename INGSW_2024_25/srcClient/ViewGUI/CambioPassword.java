@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class CambioPassword extends JFrame {
 	// Campi per inserire la password
+	private JFrame finestraCorrente;
     private JPasswordField txtPasswordAttuale;
     private JPasswordField txtNuovaPassword;
     private JPasswordField txtConfermaPassword;
@@ -16,7 +17,8 @@ public class CambioPassword extends JFrame {
     
     public CambioPassword(Controller c, User user) {
         // Configurazione finestra
-	FlatLightLaf.setup(new FlatLightLaf());
+    	FlatLightLaf.setup(new FlatLightLaf());
+    	finestraCorrente = this;
         setTitle("Cambio Password - Admin");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 640);
@@ -111,8 +113,7 @@ public class CambioPassword extends JFrame {
         if (response == JOptionPane.YES_OPTION) {
         	c.updatePassword(user,txtNuovaPassword.getPassword() );
         	JOptionPane.showMessageDialog(this, "Password cambiata con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-            new HomeAgente(c, user);
+            c.createHomeAgente(finestraCorrente, user);
         }
     }
 
