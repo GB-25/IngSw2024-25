@@ -141,49 +141,7 @@ public class ClientModel {
         return fileData;
     }
     
-    public int uploadComposition(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "uploadComposition");
-    	request.put("quadratura", quadratura);
-    	request.put("stanze", stanze);
-    	request.put("piani", piani);
-    	request.put("giardino", giardino);
-    	request.put("condominio", condominio);
-    	request.put("ascensore", ascensore);
-    	request.put("terrazzo", terrazzo);
-    	int id;
-    	JSONObject response = sendRequest(request);
-    	if (response.getString("status").equals("error")) {
-    		id=0;
-    	} else {
-    		id = response.getInt("id");
-    	}
-    	return id;
-    }
-    
-    public boolean uploadHouseModel(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
-            String urls, String agente) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "uploadHouse");
-    	request.put("prezzo", prezzo);
-    	request.put("idComposizione", idComposizioneImmobile);
-    	request.put("indirizzo", indirizzo);
-    	request.put("annuncio", annuncio);
-    	request.put("tipo", tipo);
-    	request.put("classeEnergetica", classeEnergetica);
-    	request.put("descrizione", descrizione);
-    	request.put("urls", urls);
-    	request.put("agente", agente);
-    	boolean uploaded;
-    	JSONObject response = sendRequest(request);
-    	if (response.getString("status").equals("error")) {
-    		uploaded = false;
-    	} else {
-    		uploaded = true;
-    	}
-    	return uploaded;
-    }
-    
+   
     public ArrayList<String> getReservation(String mail, boolean isConfirmed, String data, boolean isAgente) {
     	JSONObject request = new JSONObject();
     	request.put("action", "getReservation");
@@ -337,5 +295,33 @@ public class ClientModel {
 		return new ComposizioneImmobile(id, quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
     	
     	
+    }
+    
+    public boolean uploadNewHouseModel(Immobile immobile) {
+    	ComposizioneImmobile composizione = immobile.getComposizione();
+    	JSONObject request = new JSONObject();
+    	request.put("action", "uploadNewHouse");
+    	request.put("quadratura", composizione.getQuadratura());
+    	request.put("stanze", composizione.getNumeroStanze());
+    	request.put("piani", composizione.getPiani());
+    	request.put("giardino", composizione.isGiardino());
+    	request.put("condominio", composizione.isCondominio());
+    	request.put("ascensore", composizione.isAscensore());
+    	request.put("terrazzo", composizione.isTerrazzo());
+    	request.put("prezzo", immobile.getPrezzo());
+    	request.put("indirizzo", immobile.getIndirizzo());
+    	request.put("annuncio", immobile.getAnnuncio());
+    	request.put("tipo", immobile.getTipo());
+    	request.put("classeEnergetica", immobile.getClasseEnergetica());
+    	request.put("descrizione", immobile.getDescrizione());
+    	request.put("urls", immobile.getUrls());
+    	request.put("agente", immobile.getAgente().getMail());
+    	
+    	JSONObject response = sendRequest(request);
+    	if (response.getString("status").equals("error")) {
+    		return false;
+    	} else {
+    		return true;
+    	}
     }
 }

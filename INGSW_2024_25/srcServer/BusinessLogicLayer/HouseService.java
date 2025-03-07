@@ -17,27 +17,7 @@ public class HouseService {
 		this.houseRepository = houseRepository;
 	}
 	
-	public int uploadComposizioneImmobile(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
-		int id = houseRepository.uploadComposizione(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
-		return id;
-	}
 	
-	
-	
-	public boolean uploadNewHouse(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica,
-        		   String descrizione,String urls, String agente) {
-		
-		Immobile immobile = houseRepository.getHouseByAddress(indirizzo);
-		ComposizioneImmobile composizione = houseRepository.getComposizioneById(idComposizioneImmobile);
-		if ((immobile == null) || (composizione.isCondominio())) {
-			houseRepository.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, 
-					descrizione, urls, agente);
-			return true;
-			
-		}
-		return false;
-		
-	}
 	
 	public ArrayList<Immobile> retrieveHouse(String query){
 		return houseRepository.findHouses(query);
@@ -47,6 +27,32 @@ public class HouseService {
 		return houseRepository.getComposizioneById(id);
 	}
 	
+	public boolean uploadHouse(Immobile immobile, String agente) {
+		ComposizioneImmobile composizione = immobile.getComposizione();
+		String indirizzo = immobile.getIndirizzo();
+		Immobile casa = houseRepository.getHouseByAddress(indirizzo);
+		if ((casa == null) || (composizione.isCondominio())) {
+			
+			int quadratura = composizione.getQuadratura();
+			int stanze = composizione.getNumeroStanze();
+			int piani = composizione.getPiani();
+			boolean giardino = composizione.isGiardino();
+			boolean condominio = composizione.isCondominio();
+			boolean ascensore = composizione.isAscensore();
+			boolean terrazzo = composizione.isTerrazzo();
+			int id = houseRepository.uploadComposizione(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
+			double prezzo = immobile.getPrezzo();
+			String annuncio = immobile.getAnnuncio();
+			String tipo = immobile.getTipo();
+			String classeEnergetica = immobile.getClasseEnergetica();
+			String descrizione = immobile.getDescrizione();
+			String urls = immobile.getUrls();
+			houseRepository.uploadHouse(prezzo, id, indirizzo, annuncio, tipo, classeEnergetica, 
+					descrizione, urls, agente);
+			return true;
+		}
+		return false;
+	}
 	
 	
 }

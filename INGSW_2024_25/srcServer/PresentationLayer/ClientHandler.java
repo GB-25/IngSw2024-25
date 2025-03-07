@@ -71,11 +71,6 @@ public class ClientHandler extends Thread { //implements Runnable???
                         break;
                 	case "downloadFile":
                 		response = handleDownloadRequest(request);
-                	case "uploadComposition":
-                		response = handleUploadComposition(request);
-                		break;
-                	case "uploadHouse":
-                		response = handleUploadHouse(request);
                 		break;
                 	case "makeNewReservation":
                 		response = makeNewReservation(request);
@@ -97,6 +92,10 @@ public class ClientHandler extends Thread { //implements Runnable???
                 		break;
                 	case "findComposzione":
                 		response = fetchComposizione(request);
+                		break;
+                	case "uploadNewHouse":
+                		response = uploadNewHouse(request);
+                		break;
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non ricouserRepositorynosciuta");
@@ -199,46 +198,9 @@ public class ClientHandler extends Thread { //implements Runnable???
        return response;
    }
    
-   private JSONObject handleUploadComposition(JSONObject request) {
-	   JSONObject response = new JSONObject();
-	   try {
-		   int quadratura = request.getInt("quadratura");
-		   int stanze = request.getInt("stanze"); 
-		   int piani = request.getInt("piani"); 
-		   boolean giardino = request.getBoolean("giardino");
-		   boolean condominio = request.getBoolean("condominio");
-		   boolean ascensore = request.getBoolean("ascensore"); 
-		   boolean terrazzo = request.getBoolean("terrazzo");
-		   houseService = new HouseService(houseRepository);
-		   int id = houseService.uploadComposizioneImmobile(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
-		   response.put("status", "success");
-           response.put("id", id);
-	   } catch (Exception e) {
-           response.put("status", "error");
-           response.put("message", "Errore durante il caricamento: " + e.getMessage());
-       }
-	   return response;
-   }
 
-   private JSONObject handleUploadHouse (JSONObject request) {
-	   
-	   double prezzo = request.getInt("prezzo");
-	   int idComposizioneImmobile = request.getInt("idComposizione");
-	   String indirizzo = request.getString("indirizzo");
-	   String annuncio = request.getString("annuncio");
-	   String tipo = request.getString("tipo");
-	   String classeEnergetica = request.getString("classeEnergetica");
-	   String descrizione = request.getString("descrizione");
-       String urls = request.getString("urls");
-       String agente = request.getString("agente");
-       houseService = new HouseService(houseRepository);
-       boolean uploaded = houseService.uploadNewHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica,
-    		   descrizione, urls, agente);
-       JSONObject response = new JSONObject();
-       response.put("status", uploaded ? "success" : "error");
-       response.put("message", uploaded ? "Caricamento riuscito" : "Immobile già presente");
-	   return response;
-	   }
+
+  
    
    private JSONObject makeNewReservation(JSONObject request) {
 	   
@@ -398,5 +360,33 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   }
 	   return response;
    }
+   
+   public JSONObject uploadNewHouse(JSONObject request) {
+	   JSONObject response = new JSONObject();
+	   
+	   int quadratura = request.getInt("quadratura");
+	   int stanze = request.getInt("stanze"); 
+	   int piani = request.getInt("piani"); 
+	   boolean giardino = request.getBoolean("giardino");
+	   boolean condominio = request.getBoolean("condominio");
+	   boolean ascensore = request.getBoolean("ascensore"); 
+	   boolean terrazzo = request.getBoolean("terrazzo");
+	   double prezzo = request.getInt("prezzo");
+	   String indirizzo = request.getString("indirizzo");
+	   String annuncio = request.getString("annuncio");
+	   String tipo = request.getString("tipo");
+	   String classeEnergetica = request.getString("classeEnergetica");
+	   String descrizione = request.getString("descrizione");
+	   String urls = request.getString("urls");
+       String agente = request.getString("agente");
+       ComposizioneImmobile composizione = new ComposizioneImmobile(0,quadratura, piani, stanze, terrazzo, giardino, ascensore, condominio);
+       Immobile immobile = new Immobile (prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, null);
+       houseService = new HouseService(houseRepository);
+       boolean caricato = houseService.uploadHouse(immobile, agente);
+       response.put("status", caricato ? "success" : "error");
+	   response.put("message", caricato ? "Immobile caricato!" : "Già presente nel db");
+	   return response;
+	  
+   	}
 }
 

@@ -17,4 +17,6 @@ public interface HouseRepositoryInterface {
 			String descrizione, String urls, String agente);
 	
 	ArrayList<Immobile> findHouses(String query);
+	
+	
 }

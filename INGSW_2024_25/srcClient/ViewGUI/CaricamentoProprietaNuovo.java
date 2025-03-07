@@ -1,6 +1,9 @@
 package ViewGUI;
 
 import com.formdev.flatlaf.FlatLightLaf;
+
+import Class.ComposizioneImmobile;
+import Class.Immobile;
 import Class.User;
 import javax.swing.*;
 import java.awt.*;
@@ -297,10 +300,11 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                         String descrizione = txtDescription.getText();
                         String classeEnergetica = (String) cmbEnergyClass.getSelectedItem();
                         boolean terrazzo = c.checkComboBox(cmbBalcony);
-                        int idComposizioneImmobile = c.createComposition(grandezza, stanze, piani, condominio, giardino, ascensore, terrazzo);
-                        c.uploadHouse(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione,
-                        urls, user);
-                        c.confermaCaricamento(finestraCorrente, user);
+                       
+                        ComposizioneImmobile composizione = new ComposizioneImmobile(0, grandezza , piani, stanze, terrazzo, giardino, ascensore, condominio);
+                        Immobile immobile = new Immobile (prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, user);
+                        c.uploadNewHouse(immobile);
+                        
                     }
                 }
             }

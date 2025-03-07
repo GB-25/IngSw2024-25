@@ -225,13 +225,6 @@ public class Controller {
         }
     }
 	
-	public int createComposition(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
-		int id = model.uploadComposition(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
-		if (id==0) {
-			JOptionPane.showMessageDialog(null, "Errore nel caricamento dell'immobile", "Errore", JOptionPane.ERROR_MESSAGE);	
-		}
-		return id; //da verificare se da problemi il ritorno
-	}
 	
 	public boolean checkComboBox(JComboBox comboBox) {
 		String valore = (String) comboBox.getSelectedItem();
@@ -458,16 +451,7 @@ public class Controller {
         });
     }
 	
-	public void uploadHouse(double prezzo, int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione,
-            String urls, User user) {
-		String mail = user.getMail();
-		boolean confermato = model.uploadHouseModel(prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, mail);
-		if (!confermato) {
-			 JOptionPane.showMessageDialog(null, "Immobile già presente", "Errore", JOptionPane.ERROR_MESSAGE);
-		} else {
-			new CaricamentoConfermato(this, user);
-		}
-	}
+	
 	
 	
 	public ArrayList<String> showReservation(User user, boolean isConfirmed, String data) {
@@ -725,6 +709,15 @@ public class Controller {
     	visioneImmobile = new VisioneImmobile(this, immobile, user);
     	finestraCorrente.setVisible(false);
     	visioneImmobile.setVisible(true);
+    }
+    
+    public void uploadNewHouse(Immobile immobile) {
+    	boolean confermato = model.uploadNewHouseModel(immobile);
+    	if (!confermato) {
+			 JOptionPane.showMessageDialog(null, "Immobile già presente", "Errore", JOptionPane.ERROR_MESSAGE);
+		} else {
+			new CaricamentoConfermato(this, immobile.getAgente());
+		}
     }
     
 	public static void main(String[] args)
