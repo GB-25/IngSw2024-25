@@ -478,6 +478,7 @@ public class Controller {
 			//metodo per mostrare "bravo hai prenotato"
 			Prenotazione prenotazione = new Prenotazione(id, data, ora, user, immobile, agente, false);
 			this.notifyAgente(prenotazione);
+			
 		}
 	}
 	

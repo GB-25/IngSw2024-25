@@ -161,9 +161,13 @@ public class PrenotazioneCliente extends JFrame {
         confirmButton.addActionListener(e -> {
             Date selectedTime = (Date) timeSpinner.getValue();
             Date selectedDate = dateChooser.getDate();
-            if (selectedDate == null) {
+            if (selectedDate == null ) {
                 outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
                 return;
+            } else {
+            	String data = selectedDate.toString();
+            	String ora = selectedTime.toString();
+            	c.createReservation(user, immobile, data, ora);
             }
 
             Calendar calendar = Calendar.getInstance();
