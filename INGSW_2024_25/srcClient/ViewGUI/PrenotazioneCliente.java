@@ -164,11 +164,10 @@ public class PrenotazioneCliente extends JFrame {
             if (selectedDate == null ) {
                 outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
                 return;
-            } else {
+            }
             	String data = selectedDate.toString();
             	String ora = selectedTime.toString();
-            	c.createReservation(user, immobile, data, ora);
-            }
+            
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(selectedTime);
@@ -178,7 +177,8 @@ public class PrenotazioneCliente extends JFrame {
 
             if (hour >= 10 && hour < 18 && minute == 00 || hour >= 10 && hour < 18 && minute == 30 || (hour == 18 && minute == 0)) {
             	String orario = new String(Integer.toString(hour)+":"+Integer.toString(minute)); // QUESTA E' DA PASSARE, ORARIO A STRINGA
-                outputLabel.setText("✅ Orario confermato: " + new SimpleDateFormat("HH:mm").format(selectedTime));
+                c.createReservation(user, immobile, data, ora);
+                c.reservationConfirmed(this, user);
             } else {
                 outputLabel.setText("⚠️ Orario fuori range! (10:00 - 18:00)");
             }
