@@ -76,6 +76,7 @@ public class Controller {
 	JFrame risultato;
 	JFrame prenota;
 	JFrame visioneImmobile;
+	JFrame prenotazioneConfermata;
 	String ip = "34.78.163.251";
 	int porta = 12345;
 	private Map<String, List<Runnable>> notificheUtenti = new HashMap<>();
@@ -645,6 +646,18 @@ public class Controller {
     	finestraCorrente.setVisible(false);
     	homeAgente.setVisible(true);
     	}
+
+    public void createHomeUtente(JFrame finestraCorrente, User user) {
+    	homeUtente = new HomeCliente(this, user);
+    	finestraCorrente.setVisible(false);
+    	homeUtente.setVisible(true);
+    	}
+
+    public void reservationConfirmed(JFrame finestraCorrente, User user) {
+    	prenotazioneConfermata = new PrenotazioneConfermata(this, user);
+    	finestraCorrente.setVisible(false);
+    	prenotazioneConfermata.setVisible(true);
+        }
     
     public void confermaCaricamento(JFrame finestraCorrente, User user) {
     	caricamentoConfermato = new CaricamentoConfermato (this, user);
