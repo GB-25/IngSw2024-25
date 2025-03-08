@@ -27,10 +27,10 @@ public class CaricamentoConfermato extends JFrame {
         setContentPane(mainPanel);
 
         // Tasto del logo
-        JButton logoButton = createIconButton("/immagini/LOGO.png", 100, 100);
-        logoButton.addActionListener(e ->
-            dispose() // Chiude la finestra. Teoricamente deve riportare alla home, non ancora inserita come funzionalità
-        );
+        JButton logoButton = createIconButton("/immagini/LOGO.png", 200, 100);
+        //logoButton.addActionListener(e ->
+            //dispose() // Chiude la finestra. Teoricamente deve riportare alla home, non ancora inserita come funzionalità
+        //);
 
         // Pannello per il logo
         JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -44,11 +44,11 @@ public class CaricamentoConfermato extends JFrame {
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
         JLabel successLabel = new JLabel("L'immobile è stato inserito con successo!");
-        successLabel.setFont(new Font("FreeSerif", Font.BOLD, 20));
+        successLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
         successLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel infoLabel1 = new JLabel("L'immobile è ora inserito sulla piattaforma. Preparati alle offerte dei clienti! ;)");
-        infoLabel1.setFont(new Font("Arial", Font.PLAIN, 14));
+        infoLabel1.setFont(new Font("Microsoft YaHei UI Light", Font.ITALIC, 14));
         infoLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         textPanel.add(Box.createVerticalStrut(50)); // Spazio sopra il testo
