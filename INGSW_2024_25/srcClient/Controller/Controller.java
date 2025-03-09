@@ -77,25 +77,25 @@ public class Controller {
 	JFrame prenota;
 	JFrame visioneImmobile;
 	JFrame prenotazioneConfermata;
-	String ip = "34.78.163.251";
+	String ip = "34.38.152.243";
 	int porta = 12345;
 	private Map<String, List<Runnable>> notificheUtenti = new HashMap<>();
 	
 	//costruttore
 	public Controller() {
-		User user = new User("", "", "", "", "", "", true);
-		homeAgente = new HomeAgente(this, user);
-		homeAgente.setVisible(true);
+//		User user = new User("", "", "", "", "", "", true);
+//		homeAgente = new HomeAgente(this, user);
+//		homeAgente.setVisible(true);
 		//qua dobbiamo impostare tutte queste variabili a JFRAME
 		
 		
-//		finestraPrincipale = new ProvaLogin(this);
-//		finestraPrincipale.setVisible(true);
+		finestraPrincipale = new ProvaLogin(this);
+		finestraPrincipale.setVisible(true);
 //		caricamento = new CaricamentoProprietaNuovo(this, user);
 //		caricamento.setVisible(true);
 //		homeUtente= new HomeCliente(this, user);
 //		homeUtente.setVisible(true);
-		//model = new ClientModel(ip, porta);
+		model = new ClientModel(ip, porta);
 		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
 	}
 	

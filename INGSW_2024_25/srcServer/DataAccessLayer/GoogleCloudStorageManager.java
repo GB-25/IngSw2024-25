@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 
 public class GoogleCloudStorageManager implements StorageManagerInterface{
     private static final String BUCKET_NAME = "foto-ingsw-2024-25";
-    private static final String CREDENTIALS_PATH = "/INGSW_2024_25/scientific-base-449814-j0-e3a3cf2780c9.json";
+    private static final String CREDENTIALS_PATH = "INGSW_2024_25/scientific-base-449814-j0-e3a3cf2780c9.json";
     private final Storage storage;
 
     public GoogleCloudStorageManager() throws IOException {
