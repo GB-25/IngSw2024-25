@@ -2,7 +2,6 @@ package DataAccessLayer;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.*;
-
 import DataAccessLayer.Interfaces.StorageManagerInterface;
 
 import java.io.FileInputStream;

@@ -57,12 +57,6 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "register":
                 		response = handleRegister(request);
                 		break;
-                	case "addProperty":
-                		//response = handleAddProperty(request);
-                		break;
-                	case "bookProperty":
-                		//response = handleBookProperty(request);
-                		break;
                 	case "updatePassword":
                 		this.handleNewPassword(request);
                 		break;

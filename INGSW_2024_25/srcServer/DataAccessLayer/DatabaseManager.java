@@ -17,6 +17,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
         try {
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("✅ Connessione a Cloud SQL riuscita!");
+            
         } catch (SQLException e) {
             System.err.println("❌ Errore nella connessione a Cloud SQL!");
             e.printStackTrace();
@@ -51,7 +52,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 PreparedStatement stmt = conn.prepareStatement(query)) {
                //si deve vedere la compatibilià nel db perché data la passiamo come tipo stringa
     			//nel db è salvato ovviamente come date
-               stmt.executeUpdate(query);
+               stmt.executeUpdate();
     		
            } catch (SQLException e) {
                e.printStackTrace();
@@ -65,7 +66,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
                
-               stmt.executeUpdate(query);
+               stmt.executeUpdate();
     		
            } catch (SQLException e) {
                e.printStackTrace();
@@ -150,7 +151,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
                
-               stmt.executeUpdate(query);
+               stmt.executeUpdate();
     		
            } catch (SQLException e) {
                e.printStackTrace();
@@ -213,7 +214,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
                
-               stmt.executeUpdate(query);
+               stmt.executeUpdate();
     		
            } catch (SQLException e) {
                e.printStackTrace();
@@ -262,7 +263,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
-    		stmt.executeUpdate(query);
+    		stmt.executeUpdate();
     		
         } catch (SQLException e) {
             e.printStackTrace();
@@ -276,7 +277,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	String query = "UPDATE prenotazioni SET isConfirmed = 'TRUE' WHERE id = '"+id+"';";
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
-    		stmt.executeUpdate(query);
+    		stmt.executeUpdate();
     		
         } catch (SQLException e) {
             e.printStackTrace();
