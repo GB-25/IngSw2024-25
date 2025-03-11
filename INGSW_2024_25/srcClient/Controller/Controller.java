@@ -77,7 +77,7 @@ public class Controller {
 	JFrame prenota;
 	JFrame visioneImmobile;
 	JFrame prenotazioneConfermata;
-	String ip = "192.158.31.40";
+	String ip = "34.76.2.59";
 	int porta = 12345;
 	private Map<String, List<Runnable>> notificheUtenti = new HashMap<>();
 	
