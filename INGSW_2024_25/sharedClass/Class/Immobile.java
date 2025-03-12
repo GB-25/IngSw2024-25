@@ -20,6 +20,7 @@ public class Immobile {
 		
 		this.prezzo = prezzo;
 		this.composizione = composizione;
+		this.indirizzo = indirizzo;
 		this.annuncio = annuncio;
 		this.tipo = tipo;
 		this.classeEnergetica = classeEnergetica;

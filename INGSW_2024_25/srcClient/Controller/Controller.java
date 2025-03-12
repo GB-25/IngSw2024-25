@@ -211,7 +211,7 @@ public class Controller {
 	public String fileUpload(String filePath) {
 	    String fileUrl = model.uploadFileModel(filePath);
 	    if (!fileUrl.isEmpty()) {
-	        return fileUrl;  // Restituisce l'URL del file per essere salvato nel database
+	        return fileUrl;  //Restituisce l'URL del file per essere salvato nel database
 	    } else {	        
 	        return null;
 	    }
@@ -726,6 +726,7 @@ public class Controller {
     }
     
     public void uploadNewHouse(Immobile immobile) {
+    	
     	boolean confermato = model.uploadNewHouseModel(immobile);
     	if (!confermato) {
 			 JOptionPane.showMessageDialog(null, "Immobile già presente", "Errore", JOptionPane.ERROR_MESSAGE);

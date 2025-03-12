@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.net.URLEncoder;
 import java.io.InputStreamReader;
@@ -35,7 +36,7 @@ import Controller.Controller;
 public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, MouseMotionListener{
 
     // Dichiarazione dei campi da controllare
-	private File[] files;
+	private List<File> files = new ArrayList<>();
 	private JXMapViewer mapViewer;
 	private Point lastPoint;
     private JPanel photoPanel; // Pannello per le foto
@@ -128,7 +129,13 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         leftPanel.add(new JLabel(""));
         JButton buttonSearch = new JButton("Mostra sulla mappa");
         buttonSearch.setMaximumSize(new Dimension(100, 25));
-        buttonSearch.addActionListener(e -> c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false));
+        buttonSearch.addActionListener(e -> {
+        	
+        c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false);
+        String indirizzo = searchField.getText();
+        System.out.println(indirizzo);
+        System.out.println(searchField.getText());
+        });
         leftPanel.add(scrollPane);
         leftPanel.add(new JLabel(""));
         leftPanel.add(buttonSearch);
@@ -277,7 +284,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                             JOptionPane.QUESTION_MESSAGE);
 
                     if (response == JOptionPane.YES_OPTION) {
-                        dispose();
+                        //dispose();
                         StringBuilder sb = new StringBuilder();
                         for (File file : files) {
                         	if (sb.length() > 0) {
@@ -285,6 +292,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                             }
                             sb.append(c.fileUpload(file.getAbsolutePath()));    
                         }
+                        
                         String urls = sb.toString();
                         int grandezza = Integer.parseInt(txtWidth.getText());
                         int stanze = Integer.parseInt(txtRooms.getText());
@@ -336,9 +344,14 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         int result = fileChooser.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            files = fileChooser.getSelectedFiles(); // Ottieni tutti i file selezionati
+        	if (files == null) {  // Se è null inizializzalo
+                files = new ArrayList<>();
+            }
+            
+            // Aggiungi i nuovi file selezionati senza sovrascrivere quelli precedenti
+            files.addAll(Arrays.asList(fileChooser.getSelectedFiles()));
 
-            for (File file : files) {
+            for (File file : fileChooser.getSelectedFiles()) {
                 try {
                     ImageIcon imageIcon = new ImageIcon(file.getAbsolutePath());
                     Image image = imageIcon.getImage();
