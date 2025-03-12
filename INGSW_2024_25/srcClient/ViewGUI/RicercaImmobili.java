@@ -211,7 +211,8 @@ public class RicercaImmobili extends JFrame {
 		gbc_condominioCheckBox.gridx = 5;
 		gbc_condominioCheckBox.gridy = 13;
 		mainPanel.add(condominioCheckBox, gbc_condominioCheckBox);
-		
+		prezzoMinField.setText("0");
+		prezzoMaxField.setText("0");
 		// Bottone di ricerca
 		JButton cercaButton = new JButton("Cerca");
 		cercaButton.addActionListener(new ActionListener() {
@@ -230,7 +231,9 @@ public class RicercaImmobili extends JFrame {
 					boolean condominio = c.controlCheckBox(condominioCheckBox);
 					boolean ascensore = c.controlCheckBox(ascensoreCheckBox);
 					ArrayList<Immobile> ricerca = c.ricercaImmobili(prezzoMin, prezzoMax, classe, indirizzo, tipo, annuncio, ascensore, condominio, terrazzo, giardino);
-					c.showResultImmobili(finestraCorrente, user, ricerca, indirizzo);
+					if (!ricerca.isEmpty()) {
+						c.showResultImmobili(finestraCorrente, user, ricerca, indirizzo);
+					}
 				}
 			}});
 		cercaButton.setForeground(new Color(255, 255, 255));

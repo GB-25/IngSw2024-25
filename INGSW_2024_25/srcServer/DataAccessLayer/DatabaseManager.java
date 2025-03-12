@@ -99,7 +99,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     public ComposizioneImmobile getComposizioneById(int id) {
     	ComposizioneImmobile composizione = null;
     	
-    	String query = "SELECT * FROM composizioneImmobile WHERE id ="+id+";";
+    	String query = "SELECT * FROM composizione_immobile WHERE id ="+id+";";
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
     			
@@ -107,7 +107,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     		ResultSet rs = stmt.executeQuery();
     		
     		if (rs.next()) {
-    			composizione = new ComposizioneImmobile(rs.getInt("id"), rs.getInt("quadratura"), rs.getInt("piani"), rs.getInt("numeroStanze"), 
+    			composizione = new ComposizioneImmobile(rs.getInt("id"), rs.getInt("quadratura"), rs.getInt("piani"), rs.getInt("stanze"), 
     					rs.getBoolean("terrazzo"), rs.getBoolean("giardino"), rs.getBoolean("ascensore"), rs.getBoolean("condominio"));
     		}
     	}catch (SQLException e) {
@@ -298,9 +298,9 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                
                while (rs.next()) {
             	   agente = this.getUserByMail(rs.getString("agente_id"));
-            	   composizione = this.getComposizioneById(rs.getInt("composizione_id"));
+            	   composizione = this.getComposizioneById(rs.getInt("idcomposizioneimmobile"));
             	   Immobile immobile = new Immobile(rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
-            			   rs.getString("tipo"), rs.getString("classee_energetica"), rs.getString("descrizione"),rs.getString("urls"), agente);
+            			   rs.getString("tipo"), rs.getString("classe_energetica"), rs.getString("descrizione"),rs.getString("urls"), agente);
             	   lista.add(immobile);
                }
     	} catch (SQLException e) {

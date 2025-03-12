@@ -233,7 +233,7 @@ public class ClientModel {
 		Immobile casa;
 		if (response.getString("status").equals("success")) {
 			
-			JSONArray jsonArray = response.getJSONArray("immobilii");
+			JSONArray jsonArray = response.getJSONArray("immobili");
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				String indirizzo = jsonObject.getString("indirizzo");
@@ -283,14 +283,14 @@ public class ClientModel {
     	
     	JSONObject response = sendRequest(request);
     	
-    	int id = request.getInt("idComposizione");
-    	int quadratura = request.getInt("quadratura");
-    	int stanze = request.getInt("stanze"); 
-		int piani = request.getInt("piani"); 
-		boolean giardino = request.getBoolean("giardino");
-		boolean condominio = request.getBoolean("condominio");
-		boolean ascensore = request.getBoolean("ascensore"); 
-		boolean terrazzo = request.getBoolean("terrazzo");
+    	int id = response.getInt("idComposizione");
+    	int quadratura = response.getInt("quadratura");
+    	int stanze = response.getInt("stanze"); 
+		int piani = response.getInt("piani"); 
+		boolean giardino = response.getBoolean("giardino");
+		boolean condominio = response.getBoolean("condominio");
+		boolean ascensore = response.getBoolean("ascensore"); 
+		boolean terrazzo = response.getBoolean("terrazzo");
 		
 		return new ComposizioneImmobile(id, quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
     	

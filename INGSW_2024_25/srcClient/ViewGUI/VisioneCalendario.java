@@ -28,7 +28,7 @@ public class VisioneCalendario extends JFrame {
     
     public VisioneCalendario(Controller c, User user) {
         FlatLightLaf.setup(new FlatLightLaf());
-    	frame = new JFrame("Calendario");
+    	frame = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
         frame.setLayout(new BorderLayout());

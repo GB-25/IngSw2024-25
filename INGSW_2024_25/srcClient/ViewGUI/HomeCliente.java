@@ -49,7 +49,6 @@ public class HomeCliente extends JFrame {
         searchButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
         searchButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         searchButton.setBackground(new Color(210, 224, 239));
-        searchButton.addActionListener(e -> {dispose(); new RicercaImmobili(c, user);});
         viewCalendarButton.setPreferredSize(new Dimension(500, 120));
         viewCalendarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         viewCalendarButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
@@ -79,17 +78,6 @@ public class HomeCliente extends JFrame {
         	c.findImmobili(finestraCorrente, user);
         });
         
-        viewCalendarButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	viewCalendarButton.setBackground(new Color(180, 224, 239));  // Colore più chiaro al passaggio
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	viewCalendarButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
-            }
-        });
         
         viewCalendarButton.addMouseListener(new MouseAdapter() {
             @Override

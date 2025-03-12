@@ -516,23 +516,23 @@ public class Controller {
 	}
 	//boh cosa gli deve tornare, le istanze singole, una lista?
 	public ArrayList<Immobile> ricercaImmobili(double prezzoMin, double prezzoMax, String classeEnergetica, String posizione, String tipoImmobile, String annuncio, boolean ascensore, boolean condominio, boolean terrazzo, boolean giardino){
-		StringBuilder sql = new StringBuilder("SELECT * FROM immobili");
-		if (prezzoMin > 0) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM immobili WHERE 1=1");
+		if (prezzoMin > 0 ) {
 			sql.append(" AND prezzo >= "+prezzoMin);
 		}
 		if (prezzoMax > 0 && prezzoMax>=prezzoMin) {
 			sql.append(" AND prezzo <= "+prezzoMin);
 		}
 		if (posizione != null) {
-			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) LIKE '%"+posizione+"%'");
+			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) ILIKE '%"+posizione+"%'");
 		}
-		if (classeEnergetica != null) {
+		if (!classeEnergetica.isBlank()) {
 			sql.append(" AND classe_energetica = '"+classeEnergetica+"'");
 		}
-		if (tipoImmobile != null) {
+		if (!tipoImmobile.isBlank()) {
 			sql.append(" AND tipo = '"+tipoImmobile+"'");
 		}
-		if (annuncio != null) {
+		if (!annuncio.isBlank()) {
 			sql.append(" AND annuncio = '"+annuncio+"'");
 		}
 		if (ascensore) {
