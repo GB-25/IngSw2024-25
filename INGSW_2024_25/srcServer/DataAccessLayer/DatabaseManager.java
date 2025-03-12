@@ -231,9 +231,9 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	ArrayList<Prenotazione> lista = new ArrayList<Prenotazione>();
     	
     	if(isAgente) {
-    		query = "SELECT * FROM prenotazioni WHERE agente_id = '"+mail+"' AND isConfirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
+    		query = "SELECT * FROM prenotazioni WHERE agente_id = '"+mail+"' AND is_confirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
     	} else {
-    		query = "SELECT * FROM prenotazioni WHERE user_id = '"+mail+"' AND isConfirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
+    		query = "SELECT * FROM prenotazioni WHERE user_id = '"+mail+"' AND is_confirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
     	}
     	 try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {

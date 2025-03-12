@@ -107,24 +107,19 @@ public class ClientHandler extends Thread { //implements Runnable???
     private JSONObject handleLogin(JSONObject request) {
         String mail = request.getString("mail");
         String password = request.getString("password");
-        boolean agente=false;
-        String nome="";
-        String cognome="";
-        String telefono="";
-        String dataNascita = "";
         userService = new UserService(userRepository);
         
-        boolean isAuthenticated = userService.authenticateUser(mail, password, agente, nome, cognome, telefono, dataNascita);
+        User isAuthenticated = userService.authenticateUser(mail, password);
 
         JSONObject response = new JSONObject();
-        response.put("status", isAuthenticated ? "success" : "error");
-        response.put("message", isAuthenticated ? "Login riuscito" : "Credenziali errate");
-        if (isAuthenticated) {
-            response.put("isAgente", agente);
-            response.put("nome",nome);
-            response.put("cognome", cognome);
-            response.put("telefono", telefono);
-            response.put("dataNascita", dataNascita);
+        response.put("status", isAuthenticated !=null ? "success" : "error");
+        response.put("message", isAuthenticated != null ? "Login riuscito" : "Credenziali errate");
+        if (isAuthenticated != null) {
+            response.put("isAgente", isAuthenticated.getIsAgente());
+            response.put("nome",isAuthenticated.getNome());
+            response.put("cognome", isAuthenticated.getCognome());
+            response.put("telefono", isAuthenticated.getNumeroTelefono());
+            response.put("dataNascita", isAuthenticated.getDataNascita());
         }
         return response;
     }

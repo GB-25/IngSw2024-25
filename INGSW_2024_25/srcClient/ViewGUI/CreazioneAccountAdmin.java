@@ -55,6 +55,7 @@ public class CreazioneAccountAdmin extends JFrame {
 		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
 		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
 			}
 		});
 		dateChooser.setBounds(152, 128, 200, 30);
@@ -129,13 +130,15 @@ public class CreazioneAccountAdmin extends JFrame {
         String telefono = txtTelefono.getText().trim();
         String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
         String password = txtPassword.getText().trim();
-
         // Verifica che tutti i campi siano compilati
         if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || telefono.isEmpty() || data.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori!", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        if (!c.isValidNome(nome)|| !c.isValidNome(cognome)) {
+        	JOptionPane.showMessageDialog(this, "Nome e cognome devono essere almeno di due lettere", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         // Verifica formato email
         if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             JOptionPane.showMessageDialog(this, "Inserisci un'email valida!", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -154,7 +157,7 @@ public class CreazioneAccountAdmin extends JFrame {
                 JOptionPane.QUESTION_MESSAGE);
 
         if (response == JOptionPane.YES_OPTION) {
-        	c.handleRegistration(nome, cognome, data, email, telefono, password, true);
+        	c.createAdmin(nome, cognome, data, email, telefono, password, true);
         	// Sono stato costretto a commentare questa sezione altrimenti non partiva, bisogna fare in modo che password venga poi restituita in versione JPasswordField
         	JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             c.createHomeAgente(finestraCorrente, agenteChiamante);

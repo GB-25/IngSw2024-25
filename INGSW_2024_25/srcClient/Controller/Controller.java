@@ -111,7 +111,7 @@ public class Controller {
 			} else {
 				
 				finestraPrincipale.setVisible(false);
-				
+			
 				if(user.getIsAgente()) {
 					
 					homeAgente= new HomeAgente(this, user);
@@ -143,7 +143,7 @@ public class Controller {
 	}
 	
 	public boolean isValidNome(String nome) {
-		if(nome.length()<3) {
+		if(nome.length()<2) {
 			return false;
 		}
 		return true;
@@ -461,7 +461,7 @@ public class Controller {
 		boolean isAgente = user.getIsAgente();
 		ArrayList<String> prenotazioni = model.getReservation(mail, isConfirmed, data, isAgente);
 		if(prenotazioni.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Non sono presenti prenotazioni", "Errore", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "Non sono presenti prenotazioni", "Errore", JOptionPane.ERROR_MESSAGE);
 		} 
 		return prenotazioni;
 	}
@@ -734,6 +734,13 @@ public class Controller {
 		}
     }
     
+    
+    public void createAdmin(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
+    	User user = model.registerModel(nome, cognome, data, mail, telefono, password, isAgente);
+		if (user == null) {
+			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
+		} 
+    }
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();

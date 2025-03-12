@@ -93,6 +93,7 @@ public class FinestraRegistrazione extends JFrame {
 
 		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
         dateChooser.setBounds(152, 128, 200, 30);

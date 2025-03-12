@@ -87,7 +87,7 @@ public class HomeAgente extends JFrame {
         popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
         // Nome e Cognome dell’utente
-        JMenuItem userInfo = new JMenuItem(user.getNome()+user.getCognome()); // Modifica con il nome utente
+        JMenuItem userInfo = new JMenuItem(user.getNome()+" "+user.getCognome()); // Modifica con il nome utente
         userInfo.setEnabled(false); // Non cliccabile
 
         JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
@@ -102,8 +102,7 @@ public class HomeAgente extends JFrame {
             if (response == JOptionPane.YES_OPTION) {
                 
                 //JOptionPane.showMessageDialog(this, "Logout effettuato!");
-                finestraLogin= new ProvaLogin(c);
-                c.cambiaFinestra(finestraCorrente, finestraLogin);
+            	c.returnLogin(finestraCorrente);
                 
             }
         });

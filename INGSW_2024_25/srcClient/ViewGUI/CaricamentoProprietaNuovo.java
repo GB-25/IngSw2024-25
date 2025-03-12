@@ -45,7 +45,6 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     private JComboBox<String> cmbGarden;
     private JComboBox<String> cmbType;
     private JComboBox<String> cmbAdType;
-    private JTextField txtPosition;
     private JTextField txtPrice;
     private JTextField txtFloors;
     private JTextArea txtDescription;
@@ -294,7 +293,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                         boolean giardino = c.checkComboBox(cmbGarden);
                         boolean ascensore = c.checkComboBox(cmbElevator);
                         double prezzo = Double.parseDouble(txtPrice.getText());
-                        String indirizzo = txtPosition.getText();
+                        String indirizzo = searchField.getText();
                         String annuncio = (String) cmbAdType.getSelectedItem();
                         String tipo = (String) cmbType.getSelectedItem();
                         String descrizione = txtDescription.getText();
@@ -304,7 +303,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                         ComposizioneImmobile composizione = new ComposizioneImmobile(0, grandezza , piani, stanze, terrazzo, giardino, ascensore, condominio);
                         Immobile immobile = new Immobile (prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, user);
                         c.uploadNewHouse(immobile);
-                        
+                        dispose();
                     }
                 }
             }

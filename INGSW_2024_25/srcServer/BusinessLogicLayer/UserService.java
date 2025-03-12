@@ -16,21 +16,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public boolean authenticateUser(String mail, String password, boolean agente, String nome, String cognome, String telefono, String dataNascita) {
+    public User authenticateUser(String mail, String password) {
     	 User user = userRepository.getUserByMail(mail);
     	 boolean loginSuccess;
          if (user != null) {
-             loginSuccess= user.getPassword().equals(password);
+             loginSuccess = user.getPassword().equals(password);
              if (loginSuccess) {
-            	 nome= user.getNome();
-            	 cognome= user.getCognome();
-            	 agente= user.getIsAgente();
-            	 telefono = user.getNumeroTelefono();
-            	 dataNascita = user.getDataNascita();
-            	 return true;
+            	 return user;
             }
          }
-         return false;
+         return null;
      }
     
     public boolean registerUser(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
