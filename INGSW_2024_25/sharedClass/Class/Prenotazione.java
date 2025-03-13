@@ -15,6 +15,7 @@ public class Prenotazione {
 	public Prenotazione(int id, String dataPrenotazione, String oraPrenotazione, User user, Immobile immobile, User agente, boolean isConfirmed) {
 		this.id = id;
 		this.dataPrenotazione = dataPrenotazione;
+		this.oraPrenotazione = oraPrenotazione;
 		this.user = user;
 		this.immobile = immobile;
 		this.agente = agente;

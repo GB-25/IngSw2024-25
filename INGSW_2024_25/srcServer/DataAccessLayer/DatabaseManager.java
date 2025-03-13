@@ -244,7 +244,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 	agente = this.getUserByMail(rs.getString("agente_id"));
                 	immobile = this.getHouseByAddress(rs.getString("immobile_id"));
                 	cliente = this.getUserByMail(rs.getString("user_id"));
-                	System.out.println("io sono database: "+rs.getString("ora_prenotazione"));
+                	
                 	Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), 
                 			cliente, immobile, agente, isConfirmed);
                 	lista.add(prenotazione);
