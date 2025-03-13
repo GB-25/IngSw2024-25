@@ -28,6 +28,7 @@ public class VisioneImmobile extends JFrame {
         setSize(600, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);  // Centrare la finestra
+        setAlwaysOnTop(true);
 
         // **Pannello principale**
         JPanel mainPanel = new JPanel(new BorderLayout());
