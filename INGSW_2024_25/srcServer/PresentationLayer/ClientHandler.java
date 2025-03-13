@@ -84,7 +84,7 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "findAgente":
                 		response = fetchAgente(request);
                 		break;
-                	case "findComposzione":
+                	case "findComposizione":
                 		response = fetchComposizione(request);
                 		break;
                 	case "uploadNewHouse":

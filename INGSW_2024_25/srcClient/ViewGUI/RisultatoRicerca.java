@@ -15,7 +15,7 @@ public class RisultatoRicerca extends JFrame {
     private JXMapViewer mapViewer;
     private JPanel mapPanel;
 
-    public RisultatoRicerca(Controller c, User user, ArrayList<Immobile> ricerca, String posizione) {
+    public RisultatoRicerca(Controller c, User user, ArrayList<Immobile> ricerca, String indirizzo) {
         FlatLightLaf.setup(new FlatLightLaf());
         // Configura il JFrame
         setTitle("Risultato Ricerca - DietiEstates25");
@@ -46,8 +46,10 @@ public class RisultatoRicerca extends JFrame {
         setContentPane(mainPanel);
 
         // Ottieni le coordinate e visualizza la mappa
-        c.getCoordinates(c, posizione , mapPanel, mapViewer, true);
-
+        
+      
+        c.getCoordinates(c, indirizzo , mapPanel, mapViewer, true, ricerca, user);
+        
         // Mostra la finestra
         setVisible(true);
     }

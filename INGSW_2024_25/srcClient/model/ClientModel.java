@@ -246,6 +246,7 @@ public class ClientModel {
 				String classe = jsonObject.getString("classe");
 			   	String urls = jsonObject.getString("urls");
 			   	User agente = this.getAgente(mailAgente);
+			   	
 			   	ComposizioneImmobile composizione = this.getComposizione(idComposizione);
 			   	casa = new Immobile(prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
 			   			classe, descrizione, urls, agente);
@@ -278,12 +279,13 @@ public class ClientModel {
     
     public ComposizioneImmobile getComposizione(int idComposizione) {
     	JSONObject request = new JSONObject();
-    	request.put("action", "findComposzione");
-    	request.put("id", idComposizione);
-    	
+    	request.put("action", "findComposizione");
+    	request.put("idComposizione", idComposizione);
+    	System.out.println(idComposizione);
     	JSONObject response = sendRequest(request);
     	
     	int id = response.getInt("idComposizione");
+    	System.out.println(id);
     	int quadratura = response.getInt("quadratura");
     	int stanze = response.getInt("stanze"); 
 		int piani = response.getInt("piani"); 

@@ -253,155 +253,182 @@ public class Controller {
 	    return R * c;
 	}
 	
-	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, boolean isSearchMode) {
-	    try {
-	        String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
-	        String encodedAddress = URLEncoder.encode(address, "UTF-8");
-	        double lat = 0;
-	        double lon = 0;
+	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
+            boolean isSearchMode, ArrayList<Immobile> immobili, User user) {
+				try {
+						String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
+						String encodedAddress = URLEncoder.encode(address, "UTF-8");
 
-	        // Richiesta API per ottenere le coordinate
-	        String url = "https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + apiKey;
-	        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-	        conn.setRequestMethod("GET");
+						double lat = 0;
+						double lon = 0;
 
-	        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	        StringBuilder response = new StringBuilder();
-	        String line;
-	        while ((line = reader.readLine()) != null) {
-	            response.append(line);
-	        }
-	        reader.close();
+						// Richiesta API per ottenere le coordinate dell'indirizzo principale	
+						String url = "https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + apiKey;
+						HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+						conn.setRequestMethod("GET");
 
-	        JSONObject jsonResponse = new JSONObject(response.toString());
-	        if (jsonResponse.getJSONArray("features").length() > 0) {
-	            JSONObject location = jsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
-	            lat = location.getJSONArray("coordinates").getDouble(1);
-	            lon = location.getJSONArray("coordinates").getDouble(0);
-	        } else {
-	            JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", "Errore", JOptionPane.ERROR_MESSAGE);
-	        }
+						BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+						StringBuilder response = new StringBuilder();
+						String line;
+						while ((line = reader.readLine()) != null) {
+								response.append(line);
+						}
+						reader.close();
 
-	        // Rimuovi la mappa precedente se esiste
-	        if (mapViewer != null) {
-	            mapPanel.remove(mapViewer);
-	            System.out.println("Mappa precedente rimossa.");
-	        }
+						JSONObject jsonResponse = new JSONObject(response.toString());
+						if (jsonResponse.getJSONArray("features").length() > 0) {
+							JSONObject location = jsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
+							lat = location.getJSONArray("coordinates").getDouble(1);
+							lon = location.getJSONArray("coordinates").getDouble(0);
+						} else {
+							JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", "Errore", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
 
-	        // Configura la mappa
-	        TileFactoryInfo info = new OSMTileFactoryInfo();
-	        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-	        mapViewer.setTileFactory(tileFactory);
+						// Rimuovi la mappa precedente se esiste
+						mapPanel.removeAll();
 
-	        GeoPosition position = new GeoPosition(lat, lon);
-	        mapViewer.setAddressLocation(position);
-	        mapViewer.setZoom(34);
+						// Configura la mappa
+						TileFactoryInfo info = new OSMTileFactoryInfo();
+						DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+						mapViewer.setTileFactory(tileFactory);
 
-	        // Waypoint inseriti in base al boolean
-	        Set<DefaultWaypoint> waypoints = new HashSet<>();
-	        if (isSearchMode) {
-	            // Modalità ricerca, quindi più waypoint
-	            waypoints.add(new DefaultWaypoint(position));
-	            // Qui bisogna poi aggiungere tutti i marker degli immobili nella zona
-	            // Sono stati aggiunti esempi per vedere come fungeva il tutto
-	            waypoints.add(new DefaultWaypoint(new GeoPosition(lat + 0.01, lon + 0.01)));
-	            waypoints.add(new DefaultWaypoint(new GeoPosition(lat - 0.01, lon - 0.01)));
-	        } else {
-	            // Modalità visualizzazione, solo il waypoint inserito
-	            waypoints.add(new DefaultWaypoint(position));
-	        }
+						GeoPosition centerPosition = new GeoPosition(lat, lon);
+						mapViewer.setAddressLocation(centerPosition);
+						mapViewer.setZoom(14);
 
-	        // Configura il painter dei waypoint
-	        WaypointPainter<DefaultWaypoint> waypointPainter = new WaypointPainter<>();
-	        waypointPainter.setWaypoints(waypoints);
-	        mapViewer.setOverlayPainter(waypointPainter);
+						// Manteniamo una mappa waypoint -> immobile per i click
+						Map<DefaultWaypoint, Immobile> waypointMap = new HashMap<>();
+						Set<DefaultWaypoint> waypoints = new HashSet<>();
 
-	        // Listener per i click solo in modalità ricerca
-	        if (isSearchMode) {
-	        	mapViewer.addMouseListener(new MouseAdapter() {
-	        	    @Override
-	        	    public void mouseClicked(MouseEvent e) {
-	        	        Point clickPoint = e.getPoint();
-	        	        GeoPosition clickGeoPosition = mapViewer.convertPointToGeoPosition(clickPoint);
+						if (isSearchMode) {
+							for (Immobile immobile : immobili) {
+								try {
+									String immobileAddress = URLEncoder.encode(immobile.getIndirizzo(), "UTF-8");
+									String immobileUrl = "https://api.geoapify.com/v1/geocode/search?text=" + immobileAddress + "&apiKey=" + apiKey;
+									HttpURLConnection immobileConn = (HttpURLConnection) new URL(immobileUrl).openConnection();
+									immobileConn.setRequestMethod("GET");
 
-	        	        for (DefaultWaypoint waypoint : waypoints) {
-	        	            GeoPosition waypointGeoPosition = waypoint.getPosition();
-	        	            double distance = calculateDistance(clickGeoPosition, waypointGeoPosition);
+									BufferedReader immobileReader = new BufferedReader(new InputStreamReader(immobileConn.getInputStream()));
+									StringBuilder immobileResponse = new StringBuilder();
+									String immobileLine;
+									while ((immobileLine = immobileReader.readLine()) != null) {
+										immobileResponse.append(immobileLine);
+									}
+									immobileReader.close();
 
-	        	            if (distance < 0.006) { // Soglia di distanza tra click e waypoint
-	        	            	//new VisioneImmobile(c); // ho aggiunto la schermata base così com'è
-	        	            	//ci dobbiamo mettere l'immobile
-	        	                break;
-	        	            }
-	        	        }
-	        	    }
-	        	});
-	        }
-	        
+									JSONObject immobileJsonResponse = new JSONObject(immobileResponse.toString());
+									if (immobileJsonResponse.getJSONArray("features").length() > 0) {
+										JSONObject immobileLocation = immobileJsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
+										double immobileLat = immobileLocation.getJSONArray("coordinates").getDouble(1);
+										double immobileLon = immobileLocation.getJSONArray("coordinates").getDouble(0);
 
-	        // Implementazione del drag della mappa
-	           mapViewer.addMouseListener(new MouseAdapter() {
+										GeoPosition immobilePosition = new GeoPosition(immobileLat, immobileLon);
+										DefaultWaypoint waypoint = new DefaultWaypoint(immobilePosition);
+										waypoints.add(waypoint);
+										waypointMap.put(waypoint, immobile);
+									}
+								} catch (Exception ex) {
+									ex.printStackTrace();
+								}
+							}
+						} else {
+							DefaultWaypoint waypoint = new DefaultWaypoint(centerPosition);
+							waypoints.add(waypoint);
+						}
 
-	               @Override
-	               public void mousePressed(MouseEvent e) {
-	                   lastPoint = e.getPoint();
-	               }
+						// Configura il painter dei waypoint
+						WaypointPainter<DefaultWaypoint> waypointPainter = new WaypointPainter<>();
+						waypointPainter.setWaypoints(waypoints);
+						mapViewer.setOverlayPainter(waypointPainter);
 
-	               @Override
-	               public void mouseReleased(MouseEvent e) {
-	                   lastPoint = null;
-	               }
-	           });
+						// Listener per i click sui waypoint
+						if (isSearchMode) {
+						    mapViewer.addMouseListener(new MouseAdapter() {
+						        @Override
+						        public void mouseClicked(MouseEvent e) {
+						            Point clickPoint = e.getPoint();
+						            System.out.println("Click point: " + clickPoint);
 
-	           mapViewer.addMouseMotionListener(new MouseMotionAdapter() {
-	               @Override
-	               public void mouseDragged(MouseEvent e) {
-	               	if (lastPoint != null) {
-	                       Point newPoint = e.getPoint();
+						            TileFactory tileFactory = mapViewer.getTileFactory();
+						            int currentZoom = mapViewer.getZoom();
+						            // Ottieni l'offset della viewport
+						            Rectangle viewportBounds = mapViewer.getViewportBounds();
+						            
+						            for (DefaultWaypoint waypoint : waypointMap.keySet()) {
+						                // Coordinate "world" del waypoint
+						                Point2D worldPoint = tileFactory.geoToPixel(waypoint.getPosition(), currentZoom);
+						                // Convertilo in coordinate della vista sottraendo l'offset della viewport
+						                Point2D viewPoint = new Point2D.Double(
+						                        worldPoint.getX() - viewportBounds.getX(),
+						                        worldPoint.getY() - viewportBounds.getY()
+						                );
+						                double pixelDistance = clickPoint.distance(viewPoint);
+						                System.out.println("Waypoint view point: " + viewPoint + " distanza: " + pixelDistance);
+						                
+						                if (pixelDistance < 20) { // Aumenta la soglia per testare
+						                    Immobile immobileSelezionato = waypointMap.get(waypoint);
+						                    System.out.println("Waypoint cliccato: " + immobileSelezionato);
+						                    new VisioneImmobile(c, immobileSelezionato, user);
+						                    break;
+						                }
+						            }
+						        }
+						    });
+						}
+						// Implementazione del drag della mappa
+						mapViewer.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mousePressed(MouseEvent e) {
+								lastPoint = e.getPoint();
+								}
 
-	                       // Differenza in pixel tra la posizione corrente e quella precedente
-	                       int dx = newPoint.x - lastPoint.x;
-	                       int dy = newPoint.y - lastPoint.y;
+							@Override
+							public void mouseReleased(MouseEvent e) {
+								lastPoint = null;
+							}
+						});
 
-	                       // Ottieni la posizione geografica corrente del centro della mappa
-	                       GeoPosition center = mapViewer.getCenterPosition();
+						mapViewer.addMouseMotionListener(new MouseMotionAdapter() {
+							@Override
+							public void mouseDragged(MouseEvent e) {
+								if (lastPoint != null) {
+									Point newPoint = e.getPoint();
+									int dx = newPoint.x - lastPoint.x;
+									int dy = newPoint.y - lastPoint.y;
+     
+									GeoPosition center = mapViewer.getCenterPosition();
+									TileFactory tileFactory = mapViewer.getTileFactory();
+									Point2D centerPoint = tileFactory.geoToPixel(center, mapViewer.getZoom());
 
-	                       // Usa TileFactory per convertire GeoPosition in Point
-	                       TileFactory tileFactory = mapViewer.getTileFactory();
-	                       Point2D centerPoint = tileFactory.geoToPixel(center, mapViewer.getZoom());
+									Point2D newCenterPoint = new Point2D.Double(centerPoint.getX() - dx, centerPoint.getY() - dy);
+									GeoPosition newCenter = tileFactory.pixelToGeo(newCenterPoint, mapViewer.getZoom());
 
-	                       // Calcola il nuovo centro in base al trascinamento
-	                       Point2D newCenterPoint = new Point2D.Double(centerPoint.getX() - dx, centerPoint.getY() - dy);
-	                       GeoPosition newCenter = tileFactory.pixelToGeo(newCenterPoint, mapViewer.getZoom());
+									mapViewer.setCenterPosition(newCenter);
+									lastPoint = newPoint;
+								}
+							}
+						});
 
-	                       // Imposta il nuovo centro della mappa
-	                       mapViewer.setCenterPosition(newCenter);
+						// Zoom con rotella del mouse
+						mapViewer.addMouseWheelListener(e -> {
+							int zoom = mapViewer.getZoom();
+							if (e.getWheelRotation() < 0) {
+								mapViewer.setZoom(Math.max(zoom - 1, 0));
+							} else {
+								mapViewer.setZoom(Math.min(zoom + 1, 15));
+							}
+						});
 
-	                       // Aggiorna lastPoint per il prossimo evento di trascinamento
-	                       lastPoint = newPoint;
-	                   }
-	               }
-	           });
-	           mapViewer.addMouseWheelListener(e -> {
-	               int zoom = mapViewer.getZoom();
-	               if (e.getWheelRotation() < 0) {
-	                   mapViewer.setZoom(Math.max(zoom - 1, 0)); // Zoom in
-	               } else {
-	                   mapViewer.setZoom(Math.min(zoom + 1, 15)); // Zoom out
-	               }
-	               
-	           });
-
-
-	        // Aggiungi la mappa al pannello
-	        mapViewer.setVisible(true);
-	        mapPanel.add(mapViewer);
-	        mapViewer.revalidate();
-	        mapViewer.repaint();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(null, "Errore nel recupero della posizione!", "Errore", JOptionPane.ERROR_MESSAGE);
-	    }
+						// Aggiungi la mappa al pannello
+						mapViewer.setVisible(true);
+						mapPanel.add(mapViewer);
+						mapViewer.revalidate();
+						mapViewer.repaint();
+				} catch (Exception e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Errore nel recupero della posizione!", "Errore", JOptionPane.ERROR_MESSAGE);
+				}
 	}
 
 	public void fetchAddressSuggestions(String query, DefaultListModel<String> listModel) {
@@ -551,7 +578,7 @@ public class Controller {
 		String query = sql.toString();
 		
 		ArrayList<Immobile> immobili = model.searchHouse(query);
-		Immobile casa;
+	
 		if (immobili.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", "Errore", JOptionPane.ERROR_MESSAGE);
 		}

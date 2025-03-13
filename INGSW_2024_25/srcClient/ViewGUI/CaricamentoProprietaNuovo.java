@@ -131,7 +131,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         buttonSearch.setMaximumSize(new Dimension(100, 25));
         buttonSearch.addActionListener(e -> {
         	
-        c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false);
+        c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false, null, user);
         String indirizzo = searchField.getText();
         System.out.println(indirizzo);
         System.out.println(searchField.getText());

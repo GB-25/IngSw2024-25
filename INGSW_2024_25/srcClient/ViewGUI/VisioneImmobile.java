@@ -3,6 +3,8 @@ package ViewGUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Base64;
 import org.jxmapviewer.JXMapViewer;
 import com.formdev.flatlaf.FlatLightLaf;
 import Class.ComposizioneImmobile;
@@ -88,7 +90,9 @@ public class VisioneImmobile extends JFrame {
         mapPanel.setBackground(Color.LIGHT_GRAY);
         mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione"));
         mapPanel.setPreferredSize(new Dimension(200, 200));
-        c.getCoordinates(c, immobile.getIndirizzo(), mapPanel, mapViewer, false);
+        ArrayList<Immobile> immobileList = new ArrayList<>();
+        immobileList.add(immobile);
+        c.getCoordinates(c, immobile.getIndirizzo(), mapPanel, mapViewer, false, immobileList, user);
         carouselPanel.add(mapPanel, BorderLayout.SOUTH);
         
 
@@ -251,11 +255,28 @@ public class VisioneImmobile extends JFrame {
     }
 
     private void addImageToCarousel(String imagePath) {
-        ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-        Image image = icon.getImage().getScaledInstance(290, 200, Image.SCALE_SMOOTH);
-        JLabel imageLabel = new JLabel(new ImageIcon(image));
-        imagePanel.add(imageLabel);
+    	 try {
+    	        // Decodifica la stringa Base64 in un array di byte
+    	        byte[] imageBytes = Base64.getDecoder().decode(imagePath);
+
+    	        // Crea un'icona direttamente dai byte
+    	        ImageIcon icon = new ImageIcon(imageBytes);
+
+    	        // Scala l'immagine per adattarla alle dimensioni desiderate
+    	        Image image = icon.getImage().getScaledInstance(290, 200, Image.SCALE_SMOOTH);
+
+    	        // Crea un JLabel con l'immagine e aggiungilo al pannello
+    	        JLabel imageLabel = new JLabel(new ImageIcon(image));
+    	        imagePanel.add(imageLabel);
+
+    	        // Aggiorna la GUI per mostrare la nuova immagine
+    	        imagePanel.revalidate();
+    	        imagePanel.repaint();
+    	    } catch (IllegalArgumentException e) {
+    	        System.err.println("Errore nella decodifica dell'immagine Base64: " + e.getMessage());
+    	    }
     }
+    
 
     public static void main(String[] args) {
         //SwingUtilities.invokeLater(VisioneImmobile::new);

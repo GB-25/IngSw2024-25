@@ -48,7 +48,11 @@ public class GoogleCloudStorageManager implements StorageManagerInterface{
     @Override
     public String downloadImageAsBase64(String fileName) throws IOException {
         // Costruisci l'objectName: ad esempio, in una "cartella" chiamata "immobili"
-        String objectName = "immobili/" + fileName;
+    	fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
+    
+
+    	// Costruisci l'objectName
+    	String objectName = "immobili/" + fileName;
         
         // Recupera il blob dal bucket
         Blob blob = storage.get(BlobId.of(BUCKET_NAME, objectName));
