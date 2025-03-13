@@ -215,8 +215,12 @@ public class RicercaImmobili extends JFrame {
 		prezzoMaxField.setText("0");
 		// Bottone di ricerca
 		JButton cercaButton = new JButton("Cerca");
-		cercaButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		cercaButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+			c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+    		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
 				String indirizzo = posizioneField.getText();
 				if (indirizzo.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Devi inserire almeno una città dove cercare", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -233,9 +237,15 @@ public class RicercaImmobili extends JFrame {
 					ArrayList<Immobile> ricerca = c.ricercaImmobili(prezzoMin, prezzoMax, classe, indirizzo, tipo, annuncio, ascensore, condominio, terrazzo, giardino);
 					if (!ricerca.isEmpty()) {
 						c.showResultImmobili(finestraCorrente, user, ricerca, indirizzo);
-					}
-				}
-			}});
+					}}
+					return null;}
+				 @Override
+                 protected void done() {
+                     dispose();
+                 }
+			};
+			worker.execute();}});
+		
 		cercaButton.setForeground(new Color(255, 255, 255));
 		cercaButton.setBackground(new Color(40, 132, 212));
 		cercaButton.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 12));
