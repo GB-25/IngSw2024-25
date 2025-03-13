@@ -207,43 +207,7 @@ public class ProvaLogin extends JFrame {
 				c.registerUser(finestraCorrente);
 			}
 		});
-		
-		// **API Buttons (Google, Facebook, GitHub)**
-        JPanel apiPanel = new JPanel(new FlowLayout());
-        GridBagConstraints gbc_apiPanel = new GridBagConstraints();
-        gbc_apiPanel.insets = new Insets(0, 0, 5, 5);
-        gbc_apiPanel.gridx = 2;
-        gbc_apiPanel.gridy = 5;
-        panel_2.add(apiPanel, gbc_apiPanel);
-        apiPanel.setBackground(new Color(255, 255, 255));
         
-        ImageIcon icon1 = new ImageIcon(getClass().getResource("/immagini/Google_logo.svg.png"));
-        Image img1 = icon1.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        ImageIcon icon2 = new ImageIcon(getClass().getResource("/immagini/Facebook-logo.png"));
-        Image img2 = icon2.getImage().getScaledInstance(44, 28, Image.SCALE_SMOOTH);
-        ImageIcon icon3 = new ImageIcon(getClass().getResource("/immagini/gitlogo.png"));
-        Image img3 = icon3.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-        
-                JButton btnGoogle = new JButton();
-                btnGoogle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                btnGoogle.setBorderPainted(false);
-                btnGoogle.setBackground(new Color(255, 255, 255));
-                btnGoogle.setIcon(new ImageIcon(img1));
-                JButton btnFacebook = new JButton();
-                btnFacebook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                btnFacebook.setBorderPainted(false);
-                btnFacebook.setBackground(new Color(255, 255, 255));
-                btnFacebook.setIcon(new ImageIcon(img2));
-                JButton btnGit = new JButton();
-                btnGit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                btnGit.setBorderPainted(false);
-                btnGit.setBackground(new Color(255, 255, 255));
-                btnGit.setIcon(new ImageIcon(img3));
-                
-                        apiPanel.add(btnGoogle);
-                        apiPanel.add(btnFacebook);
-                        apiPanel.add(btnGit);
-		
 		JLabel label = new JLabel("Non sei ancora iscritto? ");
 		label.setFont(new Font("Microsoft YaHei UI Light", Font.ITALIC, 17));
 		label.setBackground(new Color(255, 255, 255));
