@@ -42,7 +42,7 @@ public class ReservationService {
 		
 	}
 	
-	public ArrayList<Prenotazione> getReservation(String mail, boolean isConfirmed, String data,  boolean isAgente){
+	public ArrayList<Prenotazione> getReservation(String mail, boolean isConfirmed, String data, boolean isAgente){
 		return reservationRepository.getReservationByMail(mail, isConfirmed, data, isAgente);
 	}
 	

@@ -131,7 +131,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 
                 if (rs.next()) {
                 	User agente = this.getUserByMail(rs.getString("agente_id"));
-                	ComposizioneImmobile composizione = this.getComposizioneById(rs.getInt("idComposizione"));
+                	ComposizioneImmobile composizione = this.getComposizioneById(rs.getInt("idComposizioneImmobile"));
                 	immobile = new Immobile(rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
                 			rs.getString("tipo"), rs.getString("classe_energetica"), rs.getString("descrizione"), rs.getString("urls"), agente);
                 	}
@@ -196,7 +196,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             	   User user = this.getUserByMail(rs.getString("user_id"));
             	   Immobile immobile = this.getHouseByAddress(rs.getString("immobile_id"));
             	   User agente = this.getUserByMail(rs.getString("agente_id"));
-                   prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), user, immobile , agente, rs.getBoolean("isConfirmed"));
+                   prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), user, immobile , agente, rs.getBoolean("is_Confirmed"));
                	}
            } catch (SQLException e) {
                e.printStackTrace();
@@ -210,7 +210,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     @Override
     public void createReservation(String data, String ora,  String cliente, String indirizzoImmobile, String agente) {
     	String query = "INSERT INTO prenotazioni (data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed)"
-    			+"VALUES ('"+data+"','"+ ora+"','"+cliente+"','"+ indirizzoImmobile+"','"+agente+"','FALSE');";
+    			+"VALUES ('"+data+"','"+ ora+"','"+cliente+"','"+ indirizzoImmobile+"','"+agente+"', FALSE);";
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
                
@@ -244,6 +244,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 	agente = this.getUserByMail(rs.getString("agente_id"));
                 	immobile = this.getHouseByAddress(rs.getString("immobile_id"));
                 	cliente = this.getUserByMail(rs.getString("user_id"));
+                	System.out.println("io sono database: "+rs.getString("ora_prenotazione"));
                 	Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), 
                 			cliente, immobile, agente, isConfirmed);
                 	lista.add(prenotazione);
@@ -274,7 +275,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     @Override
     public void confirmReservation(int id) {
-    	String query = "UPDATE prenotazioni SET isConfirmed = 'TRUE' WHERE id = '"+id+"';";
+    	String query = "UPDATE prenotazioni SET isConfirmed = TRUE WHERE id = '"+id+"';";
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {
     		stmt.executeUpdate();
@@ -312,7 +313,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     @Override
     public int getReservationId(String mailCliente, String mailAgente, String data, String ora, String indirizzo, boolean confirmed) {
-    	String query = "SELECT * FROM prenotazioni WHERE data_prenotazione = '"+data+"' AND user_id = '"+mailCliente+"' AND ora_prenotazione = '"+ora+"' AND immobile_id ='"+indirizzo+"' AND agente_id = '"+mailAgente+" AND isConfirmed = '"+confirmed+"';";
+    	String query = "SELECT * FROM prenotazioni WHERE data_prenotazione = '"+data+"' AND user_id = '"+mailCliente+"' AND ora_prenotazione = '"+ora+"' AND immobile_id ='"+indirizzo+"' AND agente_id = '"+mailAgente+"' AND is_Confirmed = '"+confirmed+"';";
     	int id=0;
     	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(query)) {

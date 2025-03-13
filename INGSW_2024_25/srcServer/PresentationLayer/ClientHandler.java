@@ -261,6 +261,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 			   JSONObject jsonPrenotazione = new JSONObject();
 	           jsonPrenotazione.put("id", p.getId());
 	           jsonPrenotazione.put("data", p.getDataPrenotazione());
+	           System.out.println("io sono handler: "+p.getOraPrenotazione());
 	           jsonPrenotazione.put("ora", p.getOraPrenotazione());
 	           jsonPrenotazione.put("Cliente", p.getUser().getNome()+" "+p.getUser().getCognome());
 	           jsonPrenotazione.put("indirizzo", p.getImmobile().getIndirizzo());
