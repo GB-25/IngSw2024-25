@@ -7,7 +7,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-import javax.swing.JComboBox;
 import okhttp3.Request;
 import okhttp3.Response;
 import java.util.List;
@@ -32,15 +31,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jxmapviewer.JXMapViewer;
@@ -61,9 +51,10 @@ public class Controller {
 
 	private Point lastPoint;
 	//frame
-	
+	JFrame finestraCorrente;
 	JFrame finestraPrincipale;
 	ClientModel model;
+	JFrame schermataCaricamento;
 	JFrame homeUtente;
 	JFrame homeAgente;
 	JFrame finestraRegistrazione;
@@ -367,10 +358,22 @@ public class Controller {
 						                System.out.println("Waypoint view point: " + viewPoint + " distanza: " + pixelDistance);
 						                
 						                if (pixelDistance < 20) { // Aumenta la soglia per testare
+						                	c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+						                	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+						                        @Override
+						                        protected Void doInBackground() throws Exception {
 						                    Immobile immobileSelezionato = waypointMap.get(waypoint);
-						                    System.out.println("Waypoint cliccato: " + immobileSelezionato);
+						                    System.out.println("Waypoint cliccato: " + immobileSelezionato); 
 						                    new VisioneImmobile(c, immobileSelezionato, user);
-						                    break;
+						                    return null;}
+						                        @Override
+						                        protected void done() {
+						                        	if (c.schermataCaricamento != null) {
+						                                c.schermataCaricamento.dispose(); // Chiude solo la schermata di caricamento
+						                            }
+						                        }
+						       			};
+						       			worker.execute();
 						                }
 						            }
 						        }
@@ -769,6 +772,12 @@ public class Controller {
 			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
 		} 
     }
+
+	public void createSchermataCaricamento(JFrame finestraCorrente, String message) {
+    	schermataCaricamento = new SchermataCaricamento(finestraCorrente, message);
+    	schermataCaricamento.setVisible(true);
+    }
+
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();
