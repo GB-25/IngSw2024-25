@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Component;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -168,9 +169,20 @@ public class ProvaLogin extends JFrame {
 		btnAccedi.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 13));
 		btnAccedi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+				 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                     @Override
+                     protected Void doInBackground() throws Exception {
 				c.handleLogin(textField.getText(), passwordField.getPassword());
-			}
-		});
+				return null;}
+                     
+                     @Override
+                     protected void done() {
+                         dispose();
+                     }
+			};
+			worker.execute();
+		}});
 		
 		passwordField = new JPasswordField();
 		passwordField.setPreferredSize(new Dimension(20, 19));
