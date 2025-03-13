@@ -25,6 +25,7 @@ public class PrenotazioneCliente extends JFrame {
 
     private JDateChooser dateChooser;
     private JPanel mainPanel;
+    private String orario;
 
     public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
     	FlatLightLaf.setup(new FlatLightLaf());
@@ -165,8 +166,6 @@ public class PrenotazioneCliente extends JFrame {
                 outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
                 return;
             }
-            	String data = selectedDate.toString();
-            	String ora = selectedTime.toString();
             
 
             Calendar calendar = Calendar.getInstance();
@@ -176,8 +175,13 @@ public class PrenotazioneCliente extends JFrame {
             int minute = calendar.get(Calendar.MINUTE);
 
             if (hour >= 10 && hour < 18 && minute == 00 || hour >= 10 && hour < 18 && minute == 30 || (hour == 18 && minute == 0)) {
-            	String orario = new String(Integer.toString(hour)+":"+Integer.toString(minute)); // QUESTA E' DA PASSARE, ORARIO A STRINGA
-                c.createReservation(user, immobile, data, ora);
+            	if (minute == 0) {
+            	    orario = new String(Integer.toString(hour)+":"+Integer.toString(minute)+"0");} // QUESTA E' DA PASSARE, ORARIO A STRINGA
+            	else {
+            		orario = new String(Integer.toString(hour)+":"+Integer.toString(minute));}
+            	String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+            	System.out.println(orario);
+                c.createReservation(user, immobile, data, orario);
                 c.reservationConfirmed(this, user);
             } else {
                 outputLabel.setText("⚠️ Orario fuori range! (10:00 - 18:00)");
