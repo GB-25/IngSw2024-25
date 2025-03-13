@@ -14,8 +14,7 @@ import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+
 import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +24,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -42,7 +41,7 @@ import org.jxmapviewer.viewer.TileFactory;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.WaypointPainter;
 
-import Class.ComposizioneImmobile;
+
 import Class.Immobile;
 import Class.Prenotazione;
 import Class.User;
@@ -74,43 +73,33 @@ public class Controller {
 	
 	//costruttore
 	public Controller() {
-//		User user = new User("", "", "", "", "", "", true);
-//		homeAgente = new HomeAgente(this, user);
-//		homeAgente.setVisible(true);
-		//qua dobbiamo impostare tutte queste variabili a JFRAME
-		
-		
+
 		finestraPrincipale = new ProvaLogin(this);
 		finestraPrincipale.setVisible(true);
-//		caricamento = new CaricamentoProprietaNuovo(this, user);
-//		caricamento.setVisible(true);
-//		homeUtente= new HomeCliente(this, user);
-//		homeUtente.setVisible(true);
+
 		model = new ClientModel(ip, porta);
-		//metodo del model per la connessione, in questo momento sarebbe sendMessage;
+		
 	}
 	
 	
 	public void handleLogin (String mail, char[] pass) {
 		String password = new String(pass);
-		if (mail == null || password == null) {
-			JOptionPane.showMessageDialog(null, "Almeno uno dei campi è vuoto", "Errore di Login", JOptionPane.ERROR_MESSAGE);
-		}else {
-			User user = model.loginModel(mail, password);
-			if (user == null) {
-				JOptionPane.showMessageDialog(null, "Credenziali errate!", "Errore di Login", JOptionPane.ERROR_MESSAGE);
-			} else {
+		
+		User user = model.loginModel(mail, password);
+		if (user == null) {
+			JOptionPane.showMessageDialog(null, "Credenziali errate!", "Errore di Login", JOptionPane.ERROR_MESSAGE);
+		} else {
 				
-				finestraPrincipale.setVisible(false);
+			finestraPrincipale.setVisible(false);
 			
-				if(user.getIsAgente()) {
+			if(user.getIsAgente()) {
 					
-					homeAgente= new HomeAgente(this, user);
-					homeAgente.setVisible(true);
-				} else {
-					homeUtente = new HomeCliente(this, user);
-					homeUtente.setVisible(true);
-				}
+				homeAgente= new HomeAgente(this, user);
+				homeAgente.setVisible(true);
+			} else {
+				homeUtente = new HomeCliente(this, user);
+				homeUtente.setVisible(true);
+				
 			}
 		}
 		
@@ -613,18 +602,19 @@ public class Controller {
 	}
 	
 	private void aggiungiNotifica(String mail, String messaggio, Runnable azione) {
-        // Recupera la lista di notifiche dell'utente (o crea una nuova lista se non esiste)
-        List<Runnable> notifiche = notificheUtenti.getOrDefault(mail, new ArrayList<>());
+	    List<Runnable> notifiche = notificheUtenti.getOrDefault(mail, new ArrayList<>());
 
-        // Aggiungi la notifica come un oggetto Runnable
-        notifiche.add(() -> {
-            System.out.println("Notifica per " + mail + ": " + messaggio);
-            azione.run(); // Esegui l'azione associata alla notifica
-        });
+	    notifiche.add(() -> {
+	        System.out.println("Notifica per " + mail + ": " + messaggio);
+	        azione.run();
+	    });
 
-        // Aggiorna la mappa delle notifiche
-        notificheUtenti.put(mail, notifiche);
-    }
+	    notificheUtenti.put(mail, notifiche);
+
+	   
+	    
+	}
+
 
     // Metodo per recuperare le notifiche di un utente
     public List<Runnable> getNotificheUtente(String mail) {

@@ -69,18 +69,10 @@ public class HomeAgente extends JFrame {
             }); // Esegui l'azione associata alla notifica
             popupMenu.add(menuItem);
         }
-        if(notifiche.isEmpty()){
-        	bellButton = createIconButton("/immagini/bellwhite.png", 30, 30);
-        } else {
-        	bellButton = createIconButton("/immagini/whitenotifiche.png", 30, 30);
-        }
-        bellButton.addActionListener(e -> {
-        	ImageIcon bellLogo = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
-            Image imgBell = bellLogo.getImage();
-            Image imgBellScaled = imgBell.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        	bellButton.setIcon(new ImageIcon(imgBellScaled));
-        	popupMenu.show(bellButton, 0, bellButton.getHeight());
-        });
+        bellButton = new JButton();
+        updateBellIcon(c, user, bellButton); // 🔹 Imposta l'icona iniziale correttamente
+
+        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
 
         // Menu a tendina per lo user
         JPopupMenu popupUser = new JPopupMenu();
@@ -251,6 +243,14 @@ public class HomeAgente extends JFrame {
         
     }
     
+    private void updateBellIcon(Controller c, User user, JButton bellButton) {
+        List<Runnable> notifiche = c.getNotificheUtente(user.getMail());
+        String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitenotifiche.png";
+
+        ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
+        Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        bellButton.setIcon(new ImageIcon(img));
+    }
     
 
     // Codice per far partire la finestra senza la necessità del controller
