@@ -78,17 +78,29 @@ public class FinestraRegistrazione extends JFrame {
         btnConferma.setEnabled(false);
         btnConferma.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
         		String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        		System.out.println(data);
         		char[] pass = passwordField.getPassword();
         		String password = new String(pass);
         		c.handleRegistration(textFieldNome.getText(), textFieldCognome.getText(), data, textFieldMail.getText(), textFieldTelefono.getText(), password, false);
-        	}
+        		return null;}
+                    @Override
+                    protected void done() {
+                        dispose();
+                    }
+			};
+			worker.execute();  
+            }
         });
         btnConferma.setBounds(408, 561, 117, 25);
         contentPane.add(btnConferma);
 		
         dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd-MM-yyyy");
+		dateChooser.setDateFormatString("yyyy-MM-dd");
 		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
 
 		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
