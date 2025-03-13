@@ -1,13 +1,15 @@
 package ViewGUI;
 import javax.swing.*;
 import java.awt.*;
+import com.formdev.flatlaf.FlatLightLaf;
 
-public class SchermataCaricamento {
+public class SchermataCaricamento extends JFrame{
     private JDialog loadingDialog;
     private JLabel gifLabel;
     private JLabel loadingLabel;
 
     public SchermataCaricamento (JFrame parent, String message) {
+        FlatLightLaf.setup(new FlatLightLaf());
         loadingDialog = new JDialog(parent, "Caricamento", true);
         loadingDialog.setLayout(new BorderLayout());
         loadingDialog.setSize(400, 250);
