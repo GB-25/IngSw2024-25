@@ -96,6 +96,9 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "getNotifiche":
                 		response = getNotifiche(request);
                 		break;
+                	case "notifica letta":
+                		response = setNotifiche(request);
+                		break;
                 	default:
                 		response.put("status", "error");
                 		response.put("message", "Azione non riconosciuta");
@@ -414,6 +417,18 @@ public class ClientHandler extends Thread { //implements Runnable???
 	    response.put("status", "success");
 	    response.put("notifiche", notificheArray);
 	    return response;
+   }
+   
+   public JSONObject setNotifiche(JSONObject request) {
+	  
+	   int id = request.getInt("id");
+	   reservationService = new ReservationService(reservationRepository);
+	   boolean confermato = reservationService.setLetta(id);
+	   JSONObject response = new JSONObject();
+	   response.put("status", confermato ? "success" : "error");
+	   response.put("message", confermato ? "notifica cancellata" : "errore");
+	   return response;
+	   
    }
 }
 

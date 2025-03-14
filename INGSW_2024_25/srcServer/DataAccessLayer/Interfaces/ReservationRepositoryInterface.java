@@ -25,4 +25,6 @@ public interface ReservationRepositoryInterface {
 	List<Notifica> getNotificheUtente(String mail);
 
 	boolean salvaNotifica(Notifica nuovaNotifica);
+
+	boolean setNotifica(int id);
 }

@@ -62,41 +62,53 @@ public class HomeAgente extends JFrame {
         JPopupMenu popupMenu = new JPopupMenu();
         bellButton = new JButton();
         bellButton.addActionListener(e -> {
-        
-           	System.out.println("Inizio creazione popup");
-           	popupMenu.removeAll();
+            if (popupMenu.isVisible()) {
+                // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
+                popupMenu.setVisible(false);
+                
+                try {
+                    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+                    
+                    System.out.println("Notifiche segnate come lette.");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 
-            popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-                
-            List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-            System.out.println("Numero di notifiche: " + notifiche.size());
-                
-            if (notifiche.isEmpty()){
-                JMenuItem dummy = new JMenuItem("Nessuna notifica");
-                popupMenu.add(dummy);
             } else {
-                List<Notifica> notificheCopy = new ArrayList<>(notifiche);
-                for (Notifica notifica : notificheCopy) {
-                    System.out.println("Aggiungo notifica: " + notifica.getMessaggio());
-                    JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-                    menuItem.addActionListener(ae -> {
-                        try {
-                            System.out.println("Click su notifica: " + notifica.getMessaggio());
-                            //c.rimuoviNotifica(user.getMail(), notifica);
-                            popupMenu.remove(menuItem);
-                            updateBellIcon(c, user, bellButton);
-                        } catch(Exception ex) {
-                            ex.printStackTrace();
-                        }
-                	});
-                    popupMenu.add(menuItem);
-                }
-                }
-            
-        });
-        updateBellIcon(c, user, bellButton); // 🔹 Imposta l'icona iniziale correttamente
+                // 🔹 Se il popup non è visibile, aggiornalo e mostralo
+                System.out.println("Inizio creazione popup");
+                popupMenu.removeAll();
+                popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
+                List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+                System.out.println("Numero di notifiche: " + notifiche.size());
+
+                if (notifiche.isEmpty()) {
+                    JMenuItem dummy = new JMenuItem("Nessuna notifica");
+                    popupMenu.add(dummy);
+                } else {
+                    for (Notifica notifica : notifiche) {
+                        System.out.println("Aggiungo notifica: " + notifica.getMessaggio());
+                        JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+                        menuItem.addActionListener(ae -> {
+                            try {
+                                System.out.println("Click su notifica: " + notifica.getMessaggio());
+                                c.setNotificaLetta(notifica);
+                                popupMenu.remove(menuItem);
+                                updateBellIcon(c, user, bellButton);
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        });
+                        popupMenu.add(menuItem);
+                    }
+                }
+
+                popupMenu.show(bellButton, 0, bellButton.getHeight());
+            }
+        });
+
+        updateBellIcon(c, user, bellButton);
 
 
         // Menu a tendina per lo user

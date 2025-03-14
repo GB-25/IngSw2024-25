@@ -347,9 +347,9 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     public List<Notifica> getNotificheUtente(String mail) {
         List<Notifica> notifiche = new ArrayList<>();
-        String sql = "SELECT id, messaggio, letta FROM notifiche WHERE destinatario_email = '"+mail+"' and letta = false;";
+        String query = "SELECT id, messaggio, letta FROM notifiche WHERE destinatario_email = '"+mail+"' and letta = false;";
         try (Connection conn =  DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(query)) {
            
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -364,6 +364,20 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
         return notifiche;
     }
 
+
+	@Override
+	public boolean setNotifica(int id) {
+		String query = "UPDATE notifiche SET letta = TRUE WHERE id ='"+id+"';";
+		try (Connection conn =  DriverManager.getConnection(URL, USER, PASSWORD);
+	             PreparedStatement stmt = conn.prepareStatement(query)) {
+			stmt.executeUpdate();
+			return true;
+		}catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+		}
+	}
+    
     
     public void closeConnection() {
         try {
@@ -372,6 +386,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             e.printStackTrace();
         }
     }
+
 
 	
 }

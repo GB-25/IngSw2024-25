@@ -377,5 +377,20 @@ public class ClientModel {
         }
         return notifiche;
     }
+    
+    public boolean notificaLetta(Notifica notifica) {
+    	JSONObject request = new JSONObject();
+    	
+    	request.put("action", "notifica letta");
+    	
+    	request.put("id", notifica.getId());
+    	JSONObject response = sendRequest(request);
+    	if (response.getString("status").equals("error")) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    	}
+    }
 
-}
+

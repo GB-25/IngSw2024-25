@@ -70,7 +70,7 @@ public class Controller {
 	JFrame prenotazioneConfermata;
 	String ip = "34.76.2.59";
 	int porta = 12345;
-	private Map<String, List<Runnable>> notificheUtenti = new HashMap<>();
+
 	
 	//costruttore
 	public Controller() {
@@ -628,6 +628,15 @@ public class Controller {
 	    // Chiamata che invia la notifica al client
 	    aggiungiNotifica(cliente.getMail(), messaggioNotifica);
 	}
+	
+	
+	public void setNotificaLetta(Notifica notifica) {
+		boolean cancellato = model.notificaLetta(notifica);
+		if (!cancellato) {
+			JOptionPane.showMessageDialog(null, "Problemi nel recupero delle notifiche. Riprova più tardi", "Errore", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
 	
     public boolean controlCheckBox(JCheckBox box) {
     	if(box.isSelected()) {

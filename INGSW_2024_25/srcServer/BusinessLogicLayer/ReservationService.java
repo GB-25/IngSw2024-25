@@ -59,7 +59,11 @@ public class ReservationService {
 	
 	public List<Notifica> getNotifiche(String mail) {
 	    List<Notifica> prova = reservationRepository.getNotificheUtente(mail);
-	    System.out.println("sono il service: "+prova.size());
+	   
 	    return prova;
+	}
+	
+	public boolean setLetta( int id) {
+		return reservationRepository.setNotifica(id);
 	}
 }

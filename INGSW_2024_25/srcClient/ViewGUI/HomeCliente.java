@@ -120,7 +120,7 @@ public class HomeCliente extends JFrame {
 	}
 	
 	 private JPanel createTopPanel(Controller c, User user) {
-		 	List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+		 	
 	        JPanel topPanel = new JPanel(new BorderLayout());
 	        topPanel.setBackground(new Color(40, 132, 212));
 	        topPanel.setPreferredSize(new Dimension(600, 120));
@@ -169,31 +169,56 @@ public class HomeCliente extends JFrame {
 	        userButton.setContentAreaFilled(false);
 	        userButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-	        JButton bellButton = new JButton();
-	        // Menu a tendina per le notifiche
 	        JPopupMenu popupMenu = new JPopupMenu();
-	        popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-	        if (notifiche.isEmpty()){
-                // Se non ci sono notifiche, mostra un item di avviso
-                JMenuItem dummy = new JMenuItem("Nessuna notifica");
-                popupMenu.add(dummy);
-            } else {
-	        // Creiamo un menu item per ogni notifica
-            	for (Notifica notifica : notifiche) {
-            		JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-            		menuItem.addActionListener(e -> {
-            			// Eventuale logica: ad esempio, segnare la notifica come letta e aprire la finestra correlata.
-            			// Potresti aggiornare lo stato della notifica nel DB se necessario.
-            			popupMenu.remove(menuItem);
-            			// (Aggiornare l'icona se il numero di notifiche non lette cambia)
-            			updateBellIcon(c, user, bellButton);
-            		});
-            		popupMenu.add(menuItem);
-            	}
-            }
-	        updateBellIcon(c, user, bellButton); // 🔹 Imposta l'icona iniziale correttamente
+	        JButton bellButton = new JButton();
+	        bellButton.addActionListener(e -> {
+	            if (popupMenu.isVisible()) {
+	                // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
+	                popupMenu.setVisible(false);
+	                
+	                try {
+	                    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+	                    
+	                    System.out.println("Notifiche segnate come lette.");
+	                } catch (Exception ex) {
+	                    ex.printStackTrace();
+	                }
 
-	        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
+	            } else {
+	                // 🔹 Se il popup non è visibile, aggiornalo e mostralo
+	                System.out.println("Inizio creazione popup");
+	                popupMenu.removeAll();
+	                popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
+
+	                List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+	                System.out.println("Numero di notifiche: " + notifiche.size());
+
+	                if (notifiche.isEmpty()) {
+	                    JMenuItem dummy = new JMenuItem("Nessuna notifica");
+	                    popupMenu.add(dummy);
+	                } else {
+	                    for (Notifica notifica : notifiche) {
+	                        System.out.println("Aggiungo notifica: " + notifica.getMessaggio());
+	                        JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+	                        menuItem.addActionListener(ae -> {
+	                            try {
+	                                System.out.println("Click su notifica: " + notifica.getMessaggio());
+	                                c.setNotificaLetta(notifica);
+	                                popupMenu.remove(menuItem);
+	                                updateBellIcon(c, user, bellButton);
+	                            } catch (Exception ex) {
+	                                ex.printStackTrace();
+	                            }
+	                        });
+	                        popupMenu.add(menuItem);
+	                    }
+	                }
+
+	                popupMenu.show(bellButton, 0, bellButton.getHeight());
+	            }
+	        });
+
+	        updateBellIcon(c, user, bellButton);
 
 	        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
 	        bellButton.setBackground(new Color(40, 132, 212));
