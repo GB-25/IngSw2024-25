@@ -1,7 +1,9 @@
 package BusinessLogicLayer;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import Class.Notifica;
 import Class.Prenotazione;
 import DataAccessLayer.DatabaseManager;
 import DataAccessLayer.Interfaces.ReservationRepositoryInterface;
@@ -48,5 +50,16 @@ public class ReservationService {
 	
 	public int retrieveId(String mailCliente, String mailAgente, String data, String ora, String indirizzo ) {
 		return reservationRepository.getReservationId(mailCliente, mailAgente, data, ora, indirizzo, false);
+	}
+	
+	public boolean aggiungiNotifica(String destinatario, String messaggio) {
+	    Notifica nuovaNotifica = new Notifica(destinatario, messaggio);
+	    return reservationRepository.salvaNotifica(nuovaNotifica);
+	}
+	
+	public List<Notifica> getNotifiche(String mail) {
+	    List<Notifica> prova = reservationRepository.getNotificheUtente(mail);
+	    System.out.println("sono il service: "+prova.size());
+	    return prova;
 	}
 }

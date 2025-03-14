@@ -2,6 +2,8 @@ package ViewGUI;
 
 import javax.swing.*;
 import com.formdev.flatlaf.FlatLightLaf;
+
+import Class.Notifica;
 import Class.Prenotazione;
 import Class.User;
 
@@ -127,7 +129,7 @@ public class VisionePrenotazione extends JFrame {
     
     private JPanel createTopPanel(User user, Controller c) {
     	ImageIcon bellIcon;
-    	List<Runnable> notifiche = c.getNotificheUtente(user.getMail());
+    	List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(40, 132, 212));
         topPanel.setPreferredSize(new Dimension(600, 120));
@@ -173,33 +175,27 @@ public class VisionePrenotazione extends JFrame {
         userButton.setContentAreaFilled(false);
         userButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        JButton bellButton = new JButton();
+        // Menu a tendina per le notifiche
         JPopupMenu popupMenu = new JPopupMenu();
         popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-        for (Runnable notifica : notifiche) {
-            JMenuItem menuItem = new JMenuItem("Notifica");
+        // Creiamo un menu item per ogni notifica
+        for (Notifica notifica : notifiche) {
+            JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
             menuItem.addActionListener(e -> {
-            	notifica.run(); 
-            	popupMenu.remove(menuItem);
-            	notifiche.remove(notifica);
-            }); // Esegui l'azione associata alla notifica
+                // Eventuale logica: ad esempio, segnare la notifica come letta e aprire la finestra correlata.
+                // Potresti aggiornare lo stato della notifica nel DB se necessario.
+                popupMenu.remove(menuItem);
+                // (Aggiornare l'icona se il numero di notifiche non lette cambia)
+                updateBellIcon(c, user, bellButton);
+            });
             popupMenu.add(menuItem);
         }
-       
-        if(notifiche.isEmpty()) {
-        	bellIcon = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
-        } else {
-        	bellIcon = new ImageIcon(getClass().getResource("/immagini/whitenotifiche.png"));
-        }
-        Image bellImage = bellIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        JButton bellButton = new JButton(new ImageIcon(bellImage));
-        bellButton.addActionListener(e -> {
-        	popupMenu.show(bellButton, 0, bellButton.getHeight());
-        	ImageIcon bellLogo = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
-            Image imgBell = bellLogo.getImage();
-            Image imgBellScaled = imgBell.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        	bellButton.setIcon(new ImageIcon(imgBellScaled));
-        });
+        
+        updateBellIcon(c, user, bellButton); // 🔹 Imposta l'icona iniziale correttamente
+
+        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
         bellButton.setBackground(new Color(40, 132, 212));
         bellButton.setBorderPainted(false);
         bellButton.setFocusPainted(false);
@@ -217,6 +213,15 @@ public class VisionePrenotazione extends JFrame {
 
         return topPanel;
     }
+    
+    private void updateBellIcon(Controller c, User user, JButton bellButton) {
+	    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+	    String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitenotifiche.png";
+
+	    ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
+	    Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+	    bellButton.setIcon(new ImageIcon(img));
+	}
     
     public static void main(String[] args) {
         //SwingUtilities.invokeLater(new Runnable() {

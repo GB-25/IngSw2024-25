@@ -2,6 +2,7 @@ package DataAccessLayer;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import Class.*;
 import DataAccessLayer.Interfaces.*;
@@ -328,6 +329,41 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             }
     	   return id;
     }
+    
+    public boolean salvaNotifica(Notifica notifica) {
+        String sql = "INSERT INTO notifiche (destinatario_email, messaggio, letta) VALUES (?, ?, false)";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, notifica.getDestinatarioEmail());
+            stmt.setString(2, notifica.getMessaggio());
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
+    public List<Notifica> getNotificheUtente(String mail) {
+        List<Notifica> notifiche = new ArrayList<>();
+        String sql = "SELECT id, messaggio, letta FROM notifiche WHERE destinatario_email = '"+mail+"' and letta = false;";
+        try (Connection conn =  DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+           
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String messaggio = rs.getString("messaggio");
+                boolean letta = rs.getBoolean("letta");
+                notifiche.add(new Notifica(id, mail, messaggio, letta));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return notifiche;
+    }
+
     
     public void closeConnection() {
         try {

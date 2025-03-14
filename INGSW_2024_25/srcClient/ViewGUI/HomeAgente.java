@@ -2,8 +2,12 @@ package ViewGUI;
 
 import javax.swing.*;
 import com.formdev.flatlaf.FlatLightLaf;
+
+import Class.Notifica;
 import Class.User;
 import Controller.Controller;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -16,7 +20,7 @@ public class HomeAgente extends JFrame {
 
     public HomeAgente(Controller c, User user) {
     	JButton bellButton;
-    	List<Runnable> notifiche = c.getNotificheUtente(user.getMail());
+    	
         FlatLightLaf.setup(new FlatLightLaf());
         // Imposta il titolo della finestra
         setTitle("DietiEstates25");
@@ -54,25 +58,46 @@ public class HomeAgente extends JFrame {
         logoButton.addActionListener(e -> {
             c.createHomeAgente(finestraCorrente, user);
         });
-
-        // Menu a tendina per le notifiche
+     // Creazione del bottone della campanella
         JPopupMenu popupMenu = new JPopupMenu();
-        popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-
-        // Esempio di notifiche
-        for (Runnable notifica : notifiche) {
-            JMenuItem menuItem = new JMenuItem("Notifica");
-            menuItem.addActionListener(e -> {
-            	notifica.run(); 
-            	popupMenu.remove(menuItem);
-            	notifiche.remove(notifica);
-            }); // Esegui l'azione associata alla notifica
-            popupMenu.add(menuItem);
-        }
         bellButton = new JButton();
+        bellButton.addActionListener(e -> {
+        
+           	System.out.println("Inizio creazione popup");
+           	popupMenu.removeAll();
+
+            popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
+                
+            List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+            System.out.println("Numero di notifiche: " + notifiche.size());
+                
+            if (notifiche.isEmpty()){
+                JMenuItem dummy = new JMenuItem("Nessuna notifica");
+                popupMenu.add(dummy);
+            } else {
+                List<Notifica> notificheCopy = new ArrayList<>(notifiche);
+                for (Notifica notifica : notificheCopy) {
+                    System.out.println("Aggiungo notifica: " + notifica.getMessaggio());
+                    JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+                    menuItem.addActionListener(ae -> {
+                        try {
+                            System.out.println("Click su notifica: " + notifica.getMessaggio());
+                            //c.rimuoviNotifica(user.getMail(), notifica);
+                            popupMenu.remove(menuItem);
+                            updateBellIcon(c, user, bellButton);
+                        } catch(Exception ex) {
+                            ex.printStackTrace();
+                        }
+                	});
+                    popupMenu.add(menuItem);
+                }
+                }
+            
+        });
         updateBellIcon(c, user, bellButton); // 🔹 Imposta l'icona iniziale correttamente
 
         bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
+
 
         // Menu a tendina per lo user
         JPopupMenu popupUser = new JPopupMenu();
@@ -244,8 +269,8 @@ public class HomeAgente extends JFrame {
     }
     
     private void updateBellIcon(Controller c, User user, JButton bellButton) {
-        List<Runnable> notifiche = c.getNotificheUtente(user.getMail());
-        String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitenotifiche.png";
+        List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+        String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitebellnotifiche.png";
 
         ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
         Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);

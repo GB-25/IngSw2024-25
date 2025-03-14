@@ -1,7 +1,9 @@
 package DataAccessLayer.Interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import Class.Notifica;
 import Class.Prenotazione;
 
 public interface ReservationRepositoryInterface {
@@ -19,4 +21,8 @@ public interface ReservationRepositoryInterface {
 	void confirmReservation(int id);
 	
 	int getReservationId(String mailCliente, String mailAgente, String data, String ora, String indirizzo, boolean confirmed);
+
+	List<Notifica> getNotificheUtente(String mail);
+
+	boolean salvaNotifica(Notifica nuovaNotifica);
 }

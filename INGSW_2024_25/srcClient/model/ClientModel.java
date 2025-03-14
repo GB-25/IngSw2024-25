@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 
 import Class.ComposizioneImmobile;
 import Class.Immobile;
+import Class.Notifica;
 import Class.User;
 
 public class ClientModel {
@@ -326,4 +328,54 @@ public class ClientModel {
     		return true;
     	}
     }
+    
+    public boolean inviaRichiestaNotifica(Notifica notifica) {
+        try {
+            JSONObject request = new JSONObject();
+            request.put("action", "aggiungiNotifica");
+            request.put("destinatario", notifica.getDestinatarioEmail());
+            request.put("messaggio", notifica.getMessaggio());
+
+            // Invia la richiesta e attende la risposta
+            JSONObject response = sendRequest(request);
+            return response.getString("status").equalsIgnoreCase("success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public List<Notifica> richiestaNotificheUtente(String mail) {
+        List<Notifica> notifiche = new ArrayList<>();
+        try {
+            JSONObject richiesta = new JSONObject();
+            richiesta.put("action", "getNotifiche");
+            richiesta.put("mail", mail);
+            
+            // Invia la richiesta e riceve la risposta (assumi che sendRequest restituisca un JSONObject)
+            JSONObject risposta = sendRequest(richiesta);
+            System.out.println("Risposta ricevuta: " + risposta.toString());
+
+            if (risposta.getString("status").equalsIgnoreCase("success")) {
+                JSONArray notificheArray = risposta.getJSONArray("notifiche");
+                
+
+                for (int i = 0; i < notificheArray.length(); i++) {
+                	System.out.println("sono dentro il for");
+                    JSONObject obj = notificheArray.getJSONObject(i);
+                    Notifica n = new Notifica(
+                            obj.getInt("id"),
+                            mail,
+                            obj.getString("messaggio"),
+                            obj.getBoolean("letta")
+                    );
+                    notifiche.add(n);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return notifiche;
+    }
+
 }

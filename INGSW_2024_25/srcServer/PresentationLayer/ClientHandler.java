@@ -90,9 +90,15 @@ public class ClientHandler extends Thread { //implements Runnable???
                 	case "uploadNewHouse":
                 		response = uploadNewHouse(request);
                 		break;
+                	case "aggiungiNotifica":
+                		response = addNotifica(request);
+                		break;
+                	case "getNotifiche":
+                		response = getNotifiche(request);
+                		break;
                 	default:
                 		response.put("status", "error");
-                		response.put("message", "Azione non ricouserRepositorynosciuta");
+                		response.put("message", "Azione non riconosciuta");
                 		break;
             		}
 
@@ -378,5 +384,36 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   return response;
 	  
    	}
+   
+   public JSONObject addNotifica(JSONObject request) {
+	   String destinatario = request.getString("destinatario");
+	   String messaggio = request.getString("messaggio");
+	    // Chiamata al servizio di Business Logic per salvare la notifica
+	   reservationService = new ReservationService(reservationRepository);
+	   boolean ok = reservationService.aggiungiNotifica(destinatario, messaggio);
+	   JSONObject response = new JSONObject();
+	   response.put("status", ok ? "success" : "error");
+	   return response;
+   }
+   
+   public JSONObject getNotifiche(JSONObject request) {
+	   String mail = request.getString("mail");
+	   reservationService = new ReservationService(reservationRepository);
+	    List<Notifica> notifiche = reservationService.getNotifiche(mail);
+	    System.out.println("sono l'handler: "+notifiche.size());
+	    JSONArray notificheArray = new JSONArray();
+	    for (Notifica notifica : notifiche) {
+	        JSONObject obj = new JSONObject();
+	        obj.put("id", notifica.getId());
+	        obj.put("destinatario", notifica.getDestinatarioEmail());
+	        obj.put("messaggio", notifica.getMessaggio());
+	        obj.put("letta", notifica.isLetta());
+	        notificheArray.put(obj);
+	    }
+	    JSONObject response = new JSONObject();
+	    response.put("status", "success");
+	    response.put("notifiche", notificheArray);
+	    return response;
+   }
 }
 

@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
+import Class.Notifica;
 import Class.User;
 import Controller.Controller;
 
@@ -19,11 +20,11 @@ public class HomeCliente extends JFrame {
 	private JPanel centerPanel;
 	private JFrame finestraCorrente;
 	private JFrame finestraLogin;
-	List<Runnable> notifiche;
+	
 	ImageIcon bellIcon;
 	
 	public HomeCliente(Controller c, User user) {
-		notifiche=c.getNotificheUtente(user.getMail());
+		
 		finestraCorrente = this;
 		FlatLightLaf.setup(new FlatLightLaf());
 		setTitle("Home Cliente - DietiEstates25");
@@ -119,6 +120,7 @@ public class HomeCliente extends JFrame {
 	}
 	
 	 private JPanel createTopPanel(Controller c, User user) {
+		 	List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
 	        JPanel topPanel = new JPanel(new BorderLayout());
 	        topPanel.setBackground(new Color(40, 132, 212));
 	        topPanel.setPreferredSize(new Dimension(600, 120));
@@ -167,27 +169,32 @@ public class HomeCliente extends JFrame {
 	        userButton.setContentAreaFilled(false);
 	        userButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+	        JButton bellButton = new JButton();
+	        // Menu a tendina per le notifiche
 	        JPopupMenu popupMenu = new JPopupMenu();
 	        popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-	        for (Runnable notifica : notifiche) {
-	            JMenuItem menuItem = new JMenuItem("Notifica");
-	            menuItem.addActionListener(e -> {
-	            	notifica.run(); 
-	            	popupMenu.remove(menuItem);
-	            	notifiche.remove(notifica);
-	            }); // Esegui l'azione associata alla notifica
-	            popupMenu.add(menuItem);
-	        }
-	       
-	        if(notifiche.isEmpty()){
-	        	bellIcon = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
-	        } else {
-	        	bellIcon = new ImageIcon(getClass().getResource("/immagini/whitenotifiche.png"));
-	        	
-	        }
-	    
-	        Image bellImage = bellIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-	        JButton bellButton = new JButton(new ImageIcon(bellImage));
+	        if (notifiche.isEmpty()){
+                // Se non ci sono notifiche, mostra un item di avviso
+                JMenuItem dummy = new JMenuItem("Nessuna notifica");
+                popupMenu.add(dummy);
+            } else {
+	        // Creiamo un menu item per ogni notifica
+            	for (Notifica notifica : notifiche) {
+            		JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+            		menuItem.addActionListener(e -> {
+            			// Eventuale logica: ad esempio, segnare la notifica come letta e aprire la finestra correlata.
+            			// Potresti aggiornare lo stato della notifica nel DB se necessario.
+            			popupMenu.remove(menuItem);
+            			// (Aggiornare l'icona se il numero di notifiche non lette cambia)
+            			updateBellIcon(c, user, bellButton);
+            		});
+            		popupMenu.add(menuItem);
+            	}
+            }
+	        updateBellIcon(c, user, bellButton); // 🔹 Imposta l'icona iniziale correttamente
+
+	        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
+
 	        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
 	        bellButton.setBackground(new Color(40, 132, 212));
 	        bellButton.setBorderPainted(false);
@@ -206,4 +213,13 @@ public class HomeCliente extends JFrame {
 
 	        return topPanel;
 	    }
+	 
+	 private void updateBellIcon(Controller c, User user, JButton bellButton) {
+		    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+		    String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitebellnotifiche.png";
+
+		    ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
+		    Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		    bellButton.setIcon(new ImageIcon(img));
+		}
 }

@@ -43,6 +43,7 @@ import org.jxmapviewer.viewer.WaypointPainter;
 
 
 import Class.Immobile;
+import Class.Notifica;
 import Class.Prenotazione;
 import Class.User;
 
@@ -578,81 +579,55 @@ public class Controller {
 	}
 	
 	public void notifyAgente(Prenotazione prenotazione) {
-		User agente = prenotazione.getAgente(); // Supponendo che tu abAcquistobia accesso all'oggetto Immobile
-	   
-
-	    // Verifica che i dati siano validi
+	    User agente = prenotazione.getAgente();
+	    
 	    if (agente == null || prenotazione == null) {
 	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", "Errore", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
 
-	    // Crea il messaggio della notifica
 	    String messaggioNotifica = "Nuova prenotazione con ID: " + prenotazione.getId();
 
-	    // Definisci l'azione da eseguire quando la notifica viene cliccata
-	    Runnable azioneNotifica = () -> {
-	        // Apri una nuova finestra passando i parametri richiesti
-	        VisionePrenotazione visione = new VisionePrenotazione(agente, prenotazione, this);
-	        visione.setVisible(true);
-	    };
-
-	    // Aggiungi la notifica all'agente
-	    aggiungiNotifica(agente.getMail(), messaggioNotifica, azioneNotifica);
-	}
-	
-	private void aggiungiNotifica(String mail, String messaggio, Runnable azione) {
-	    List<Runnable> notifiche = notificheUtenti.getOrDefault(mail, new ArrayList<>());
-
-	    notifiche.add(() -> {
-	        System.out.println("Notifica per " + mail + ": " + messaggio);
-	        azione.run();
-	    });
-
-	    notificheUtenti.put(mail, notifiche);
-
-	   
+	    // (In precedenza veniva definito un Runnable per l'azione,
+	    // ora la logica d'azione potrebbe essere gestita in altro modo o via interfaccia utente.)
 	    
+	    // Qui viene chiamato il metodo che crea e invia la notifica
+	    aggiungiNotifica(agente.getMail(), messaggioNotifica);
 	}
 
+	
+	private void aggiungiNotifica(String mail, String messaggio) {
+	    Notifica nuovaNotifica = new Notifica(mail, messaggio);
+	    // Invia la richiesta al ClientModel per salvare la notifica nel DB
+	    boolean success = model.inviaRichiestaNotifica(nuovaNotifica);
+	    if (!success) {
+	        // Gestisci l'errore (ad es. log o messaggio di errore)
+	    }
+	}
 
     // Metodo per recuperare le notifiche di un utente
-    public List<Runnable> getNotificheUtente(String mail) {
-        return notificheUtenti.getOrDefault(mail, new ArrayList<>());
-    }
+	public List<Notifica> getNotificheUtente(String mail) {
+	    return model.richiestaNotificheUtente(mail);
+	}
 	
-    public void notifyCliente(Prenotazione prenotazione, boolean confirmed) {
-    	User cliente = prenotazione.getUser(); // Supponendo che tu abbia accesso all'oggetto Immobile
-    	String messaggioNotifica;
-    	Runnable azioneNotifica;
-	    // Verifica che i dati siano validi
+	public void notifyCliente(Prenotazione prenotazione, boolean confirmed) {
+	    User cliente = prenotazione.getUser();
+	    String messaggioNotifica;
+	    // Anche qui si verificano i dati
 	    if (cliente == null || prenotazione == null) {
 	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", "Errore", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
-	    if(confirmed) {
-	    	// Crea il messaggio della notifica
-	    	messaggioNotifica = "La tua prenotazione è stata confermata! Puoi vederla nel calendario";
-	    	// Definisci l'azione da eseguire quando la notifica viene cliccata
-		    azioneNotifica = () -> {
-		        // Apri una nuova finestra passando i parametri richiesti
-		        VisioneCalendario visione = new VisioneCalendario(this, cliente);
-		        visione.setVisible(true);
-		    };
+	    
+	    if (confirmed) {
+	        messaggioNotifica = "La tua prenotazione è stata confermata! Puoi vederla nel calendario";
 	    } else {
-	    	messaggioNotifica = "La tua prenotazione è stata rifiutata... Prova a chiedere un nuovo appuntamento"; 
-	    	// Definisci l'azione da eseguire quando la notifica viene cliccata
-		    azioneNotifica = () -> {
-		        // Apri una nuova finestra passando i parametri richiesti
-		        VisioneImmobile visione = new VisioneImmobile(this, prenotazione.getImmobile(), cliente);//in teoria anche l'user poi lo setto e l'immobile
-		        visione.setVisible(true);
-		    };
+	        messaggioNotifica = "La tua prenotazione è stata rifiutata... Prova a chiedere un nuovo appuntamento";
 	    }
 	    
-
-	    // Aggiungi la notifica all'agente
-	    aggiungiNotifica(cliente.getMail(), messaggioNotifica, azioneNotifica);
-    }
+	    // Chiamata che invia la notifica al client
+	    aggiungiNotifica(cliente.getMail(), messaggioNotifica);
+	}
 	
     public boolean controlCheckBox(JCheckBox box) {
     	if(box.isSelected()) {
