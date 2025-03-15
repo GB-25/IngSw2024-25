@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.swing.*;
 
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.toedter.calendar.JDateChooser;
 
@@ -22,15 +23,15 @@ import org.json.JSONObject;
 import Controller.Controller;
 
 public class PrenotazioneCliente extends JFrame {
-
-    private JDateChooser dateChooser;
+	private static final long serialVersionUID = 1L;
+	private JDateChooser dateChooser;
     private JPanel mainPanel;
     private String orario;
 
     public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
-    	FlatLightLaf.setup(new FlatLightLaf());
+    	FlatLaf.setup(new FlatLightLaf());
         setTitle("Prenotazione Cliente - DietiEstates25");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
         mainPanel = new JPanel(new BorderLayout());
@@ -180,7 +181,6 @@ public class PrenotazioneCliente extends JFrame {
             	else {
             		orario = new String(Integer.toString(hour)+":"+Integer.toString(minute));}
             	String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-            	System.out.println(orario);
                 c.createReservation(user, immobile, data, orario);
                 c.reservationConfirmed(this, user);
             } else {
@@ -199,8 +199,6 @@ public class PrenotazioneCliente extends JFrame {
                 latitude, longitude, date, date
             );
 
-            System.out.println("URL della richiesta: " + urlString); // Usato per debug, stampa l'URL
-
             HttpURLConnection conn = (HttpURLConnection) new URL(urlString).openConnection();
             conn.setRequestMethod("GET");
 
@@ -217,9 +215,6 @@ public class PrenotazioneCliente extends JFrame {
                 response.append(line);
             }
             reader.close();
-
-            // Stampa la risposta API (fatto solo perché stavo impazzendo con l'API e non riuscivo a capire il problema)
-            System.out.println("Risposta API: " + response.toString());
 
             // JSONArray perché la risposta URL arriva come JSONArray e non come JSONObject
             JSONArray jsonArray = new JSONArray(response.toString());

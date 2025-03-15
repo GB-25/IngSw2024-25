@@ -3,19 +3,22 @@ package ViewGUI;
 import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import Class.User;
 import Controller.Controller;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Calendar;
 
 public class CreazioneAccountAdmin extends JFrame {
-    private JTextField txtNome, txtCognome, txtEmail, txtTelefono;
+    private static final long serialVersionUID = 1L;
+	private JTextField txtNome;
+	private JTextField txtCognome;
+	private JTextField txtEmail;
+	private JTextField txtTelefono;
     private JTextField txtPassword;
     private JDateChooser dateChooser;
     private JFrame finestraCorrente;
@@ -26,14 +29,12 @@ public class CreazioneAccountAdmin extends JFrame {
     private static final int LENGTH = 10;
     private static final SecureRandom random = new SecureRandom();
 
-    private boolean[] valori = {false, false, false, false};
-
     public CreazioneAccountAdmin(Controller c, User user) {
-    	FlatLightLaf.setup(new FlatLightLaf());
+    	FlatLaf.setup(new FlatLightLaf());
         // Configurazione finestra
     	finestraCorrente=this;
         setTitle("Creazione Account Admin - DietiEstates25");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
 
@@ -53,11 +54,6 @@ public class CreazioneAccountAdmin extends JFrame {
         dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd-MM-yyyy");
 		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
-		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
 		dateChooser.setBounds(152, 128, 200, 30);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -18); 
@@ -85,7 +81,19 @@ public class CreazioneAccountAdmin extends JFrame {
         // Pulsante per la creazione account
         JButton btnCreaAccount = new JButton("Crea Account");
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnCreaAccount.addActionListener(e -> creaAccount(c, user));
+        btnCreaAccount.addActionListener(e -> {
+        	c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+        	creaAccount(c, user);
+                return null;}
+            @Override
+            protected void done() {
+                dispose();
+            }
+	};
+	worker.execute();});
 
      // Panel per  il pulsante
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));

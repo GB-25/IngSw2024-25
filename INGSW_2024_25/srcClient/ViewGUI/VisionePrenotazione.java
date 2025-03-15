@@ -1,6 +1,8 @@
 package ViewGUI;
 
 import javax.swing.*;
+
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import Class.Notifica;
@@ -8,14 +10,13 @@ import Class.Prenotazione;
 import Class.User;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import Controller.Controller;
 
 public class VisionePrenotazione extends JFrame {
-    private JLabel titoloLabel;
+    private static final long serialVersionUID = 1L;
+	private JLabel titoloLabel;
     private JLabel clienteLabel;
     private JLabel dataLabel;
     private JLabel oraLabel;
@@ -27,13 +28,13 @@ public class VisionePrenotazione extends JFrame {
     private JPanel topPanel;
     private JFrame finestraLogin;
 	private JFrame finestraCorrente = this;
-    
+	private String fontScritte = "Microsoft YaHei UI Light";
     
     public VisionePrenotazione(User user, Prenotazione prenotazione, Controller c) {
-        FlatLightLaf.setup(new FlatLightLaf());
+        FlatLaf.setup(new FlatLightLaf());
         setTitle("Visione Prenotazione");
         setSize(600, 450);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
         JPanel mainPanel = new JPanel();
@@ -43,17 +44,17 @@ public class VisionePrenotazione extends JFrame {
 
         // Creazione dei componenti per i dettagli della prenotazione
         titoloLabel = new JLabel("Dettagli Prenotazione", SwingConstants.CENTER);
-        titoloLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 20));
+        titoloLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
         clienteLabel = new JLabel("Cliente: " + prenotazione.getUser().getNome()+prenotazione.getUser().getCognome(), SwingConstants.CENTER);
-        clienteLabel.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 20));
+        clienteLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
         dataLabel = new JLabel("Data: " + prenotazione.getDataPrenotazione(), SwingConstants.CENTER);
-        dataLabel.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 20));
+        dataLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
         oraLabel = new JLabel("Ora: " + prenotazione.getOraPrenotazione(), SwingConstants.CENTER);
-        oraLabel.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 20));
+        oraLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
         posizioneLabel = new JLabel("Posizione: "+prenotazione.getImmobile().getIndirizzo());
-        posizioneLabel.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 20));
+        posizioneLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
         idCasaLabel = new JLabel("ID Prenotazione: "+prenotazione.getId());
-        idCasaLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 20));
+        idCasaLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
         
         topPanel = createTopPanel(user, c);
 
@@ -85,17 +86,9 @@ public class VisionePrenotazione extends JFrame {
         confermaButton.setBackground(new Color(0, 153, 51));
         confermaButton.setForeground(Color.WHITE);
 
-        indietroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	//qual è la schermata prima non si sa
-            }
-        });
+        indietroButton.addActionListener(e -> dispose());
         
-        
-        confermaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        confermaButton.addActionListener(e -> {
             	int id = prenotazione.getId();
             	String mail = prenotazione.getAgente().getMail();
             	String data = prenotazione.getDataPrenotazione();
@@ -104,19 +97,14 @@ public class VisionePrenotazione extends JFrame {
             		c.notifyCliente(prenotazione, true);
             		c.createHomeAgente(finestraCorrente, user);
             	}
-            }
-        });
+            });
         
         
-        rifiutaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        rifiutaButton.addActionListener(e -> {
             	int id = prenotazione.getId();
             	c.reservationDeny(id);
             	c.notifyCliente(prenotazione, false);
-            	c.createHomeAgente(finestraCorrente, user);
-            }
-        });
+            	c.createHomeAgente(finestraCorrente, user);});
 
         buttonPanel.add(rifiutaButton);
         buttonPanel.add(confermaButton);
@@ -128,9 +116,7 @@ public class VisionePrenotazione extends JFrame {
     }
     
     private JPanel createTopPanel(User user, Controller c) {
-    	ImageIcon bellIcon;
-    	
-        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(40, 132, 212));
         topPanel.setPreferredSize(new Dimension(600, 120));
 
@@ -181,35 +167,21 @@ public class VisionePrenotazione extends JFrame {
             if (popupMenu.isVisible()) {
                 // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
                 popupMenu.setVisible(false);
-                
-                try {
-                    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-                    
-                    
-                    System.out.println("Notifiche segnate come lette.");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
             } else {
                 // 🔹 Se il popup non è visibile, aggiornalo e mostralo
-                System.out.println("Inizio creazione popup");
                 popupMenu.removeAll();
                 popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
                 List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-                System.out.println("Numero di notifiche: " + notifiche.size());
 
                 if (notifiche.isEmpty()) {
                     JMenuItem dummy = new JMenuItem("Nessuna notifica");
                     popupMenu.add(dummy);
                 } else {
                     for (Notifica notifica : notifiche) {
-                        System.out.println("Aggiungo notifica: " + notifica.getMessaggio());
                         JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
                         menuItem.addActionListener(ae -> {
                             try {
-                                System.out.println("Click su notifica: " + notifica.getMessaggio());
                                 c.setNotificaLetta(notifica);
                                 popupMenu.remove(menuItem);
                                 updateBellIcon(c, user, bellButton);

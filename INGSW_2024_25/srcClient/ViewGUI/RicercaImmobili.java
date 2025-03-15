@@ -1,33 +1,34 @@
 package ViewGUI;
 import javax.swing.*;
+
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import Class.Immobile;
 import Class.User;
 import Controller.Controller;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 
 public class RicercaImmobili extends JFrame {
-
+	
+	private static final long serialVersionUID = 1L;
 	private JFrame finestraCorrente;
 	
     public RicercaImmobili(Controller c, User user) {
-    	FlatLightLaf.setup(new FlatLightLaf());
+    	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Ricerca immobili - DietiEstates25");
         setSize(500, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         JPanel mainPanel = new JPanel();
-        GridBagLayout gbl_mainPanel = new GridBagLayout();
-        gbl_mainPanel.columnWidths = new int[] {100, 80, 30, 30, 40, 100, 100};
-        gbl_mainPanel.rowHeights = new int[]{33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 0, 0, 33, 0, 0, 0, 0, 0};
-        gbl_mainPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE, 0.0};
-        gbl_mainPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-        mainPanel.setLayout(gbl_mainPanel);
+        GridBagLayout gblMainPanel = new GridBagLayout();
+        gblMainPanel.columnWidths = new int[] {100, 80, 30, 30, 40, 100, 100};
+        gblMainPanel.rowHeights = new int[]{33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 0, 0, 33, 0, 0, 0, 0, 0};
+        gblMainPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE, 0.0};
+        gblMainPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        mainPanel.setLayout(gblMainPanel);
 
         // Aggiungi il pannello principale al JFrame
         getContentPane().add(mainPanel);
@@ -37,20 +38,20 @@ public class RicercaImmobili extends JFrame {
         indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
         indietroButton.addActionListener(e -> {dispose(); new HomeCliente(c, user);});
-        GridBagConstraints gbc_indietroButton = new GridBagConstraints();
-        gbc_indietroButton.insets = new Insets(0, 0, 5, 5);
-        gbc_indietroButton.gridx = 1;
-        gbc_indietroButton.gridy = 0;
-        mainPanel.add(indietroButton, gbc_indietroButton);
+        GridBagConstraints gbcIndietroButton = new GridBagConstraints();
+        gbcIndietroButton.insets = new Insets(0, 0, 5, 5);
+        gbcIndietroButton.gridx = 1;
+        gbcIndietroButton.gridy = 0;
+        mainPanel.add(indietroButton, gbcIndietroButton);
         
         JLabel lblParametri = new JLabel("Scegli i parametri della ricerca");
         lblParametri.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 13));
-        GridBagConstraints gbc_lblParametri = new GridBagConstraints();
-        gbc_lblParametri.fill = GridBagConstraints.HORIZONTAL;
-        gbc_lblParametri.insets = new Insets(0, 0, 5, 5);
-        gbc_lblParametri.gridx = 4;
-        gbc_lblParametri.gridy = 0;
-        mainPanel.add(lblParametri, gbc_lblParametri);
+        GridBagConstraints gbcLblParametri = new GridBagConstraints();
+        gbcLblParametri.fill = GridBagConstraints.HORIZONTAL;
+        gbcLblParametri.insets = new Insets(0, 0, 5, 5);
+        gbcLblParametri.gridx = 4;
+        gbcLblParametri.gridy = 0;
+        mainPanel.add(lblParametri, gbcLblParametri);
         
         // Posizione
         GridBagConstraints gbc = new GridBagConstraints();
@@ -61,162 +62,161 @@ public class RicercaImmobili extends JFrame {
         JLabel lblPosizione = new JLabel("Posizione:");
         mainPanel.add(lblPosizione, gbc);
         JTextField posizioneField = new JTextField();
-        GridBagConstraints gbc_posizioneField = new GridBagConstraints();
-        gbc_posizioneField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_posizioneField.insets = new Insets(0, 0, 5, 5);
-        gbc_posizioneField.gridx = 5;
-        gbc_posizioneField.gridy = 2;
-        mainPanel.add(posizioneField, gbc_posizioneField);
+        GridBagConstraints gbcPosizioneField = new GridBagConstraints();
+        gbcPosizioneField.fill = GridBagConstraints.HORIZONTAL;
+        gbcPosizioneField.insets = new Insets(0, 0, 5, 5);
+        gbcPosizioneField.gridx = 5;
+        gbcPosizioneField.gridy = 2;
+        mainPanel.add(posizioneField, gbcPosizioneField);
         	
         // Tipo di annuncio
-        GridBagConstraints gbc_lblAnnuncio = new GridBagConstraints();
-        gbc_lblAnnuncio.fill = GridBagConstraints.BOTH;
-        gbc_lblAnnuncio.insets = new Insets(0, 0, 5, 5);
-        gbc_lblAnnuncio.gridx = 1;
-        gbc_lblAnnuncio.gridy = 3;
+        GridBagConstraints gbcLblAnnuncio = new GridBagConstraints();
+        gbcLblAnnuncio.fill = GridBagConstraints.BOTH;
+        gbcLblAnnuncio.insets = new Insets(0, 0, 5, 5);
+        gbcLblAnnuncio.gridx = 1;
+        gbcLblAnnuncio.gridy = 3;
         JLabel lblAnnuncio = new JLabel("Tipo di annuncio:");
-        mainPanel.add(lblAnnuncio, gbc_lblAnnuncio);
+        mainPanel.add(lblAnnuncio, gbcLblAnnuncio);
         JComboBox<String> tipoAnnuncio = new JComboBox<>(new String[]{"", "Vendita", "Affitto"});
-        GridBagConstraints gbc_tipoAnnuncio = new GridBagConstraints();
-        gbc_tipoAnnuncio.insets = new Insets(0, 0, 5, 5);
-        gbc_tipoAnnuncio.fill = GridBagConstraints.HORIZONTAL;
-        gbc_tipoAnnuncio.gridx = 5;
-        gbc_tipoAnnuncio.gridy = 3;
-        mainPanel.add(tipoAnnuncio, gbc_tipoAnnuncio);
+        GridBagConstraints gbcTipoAnnuncio = new GridBagConstraints();
+        gbcTipoAnnuncio.insets = new Insets(0, 0, 5, 5);
+        gbcTipoAnnuncio.fill = GridBagConstraints.HORIZONTAL;
+        gbcTipoAnnuncio.gridx = 5;
+        gbcTipoAnnuncio.gridy = 3;
+        mainPanel.add(tipoAnnuncio, gbcTipoAnnuncio);
         
         
         // Tipo di casa
-        GridBagConstraints gbc_lblCasa = new GridBagConstraints();
-        gbc_lblCasa.fill = GridBagConstraints.BOTH;
-        gbc_lblCasa.insets = new Insets(0, 0, 5, 5);
-        gbc_lblCasa.gridx = 1;
-        gbc_lblCasa.gridy = 4;
+        GridBagConstraints gbcLblCasa = new GridBagConstraints();
+        gbcLblCasa.fill = GridBagConstraints.BOTH;
+        gbcLblCasa.insets = new Insets(0, 0, 5, 5);
+        gbcLblCasa.gridx = 1;
+        gbcLblCasa.gridy = 4;
         JLabel lblCasa = new JLabel("Tipo di casa:");
-        mainPanel.add(lblCasa, gbc_lblCasa);
+        mainPanel.add(lblCasa, gbcLblCasa);
         JComboBox<String> tipoCasa = new JComboBox<>(new String[]{"", "Casa", "Appartamento", "Villa"});
-        GridBagConstraints gbc_tipoCasa = new GridBagConstraints();
-        gbc_tipoCasa.insets = new Insets(0, 0, 5, 5);
-        gbc_tipoCasa.fill = GridBagConstraints.HORIZONTAL;
-        gbc_tipoCasa.gridx = 5;
-        gbc_tipoCasa.gridy = 4;
-        mainPanel.add(tipoCasa, gbc_tipoCasa);
+        GridBagConstraints gbcTipoCasa = new GridBagConstraints();
+        gbcTipoCasa.insets = new Insets(0, 0, 5, 5);
+        gbcTipoCasa.fill = GridBagConstraints.HORIZONTAL;
+        gbcTipoCasa.gridx = 5;
+        gbcTipoCasa.gridy = 4;
+        mainPanel.add(tipoCasa, gbcTipoCasa);
         
         // Classe energetica
-        GridBagConstraints gbc_lblClasse = new GridBagConstraints();
-        gbc_lblClasse.fill = GridBagConstraints.BOTH;
-        gbc_lblClasse.insets = new Insets(0, 0, 5, 5);
-        gbc_lblClasse.gridx = 1;
-        gbc_lblClasse.gridy = 5;
+        GridBagConstraints gbcLblClasse = new GridBagConstraints();
+        gbcLblClasse.fill = GridBagConstraints.BOTH;
+        gbcLblClasse.insets = new Insets(0, 0, 5, 5);
+        gbcLblClasse.gridx = 1;
+        gbcLblClasse.gridy = 5;
         JLabel lblClasse = new JLabel("Classe energetica:");
-        mainPanel.add(lblClasse, gbc_lblClasse);
+        mainPanel.add(lblClasse, gbcLblClasse);
         JComboBox<String> tipoClasse = new JComboBox<>(new String[]{"", "A", "B", "C", "D", "E", "F", "G"});
-        GridBagConstraints gbc_tipoClasse = new GridBagConstraints();
-        gbc_tipoClasse.insets = new Insets(0, 0, 5, 5);
-        gbc_tipoClasse.fill = GridBagConstraints.HORIZONTAL;
-        gbc_tipoClasse.gridx = 5;
-        gbc_tipoClasse.gridy = 5;
-        mainPanel.add(tipoClasse, gbc_tipoClasse);
+        GridBagConstraints gbcTipoClasse = new GridBagConstraints();
+        gbcTipoClasse.insets = new Insets(0, 0, 5, 5);
+        gbcTipoClasse.fill = GridBagConstraints.HORIZONTAL;
+        gbcTipoClasse.gridx = 5;
+        gbcTipoClasse.gridy = 5;
+        mainPanel.add(tipoClasse, gbcTipoClasse);
         
         // Prezzo minimo e massimo
-        GridBagConstraints gbc_prezzoMinimo = new GridBagConstraints();
-        gbc_prezzoMinimo.fill = GridBagConstraints.BOTH;
-        gbc_prezzoMinimo.insets = new Insets(0, 0, 5, 5);
-        gbc_prezzoMinimo.gridx = 1;
-        gbc_prezzoMinimo.gridy = 6;
+        GridBagConstraints gbcPrezzoMinimo = new GridBagConstraints();
+        gbcPrezzoMinimo.fill = GridBagConstraints.BOTH;
+        gbcPrezzoMinimo.insets = new Insets(0, 0, 5, 5);
+        gbcPrezzoMinimo.gridx = 1;
+        gbcPrezzoMinimo.gridy = 6;
         JLabel lblPrezzoMinimo = new JLabel("Prezzo minimo:");
-        mainPanel.add(lblPrezzoMinimo, gbc_prezzoMinimo);
+        mainPanel.add(lblPrezzoMinimo, gbcPrezzoMinimo);
         
-        GridBagConstraints gbc_lblPrezzoMassimo = new GridBagConstraints();
-        gbc_lblPrezzoMassimo.fill = GridBagConstraints.BOTH;
-        gbc_lblPrezzoMassimo.insets = new Insets(0, 0, 5, 5);
-        gbc_lblPrezzoMassimo.gridx = 5;
-        gbc_lblPrezzoMassimo.gridy = 6;
+        GridBagConstraints gbcLblPrezzoMassimo = new GridBagConstraints();
+        gbcLblPrezzoMassimo.fill = GridBagConstraints.BOTH;
+        gbcLblPrezzoMassimo.insets = new Insets(0, 0, 5, 5);
+        gbcLblPrezzoMassimo.gridx = 5;
+        gbcLblPrezzoMassimo.gridy = 6;
         JLabel lblPrezzoMassimo = new JLabel("Prezzo massimo:");
-        mainPanel.add(lblPrezzoMassimo, gbc_lblPrezzoMassimo);
+        mainPanel.add(lblPrezzoMassimo, gbcLblPrezzoMassimo);
         JTextField prezzoMinField = new JTextField();
-        GridBagConstraints gbc_prezzoMinField = new GridBagConstraints();
-        gbc_prezzoMinField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_prezzoMinField.insets = new Insets(0, 0, 5, 5);
-        gbc_prezzoMinField.gridx = 1;
-        gbc_prezzoMinField.gridy = 7;
-        mainPanel.add(prezzoMinField, gbc_prezzoMinField);
+        GridBagConstraints gbcPrezzoMinField = new GridBagConstraints();
+        gbcPrezzoMinField.fill = GridBagConstraints.HORIZONTAL;
+        gbcPrezzoMinField.insets = new Insets(0, 0, 5, 5);
+        gbcPrezzoMinField.gridx = 1;
+        gbcPrezzoMinField.gridy = 7;
+        mainPanel.add(prezzoMinField, gbcPrezzoMinField);
         JTextField prezzoMaxField = new JTextField();
-        GridBagConstraints gbc_prezzoMaxField = new GridBagConstraints();
-        gbc_prezzoMaxField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_prezzoMaxField.insets = new Insets(0, 0, 5, 5);
-        gbc_prezzoMaxField.gridx = 5;
-        gbc_prezzoMaxField.gridy = 7;
-        mainPanel.add(prezzoMaxField, gbc_prezzoMaxField);
+        GridBagConstraints gbcPrezzoMaxField = new GridBagConstraints();
+        gbcPrezzoMaxField.fill = GridBagConstraints.HORIZONTAL;
+        gbcPrezzoMaxField.insets = new Insets(0, 0, 5, 5);
+        gbcPrezzoMaxField.gridx = 5;
+        gbcPrezzoMaxField.gridy = 7;
+        mainPanel.add(prezzoMaxField, gbcPrezzoMaxField);
         
         // Ascensore, Giardino, Terrazzo, In condominio
-        GridBagConstraints gbc_lblAscensore = new GridBagConstraints();
-        gbc_lblAscensore.fill = GridBagConstraints.VERTICAL;
-        gbc_lblAscensore.insets = new Insets(0, 0, 5, 5);
-        gbc_lblAscensore.gridx = 1;
-        gbc_lblAscensore.gridy = 9;
+        GridBagConstraints gbcLblAscensore = new GridBagConstraints();
+        gbcLblAscensore.fill = GridBagConstraints.VERTICAL;
+        gbcLblAscensore.insets = new Insets(0, 0, 5, 5);
+        gbcLblAscensore.gridx = 1;
+        gbcLblAscensore.gridy = 9;
         JLabel lblAscensore = new JLabel("AscmbTypecensore");
-        mainPanel.add(lblAscensore, gbc_lblAscensore);
+        mainPanel.add(lblAscensore, gbcLblAscensore);
         
-        GridBagConstraints gbc_lblGiardino = new GridBagConstraints();
-        gbc_lblGiardino.fill = GridBagConstraints.VERTICAL;
-        gbc_lblGiardino.insets = new Insets(0, 0, 5, 5);
-        gbc_lblGiardino.gridx = 5;
-        gbc_lblGiardino.gridy = 9;
+        GridBagConstraints gbcLblGiardino = new GridBagConstraints();
+        gbcLblGiardino.fill = GridBagConstraints.VERTICAL;
+        gbcLblGiardino.insets = new Insets(0, 0, 5, 5);
+        gbcLblGiardino.gridx = 5;
+        gbcLblGiardino.gridy = 9;
         JLabel lblGiardino = new JLabel("Giardino");
-        mainPanel.add(lblGiardino, gbc_lblGiardino);
+        mainPanel.add(lblGiardino, gbcLblGiardino);
         JCheckBox ascensoreCheckBox = new JCheckBox();
         ascensoreCheckBox.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_ascensoreCheckBox = new GridBagConstraints();
-        gbc_ascensoreCheckBox.fill = GridBagConstraints.VERTICAL;
-        gbc_ascensoreCheckBox.insets = new Insets(0, 0, 5, 5);
-        gbc_ascensoreCheckBox.gridx = 1;
-        gbc_ascensoreCheckBox.gridy = 10;
-        mainPanel.add(ascensoreCheckBox, gbc_ascensoreCheckBox);
+        GridBagConstraints gbcAscensoreCheckBox = new GridBagConstraints();
+        gbcAscensoreCheckBox.fill = GridBagConstraints.VERTICAL;
+        gbcAscensoreCheckBox.insets = new Insets(0, 0, 5, 5);
+        gbcAscensoreCheckBox.gridx = 1;
+        gbcAscensoreCheckBox.gridy = 10;
+        mainPanel.add(ascensoreCheckBox, gbcAscensoreCheckBox);
         JCheckBox giardinoCheckBox = new JCheckBox();
         giardinoCheckBox.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_giardinoCheckBox = new GridBagConstraints();
-        gbc_giardinoCheckBox.fill = GridBagConstraints.VERTICAL;
-        gbc_giardinoCheckBox.insets = new Insets(0, 0, 5, 5);
-        gbc_giardinoCheckBox.gridx = 5;
-        gbc_giardinoCheckBox.gridy = 10;
-        mainPanel.add(giardinoCheckBox, gbc_giardinoCheckBox);
+        GridBagConstraints gbcGiardinoCheckBox = new GridBagConstraints();
+        gbcGiardinoCheckBox.fill = GridBagConstraints.VERTICAL;
+        gbcGiardinoCheckBox.insets = new Insets(0, 0, 5, 5);
+        gbcGiardinoCheckBox.gridx = 5;
+        gbcGiardinoCheckBox.gridy = 10;
+        mainPanel.add(giardinoCheckBox, gbcGiardinoCheckBox);
         
-        GridBagConstraints gbc_lblTerrazzo = new GridBagConstraints();
-        gbc_lblTerrazzo.fill = GridBagConstraints.VERTICAL;
-        gbc_lblTerrazzo.insets = new Insets(0, 0, 5, 5);
-        gbc_lblTerrazzo.gridx = 1;
-        gbc_lblTerrazzo.gridy = 12;
+        GridBagConstraints gbcLblTerrazzo = new GridBagConstraints();
+        gbcLblTerrazzo.fill = GridBagConstraints.VERTICAL;
+        gbcLblTerrazzo.insets = new Insets(0, 0, 5, 5);
+        gbcLblTerrazzo.gridx = 1;
+        gbcLblTerrazzo.gridy = 12;
         JLabel lblTerrazzo = new JLabel("Terrazzo");
-        mainPanel.add(lblTerrazzo, gbc_lblTerrazzo);
+        mainPanel.add(lblTerrazzo, gbcLblTerrazzo);
         
-		GridBagConstraints gbc_lblCondominio = new GridBagConstraints();
-		gbc_lblCondominio.fill = GridBagConstraints.VERTICAL;
-		gbc_lblCondominio.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCondominio.gridx = 5;
-		gbc_lblCondominio.gridy = 12;
+		GridBagConstraints gbcLblCondominio = new GridBagConstraints();
+		gbcLblCondominio.fill = GridBagConstraints.VERTICAL;
+		gbcLblCondominio.insets = new Insets(0, 0, 5, 5);
+		gbcLblCondominio.gridx = 5;
+		gbcLblCondominio.gridy = 12;
 		JLabel lblCondominio = new JLabel("In condominio");
-		mainPanel.add(lblCondominio, gbc_lblCondominio);
+		mainPanel.add(lblCondominio, gbcLblCondominio);
 		JCheckBox terrazzoCheckBox = new JCheckBox();
 		terrazzoCheckBox.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_terrazzoCheckBox = new GridBagConstraints();
-		gbc_terrazzoCheckBox.fill = GridBagConstraints.VERTICAL;
-		gbc_terrazzoCheckBox.insets = new Insets(0, 0, 5, 5);
-		gbc_terrazzoCheckBox.gridx = 1;
-		gbc_terrazzoCheckBox.gridy = 13;
-		mainPanel.add(terrazzoCheckBox, gbc_terrazzoCheckBox);
+		GridBagConstraints gbcTerrazzoCheckBox = new GridBagConstraints();
+		gbcTerrazzoCheckBox.fill = GridBagConstraints.VERTICAL;
+		gbcTerrazzoCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbcTerrazzoCheckBox.gridx = 1;
+		gbcTerrazzoCheckBox.gridy = 13;
+		mainPanel.add(terrazzoCheckBox, gbcTerrazzoCheckBox);
 		JCheckBox condominioCheckBox = new JCheckBox();
 		condominioCheckBox.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_condominioCheckBox = new GridBagConstraints();
-		gbc_condominioCheckBox.insets = new Insets(0, 0, 5, 5);
-		gbc_condominioCheckBox.gridx = 5;
-		gbc_condominioCheckBox.gridy = 13;
-		mainPanel.add(condominioCheckBox, gbc_condominioCheckBox);
+		GridBagConstraints gbcCondominioCheckBox = new GridBagConstraints();
+		gbcCondominioCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbcCondominioCheckBox.gridx = 5;
+		gbcCondominioCheckBox.gridy = 13;
+		mainPanel.add(condominioCheckBox, gbcCondominioCheckBox);
 		prezzoMinField.setText("0");
 		prezzoMaxField.setText("0");
 		// Bottone di ricerca
 		JButton cercaButton = new JButton("Cerca");
-		cercaButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
+		cercaButton.addActionListener(e -> {
 			c.createSchermataCaricamento(finestraCorrente, "Caricamento");
     		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
@@ -244,18 +244,18 @@ public class RicercaImmobili extends JFrame {
                      dispose();
                  }
 			};
-			worker.execute();}});
+			worker.execute();});
 		
 		cercaButton.setForeground(new Color(255, 255, 255));
 		cercaButton.setBackground(new Color(40, 132, 212));
 		cercaButton.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 12));
 		cercaButton.setPreferredSize(new Dimension(150, 50));
-		GridBagConstraints gbc_cercaButton = new GridBagConstraints();
-		gbc_cercaButton.insets = new Insets(0, 0, 5, 5);
-		gbc_cercaButton.fill = GridBagConstraints.VERTICAL;
-		gbc_cercaButton.gridx = 4;
-		gbc_cercaButton.gridy = 15;
-		mainPanel.add(cercaButton, gbc_cercaButton);
+		GridBagConstraints gbcCercaButton = new GridBagConstraints();
+		gbcCercaButton.insets = new Insets(0, 0, 5, 5);
+		gbcCercaButton.fill = GridBagConstraints.VERTICAL;
+		gbcCercaButton.gridx = 4;
+		gbcCercaButton.gridy = 15;
+		mainPanel.add(cercaButton, gbcCercaButton);
 		
         // Mostra la finestra
         setVisible(true);

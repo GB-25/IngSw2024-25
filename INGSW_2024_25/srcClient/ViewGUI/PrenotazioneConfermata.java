@@ -2,22 +2,23 @@ package ViewGUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import Controller.Controller;
 import Class.*;
 
 public class PrenotazioneConfermata extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	JFrame homeAgente;
 	JFrame finestraCorrente = this;
+	private String fontScritte = "Microsoft YaHei UI Light";
 	
     public PrenotazioneConfermata(Controller c, User user) {
-        FlatLightLaf.setup(new FlatLightLaf());
+        FlatLaf.setup(new FlatLightLaf());
         // Imposta la finestra
         setTitle("DietiEstates25");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
 
@@ -28,9 +29,6 @@ public class PrenotazioneConfermata extends JFrame {
 
         // Tasto del logo
         JButton logoButton = createIconButton("/immagini/LOGO.png", 200, 100);
-        //logoButton.addActionListener(e ->
-            //dispose() // Chiude la finestra. Teoricamente deve riportare alla home, non ancora inserita come funzionalità
-        //);
 
         // Pannello per il logo
         JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -44,14 +42,14 @@ public class PrenotazioneConfermata extends JFrame {
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
         JLabel successLabel = new JLabel("La prenotazione è stata effettuata con successo!");
-        successLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
+        successLabel.setFont(new Font(fontScritte, Font.BOLD, 18));
         successLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel infoLabel1 = new JLabel("La prenotazione è stata inviata all'agente.");
-        infoLabel1.setFont(new Font("Microsoft YaHei UI Light", Font.ITALIC, 14));
+        infoLabel1.setFont(new Font(fontScritte, Font.ITALIC, 14));
         infoLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel infoLabel2 = new JLabel("Controlla le notifiche per sapere se verrà confermata! ;)");
-        infoLabel2.setFont(new Font("Microsoft YaHei UI Light", Font.ITALIC, 14));
+        infoLabel2.setFont(new Font(fontScritte, Font.ITALIC, 14));
         infoLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         textPanel.add(Box.createVerticalStrut(50)); // Spazio sopra il testo
@@ -68,13 +66,7 @@ public class PrenotazioneConfermata extends JFrame {
         JButton btnHome = new JButton("Home");
         btnHome.setFont(new Font("Arial", Font.PLAIN, 16));
         btnHome.setPreferredSize(new Dimension(100, 40));
-        btnHome.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	c.createHomeUtente(finestraCorrente, user);
-            }}
-            // Chiude la schermata attuale
-        );
+        btnHome.addActionListener(e -> c.createHomeUtente(finestraCorrente, user));
 
         // Pannello per il pulsante
         JPanel buttonPanel = new JPanel();
