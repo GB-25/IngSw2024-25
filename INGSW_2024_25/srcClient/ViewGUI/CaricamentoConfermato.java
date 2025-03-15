@@ -2,22 +2,23 @@ package ViewGUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import Controller.Controller;
 import Class.*;
 
 public class CaricamentoConfermato extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	JFrame homeAgente;
 	JFrame finestraCorrente = this;
 	
     public CaricamentoConfermato(Controller c, User user) {
-        FlatLightLaf.setup(new FlatLightLaf());
+        FlatLaf.setup(new FlatLightLaf());
         // Imposta la finestra
         setTitle("DietiEstates25");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
 
@@ -63,13 +64,7 @@ public class CaricamentoConfermato extends JFrame {
         JButton btnHome = new JButton("Home");
         btnHome.setFont(new Font("Arial", Font.PLAIN, 16));
         btnHome.setPreferredSize(new Dimension(100, 40));
-        btnHome.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	c.createHomeAgente(finestraCorrente, user);
-            }}
-            // Chiude la schermata attuale
-        );
+        btnHome.addActionListener(e -> c.createHomeAgente(finestraCorrente, user));
 
         // Pannello per il pulsante
         JPanel buttonPanel = new JPanel();

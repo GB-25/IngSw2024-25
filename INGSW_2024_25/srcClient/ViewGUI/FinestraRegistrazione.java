@@ -10,12 +10,8 @@ import Controller.Controller;
 
 import java.util.Date;
 import java.util.Calendar;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 
 public class FinestraRegistrazione extends JFrame {
@@ -23,7 +19,6 @@ public class FinestraRegistrazione extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JFrame finestraCorrente;
-	private JFrame finestraLogin;
 	private JTextField textFieldNome;
 	private JTextField textFieldCognome;
 	private JTextField textFieldMail;
@@ -58,7 +53,7 @@ public class FinestraRegistrazione extends JFrame {
 	public FinestraRegistrazione(Controller c) {
 		finestraCorrente = this;
 		setBackground(new Color(0, 153, 255));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 542, 635);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -76,14 +71,12 @@ public class FinestraRegistrazione extends JFrame {
 		
 		JButton btnConferma = new JButton("Conferma");
         btnConferma.setEnabled(false);
-        btnConferma.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        btnConferma.addActionListener(e ->{
         		c.createSchermataCaricamento(finestraCorrente, "Caricamento");
         		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                     @Override
                     protected Void doInBackground() throws Exception {
         		String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-        		System.out.println(data);
         		char[] pass = passwordField.getPassword();
         		String password = new String(pass);
         		c.handleRegistration(textFieldNome.getText(), textFieldCognome.getText(), data, textFieldMail.getText(), textFieldTelefono.getText(), password, false);
@@ -93,8 +86,7 @@ public class FinestraRegistrazione extends JFrame {
                         dispose();
                     }
 			};
-			worker.execute();  
-            }
+			worker.execute();
         });
         btnConferma.setBounds(408, 561, 117, 25);
         contentPane.add(btnConferma);
@@ -102,12 +94,6 @@ public class FinestraRegistrazione extends JFrame {
         dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
-
-		dateChooser.getCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
         dateChooser.setBounds(152, 128, 200, 30);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -18); 
@@ -147,14 +133,14 @@ public class FinestraRegistrazione extends JFrame {
                     labelVerifyNome.setText("Nome valido ✔️");
                     labelVerifyNome.setForeground(Color.GREEN);
                     controllo[0] = true;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
                     
                 } else {
                     labelVerifyNome.setText("Nome non valido ❌");
                     labelVerifyNome.setForeground(Color.RED);
                     controllo[0] = false;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
                 }
             }
@@ -180,14 +166,14 @@ public class FinestraRegistrazione extends JFrame {
                     labelVerifyCognome.setText("Cognome valido ✔️");
                     labelVerifyCognome.setForeground(Color.GREEN);
                     controllo[1] = true;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
                     
                 } else {
                     labelVerifyCognome.setText("Cognome non valido ❌");
                     labelVerifyCognome.setForeground(Color.RED);
                     controllo[1] = false;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
                 }
             }
@@ -221,14 +207,14 @@ public class FinestraRegistrazione extends JFrame {
                     validationLabel.setText("Email valida ✔️");
                     validationLabel.setForeground(Color.GREEN);
                     controllo[2] = true;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
                     
                 } else {
                     validationLabel.setText("Email non valida ❌");
                     validationLabel.setForeground(Color.RED);
                     controllo[2] = false;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
                 }
             }
@@ -252,14 +238,14 @@ public class FinestraRegistrazione extends JFrame {
                     labelConfermaTelefono.setText("Numero valida ✔️");
                     labelConfermaTelefono.setForeground(Color.GREEN);
                     controllo[3]= true;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
                     
                 } else {
                 	labelConfermaTelefono.setText("Numero non valido ❌");
                 	labelConfermaTelefono.setForeground(Color.RED);
                 	controllo[3] = false;
-                	enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                	enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
                 }
             }
@@ -268,8 +254,7 @@ public class FinestraRegistrazione extends JFrame {
         
         JButton btnAnnulla = new JButton("Annulla");
         btnAnnulla.setBounds(22, 561, 117, 25);
-        btnAnnulla.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        btnAnnulla.addActionListener(e -> {
         		int risposta = JOptionPane.showConfirmDialog(
         		        finestraCorrente, 
         		        "Sei sicuro di non voler continuare la registrazione?", 
@@ -279,9 +264,7 @@ public class FinestraRegistrazione extends JFrame {
 
         		if (risposta == JOptionPane.YES_OPTION) {
         		    c.returnLogin(finestraCorrente);
-        		}
-
-        	}});
+        		}});
         contentPane.add(btnAnnulla);
         
         
@@ -350,13 +333,13 @@ public class FinestraRegistrazione extends JFrame {
             		lblCheckPassword.setText("La password combacia ✔️");
                     lblCheckPassword.setForeground(Color.GREEN);
                     combacia = true;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
             	} else {
             		lblCheckPassword.setText("La password non combacia ❌");
                     lblCheckPassword.setForeground(Color.RED);
                     combacia = false;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
             	}
             }
@@ -373,13 +356,13 @@ public class FinestraRegistrazione extends JFrame {
             		lblCheckPassword.setText("La password combacia ✔️");
                     lblCheckPassword.setForeground(Color.GREEN);
                     combacia = true;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
             	} else {
             		lblCheckPassword.setText("La password non combacia ❌");
                     lblCheckPassword.setForeground(Color.RED);
                     combacia = false;
-                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(!(dateChooser.getDate()== null));
+                    enable = (c.checkFields(controllo))&&(combacia)&&(c.checkFields(valori))&&(dateChooser.getDate()!= null);
                     btnConferma.setEnabled(enable);
             	}
             }

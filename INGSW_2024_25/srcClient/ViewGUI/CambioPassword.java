@@ -1,6 +1,8 @@
 package ViewGUI;
 
 import javax.swing.*;
+
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import Class.User;
 import Controller.Controller;
@@ -8,19 +10,21 @@ import Controller.Controller;
 import java.awt.*;
 
 public class CambioPassword extends JFrame {
+	private static final long serialVersionUID = 1L;
 	// Campi per inserire la password
 	private JFrame finestraCorrente;
     private JPasswordField txtPasswordAttuale;
     private JPasswordField txtNuovaPassword;
     private JPasswordField txtConfermaPassword;
+    private static final String ERRORE = "Errore";
     private boolean[] valori = {false, false, false, false};
     
     public CambioPassword(Controller c, User user) {
         // Configurazione finestra
-    	FlatLightLaf.setup(new FlatLightLaf());
+    	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Cambio Password - Admin");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
         
@@ -81,7 +85,7 @@ public class CambioPassword extends JFrame {
         String passwordSalvata = user.getPassword();
         // **Verifica password attuale**
         if (!passwordAttuale.equals(passwordSalvata)) {
-            JOptionPane.showMessageDialog(this, "La password attuale non è corretta!", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La password attuale non è corretta!", ERRORE, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -89,17 +93,17 @@ public class CambioPassword extends JFrame {
         c.isValidPassword(txtNuovaPassword.getPassword(), valori);
         if (!c.checkFields(valori)){
         	
-            JOptionPane.showMessageDialog(this, "La password deve contenere almeno 6 caratteri, una lettera minuscola, una lettera maiuscola e una cifra!", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La password deve contenere almeno 6 caratteri, una lettera minuscola, una lettera maiuscola e una cifra!", ERRORE, JOptionPane.ERROR_MESSAGE);
             return;
         }
         String nuovaPassword = new String(txtNuovaPassword.getPassword());
         if (passwordSalvata.equals(nuovaPassword)) {
-        	 JOptionPane.showMessageDialog(this, "La nuova password non può essere uguale alla precedente", "Errore", JOptionPane.ERROR_MESSAGE);
+        	 JOptionPane.showMessageDialog(this, "La nuova password non può essere uguale alla precedente", ERRORE, JOptionPane.ERROR_MESSAGE);
              return;
         }
 
         if (!c.verifyPassword(txtNuovaPassword.getPassword(),txtConfermaPassword.getPassword())) {
-            JOptionPane.showMessageDialog(this, "Le nuove password non coincidono!", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Le nuove password non coincidono!", ERRORE, JOptionPane.ERROR_MESSAGE);
             return;
         }
 

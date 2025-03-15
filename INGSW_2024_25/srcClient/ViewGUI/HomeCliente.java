@@ -2,6 +2,7 @@ package ViewGUI;
 
 import javax.swing.*;
 
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import Class.Notifica;
@@ -14,21 +15,20 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class HomeCliente extends JFrame {
-	
+	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
 	private JPanel topPanel;
 	private JPanel centerPanel;
 	private JFrame finestraCorrente;
-	private JFrame finestraLogin;
-	
+	private String fontScritte = "Microsoft YaHei UI Light";
 	ImageIcon bellIcon;
 	
 	public HomeCliente(Controller c, User user) {
 		
 		finestraCorrente = this;
-		FlatLightLaf.setup(new FlatLightLaf());
+		FlatLaf.setup(new FlatLightLaf());
 		setTitle("Home Cliente - DietiEstates25");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
         
@@ -47,22 +47,20 @@ public class HomeCliente extends JFrame {
 
         searchButton.setPreferredSize(new Dimension(500, 120));
         searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        searchButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
+        searchButton.setFont(new Font(fontScritte, Font.BOLD, 18));
         searchButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         searchButton.setBackground(new Color(210, 224, 239));
         viewCalendarButton.setPreferredSize(new Dimension(500, 120));
         viewCalendarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        viewCalendarButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
+        viewCalendarButton.setFont(new Font(fontScritte, Font.BOLD, 18));
         viewCalendarButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         viewCalendarButton.setBackground(new Color(210, 224, 239));
         changePasswordButton.setPreferredSize(new Dimension(500, 120));
         changePasswordButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        changePasswordButton.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
+        changePasswordButton.setFont(new Font(fontScritte, Font.BOLD, 18));
         changePasswordButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         changePasswordButton.setBackground(new Color(210, 224, 239));
-        changePasswordButton.addActionListener(e -> {
-        	c.changePassword(finestraCorrente, user);
-        });
+        changePasswordButton.addActionListener(e -> c.changePassword(finestraCorrente, user));
         
         searchButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -75,9 +73,7 @@ public class HomeCliente extends JFrame {
             	searchButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
             }
         });
-        searchButton.addActionListener(e -> {
-        	c.findImmobili(finestraCorrente, user);
-        });
+        searchButton.addActionListener(e -> c.findImmobili(finestraCorrente, user));
         
         
         viewCalendarButton.addMouseListener(new MouseAdapter() {
@@ -91,9 +87,7 @@ public class HomeCliente extends JFrame {
             	viewCalendarButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
             }
         });
-        viewCalendarButton.addActionListener(e -> {
-        	c.viewCalendar(finestraCorrente, user);
-        });
+        viewCalendarButton.addActionListener(e -> c.viewCalendar(finestraCorrente, user));
         
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
@@ -121,7 +115,7 @@ public class HomeCliente extends JFrame {
 	
 	 private JPanel createTopPanel(Controller c, User user) {
 		 	
-	        JPanel topPanel = new JPanel(new BorderLayout());
+	        topPanel = new JPanel(new BorderLayout());
 	        topPanel.setBackground(new Color(40, 132, 212));
 	        topPanel.setPreferredSize(new Dimension(600, 120));
 
@@ -147,10 +141,7 @@ public class HomeCliente extends JFrame {
 	        JMenuItem logout = new JMenuItem("Logout");
 	        logout.addActionListener(e -> {
 	            int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
-	            if (response == JOptionPane.YES_OPTION) {
-	                
-	                //JOptionPane.showMessageDialog(this, "Logout effettuato!");
-	            
+	            if (response == JOptionPane.YES_OPTION) {      
 	                c.returnLogin(finestraCorrente);
 	            }
 	        });
@@ -175,34 +166,21 @@ public class HomeCliente extends JFrame {
 	            if (popupMenu.isVisible()) {
 	                // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
 	                popupMenu.setVisible(false);
-	                
-	                try {
-	                    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-	                    
-	                    System.out.println("Notifiche segnate come lette.");
-	                } catch (Exception ex) {
-	                    ex.printStackTrace();
-	                }
-
 	            } else {
 	                // 🔹 Se il popup non è visibile, aggiornalo e mostralo
-	                System.out.println("Inizio creazione popup");
 	                popupMenu.removeAll();
 	                popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
 	                List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-	                System.out.println("Numero di notifiche: " + notifiche.size());
 
 	                if (notifiche.isEmpty()) {
 	                    JMenuItem dummy = new JMenuItem("Nessuna notifica");
 	                    popupMenu.add(dummy);
 	                } else {
 	                    for (Notifica notifica : notifiche) {
-	                        System.out.println("Aggiungo notifica: " + notifica.getMessaggio());
 	                        JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
 	                        menuItem.addActionListener(ae -> {
 	                            try {
-	                                System.out.println("Click su notifica: " + notifica.getMessaggio());
 	                                c.setNotificaLetta(notifica);
 	                                popupMenu.remove(menuItem);
 	                                updateBellIcon(c, user, bellButton);

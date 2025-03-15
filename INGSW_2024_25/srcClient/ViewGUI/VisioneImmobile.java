@@ -2,10 +2,11 @@ package ViewGUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Base64;
 import org.jxmapviewer.JXMapViewer;
+
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import Class.ComposizioneImmobile;
 import Class.Immobile;
@@ -14,19 +15,21 @@ import Controller.Controller;
 
 public class VisioneImmobile extends JFrame {
 
-    private JPanel imagePanel; // Pannello per l'immagine
+    private static final long serialVersionUID = 1L;
+	private JPanel imagePanel; // Pannello per l'immagine
     private CardLayout cardLayout; // Layout per il carosello
-    private JButton prevButton, nextButton; // Navigation buttons
-    private JFrame finestraLogin;
+    private JButton prevButton; // Navigation buttons
+    private JButton nextButton;
     private JFrame finestraCorrente;
+    private String fontScritte = "Helvetica";
 
     public VisioneImmobile(Controller c, Immobile immobile, User user) {
     	finestraCorrente=this;
         // Configurazione della finestra
-    	FlatLightLaf.setup(new FlatLightLaf());
+    	FlatLaf.setup(new FlatLightLaf());
         setTitle("Visualizzazione Immobile - DietiEstates25");
         setSize(600, 640);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);  // Centrare la finestra
         setAlwaysOnTop(true);
 
@@ -50,9 +53,6 @@ public class VisioneImmobile extends JFrame {
         imagePanel.setBackground(Color.WHITE);
 
         // Immagini per il carosello
-//        addImageToCarousel("/immagini/casa1.jpeg");
-//        addImageToCarousel("/immagini/casa2.jpeg");
-//        addImageToCarousel("/immagini/casa3.jpeg");
         String[] urlArray = c.getUrls(immobile);
         for(String url : urlArray) {
         	addImageToCarousel(c.fileDownload(url));
@@ -74,7 +74,7 @@ public class VisioneImmobile extends JFrame {
         carouselPanel.add(carouselControlPanel, BorderLayout.CENTER);
 
         // ---- PANNELLO DESTRO: Dettagli dell'immobile ----
-        JPanel detailsPanel = createDetailsPanel(c, immobile);
+        JPanel detailsPanel = createDetailsPanel(immobile);
 
         // **Aggiunta dei pannelli principali**
         centerPanel.add(detailsPanel, BorderLayout.WEST);
@@ -180,7 +180,7 @@ public class VisioneImmobile extends JFrame {
         return topPanel;
     }
 
-    private JPanel createDetailsPanel(Controller c, Immobile immobile) {
+    private JPanel createDetailsPanel(Immobile immobile) {
     	ComposizioneImmobile composizione = immobile.getComposizione();
         JPanel detailsPanel = new JPanel();
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
@@ -188,7 +188,7 @@ public class VisioneImmobile extends JFrame {
         detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         JLabel priceLabel = new JLabel("Prezzo: "+immobile.getPrezzo());
-        priceLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
+        priceLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
         priceLabel.setForeground(Color.BLACK);
 
         JLabel adLabel = new JLabel("Annuncio: "+immobile.getAnnuncio());
@@ -205,7 +205,7 @@ public class VisioneImmobile extends JFrame {
         descriptionArea.setLineWrap(true);
         descriptionArea.setEditable(false);
         descriptionArea.setBackground(Color.WHITE);
-        descriptionArea.setFont(new Font("Helvetica", Font.PLAIN, 14));
+        descriptionArea.setFont(new Font(fontScritte, Font.PLAIN, 14));
         descriptionArea.setBorder(null);
         JScrollPane descriptionScroll = new JScrollPane(descriptionArea);
         descriptionScroll.setBorder(null);
@@ -234,17 +234,15 @@ public class VisioneImmobile extends JFrame {
         JButton prenotaButton = new JButton("Prenota visita");
         prenotaButton.setBackground(new Color(0, 153, 76));
         prenotaButton.setForeground(Color.WHITE);
-        prenotaButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        prenotaButton.setFont(new Font(fontScritte, Font.BOLD, 13));
         prenotaButton.setFocusPainted(false);
         prenotaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        prenotaButton.addActionListener(e -> {
-        	c.makeReservationClient(finestraCorrente, immobile, user);
-        });
+        prenotaButton.addActionListener(e -> c.makeReservationClient(finestraCorrente, immobile, user));
 
         JButton indietroButton = new JButton("Indietro");
         indietroButton.setBackground(Color.GRAY);
         indietroButton.setForeground(Color.WHITE);
-        indietroButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        indietroButton.setFont(new Font(fontScritte, Font.BOLD, 13));
         indietroButton.setFocusPainted(false);
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(e -> dispose());

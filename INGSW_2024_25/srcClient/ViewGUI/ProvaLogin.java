@@ -1,8 +1,8 @@
 package ViewGUI;
 
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Image;
+
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,18 +18,14 @@ import java.awt.BorderLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Component;
-import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.MediaTracker;
 
 public class ProvaLogin extends JFrame {
 
@@ -38,7 +34,7 @@ public class ProvaLogin extends JFrame {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JFrame finestraCorrente;
-	private JFrame finestraRegistrazione;
+	private String fontScritte = "Microsoft YaHei UI Light";
 
 	/**
 	 * Launch the application.
@@ -60,11 +56,11 @@ public class ProvaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public ProvaLogin(Controller c) {
-                FlatLightLaf.setup(new FlatLightLaf());
+        FlatLaf.setup(new FlatLightLaf());
 		finestraCorrente= this;
 		this.setResizable(false);
 		setPreferredSize(new Dimension(800, 600));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
@@ -87,88 +83,82 @@ public class ProvaLogin extends JFrame {
         logoButton.setFocusPainted(false);
         logoButton.setContentAreaFilled(false);
         logoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        
         logoButton.setForeground(new Color(40, 132, 212));
         logoButton.setPreferredSize(new Dimension(200, 120));
-		logoButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		logoButton.setBackground(new Color(40, 132, 212));
 		panel.add(logoButton, BorderLayout.CENTER);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setPreferredSize(new Dimension(800, 400));
-		contentPane.add(panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{800, 0};
-		gbl_panel_1.rowHeights = new int[]{33, 367, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
+		JPanel panel1 = new JPanel();
+		panel1.setBackground(new Color(255, 255, 255));
+		panel1.setPreferredSize(new Dimension(800, 400));
+		contentPane.add(panel1);
+		GridBagLayout gblPanel1 = new GridBagLayout();
+		gblPanel1.columnWidths = new int[]{800, 0};
+		gblPanel1.rowHeights = new int[]{33, 367, 0};
+		gblPanel1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gblPanel1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panel1.setLayout(gblPanel1);
 		
 		JLabel lblSottoTitolo = new JLabel("                           La casa dei tuoi sogni a portata di mano!");
 		lblSottoTitolo.setBackground(new Color(255, 255, 255));
 		lblSottoTitolo.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		lblSottoTitolo.setFont(new Font("Microsoft JhengHei UI Light", Font.ITALIC, 24));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.NORTH;
-		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		panel_1.add(lblSottoTitolo, gbc_lblNewLabel);
+		GridBagConstraints gbcLblSottoTitolo = new GridBagConstraints();
+		gbcLblSottoTitolo.anchor = GridBagConstraints.NORTH;
+		gbcLblSottoTitolo.fill = GridBagConstraints.HORIZONTAL;
+		gbcLblSottoTitolo.insets = new Insets(0, 0, 5, 0);
+		gbcLblSottoTitolo.gridx = 0;
+		gbcLblSottoTitolo.gridy = 0;
+		panel1.add(lblSottoTitolo, gbcLblSottoTitolo);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 255, 255));
-		panel_2.setPreferredSize(new Dimension(400, 300));
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 0;
-		gbc_panel_2.gridy = 1;
-		panel_1.add(panel_2, gbc_panel_2);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[] {250, 67, 120, 130, 30, 30};
-		gbl_panel_2.rowHeights = new int[] {30, 30, 30, 30, 30, 30, 30, 30, 30, 30};
-		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_2.setLayout(gbl_panel_2);
+		JPanel panel2 = new JPanel();
+		panel2.setBackground(new Color(255, 255, 255));
+		panel2.setPreferredSize(new Dimension(400, 300));
+		GridBagConstraints gbcPanel2 = new GridBagConstraints();
+		gbcPanel2.fill = GridBagConstraints.BOTH;
+		gbcPanel2.gridx = 0;
+		gbcPanel2.gridy = 1;
+		panel1.add(panel2, gbcPanel2);
+		GridBagLayout gblPanel2 = new GridBagLayout();
+		gblPanel2.columnWidths = new int[] {250, 67, 120, 130, 30, 30};
+		gblPanel2.rowHeights = new int[] {30, 30, 30, 30, 30, 30, 30, 30, 30, 30};
+		gblPanel2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gblPanel2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel2.setLayout(gblPanel2);
 		
 		JLabel lblMail = new JLabel("E-mail:");
 		lblMail.setFont(new Font("Tahoma", Font.BOLD, 13));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 2;
-		panel_2.add(lblMail, gbc_lblNewLabel_1);
+		GridBagConstraints gbcLblMail = new GridBagConstraints();
+		gbcLblMail.anchor = GridBagConstraints.WEST;
+		gbcLblMail.insets = new Insets(0, 0, 5, 5);
+		gbcLblMail.gridx = 1;
+		gbcLblMail.gridy = 2;
+		panel2.add(lblMail, gbcLblMail);
 		
 		textField = new JTextField();
 		textField.setPreferredSize(new Dimension(20, 19));
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 2;
-		panel_2.add(textField, gbc_textField);
+		GridBagConstraints gbcTextField = new GridBagConstraints();
+		gbcTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbcTextField.insets = new Insets(0, 0, 5, 5);
+		gbcTextField.gridx = 2;
+		gbcTextField.gridy = 2;
+		panel2.add(textField, gbcTextField);
 		textField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 13));
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 3;
-		panel_2.add(lblPassword, gbc_lblNewLabel_2);
+		GridBagConstraints gbcLblPassword = new GridBagConstraints();
+		gbcLblPassword.anchor = GridBagConstraints.WEST;
+		gbcLblPassword.insets = new Insets(0, 0, 5, 5);
+		gbcLblPassword.gridx = 1;
+		gbcLblPassword.gridy = 3;
+		panel2.add(lblPassword, gbcLblPassword);
 		
 		JButton btnAccedi = new JButton("Accedi");
 		btnAccedi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAccedi.setBackground(new Color(166, 204, 238));
-		btnAccedi.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 13));
-		btnAccedi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnAccedi.setFont(new Font(fontScritte, Font.BOLD | Font.ITALIC, 13));
+		btnAccedi.addActionListener(e -> {
 				c.createSchermataCaricamento(finestraCorrente, "Caricamento");
 				 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                      @Override
@@ -182,48 +172,44 @@ public class ProvaLogin extends JFrame {
                      }
 			};
 			worker.execute();
-		}});
+		});
 		
 		passwordField = new JPasswordField();
 		passwordField.setPreferredSize(new Dimension(20, 19));
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 3;
-		panel_2.add(passwordField, gbc_textField_1);
+		GridBagConstraints gbcPasswordField = new GridBagConstraints();
+		gbcPasswordField.insets = new Insets(0, 0, 5, 5);
+		gbcPasswordField.fill = GridBagConstraints.HORIZONTAL;
+		gbcPasswordField.gridx = 2;
+		gbcPasswordField.gridy = 3;
+		panel2.add(passwordField, gbcPasswordField);
 		passwordField.setColumns(10);
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 2;
-		gbc_btnNewButton_1.gridy = 4;
-		panel_2.add(btnAccedi, gbc_btnNewButton_1);
+		GridBagConstraints gbcBtnAccedi = new GridBagConstraints();
+		gbcBtnAccedi.fill = GridBagConstraints.BOTH;
+		gbcBtnAccedi.insets = new Insets(0, 0, 5, 5);
+		gbcBtnAccedi.gridx = 2;
+		gbcBtnAccedi.gridy = 4;
+		panel2.add(btnAccedi, gbcBtnAccedi);
 		
 		JButton btnRegistrati = new JButton("Registrati!");
 		btnRegistrati.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRegistrati.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				c.registerUser(finestraCorrente);
-			}
-		});
+		btnRegistrati.addActionListener(e -> c.registerUser(finestraCorrente));
         
 		JLabel label = new JLabel("Non sei ancora iscritto? ");
-		label.setFont(new Font("Microsoft YaHei UI Light", Font.ITALIC, 17));
+		label.setFont(new Font(fontScritte, Font.ITALIC, 17));
 		label.setBackground(new Color(255, 255, 255));
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.fill = GridBagConstraints.VERTICAL;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 2;
-		gbc_label.gridy = 7;
-		panel_2.add(label, gbc_label);
+		GridBagConstraints gbclabel = new GridBagConstraints();
+		gbclabel.fill = GridBagConstraints.VERTICAL;
+		gbclabel.insets = new Insets(0, 0, 5, 5);
+		gbclabel.gridx = 2;
+		gbclabel.gridy = 7;
+		panel2.add(label, gbclabel);
 		btnRegistrati.setBackground(new Color(166, 204, 238));
-		btnRegistrati.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 13));
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 8;
-		panel_2.add(btnRegistrati, gbc_btnNewButton);
+		btnRegistrati.setFont(new Font(fontScritte, Font.BOLD | Font.ITALIC, 13));
+		GridBagConstraints gbcBtnRegistrati = new GridBagConstraints();
+		gbcBtnRegistrati.insets = new Insets(0, 0, 5, 5);
+		gbcBtnRegistrati.gridx = 2;
+		gbcBtnRegistrati.gridy = 8;
+		panel2.add(btnRegistrati, gbcBtnRegistrati);
 	}
 	
 }

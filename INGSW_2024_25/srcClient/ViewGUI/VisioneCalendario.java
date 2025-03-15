@@ -2,6 +2,8 @@ package ViewGUI;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import Class.User;
 
@@ -16,6 +18,7 @@ import java.util.Map;
 import Controller.Controller;
 
 public class VisioneCalendario extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private LocalDate selectedDateGlobal = null;
 	private JFrame frame;
     private JTable calendarTable;
@@ -27,9 +30,9 @@ public class VisioneCalendario extends JFrame {
     private ArrayList<String> prenotazioni;
     
     public VisioneCalendario(Controller c, User user) {
-        FlatLightLaf.setup(new FlatLightLaf());
+    	FlatLaf.setup(new FlatLightLaf());
     	frame = this;
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setSize(600, 400);
         frame.setLayout(new BorderLayout());
         
