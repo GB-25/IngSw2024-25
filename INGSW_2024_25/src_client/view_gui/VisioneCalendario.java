@@ -5,7 +5,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import Class.User;
+
+import classi.User;
 import controller.Controller;
 
 import java.awt.*;
@@ -131,11 +132,7 @@ public class VisioneCalendario extends JFrame {
         }
     }
 
-    // Metodo per aggiungere appuntamenti di esempio, messo solamente per vedere come vengono mostrate le prenotazioni
-    //private void addAppointment(Map<LocalDate, List<String>> map, LocalDate date, String description) {
-        //map.putIfAbsent(date, new ArrayList<>());
-        //map.get(date).add(description);
-    //}
+   
     
  // Nuovo metodo per mostrare gli appuntamenti di una data specifica
     private void showAppointmentsForDate(Map<LocalDate, List<String>> appointments, LocalDate date, String title) {
@@ -149,15 +146,6 @@ public class VisioneCalendario extends JFrame {
         JOptionPane.showMessageDialog(frame, message, title + " - " + date.toString(), JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void main(String[] args) {
-        //SwingUtilities.invokeLater(() -> {
-           //VisioneCalendario app = new VisioneCalendario();
-            
-            // Aggiunta di appuntamenti di esempio
-            //app.addAppointment(app.confirmedAppointments, LocalDate.now().plusDays(2), "Meeting con cliente");
-            //app.addAppointment(app.confirmedAppointments, LocalDate.now().plusDays(5), "Revisione progetto");
-            //app.addAppointment(app.pendingAppointments, LocalDate.now().plusDays(8), "Call in attesa di conferma");
-        //});
-    }// Metodo e appuntamenti aggiunti solo per vedere come venivano mostrati 
+
 }
 

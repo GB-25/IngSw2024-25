@@ -1,12 +1,12 @@
 package business_logic_layer;
 
-import data_access_layer.DatabaseManager;
+
 import data_access_layer.interfaces.HouseRepositoryInterface;
-import data_access_layer.interfaces.UserRepositoryInterface;
 
-import java.util.ArrayList;
 
-import Class.*;
+import java.util.List;
+
+import classi.*;
 
 
 public class HouseService {
@@ -19,7 +19,7 @@ public class HouseService {
 	
 	
 	
-	public ArrayList<Immobile> retrieveHouse(String query){
+	public List<Immobile> retrieveHouse(String query){
 		return houseRepository.findHouses(query);
 	}
 	

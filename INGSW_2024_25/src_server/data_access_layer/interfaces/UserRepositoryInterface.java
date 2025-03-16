@@ -1,6 +1,6 @@
 package data_access_layer.interfaces;
 
-import Class.User;
+import classi.User;
 
 public interface UserRepositoryInterface {
 
@@ -8,7 +8,7 @@ public interface UserRepositoryInterface {
 	
 	void register(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente);
 	
-	void updatePassword(String mail, String nuovaPassword);
+	boolean updatePassword(String mail, String nuovaPassword);
 	
 	
 	

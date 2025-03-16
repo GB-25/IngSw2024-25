@@ -5,8 +5,8 @@ import javax.swing.*;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import Class.Notifica;
-import Class.User;
+import classi.Notifica;
+import classi.User;
 import controller.Controller;
 
 import java.util.List;
@@ -245,9 +245,4 @@ public class HomeAgente extends JFrame {
     }
     
 
-    // Codice per far partire la finestra senza la necessità del controller
-    // Ovviamente metteremo a posto appena abbiamo tutto a disposizione
-    public static void main(String[] args) {
-        //SwingUtilities.invokeLater(HomeAgente::new);
-    }
 }

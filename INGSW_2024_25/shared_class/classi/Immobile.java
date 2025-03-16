@@ -1,4 +1,4 @@
-package Class;
+package classi;
 
 public class Immobile {
 
@@ -13,17 +13,15 @@ public class Immobile {
 	private String urls;
 	private User agente;
 	
-	
-	public Immobile(double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio,
-			String tipo, String classeEnergetica, String descrizione, String urls, User agente) {
-		
+
+	public Immobile(double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione, String urls, User agente) {
 		
 		this.prezzo = prezzo;
 		this.composizione = composizione;
-		this.indirizzo = indirizzo;
-		this.annuncio = annuncio;
-		this.tipo = tipo;
 		this.classeEnergetica = classeEnergetica;
+		this.indirizzo = indirizzo;
+		this.tipo = tipo;
+		this.annuncio = annuncio;
 		this.descrizione = descrizione;
 		this.urls = urls;
 		this.agente = agente;

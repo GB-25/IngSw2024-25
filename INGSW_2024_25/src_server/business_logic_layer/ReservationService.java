@@ -1,11 +1,10 @@
 package business_logic_layer;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-import Class.Notifica;
-import Class.Prenotazione;
-import data_access_layer.DatabaseManager;
+import classi.Notifica;
+import classi.Prenotazione;
 import data_access_layer.interfaces.ReservationRepositoryInterface;
 
 
@@ -44,7 +43,7 @@ public class ReservationService {
 		
 	}
 	
-	public ArrayList<Prenotazione> getReservation(String mail, boolean isConfirmed, String data, boolean isAgente){
+	public List<Prenotazione> getReservation(String mail, boolean isConfirmed, String data, boolean isAgente){
 		return reservationRepository.getReservationByMail(mail, isConfirmed, data, isAgente);
 	}
 	
@@ -58,9 +57,8 @@ public class ReservationService {
 	}
 	
 	public List<Notifica> getNotifiche(String mail) {
-	    List<Notifica> prova = reservationRepository.getNotificheUtente(mail);
-	   
-	    return prova;
+	    return reservationRepository.getNotificheUtente(mail);
+	  
 	}
 	
 	public boolean setLetta( int id) {

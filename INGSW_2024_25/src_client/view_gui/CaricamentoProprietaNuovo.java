@@ -3,9 +3,9 @@ package view_gui;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import Class.ComposizioneImmobile;
-import Class.Immobile;
-import Class.User;
+import classi.ComposizioneImmobile;
+import classi.Immobile;
+import classi.User;
 import controller.Controller;
 
 import javax.swing.*;

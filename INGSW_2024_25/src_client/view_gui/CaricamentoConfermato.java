@@ -7,7 +7,7 @@ import java.awt.*;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import Class.*;
+import classi.*;
 import controller.Controller;
 
 public class CaricamentoConfermato extends JFrame {

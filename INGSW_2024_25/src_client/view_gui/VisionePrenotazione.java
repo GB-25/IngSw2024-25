@@ -5,9 +5,9 @@ import javax.swing.*;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import Class.Notifica;
-import Class.Prenotazione;
-import Class.User;
+import classi.Notifica;
+import classi.Prenotazione;
+import classi.User;
 import controller.Controller;
 
 import java.awt.*;
@@ -226,12 +226,5 @@ public class VisionePrenotazione extends JFrame {
 	    bellButton.setIcon(new ImageIcon(img));
 	}
     
-    public static void main(String[] args) {
-        //SwingUtilities.invokeLater(new Runnable() {
-            //@Override
-            //public void run() {
-                //new VisionePrenotazione("Mario Rossi", "12/02/2025", "15:30").setVisible(true);
-            //}
-        //});
-    }
+    
 }

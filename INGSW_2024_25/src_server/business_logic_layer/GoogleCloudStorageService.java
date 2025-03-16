@@ -1,6 +1,5 @@
 package business_logic_layer;
 
-import data_access_layer.GoogleCloudStorageManager;
 import data_access_layer.interfaces.StorageManagerInterface;
 
 import java.io.IOException;
@@ -10,7 +9,7 @@ public class GoogleCloudStorageService {
 	private StorageManagerInterface storageManager;
     
 
-    public GoogleCloudStorageService(StorageManagerInterface storageManager) throws IOException {
+    public GoogleCloudStorageService(StorageManagerInterface storageManager) {
         this.storageManager = storageManager;
     }
 

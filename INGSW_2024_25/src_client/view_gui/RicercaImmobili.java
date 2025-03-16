@@ -4,9 +4,9 @@ import javax.swing.*;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import Class.ComposizioneImmobile;
-import Class.Immobile;
-import Class.User;
+import classi.ComposizioneImmobile;
+import classi.Immobile;
+import classi.User;
 import controller.Controller;
 
 import java.awt.*;
@@ -265,7 +265,5 @@ public class RicercaImmobili extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        //SwingUtilities.invokeLater(() -> new RicercaImmobili());
-    }
+    
 }

@@ -5,8 +5,8 @@ import javax.swing.*;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import Class.Notifica;
-import Class.User;
+import classi.Notifica;
+import classi.User;
 import controller.Controller;
 
 import java.awt.*;

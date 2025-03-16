@@ -11,8 +11,8 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.toedter.calendar.JDateChooser;
 
-import Class.Immobile;
-import Class.User;
+import classi.Immobile;
+import classi.User;
 import controller.Controller;
 
 import java.text.SimpleDateFormat;

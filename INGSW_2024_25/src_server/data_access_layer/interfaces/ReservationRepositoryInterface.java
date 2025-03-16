@@ -3,8 +3,8 @@ package data_access_layer.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-import Class.Notifica;
-import Class.Prenotazione;
+import classi.Notifica;
+import classi.Prenotazione;
 
 public interface ReservationRepositoryInterface {
 

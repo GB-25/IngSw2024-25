@@ -16,10 +16,10 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import Class.ComposizioneImmobile;
-import Class.Immobile;
-import Class.Notifica;
-import Class.User;
+import classi.ComposizioneImmobile;
+import classi.Immobile;
+import classi.Notifica;
+import classi.User;
 
 public class ClientModel {
     private String serverIP; //34.78.163.251
@@ -95,12 +95,13 @@ public class ClientModel {
     	return user;
     }
     
-    public void newPasswordModel(String mail, String nuovaPassword) {
+    public boolean newPasswordModel(String mail, String nuovaPassword) {
     	JSONObject request = new JSONObject();
     	request.put("action", "updatePassword");
     	request.put("mail", mail);
     	request.put("newPassword", nuovaPassword);
-    	sendRequest(request);
+    	JSONObject response = sendRequest(request);
+    	return (response.getString("status").equals("success"));
     	
     }
  
@@ -247,6 +248,7 @@ public class ClientModel {
 			   	ComposizioneImmobile composizione = this.getComposizione(idComposizione);
 			   	casa = new Immobile(prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
 			   			classe, descrizione, urls, agente);
+			   	
 			   	immobili.add(casa);
 			   	//da capire come visualizzare le foto, però immagino sarà a parte dalla gui
 			}

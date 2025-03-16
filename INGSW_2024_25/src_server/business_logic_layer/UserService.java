@@ -1,9 +1,7 @@
 package business_logic_layer;
 
-import java.util.Date;
 
-import Class.User;
-import data_access_layer.DatabaseManager;
+import classi.User;
 import data_access_layer.interfaces.UserRepositoryInterface;
 
 
@@ -38,15 +36,13 @@ public class UserService {
     	return false;
     }
 
-    public void updatePassword(String mail, String nuovaPassword) {
-    	userRepository.updatePassword(mail, nuovaPassword);
+    public boolean updatePassword(String mail, String nuovaPassword) {
+    	return userRepository.updatePassword(mail, nuovaPassword);
     }
     
     public User getUser(String mail) {
     	return userRepository.getUserByMail(mail);
     }
     
-//    public void close() {
-//        userRepository.closeConnection();
-//    }
+
 }

@@ -4,13 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.logging.Logger;
+
 import org.jxmapviewer.JXMapViewer;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import Class.ComposizioneImmobile;
-import Class.Immobile;
-import Class.User;
+
+import classi.ComposizioneImmobile;
+import classi.Immobile;
+import classi.User;
 import controller.Controller;
 
 public class VisioneImmobile extends JFrame {
@@ -22,6 +25,7 @@ public class VisioneImmobile extends JFrame {
     private JButton nextButton;
     private JFrame finestraCorrente;
     private String fontScritte = "Helvetica";
+    Logger logger = Logger.getLogger(getClass().getName());
 
     public VisioneImmobile(Controller c, Immobile immobile, User user) throws Exception {
     	finestraCorrente=this;
@@ -272,12 +276,9 @@ public class VisioneImmobile extends JFrame {
     	        imagePanel.revalidate();
     	        imagePanel.repaint();
     	    } catch (IllegalArgumentException e) {
-    	        System.err.println("Errore nella decodifica dell'immagine Base64: " + e.getMessage());
+    	        logger.info("Errore nella decodifica dell'immagine Base64: " + e.getMessage());
     	    }
     }
     
 
-    public static void main(String[] args) {
-        //SwingUtilities.invokeLater(VisioneImmobile::new);
-    }
 }

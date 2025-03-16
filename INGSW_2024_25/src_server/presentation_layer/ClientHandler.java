@@ -2,10 +2,16 @@ package presentation_layer;
 
 import java.io.*;
 import java.net.*;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import Class.*;
+import java.util.Map;
+
+import java.util.function.UnaryOperator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import business_logic_layer.*;
+import classi.*;
 import data_access_layer.DatabaseManager;
 import data_access_layer.GoogleCloudStorageManager;
 import data_access_layer.interfaces.*;
@@ -15,8 +21,8 @@ import org.json.JSONObject;
 
 public class ClientHandler extends Thread { //implements Runnable???
     private Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
+    
+    
     private UserService userService;
     private GoogleCloudStorageService storageService;
     private HouseService houseService;
@@ -25,7 +31,7 @@ public class ClientHandler extends Thread { //implements Runnable???
     private HouseRepositoryInterface houseRepository;
     private ReservationRepositoryInterface reservationRepository;
     private StorageManagerInterface storageManager;
-    
+    private static final Logger logger = Logger.getLogger(ClientHandler.class.getName());
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         this.userRepository = new DatabaseManager();
@@ -34,85 +40,55 @@ public class ClientHandler extends Thread { //implements Runnable???
         this.storageManager = new GoogleCloudStorageManager();
     }
 
+    @Override
     public void run() {
-        try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
 
             String message;
             while ((message = in.readLine()) != null) {
-            	System.out.println("Ricevuto: " + message);
-
-            	// Parsing del JSON ricevuto
-            	JSONObject request = new JSONObject(message);
-            	String action = request.getString("action");
-
-            	// Creazione della risposta JSON
-            	JSONObject response = new JSONObject();
-
-            	switch (action) {
-                	case "login":
-                		response = handleLogin(request);
-                		break;
-                	case "register":
-                		response = handleRegister(request);
-                		break;
-                	case "updatePassword":
-                		this.handleNewPassword(request);
-                		break;
-                	case "uploadFile":  
-                        response = handleUploadRequest(request);
-                        break;
-                	case "downloadFile":
-                		response = handleDownloadRequest(request);
-                		break;
-                	case "makeNewReservation":
-                		response = makeNewReservation(request);
-                		break;
-                	case "reservationConfirmed":
-                		response = reservationConfirmed(request);
-                		break;
-                	case "reservationDenied":
-                		response = reservationDenied(request);
-                		break;
-                	case "getReservation":
-                		response = getMailReservation(request);
-                		break;
-                	case "findHouse":
-                		response = getHouse(request);
-                		break;
-                	case "findAgente":
-                		response = fetchAgente(request);
-                		break;
-                	case "findComposizione":
-                		response = fetchComposizione(request);
-                		break;
-                	case "uploadNewHouse":
-                		response = uploadNewHouse(request);
-                		break;
-                	case "aggiungiNotifica":
-                		response = addNotifica(request);
-                		break;
-                	case "getNotifiche":
-                		response = getNotifiche(request);
-                		break;
-                	case "notifica letta":
-                		response = setNotifiche(request);
-                		break;
-                	default:
-                		response.put("status", "error");
-                		response.put("message", "Azione non riconosciuta");
-                		break;
-            		}
-
-            		// Invia la risposta al client
-            		out.println(response.toString());
-            	}
-            } catch (IOException e) {
-        e.printStackTrace();
+                logger.log(Level.INFO, "Ricevuto: {0}", message);
+                JSONObject response = handleRequest(message);
+                out.println(response.toString());
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Errore durante la comunicazione con il client: ", e);
         }
     }
+
+    private JSONObject handleRequest(String message) {
+        JSONObject request = new JSONObject(message);
+        String action = request.getString("action");
+
+        
+        Map<String, UnaryOperator<JSONObject>> actionHandlers = new HashMap<>();
+        actionHandlers.put("login", this::handleLogin);
+        actionHandlers.put("register", this::handleRegister);
+        actionHandlers.put("updatePassword", this::handleNewPassword);
+        actionHandlers.put("uploadFile", this::handleUploadRequest);
+        actionHandlers.put("downloadFile", this::handleDownloadRequest);
+        actionHandlers.put("makeNewReservation", this::makeNewReservation);
+        actionHandlers.put("reservationConfirmed", this::reservationConfirmed);
+        actionHandlers.put("reservationDenied", this::reservationDenied);
+        actionHandlers.put("getReservation", this::getMailReservation);
+        actionHandlers.put("findHouse", this::getHouse);
+        actionHandlers.put("findAgente", this::fetchAgente);
+        actionHandlers.put("findComposizione", this::fetchComposizione);
+        actionHandlers.put("uploadNewHouse", this::uploadNewHouse);
+        actionHandlers.put("aggiungiNotifica", this::addNotifica);
+        actionHandlers.put("getNotifiche", this::getNotifiche);
+        actionHandlers.put("notifica letta", this::setNotifiche);
+
     
+        UnaryOperator<JSONObject> handler = actionHandlers.getOrDefault(action, req -> {
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("status", "error");
+            errorResponse.put("message", "Azione non riconosciuta");
+            return errorResponse;
+        });
+
+        return handler.apply(request);
+    }
     private JSONObject handleLogin(JSONObject request) {
         String mail = request.getString("mail");
         String password = request.getString("password");
@@ -151,13 +127,17 @@ public class ClientHandler extends Thread { //implements Runnable???
     	return response;
     }
     
-   private void handleNewPassword(JSONObject request) {
+   private JSONObject handleNewPassword(JSONObject request) {
 	   
 	   String mail = request.getString("mail");
 	   String nuovaPassword = request.getString("newPassword");
 	   userService = new UserService(userRepository);
 	   
-	   userService.updatePassword(mail, nuovaPassword);
+	   JSONObject response = new JSONObject();
+	   boolean ok = userService.updatePassword(mail, nuovaPassword);
+	   response.put("status", ok ? "success" : "error");
+       response.put("message", ok ? "pasword aggiornata" : "errore nell'aggiornamento");
+       return response;
    }
    
    private JSONObject handleUploadRequest(JSONObject request) {
@@ -270,11 +250,11 @@ public class ClientHandler extends Thread { //implements Runnable???
 			   JSONObject jsonPrenotazione = new JSONObject();
 	           jsonPrenotazione.put("id", p.getId());
 	           jsonPrenotazione.put("data", p.getDataPrenotazione());
-	           System.out.println("io sono handler: "+p.getOraPrenotazione());
+	         
 	           jsonPrenotazione.put("ora", p.getOraPrenotazione());
 	           jsonPrenotazione.put("Cliente", p.getUser().getNome()+" "+p.getUser().getCognome());
 	           jsonPrenotazione.put("indirizzo", p.getImmobile().getIndirizzo());
-	           jsonPrenotazione.put("Agente", p.getAgente().getNome()+" "+p.getAgente().getCognome());;
+	           jsonPrenotazione.put("Agente", p.getAgente().getNome()+" "+p.getAgente().getCognome());
 	           jsonPrenotazione.put("confermato", p.isConfirmed());
 	           jsonArray.put(jsonPrenotazione);
 		   }
@@ -403,7 +383,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   String mail = request.getString("mail");
 	   reservationService = new ReservationService(reservationRepository);
 	    List<Notifica> notifiche = reservationService.getNotifiche(mail);
-	    System.out.println("sono l'handler: "+notifiche.size());
+	   
 	    JSONArray notificheArray = new JSONArray();
 	    for (Notifica notifica : notifiche) {
 	        JSONObject obj = new JSONObject();

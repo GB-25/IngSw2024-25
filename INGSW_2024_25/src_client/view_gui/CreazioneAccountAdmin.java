@@ -3,9 +3,12 @@ package view_gui;
 import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
+
+import classi.User;
+
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import Class.User;
+
 import controller.Controller;
 
 import java.awt.*;

@@ -37,21 +37,7 @@ public class ProvaLogin extends JFrame {
 	private JFrame finestraCorrente;
 	private String fontScritte = "Microsoft YaHei UI Light";
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ProvaLogin frame = new ProvaLogin();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+
 
 	/**
 	 * Create the frame.

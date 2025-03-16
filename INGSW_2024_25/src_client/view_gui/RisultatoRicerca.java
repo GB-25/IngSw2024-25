@@ -3,17 +3,19 @@ package view_gui;
 import java.awt.*;
 
 
-import com.formdev.flatlaf.FlatLaf;
+
 
 import java.util.List;
 
-
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+
+import classi.Immobile;
+import classi.User;
+
 import javax.swing.*;
 import org.jxmapviewer.JXMapViewer;
 
-import Class.Immobile;
-import Class.User;
 import controller.Controller;
 
 public class RisultatoRicerca extends JFrame {
@@ -24,7 +26,7 @@ public class RisultatoRicerca extends JFrame {
 
 
     public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws Exception {
-        FlatLightLaf.setup(new FlatLightLaf());
+        FlatLaf.setup(new FlatLightLaf());
 
         // Configura il JFrame
         setTitle("Risultato Ricerca - DietiEstates25");
@@ -63,6 +65,4 @@ public class RisultatoRicerca extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-    }
 }

@@ -6,7 +6,7 @@ import java.awt.*;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import Class.*;
+import classi.*;
 import controller.Controller;
 
 public class PrenotazioneConfermata extends JFrame {
@@ -93,9 +93,4 @@ public class PrenotazioneConfermata extends JFrame {
         return button;
     }
 
-    // Codice per far partire la finestra senza la necessità del controller
-    // Ovviamente metteremo a posto appena abbiamo tutto a disposizione
-    public static void main(String[] args) {
-        //SwingUtilities.invokeLater(PrenotazioneConfermata::new);
-    }
 }

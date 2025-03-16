@@ -2,8 +2,8 @@ package data_access_layer.interfaces;
 
 import java.util.ArrayList;
 
-import Class.ComposizioneImmobile;
-import Class.Immobile;
+import classi.ComposizioneImmobile;
+import classi.Immobile;
 
 public interface HouseRepositoryInterface {
 

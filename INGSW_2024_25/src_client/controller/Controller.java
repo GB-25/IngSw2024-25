@@ -43,11 +43,11 @@ import org.jxmapviewer.viewer.TileFactory;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.WaypointPainter;
 
-import Class.ComposizioneImmobile;
-import Class.Immobile;
-import Class.Notifica;
-import Class.Prenotazione;
-import Class.User;
+import classi.ComposizioneImmobile;
+import classi.Immobile;
+import classi.Notifica;
+import classi.Prenotazione;
+import classi.User;
 import eccezioni.*;
 
 public class Controller {
@@ -183,7 +183,12 @@ public class Controller {
 	public void updatePassword(User user, char[] pass) {
 		String password = new String(pass);
 		String mail = user.getMail();
-		model.newPasswordModel(mail, password);
+		boolean ok = model.newPasswordModel(mail, password);
+		if (ok) {
+			JOptionPane.showMessageDialog(null, "Password aggiornata con successo!", "Operazione Eseguita", JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "Errore nel sistema! Ci scusiamo per il disagio", "Errore", JOptionPane.ERROR_MESSAGE);
+		}
 		
 	}
 	
@@ -213,10 +218,11 @@ public class Controller {
 
 	
 	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
-	        boolean isSearchMode, List<Immobile> immobili, User user) throws Exception  {
+	        boolean isSearchMode, List<Immobile> immobili, User user) throws GeocodingException  {
 	    try {
 	        double[] coordinates = getCoordinatesFromAPI(address);
-	        if (coordinates == null) {
+	        //era == null ma boh
+	        if (coordinates.length==0) {
 	            JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", "Errore", JOptionPane.ERROR_MESSAGE);
 	            return;
 	        }
@@ -309,35 +315,41 @@ public class Controller {
 	    mapViewer.setZoom(14);
 	}
 
-	private void addImmobileWaypoints(List<Immobile> immobili, Map<DefaultWaypoint, Immobile> waypointMap, Set<DefaultWaypoint> waypoints) throws Exception {
-	    String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
-	    for (Immobile immobile : immobili) {
-	        String immobileAddress = URLEncoder.encode(immobile.getIndirizzo(), "UTF-8");
-	        String immobileUrl = "https://api.geoapify.com/v1/geocode/search?text=" + immobileAddress + "&apiKey=" + apiKey;
-	        HttpURLConnection immobileConn = (HttpURLConnection) new URL(immobileUrl).openConnection();
-	        immobileConn.setRequestMethod("GET");
+	private void addImmobileWaypoints(List<Immobile> immobili, Map<DefaultWaypoint, Immobile> waypointMap, Set<DefaultWaypoint> waypoints) {
+	    try {
+	    		String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
+	    		
+	    		for (Immobile immobile : immobili) {
+	    			String immobileAddress = URLEncoder.encode(immobile.getIndirizzo(), "UTF-8");
+	    			String immobileUrl = "https://api.geoapify.com/v1/geocode/search?text=" + immobileAddress + "&apiKey=" + apiKey;
+	    			HttpURLConnection immobileConn = (HttpURLConnection) new URL(immobileUrl).openConnection();
+	    			immobileConn.setRequestMethod("GET");
 
-	        BufferedReader immobileReader = new BufferedReader(new InputStreamReader(immobileConn.getInputStream()));
-	        StringBuilder immobileResponse = new StringBuilder();
-	        String immobileLine;
-	        while ((immobileLine = immobileReader.readLine()) != null) {
-	            immobileResponse.append(immobileLine);
-	        }
-	        immobileReader.close();
+	    			BufferedReader immobileReader = new BufferedReader(new InputStreamReader(immobileConn.getInputStream()));
+	    			StringBuilder immobileResponse = new StringBuilder();
+	    			String immobileLine;
+	    			while ((immobileLine = immobileReader.readLine()) != null) {
+	    				immobileResponse.append(immobileLine);
+	    			}
+	    			immobileReader.close();
 
-	        JSONObject immobileJsonResponse = new JSONObject(immobileResponse.toString());
-	        if (immobileJsonResponse.getJSONArray("features").length() > 0) {
-	            JSONObject immobileLocation = immobileJsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
-	            double immobileLat = immobileLocation.getJSONArray("coordinates").getDouble(1);
-	            double immobileLon = immobileLocation.getJSONArray("coordinates").getDouble(0);
+	    			JSONObject immobileJsonResponse = new JSONObject(immobileResponse.toString());
+	    			if (immobileJsonResponse.getJSONArray("features").length() > 0) {
+	    				JSONObject immobileLocation = immobileJsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
+	    				double immobileLat = immobileLocation.getJSONArray("coordinates").getDouble(1);
+	    				double immobileLon = immobileLocation.getJSONArray("coordinates").getDouble(0);
 
-	            GeoPosition immobilePosition = new GeoPosition(immobileLat, immobileLon);
-	            DefaultWaypoint waypoint = new DefaultWaypoint(immobilePosition);
-	            waypoints.add(waypoint);
-	            waypointMap.put(waypoint, immobile);
-	        }
+	    				GeoPosition immobilePosition = new GeoPosition(immobileLat, immobileLon);
+	    				DefaultWaypoint waypoint = new DefaultWaypoint(immobilePosition);
+	    				waypoints.add(waypoint);
+	    				waypointMap.put(waypoint, immobile);
+	    			}
+	    		}
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+	    	}
 	    }
-	}
 
 	private void configureWaypoints(JXMapViewer mapViewer, Set<DefaultWaypoint> waypoints) {
 	    WaypointPainter<DefaultWaypoint> waypointPainter = new WaypointPainter<>();
@@ -353,8 +365,12 @@ public class Controller {
 	            TileFactory tileFactory = mapViewer.getTileFactory();
 	            int currentZoom = mapViewer.getZoom();
 	            Rectangle viewportBounds = mapViewer.getViewportBounds();
-	            
-	            for (DefaultWaypoint waypoint : waypointMap.keySet()) {
+
+	            // Iterate over the entrySet instead of the keySet
+	            for (Map.Entry<DefaultWaypoint, Immobile> entry : waypointMap.entrySet()) {
+	                DefaultWaypoint waypoint = entry.getKey();
+	                Immobile immobile = entry.getValue();
+
 	                Point2D worldPoint = tileFactory.geoToPixel(waypoint.getPosition(), currentZoom);
 	                Point2D viewPoint = new Point2D.Double(worldPoint.getX() - viewportBounds.getX(), worldPoint.getY() - viewportBounds.getY());
 	                double pixelDistance = clickPoint.distance(viewPoint);
@@ -364,8 +380,7 @@ public class Controller {
 	                    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 	                        @Override
 	                        protected Void doInBackground() throws Exception {
-	                            Immobile immobileSelezionato = waypointMap.get(waypoint);
-	                            new VisioneImmobile(c, immobileSelezionato, user);
+	                            new VisioneImmobile(c, immobile, user);
 	                            return null;
 	                        }
 
@@ -577,7 +592,7 @@ public class Controller {
 	public void notifyAgente(Prenotazione prenotazione) {
 	    User agente = prenotazione.getAgente();
 	    
-	    if (agente == null || prenotazione == null) {
+	    if (agente == null) {
 	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", "Errore", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
@@ -610,7 +625,7 @@ public class Controller {
 	    User cliente = prenotazione.getUser();
 	    String messaggioNotifica;
 	    // Anche qui si verificano i dati
-	    if (cliente == null || prenotazione == null) {
+	    if (cliente == null ) {
 	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", "Errore", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
