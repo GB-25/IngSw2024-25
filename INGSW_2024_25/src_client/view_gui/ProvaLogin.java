@@ -37,11 +37,6 @@ public class ProvaLogin extends JFrame {
 	private JFrame finestraCorrente;
 	private String fontScritte = "Microsoft YaHei UI Light";
 
-
-
-	/**
-	 * Create the frame.
-	 */
 	public ProvaLogin(Controller c) {
         FlatLaf.setup(new FlatLightLaf());
 		finestraCorrente= this;

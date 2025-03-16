@@ -264,6 +264,4 @@ public class RicercaImmobili extends JFrame {
         // Mostra la finestra
         setVisible(true);
     }
-
-    
 }

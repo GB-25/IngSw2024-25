@@ -3,11 +3,11 @@ package view_gui;
 import java.awt.*;
 
 
-
+import com.formdev.flatlaf.FlatLaf;
 
 import java.util.List;
 
-import com.formdev.flatlaf.FlatLaf;
+
 import com.formdev.flatlaf.FlatLightLaf;
 
 import classi.Immobile;
@@ -64,5 +64,4 @@ public class RisultatoRicerca extends JFrame {
         // Mostra la finestra
         setVisible(true);
     }
-
 }
