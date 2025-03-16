@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="srcClient"/>
-	<classpathentry kind="src" path="srcServer"/>
-	<classpathentry kind="src" path="sharedClass"/>
+	<classpathentry kind="src" path="src_client"/>
+	<classpathentry kind="src" path="src_server"/>
+	<classpathentry kind="src" path="shared_class"/>
 	<classpathentry kind="lib" path="com.jgoodies.forms_1.9.0.v20240327-0800.jar"/>
 	<classpathentry kind="lib" path="com.jgoodies.common_1.8.1.v20240327-0800.jar"/>
 	<classpathentry kind="lib" path="com.miglayout.swing_11.4.2.jar"/>
@@ -53,12 +53,15 @@
 	<classpathentry kind="lib" path="libs/proto-google-iam-v1-1.21.0.jar"/>
 	<classpathentry kind="lib" path="libs/re2j-1.7.jar"/>
 	<classpathentry kind="lib" path="okio-1.6.0.jar"/>
+	<classpathentry kind="lib" path="src_client/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="src_client/lib/junit-4.6.jar"/>
+	<classpathentry kind="lib" path="src_client/lib/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="src_client/lib/jgoodies-looks-2.4.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="srcClient/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="json-20250107.jar"/>
 	<classpathentry kind="lib" path="postgresql-42.7.5.jar"/>
 	<classpathentry kind="lib" path="jxmapviewer2-2.6.jar"/>
