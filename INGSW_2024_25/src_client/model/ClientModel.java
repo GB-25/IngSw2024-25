@@ -25,6 +25,14 @@ public class ClientModel {
     private String serverIP; //34.78.163.251
     private int port;
     Logger logger = Logger.getLogger(getClass().getName());
+    private static final String STATUS = "status";
+    private static final String ERROR = "error";
+    private static final String MESSAGE = "message";
+    private static final String ACTION = "action";
+    private static final String PASSWORDSTRING = "password";
+    private static final String SUCCESS = "success";
+    private static final String ISAGENTESTRING = "isAgente";
+    private static final String INDIRIZZOSTRING = "indirizzo";
     
     public ClientModel(String serverIP, int port) {
         this.serverIP = serverIP;
@@ -47,81 +55,79 @@ public class ClientModel {
         } catch (IOException e) {
             e.printStackTrace();
             JSONObject errorResponse = new JSONObject();
-            errorResponse.put("status", "error");
-            errorResponse.put("message", "Connessione al server fallita");
+            errorResponse.put(STATUS, ERROR);
+            errorResponse.put(MESSAGE, "Connessione al server fallita");
             return errorResponse;
         }
     }
-    
-    
+
     public User loginModel(String mail, String password) {
-    	JSONObject request = new JSONObject();
-        request.put("action", "login");
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "login");
         request.put("mail", mail);
-        request.put("password", password);
+        request.put(PASSWORDSTRING, password);
         User user;
         JSONObject response = sendRequest(request);
-        if (response.getString("status").equals("success")) {
-        	String nome = response.getString("nome");
-        	String cognome = response.getString("cognome");
-        	String dataNascita = response.getString("dataNascita");
-        	String telefono = response.getString("telefono");
-        	boolean isAgente = response.getBoolean("isAgente");
-		
-        	user = new User(mail, password, nome, cognome, telefono, dataNascita, isAgente);
+        if (response.getString(STATUS).equals(SUCCESS)) {
+            String nome = response.getString("nome");
+            String cognome = response.getString("cognome");
+            String dataNascita = response.getString("dataNascita");
+            String telefono = response.getString("telefono");
+            boolean isAgente = response.getBoolean(ISAGENTESTRING);
+
+            user = new User(mail, password, nome, cognome, telefono, dataNascita, isAgente);
         } else {
-        	user = null;
+            user = null;
         }
         return user;
     }
-    
+
     public User registerModel (String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
-    	JSONObject request = new JSONObject();
-    	User user;
-    	request.put("action", "register");
-    	request.put("name", nome);
-    	request.put("surname", cognome);
-    	request.put("birthdate", data);
-    	request.put("mail", mail);
-    	request.put("cellphone", telefono);
-    	request.put("password", password);
-    	request.put("isAgente", isAgente);
-    	JSONObject response = sendRequest(request);
-    	if (response.getString("status").equals("success")) {
-    		user = new User(mail, password, nome, cognome, telefono, data, isAgente );
-    	} else {
-    		user = null;
-    	}
-    	return user;
+        JSONObject request = new JSONObject();
+        User user;
+        request.put(ACTION, "register");
+        request.put("name", nome);
+        request.put("surname", cognome);
+        request.put("birthdate", data);
+        request.put("mail", mail);
+        request.put("cellphone", telefono);
+        request.put(PASSWORDSTRING, password);
+        request.put(ISAGENTESTRING, isAgente);
+        JSONObject response = sendRequest(request);
+        if (response.getString(STATUS).equals(SUCCESS)) {
+            user = new User(mail, password, nome, cognome, telefono, data, isAgente );
+        } else {
+            user = null;
+        }
+        return user;
     }
-    
+
     public boolean newPasswordModel(String mail, String nuovaPassword) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "updatePassword");
-    	request.put("mail", mail);
-    	request.put("newPassword", nuovaPassword);
-    	JSONObject response = sendRequest(request);
-    	return (response.getString("status").equals("success"));
-    	
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "updatePassword");
+        request.put("mail", mail);
+        request.put("newPassword", nuovaPassword);
+        JSONObject response = sendRequest(request);
+     	return (response.getString(STATUS).equals(STATUS));
     }
- 
+
     public String uploadFileModel(String filePath) {
         JSONObject request = new JSONObject();
-        request.put("action", "uploadFile");
+        request.put(ACTION, "uploadFile");
         String fileUrl = null;
         try {
             Path path = Paths.get(filePath);
             byte[] fileBytes = Files.readAllBytes(path);
             String base64Data = Base64.getEncoder().encodeToString(fileBytes);
-            
+
             // Inviamo sia il nome del file che i dati in Base64
             request.put("fileName", path.getFileName().toString());
             request.put("fileData", base64Data);
             JSONObject response = sendRequest(request);
-            if (response.getString("status").equals("success")) {
-            	fileUrl = response.getString("fileUrl"); 
+            if (response.getString(STATUS).equals(SUCCESS)) {
+                fileUrl = response.getString("fileUrl"); 
             } else {
-            	logger.log(Level.INFO, () -> "Errore durante l'upload: " + response.getString("message")); 
+                logger.log(Level.INFO, () -> "Errore durante l'upload: " + response.getString(MESSAGE)); 
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -129,233 +135,219 @@ public class ClientModel {
         }
         return fileUrl;
     }
-    
+
     public String downloadFileModel(String fileName) {
         JSONObject request = new JSONObject();
-        request.put("action", "downloadFile");
+        request.put(ACTION, "downloadFile");
         request.put("fileName", fileName);
         String fileData = null;
-       
+
         JSONObject response = sendRequest(request);
-        if (response.getString("status").equals("success")) {
-        	fileData = response.getString("fileData");
+        if (response.getString(STATUS).equals(SUCCESS)) {
+            fileData = response.getString("fileData");
         } else {
-        	logger.log(Level.INFO, () -> "Errore durante il download: " + response.getString("message"));
+            logger.log(Level.INFO, () -> "Errore durante il download: " + response.getString(MESSAGE));
         }
         return fileData;
     }
-    
-   
+
     public List<String> getReservation(String mail, boolean isConfirmed, String data, boolean isAgente) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "getReservation");
-    	request.put("mail", mail);
-    	request.put("isConfirmed", isConfirmed);
-    	request.put("data", data);
-    	request.put("isAgente", isAgente);
-    	JSONObject response = sendRequest(request);
-    	ArrayList<String> prenotazioni = new ArrayList<>(); 
-    	if (response.getString("status").equals("success")) {
-    		JSONArray jsonArray = response.getJSONArray("prenotazioni");
-			for (int i = 0; i < jsonArray.length(); i++) {
-				StringBuilder sb = new StringBuilder();
-			    JSONObject jsonObject = jsonArray.getJSONObject(i);
-			    int id = jsonObject.getInt("id");
-			    String indirizzo = jsonObject.getString("indirizzo");
-			    String ora = jsonObject.getString("ora");
-			    if(isAgente) {
-			    	String cliente = jsonObject.getString("Cliente");
-			    	sb.append("prenotazione "+id+", Sig/ra "+cliente+", "+indirizzo+", alle ore "+ora);
-			    } else {
-			    	String agente = jsonObject.getString("Agente");
-			    	sb.append("prenotazione "+id+", Agente "+agente+", "+indirizzo+", alle ore "+ora);
-			    }
-			    String prenotazione = sb.toString();
-			    prenotazioni.add(prenotazione);
-			}
-    	} else {
-    		prenotazioni = null;
-    	}
-    	return prenotazioni;
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "getReservation");
+        request.put("mail", mail);
+        request.put("isConfirmed", isConfirmed);
+        request.put("data", data);
+        request.put(ISAGENTESTRING, isAgente);
+        JSONObject response = sendRequest(request);
+        ArrayList<String> prenotazioni = new ArrayList<>(); 
+        if (response.getString(STATUS).equals(SUCCESS)) {
+            JSONArray jsonArray = response.getJSONArray("prenotazioni");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                StringBuilder sb = new StringBuilder();
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                int id = jsonObject.getInt("id");
+                String indirizzo = jsonObject.getString(INDIRIZZOSTRING);
+                String ora = jsonObject.getString("ora");
+                if(isAgente) {
+                    String cliente = jsonObject.getString("Cliente");
+                    sb.append("prenotazione "+id+", Sig/ra "+cliente+", "+indirizzo+", alle ore "+ora);
+                } else {
+                    String agente = jsonObject.getString("Agente");
+                    sb.append("prenotazione "+id+", Agente "+agente+", "+indirizzo+", alle ore "+ora);
+                }
+                String prenotazione = sb.toString();
+                prenotazioni.add(prenotazione);
+            }
+        } else {
+            prenotazioni = null;
+        }
+        return prenotazioni;
     }
-    
-    
+
     public int makeReservation(String data, String ora, String mailCliente, String indirizzo, String mailAgente) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "makeNewReservation");
-    	request.put("data", data);
-    	request.put("ora", ora);
-    	request.put("mailCliente", mailCliente);
-    	request.put("indirizzo", indirizzo);
-    	request.put("mailAgente", mailAgente);
-    	
-    	JSONObject response = sendRequest(request);
-    	if (response.getString("status").equals("error")) {
-    		return 0;
-    	} else {
-    		return response.getInt("id");
-    		
-    	}
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "makeNewReservation");
+        request.put("data", data);
+        request.put("ora", ora);
+        request.put("mailCliente", mailCliente);
+        request.put(INDIRIZZOSTRING, indirizzo);
+        request.put("mailAgente", mailAgente);
+
+        JSONObject response = sendRequest(request);
+        if (response.getString(STATUS).equals(ERROR)) {
+            return 0;
+        } else {
+            return response.getInt("id");
+        }
     }
-    
+
     public boolean confirmReservation(int id, String mail, String data, String ora) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "reservationConfirmed");
-    	request.put("id", id);
-    	request.put("mail", mail);
-    	request.put("data", data);
-    	request.put("ora", ora);
-    	JSONObject response = sendRequest(request);
-    	return !(response.getString("status").equals("error"));
-    		
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "reservationConfirmed");
+        request.put("id", id);
+        request.put("mail", mail);
+        request.put("data", data);
+        request.put("ora", ora);
+        JSONObject response = sendRequest(request);
+        return !(response.getString(STATUS).equals(ERROR));
     }
-    
+
     public boolean denyReservation(int id) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "reservationDenied");
-    	request.put("id", id);
-    	
-    	JSONObject response = sendRequest(request);
-    	return !(response.getString("status").equals("error"));
-    	
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "reservationDenied");
+        request.put("id", id);
+
+        JSONObject response = sendRequest(request);
+        return !(response.getString(STATUS).equals(ERROR));
     }
-    
+
     public List<Immobile> searchHouse(String query) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "findHouse");
-    	request.put("query", query);
-    	
-    	JSONObject response = sendRequest(request);
-    	
-    	ArrayList<Immobile> immobili = new ArrayList<>();
-		Immobile casa;
-		if (response.getString("status").equals("success")) {
-			
-			JSONArray jsonArray = response.getJSONArray("immobili");
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				String indirizzo = jsonObject.getString("indirizzo");
-				int idComposizione = jsonObject.getInt("composizione");
-				String mailAgente = jsonObject.getString("agente");
-				double prezzo = jsonObject.getDouble("prezzo");
-				String tipoAnnuncio = jsonObject.getString("annuncio");
-				String tipo = jsonObject.getString("tipo");
-				String descrizione = jsonObject.getString("descrizione");
-				String classe = jsonObject.getString("classe");
-			   	String urls = jsonObject.getString("urls");
-			   	User agente = this.getAgente(mailAgente);
-			   	
-			   	ComposizioneImmobile composizione = this.getComposizione(idComposizione);
-			   	casa = new Immobile(prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
-			   			classe, descrizione, urls, agente);
-			   	
-			   	immobili.add(casa);
-			   	//da capire come visualizzare le foto, però immagino sarà a parte dalla gui
-			}
-		} else {
-			immobili = null;
-		}
-		return immobili;
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "findHouse");
+        request.put("query", query);
+
+        JSONObject response = sendRequest(request);
+
+        ArrayList<Immobile> immobili = new ArrayList<>();
+        Immobile casa;
+        if (response.getString(STATUS).equals(SUCCESS)) {
+            JSONArray jsonArray = response.getJSONArray("immobili");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String indirizzo = jsonObject.getString(INDIRIZZOSTRING);
+                int idComposizione = jsonObject.getInt("composizione");
+                String mailAgente = jsonObject.getString("agente");
+                double prezzo = jsonObject.getDouble("prezzo");
+                String tipoAnnuncio = jsonObject.getString("annuncio");
+                String tipo = jsonObject.getString("tipo");
+                String descrizione = jsonObject.getString("descrizione");
+                String classe = jsonObject.getString("classe");
+                String urls = jsonObject.getString("urls");
+                User agente = this.getAgente(mailAgente);
+
+                ComposizioneImmobile composizione = this.getComposizione(idComposizione);
+                casa = new Immobile(prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
+                        classe, descrizione, urls, agente);
+                immobili.add(casa);
+                //da capire come visualizzare le foto, però immagino sarà a parte dalla gui
+            }
+        } else {
+            immobili = null;
+        }
+        return immobili;
     }
-    
+
     public User getAgente(String mailAgente) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "findAgente");
-    	request.put("mail", mailAgente);
-    	
-    	JSONObject response = sendRequest(request);
-    	
-    	String mail = response.getString("mail");
-    	String password = response.getString("password");
-    	String nome = response.getString("nome");
-		String cognome = response.getString("cognome");
-		String dataNascita = response.getString("dataNascita");
-		String telefono = response.getString("telefono");
-		Boolean isAgente = response.getBoolean("isAgente");
-		
-		return new User(mail, password, nome, cognome, telefono, dataNascita, isAgente);
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "findAgente");
+        request.put("mail", mailAgente);
+
+        JSONObject response = sendRequest(request);
+
+        String mail = response.getString("mail");
+        String password = response.getString(PASSWORDSTRING);
+        String nome = response.getString("nome");
+        String cognome = response.getString("cognome");
+        String dataNascita = response.getString("dataNascita");
+        String telefono = response.getString("telefono");
+        Boolean isAgente = response.getBoolean(ISAGENTESTRING);
+
+        return new User(mail, password, nome, cognome, telefono, dataNascita, isAgente);
     }
-    
+
     public ComposizioneImmobile getComposizione(int idComposizione) {
-    	JSONObject request = new JSONObject();
-    	request.put("action", "findComposizione");
-    	request.put("idComposizione", idComposizione);
-    	
-    	JSONObject response = sendRequest(request);
-    	
-    	int id = response.getInt("idComposizione");
-   
-    	int quadratura = response.getInt("quadratura");
-    	int stanze = response.getInt("stanze"); 
-		int piani = response.getInt("piani"); 
-		boolean giardino = response.getBoolean("giardino");
-		boolean condominio = response.getBoolean("condominio");
-		boolean ascensore = response.getBoolean("ascensore"); 
-		boolean terrazzo = response.getBoolean("terrazzo");
-		
-		return new ComposizioneImmobile(id, quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
-    	
-    	
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "findComposizione");
+        request.put("idComposizione", idComposizione);
+
+        JSONObject response = sendRequest(request);
+
+        int id = response.getInt("idComposizione");
+        int quadratura = response.getInt("quadratura");
+        int stanze = response.getInt("stanze"); 
+        int piani = response.getInt("piani"); 
+        boolean giardino = response.getBoolean("giardino");
+        boolean condominio = response.getBoolean("condominio");
+        boolean ascensore = response.getBoolean("ascensore"); 
+        boolean terrazzo = response.getBoolean("terrazzo");
+
+        return new ComposizioneImmobile(id, quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
     }
-    
+
     public boolean uploadNewHouseModel(Immobile immobile) {
-    	ComposizioneImmobile composizione = immobile.getComposizione();
-    	JSONObject request = new JSONObject();
-    	request.put("action", "uploadNewHouse");
-    	request.put("quadratura", composizione.getQuadratura());
-    	request.put("stanze", composizione.getNumeroStanze());
-    	request.put("piani", composizione.getPiani());
-    	request.put("giardino", composizione.isGiardino());
-    	request.put("condominio", composizione.isCondominio());
-    	request.put("ascensore", composizione.isAscensore());
-    	request.put("terrazzo", composizione.isTerrazzo());
-    	request.put("prezzo", immobile.getPrezzo());
-    	request.put("indirizzo", immobile.getIndirizzo());
-    	request.put("annuncio", immobile.getAnnuncio());
-    	request.put("tipo", immobile.getTipo());
-    	request.put("classeEnergetica", immobile.getClasseEnergetica());
-    	request.put("descrizione", immobile.getDescrizione());
-    	request.put("urls", immobile.getUrls());
-    	request.put("agente", immobile.getAgente().getMail());
-    	
-    	JSONObject response = sendRequest(request);
-    	return !(response.getString("status").equals("error"));
-    		
+        ComposizioneImmobile composizione = immobile.getComposizione();
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "uploadNewHouse");
+        request.put("quadratura", composizione.getQuadratura());
+        request.put("stanze", composizione.getNumeroStanze());
+        request.put("piani", composizione.getPiani());
+        request.put("giardino", composizione.isGiardino());
+        request.put("condominio", composizione.isCondominio());
+        request.put("ascensore", composizione.isAscensore());
+        request.put("terrazzo", composizione.isTerrazzo());
+        request.put("prezzo", immobile.getPrezzo());
+        request.put(INDIRIZZOSTRING, immobile.getIndirizzo());
+        request.put("annuncio", immobile.getAnnuncio());
+        request.put("tipo", immobile.getTipo());
+        request.put("classeEnergetica", immobile.getClasseEnergetica());
+        request.put("descrizione", immobile.getDescrizione());
+        request.put("urls", immobile.getUrls());
+        request.put("agente", immobile.getAgente().getMail());
+
+        JSONObject response = sendRequest(request);
+        return !(response.getString(STATUS).equals(ERROR));
     }
-    
+
     public boolean inviaRichiestaNotifica(Notifica notifica) {
         try {
             JSONObject request = new JSONObject();
-            request.put("action", "aggiungiNotifica");
+            request.put(ACTION, "aggiungiNotifica");
             request.put("destinatario", notifica.getDestinatarioEmail());
             request.put("messaggio", notifica.getMessaggio());
 
             // Invia la richiesta e attende la risposta
             JSONObject response = sendRequest(request);
-            return response.getString("status").equalsIgnoreCase("success");
+            return response.getString(STATUS).equalsIgnoreCase(SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
-    
+
     public List<Notifica> richiestaNotificheUtente(String mail) {
         List<Notifica> notifiche = new ArrayList<>();
         try {
             JSONObject richiesta = new JSONObject();
-            richiesta.put("action", "getNotifiche");
+            richiesta.put(ACTION, "getNotifiche");
             richiesta.put("mail", mail);
-            
+
             // Invia la richiesta e riceve la risposta (assumi che sendRequest restituisca un JSONObject)
             JSONObject risposta = sendRequest(richiesta);
-           
 
-            if (risposta.getString("status").equalsIgnoreCase("success")) {
+            if (risposta.getString(STATUS).equalsIgnoreCase(SUCCESS)) {
                 JSONArray notificheArray = risposta.getJSONArray("notifiche");
-                
 
                 for (int i = 0; i < notificheArray.length(); i++) {
-                	
                     JSONObject obj = notificheArray.getJSONObject(i);
                     Notifica n = new Notifica(
                             obj.getInt("id"),
@@ -371,17 +363,12 @@ public class ClientModel {
         }
         return notifiche;
     }
-    
+
     public boolean notificaLetta(Notifica notifica) {
-    	JSONObject request = new JSONObject();
-    	
-    	request.put("action", "notifica letta");
-    	
-    	request.put("id", notifica.getId());
-    	JSONObject response = sendRequest(request);
-    	return !(response.getString("status").equals("error")); 
-    		
-    	}
+        JSONObject request = new JSONObject();
+        request.put(ACTION, "notifica letta");
+        request.put("id", notifica.getId());
+        JSONObject response = sendRequest(request);
+        return !(response.getString(STATUS).equals(ERROR)); 
     }
-
-
+    }
