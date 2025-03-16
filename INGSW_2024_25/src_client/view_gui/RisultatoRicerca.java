@@ -1,14 +1,13 @@
 package view_gui;
 
 import java.awt.*;
-import java.util.ArrayList;
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/RisultatoRicerca.java
+
 
 import com.formdev.flatlaf.FlatLaf;
-=======
+
 import java.util.List;
 
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/RisultatoRicerca.java
+
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import org.jxmapviewer.JXMapViewer;
@@ -23,13 +22,10 @@ public class RisultatoRicerca extends JFrame {
     private JXMapViewer mapViewer;
     private JPanel mapPanel;
 
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/RisultatoRicerca.java
-    public RisultatoRicerca(Controller c, User user, ArrayList<Immobile> ricerca, String indirizzo) {
-        FlatLaf.setup(new FlatLightLaf());
-=======
+
     public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws Exception {
         FlatLightLaf.setup(new FlatLightLaf());
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/RisultatoRicerca.java
+
         // Configura il JFrame
         setTitle("Risultato Ricerca - DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);

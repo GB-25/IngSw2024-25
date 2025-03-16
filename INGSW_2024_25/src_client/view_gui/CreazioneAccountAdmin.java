@@ -9,31 +9,18 @@ import Class.User;
 import controller.Controller;
 
 import java.awt.*;
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CreazioneAccountAdmin.java
-=======
 
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CreazioneAccountAdmin.java
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Calendar;
 
 public class CreazioneAccountAdmin extends JFrame {
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CreazioneAccountAdmin.java
-    private static final long serialVersionUID = 1L;
-	private JTextField txtNome;
-	private JTextField txtCognome;
-	private JTextField txtEmail;
-	private JTextField txtTelefono;
-=======
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNome;
     private JTextField  txtCognome;
     private JTextField  txtEmail;
     private JTextField  txtTelefono;
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CreazioneAccountAdmin.java
     private JTextField txtPassword;
     private JDateChooser dateChooser;
     private JFrame finestraCorrente;
@@ -49,11 +36,11 @@ public class CreazioneAccountAdmin extends JFrame {
         // Configurazione finestra
     	finestraCorrente=this;
         setTitle("Creazione Account Admin - DietiEstates25");
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CreazioneAccountAdmin.java
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-=======
+
+
+
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CreazioneAccountAdmin.java
+
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
 
@@ -73,10 +60,9 @@ public class CreazioneAccountAdmin extends JFrame {
         dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd-MM-yyyy");
 		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CreazioneAccountAdmin.java
-=======
+
 		dateChooser.getCalendarButton().addActionListener(e -> { });
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CreazioneAccountAdmin.java
+
 		dateChooser.setBounds(152, 128, 200, 30);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -18); 

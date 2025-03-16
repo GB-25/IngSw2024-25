@@ -10,12 +10,7 @@ import controller.Controller;
 import java.awt.*;
 
 public class CambioPassword extends JFrame {
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CambioPassword.java
-=======
-	/**
-	 * 
-	 */
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CambioPassword.java
+
 	private static final long serialVersionUID = 1L;
 	// Campi per inserire la password
 	private JFrame finestraCorrente;
@@ -30,11 +25,9 @@ public class CambioPassword extends JFrame {
     	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Cambio Password - Admin");
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CambioPassword.java
+
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-=======
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CambioPassword.java
+
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
         

@@ -13,35 +13,21 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.List;
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoProprietaNuovo.java
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.GeoPosition;
-import Controller.Controller;
-
-public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, MouseMotionListener{
-
-    private static final long serialVersionUID = 1L;
-=======
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
-
-
-import org.jxmapviewer.JXMapViewer;
-
-import org.jxmapviewer.viewer.GeoPosition;
 
 
 public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, MouseMotionListener{
+
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoProprietaNuovo.java
+
 	// Dichiarazione dei campi da controllare
 	private List<File> files = new ArrayList<>();
 	private JXMapViewer mapViewer;
@@ -61,29 +47,17 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     private JComboBox<String> cmbCondo;
     private JComboBox<String> cmbEnergyClass;
     private JComboBox<String> cmbElevator;
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoProprietaNuovo.java
-    private JFrame finestraCorrente;
-=======
+
+
+
     JTextField searchField;
     int minFoto = 5;
 	int maxFoto = 10;
-
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoProprietaNuovo.java
     // Lista per memorizzare le immagini caricate
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();
 
     public CaricamentoProprietaNuovo(Controller c, User user) {
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoProprietaNuovo.java
-    	FlatLaf.setup(new FlatLightLaf());
-    	finestraCorrente = this;
-    	int minFoto = 5;
-    	int maxFoto = 10;
-        // Configura la finestra
-        setTitle("Caricamento Immobile - DietiEstates25");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800, 800);
-        setLocationRelativeTo(null); // Centra la finestra
-=======
+
         FlatLaf.setup(new FlatLightLaf());
         setupWindow();
         JPanel mainPanel = createMainPanel();
@@ -94,8 +68,6 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         mainPanel.add(rightPanel, BorderLayout.EAST);
         setVisible(true);
     }
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoProprietaNuovo.java
-
     private void setupWindow() {
         setTitle("Caricamento Immobile - DietiEstates25");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -155,14 +127,10 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         leftPanel.add(txtPrice);
     }
 
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoProprietaNuovo.java
-        mapViewer = new JXMapViewer();
-        JTextField searchField = new JTextField();
-        JList<String> suggestionList = new JList<>();
-=======
+
     private void addSearchComponents(JPanel leftPanel, Controller c, User user) {
         searchField = new JTextField();
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoProprietaNuovo.java
+
         DefaultListModel<String> listModel = new DefaultListModel<>();
         JList<String> suggestionList = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(suggestionList);
@@ -173,9 +141,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         leftPanel.add(new JLabel(""));
         JButton buttonSearch = new JButton("Mostra sulla mappa");
         buttonSearch.setMaximumSize(new Dimension(100, 25));
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoProprietaNuovo.java
-        buttonSearch.addActionListener(e -> c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false, null, user));
-=======
+
         buttonSearch.addActionListener(e -> {
             try {
                 c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false, null, user);
@@ -183,7 +149,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                 e1.printStackTrace();
             }
         });
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoProprietaNuovo.java
+
         leftPanel.add(scrollPane);
         leftPanel.add(new JLabel(""));
         leftPanel.add(buttonSearch);
@@ -317,83 +283,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
             mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione:"));
         }
 
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoProprietaNuovo.java
-        // Aggiungere il listener al pulsante "CARICA"
-        btnUpload.addActionListener(e -> {
-                // Controlla se tutti i campi obbligatori sono compilati
-                if (cmbType.getSelectedIndex() == 0 ||
-                        cmbAdType.getSelectedIndex() == 0 ||
-                        txtPrice.getText().trim().isEmpty() ||
-                        txtFloors.getText().trim().isEmpty() ||
-                        txtDescription.getText().trim().isEmpty() ||
-                        txtWidth.getText().trim().isEmpty() ||
-                        txtRooms.getText().trim().isEmpty() ||
-                        searchField.getText().trim().isEmpty()) {
 
-                    JOptionPane.showMessageDialog(null,
-                            "Non sono stati riempiti tutti i campi. Controllare che tutti i campi siano stati riempiti, per poi procedere con il caricamento sulla piattaforma.",
-                            "Caricamento non effettuato",
-                            JOptionPane.ERROR_MESSAGE);
-                } else if (immaginiCaricate.size() < minFoto || immaginiCaricate.size() > maxFoto) {
-                    JOptionPane.showMessageDialog(null,
-                            "Devi caricare tra " + minFoto + " e " + maxFoto + " foto.",
-                            "Errore",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                } else {
-                    // Mostra il pop-up di conferma
-                    int response = JOptionPane.showConfirmDialog(null,
-                            "I campi sono stati riempiti ed è possibile caricare l'immobile. Procedere?",
-                            "Conferma Caricamento",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE);
-
-                    if (response == JOptionPane.YES_OPTION) {
-                        StringBuilder sb = new StringBuilder();
-                        for (File file : files) {
-                        	if (sb.length() > 0) {
-                                sb.append(",");
-                            }
-                            sb.append(c.fileUpload(file.getAbsolutePath()));    
-                        }
-                        
-                        String urls = sb.toString();
-                        int grandezza = Integer.parseInt(txtWidth.getText());
-                        int stanze = Integer.parseInt(txtRooms.getText());
-                        int piani = Integer.parseInt(txtFloors.getText());
-                        boolean condominio = c.checkComboBox(cmbCondo);
-                        boolean giardino = c.checkComboBox(cmbGarden);
-                        boolean ascensore = c.checkComboBox(cmbElevator);
-                        double prezzo = Double.parseDouble(txtPrice.getText());
-                        String indirizzo = searchField.getText();
-                        String annuncio = (String) cmbAdType.getSelectedItem();
-                        String tipo = (String) cmbType.getSelectedItem();
-                        String descrizione = txtDescription.getText();
-                        String classeEnergetica = (String) cmbEnergyClass.getSelectedItem();
-                        boolean terrazzo = c.checkComboBox(cmbBalcony);
-                       
-                        dispose();
-                        c.createSchermataCaricamento(finestraCorrente, "Caricamento");
-                        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-                            @Override
-                            protected Void doInBackground() throws Exception {
-                        ComposizioneImmobile composizione = new ComposizioneImmobile(0, grandezza , piani, stanze, terrazzo, giardino, ascensore, condominio);
-                        Immobile immobile = new Immobile (prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, user);
-                        c.uploadNewHouse(immobile);                
-                                return null;}
-
-                            @Override
-                            protected void done() {
-                                dispose();
-                                c.confermaCaricamento(finestraCorrente, user);
-                            }
-                        };
-
-                        worker.execute();
-                    }
-                }
-        });
-=======
         // Add mapPanel to rightPanel
         rightPanel.add(mapPanel, BorderLayout.CENTER);
 
@@ -428,7 +318,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
             }
         }
     }
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoProprietaNuovo.java
+
 
     private boolean areAllFieldsFilled() {
         return cmbType.getSelectedIndex() != 0 &&

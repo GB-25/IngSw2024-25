@@ -3,10 +3,7 @@ package view_gui;
 import javax.swing.*;
 import java.awt.*;
 
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoConfermato.java
-=======
 
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoConfermato.java
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
@@ -15,12 +12,7 @@ import controller.Controller;
 
 public class CaricamentoConfermato extends JFrame {
 
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoConfermato.java
-=======
-	/**
-	 * 
-	 */
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoConfermato.java
+
 	private static final long serialVersionUID = 1L;
 	JFrame homeAgente;
 	JFrame finestraCorrente = this;
@@ -29,11 +21,9 @@ public class CaricamentoConfermato extends JFrame {
         FlatLaf.setup(new FlatLightLaf());
         // Imposta la finestra
         setTitle("DietiEstates25");
-<<<<<<< Updated upstream:INGSW_2024_25/srcClient/ViewGUI/CaricamentoConfermato.java
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-=======
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
->>>>>>> Stashed changes:INGSW_2024_25/src_client/view_gui/CaricamentoConfermato.java
+
         setSize(600, 640);
         setLocationRelativeTo(null); // Centra la finestra
 
