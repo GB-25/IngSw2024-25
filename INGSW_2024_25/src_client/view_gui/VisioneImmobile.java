@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.logging.Logger;
 
 import org.jxmapviewer.JXMapViewer;
 
@@ -17,7 +16,6 @@ import classi.User;
 import controller.Controller;
 
 public class VisioneImmobile extends JFrame {
-
     private static final long serialVersionUID = 1L;
 	private JPanel imagePanel; // Pannello per l'immagine
     private CardLayout cardLayout; // Layout per il carosello
@@ -25,7 +23,6 @@ public class VisioneImmobile extends JFrame {
     private JButton nextButton;
     private JFrame finestraCorrente;
     private String fontScritte = "Helvetica";
-    Logger logger = Logger.getLogger(getClass().getName());
 
     public VisioneImmobile(Controller c, Immobile immobile, User user) throws Exception {
     	finestraCorrente=this;
@@ -276,9 +273,7 @@ public class VisioneImmobile extends JFrame {
     	        imagePanel.revalidate();
     	        imagePanel.repaint();
     	    } catch (IllegalArgumentException e) {
-    	        logger.info("Errore nella decodifica dell'immagine Base64: " + e.getMessage());
+    	    	System.out.println("Errore");
     	    }
     }
-    
-
 }

@@ -4,7 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
-
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import com.toedter.calendar.JDateChooser;
 
 import controller.Controller;
@@ -56,6 +57,7 @@ public class FinestraRegistrazione extends JFrame {
 	}
 
 	private void initializeUI() {
+		FlatLaf.setup(new FlatLightLaf());
 	    setBackground(new Color(0, 153, 255));
 	    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    setBounds(100, 100, 542, 635);

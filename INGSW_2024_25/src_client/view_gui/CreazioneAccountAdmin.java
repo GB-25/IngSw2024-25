@@ -30,6 +30,7 @@ public class CreazioneAccountAdmin extends JFrame {
     private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
     private static final String DIGITS = "0123456789";
+    private static final String ERROR = "error";
     private static final String ALL_CHARS = UPPERCASE + LOWERCASE + DIGITS;
     private static final int LENGTH = 10;
     private static final SecureRandom random = new SecureRandom();
@@ -157,22 +158,22 @@ public class CreazioneAccountAdmin extends JFrame {
         String password = txtPassword.getText().trim();
         // Verifica che tutti i campi siano compilati
         if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || telefono.isEmpty() || data.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori!", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori!", ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!c.isValidNome(nome)|| !c.isValidNome(cognome)) {
-        	JOptionPane.showMessageDialog(this, "Nome e cognome devono essere almeno di due lettere", "Errore", JOptionPane.ERROR_MESSAGE);
+        	JOptionPane.showMessageDialog(this, "Nome e cognome devono essere almeno di due lettere", ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         // Verifica formato email
         if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            JOptionPane.showMessageDialog(this, "Inserisci un'email valida!", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Inserisci un'email valida!", ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         // Verifica numero di telefono
         if(!c.isValidNumero(telefono)){
-        	JOptionPane.showMessageDialog(this, "Inserisci un numero di telefono valido!", "Errore", JOptionPane.ERROR_MESSAGE);
+        	JOptionPane.showMessageDialog(this, "Inserisci un numero di telefono valido!", ERROR, JOptionPane.ERROR_MESSAGE);
         	return;
         }
         int response = JOptionPane.showConfirmDialog(null,

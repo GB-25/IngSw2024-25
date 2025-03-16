@@ -137,27 +137,7 @@ public class PrenotazioneCliente extends JFrame {
         middlePanel.add(weatherButton, gbc7);
         
         // Tasto per sapere il meteo della data inserita nell'orario inserito
-        weatherButton.addActionListener(e -> {
-        	Date selectedTime = (Date) timeSpinner.getValue();
-            Date selectedDate = dateChooser.getDate();
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(selectedTime);
-
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-            if (selectedDate == null || !( hour >= 10 && hour < 18 && minute == 00 || hour >= 10 && hour < 18 && minute == 30 || hour == 18 && minute == 0)) {
-                outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
-                return;
-            }
-            
-         // Ottieni meteo
-            String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(selectedDate);
-            new Thread(() -> {
-                String weatherInfo = getWeather(45.4642, 9.1900, formattedDate, hour); // latitudine e longitudine placeholder
-                SwingUtilities.invokeLater(() -> weatherLabel.setText(weatherInfo));
-            }).start();
-        });
+        weatherButton.addActionListener(e -> getWeather (outputLabel, timeSpinner, weatherLabel));
 
         // Tasto per confermare la prenotazione. Da aggiustare ovviamente la conferma e tutto il resto, ma per il momento la base è questa
         confirmButton.addActionListener(e -> {
@@ -177,9 +157,9 @@ public class PrenotazioneCliente extends JFrame {
 
             if (hour >= 10 && hour < 18 && minute == 00 || hour >= 10 && hour < 18 && minute == 30 || (hour == 18 && minute == 0)) {
             	if (minute == 0) {
-            	    orario = new String(Integer.toString(hour)+":"+Integer.toString(minute)+"0");} // QUESTA E' DA PASSARE, ORARIO A STRINGA
+            	    orario = (Integer.toString(hour)+":"+Integer.toString(minute)+"0");} // QUESTA E' DA PASSARE, ORARIO A STRINGA
             	else {
-            		orario = new String(Integer.toString(hour)+":"+Integer.toString(minute));}
+            		orario = (Integer.toString(hour)+":"+Integer.toString(minute));}
             	String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
                 c.createReservation(user, immobile, data, orario);
                 c.reservationConfirmed(this, user);
@@ -250,7 +230,27 @@ public class PrenotazioneCliente extends JFrame {
         }
     }
 
+    private void getWeather (JLabel outputLabel, JSpinner timeSpinner, JLabel weatherLabel) {
+    	Date selectedTime = (Date) timeSpinner.getValue();
+        Date selectedDate = dateChooser.getDate();
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(selectedTime);
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        if (selectedDate == null || !( hour >= 10 && hour < 18 && minute == 00 || hour >= 10 && hour < 18 && minute == 30 || hour == 18 && minute == 0)) {
+            outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
+            return;
+            }
+        
+     // Ottieni meteo
+        String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(selectedDate);
+        new Thread(() -> {
+            String weatherInfo = getWeather(45.4642, 9.1900, formattedDate, hour); // latitudine e longitudine placeholder
+            SwingUtilities.invokeLater(() -> weatherLabel.setText(weatherInfo));
+        }).start();
+    }
 
     private String getWeatherDescription(int code) {
         return switch (code) {

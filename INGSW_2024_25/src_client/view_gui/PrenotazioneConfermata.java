@@ -92,5 +92,4 @@ public class PrenotazioneConfermata extends JFrame {
 
         return button;
     }
-
 }

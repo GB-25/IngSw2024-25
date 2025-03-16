@@ -162,43 +162,8 @@ public class VisionePrenotazione extends JFrame {
 
         JPopupMenu popupMenu = new JPopupMenu();
         JButton bellButton = new JButton();
-        bellButton.addActionListener(e -> {
-            if (popupMenu.isVisible()) {
-                // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
-                popupMenu.setVisible(false);
-            } else {
-                // 🔹 Se il popup non è visibile, aggiornalo e mostralo
-                popupMenu.removeAll();
-                popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-
-                List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-
-                if (notifiche.isEmpty()) {
-                    JMenuItem dummy = new JMenuItem("Nessuna notifica");
-                    popupMenu.add(dummy);
-                } else {
-                    for (Notifica notifica : notifiche) {
-                        JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-                        menuItem.addActionListener(ae -> {
-                            try {
-                                c.setNotificaLetta(notifica);
-                                popupMenu.remove(menuItem);
-                                updateBellIcon(c, user, bellButton);
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                            }
-                        });
-                        popupMenu.add(menuItem);
-                    }
-                }
-
-                popupMenu.show(bellButton, 0, bellButton.getHeight());
-            }
-        });
-
+        bellButton.addActionListener(e -> bellButtonVisible(c, popupMenu, user, bellButton));
         updateBellIcon(c, user, bellButton);
-
-        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
         bellButton.setBackground(new Color(40, 132, 212));
         bellButton.setBorderPainted(false);
         bellButton.setFocusPainted(false);
@@ -226,5 +191,36 @@ public class VisionePrenotazione extends JFrame {
 	    bellButton.setIcon(new ImageIcon(img));
 	}
     
-    
+    private void bellButtonVisible (Controller c, JPopupMenu popupMenu, User user, JButton bellButton){
+		 if (popupMenu.isVisible()) {
+            // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
+            popupMenu.setVisible(false);
+        } else {
+            // 🔹 Se il popup non è visibile, aggiornalo e mostralo
+            popupMenu.removeAll();
+            popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
+
+            List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+
+            if (notifiche.isEmpty()) {
+                JMenuItem dummy = new JMenuItem("Nessuna notifica");
+                popupMenu.add(dummy);
+            } else {
+                for (Notifica notifica : notifiche) {
+                    JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+                    menuItem.addActionListener(ae -> {
+                        try {
+                            c.setNotificaLetta(notifica);
+                            popupMenu.remove(menuItem);
+                            updateBellIcon(c, user, bellButton);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    });
+                    popupMenu.add(menuItem);
+                }
+            }
+            popupMenu.show(bellButton, 0, bellButton.getHeight());
+        }
+	 }
 }

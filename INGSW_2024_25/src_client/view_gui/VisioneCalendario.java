@@ -131,8 +131,6 @@ public class VisioneCalendario extends JFrame {
             tableModel.addRow(weekRow);
         }
     }
-
-   
     
  // Nuovo metodo per mostrare gli appuntamenti di una data specifica
     private void showAppointmentsForDate(Map<LocalDate, List<String>> appointments, LocalDate date, String title) {
@@ -144,8 +142,6 @@ public class VisioneCalendario extends JFrame {
                          String.join("\n", appointmentList);
 
         JOptionPane.showMessageDialog(frame, message, title + " - " + date.toString(), JOptionPane.INFORMATION_MESSAGE);
-    }
-
-
+    } 
 }
 

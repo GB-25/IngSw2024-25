@@ -141,9 +141,8 @@ public class HomeCliente extends JFrame {
 	        JMenuItem logout = new JMenuItem("Logout");
 	        logout.addActionListener(e -> {
 	            int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
-	            if (response == JOptionPane.YES_OPTION) {      
+	            if (response == JOptionPane.YES_OPTION)      
 	                c.returnLogin(finestraCorrente);
-	            }
 	        });
 
 	        popupUser.add(userInfo);
@@ -162,39 +161,7 @@ public class HomeCliente extends JFrame {
 
 	        JPopupMenu popupMenu = new JPopupMenu();
 	        JButton bellButton = new JButton();
-	        bellButton.addActionListener(e -> {
-	            if (popupMenu.isVisible()) {
-	                // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
-	                popupMenu.setVisible(false);
-	            } else {
-	                // 🔹 Se il popup non è visibile, aggiornalo e mostralo
-	                popupMenu.removeAll();
-	                popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-
-	                List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-
-	                if (notifiche.isEmpty()) {
-	                    JMenuItem dummy = new JMenuItem("Nessuna notifica");
-	                    popupMenu.add(dummy);
-	                } else {
-	                    for (Notifica notifica : notifiche) {
-	                        JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-	                        menuItem.addActionListener(ae -> {
-	                            try {
-	                                c.setNotificaLetta(notifica);
-	                                popupMenu.remove(menuItem);
-	                                updateBellIcon(c, user, bellButton);
-	                            } catch (Exception ex) {
-	                                ex.printStackTrace();
-	                            }
-	                        });
-	                        popupMenu.add(menuItem);
-	                    }
-	                }
-
-	                popupMenu.show(bellButton, 0, bellButton.getHeight());
-	            }
-	        });
+	        bellButton.addActionListener(e -> bellButtonVisible(c, popupMenu, user, bellButton));
 
 	        updateBellIcon(c, user, bellButton);
 
@@ -216,6 +183,39 @@ public class HomeCliente extends JFrame {
 
 	        return topPanel;
 	    }
+	 
+	 private void bellButtonVisible (Controller c, JPopupMenu popupMenu, User user, JButton bellButton){
+		 if (popupMenu.isVisible()) {
+             // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
+             popupMenu.setVisible(false);
+         } else {
+             // 🔹 Se il popup non è visibile, aggiornalo e mostralo
+             popupMenu.removeAll();
+             popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
+
+             List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+
+             if (notifiche.isEmpty()) {
+                 JMenuItem dummy = new JMenuItem("Nessuna notifica");
+                 popupMenu.add(dummy);
+             } else {
+                 for (Notifica notifica : notifiche) {
+                     JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+                     menuItem.addActionListener(ae -> {
+                         try {
+                             c.setNotificaLetta(notifica);
+                             popupMenu.remove(menuItem);
+                             updateBellIcon(c, user, bellButton);
+                         } catch (Exception ex) {
+                             ex.printStackTrace();
+                         }
+                     });
+                     popupMenu.add(menuItem);
+                 }
+             }
+             popupMenu.show(bellButton, 0, bellButton.getHeight());
+         }
+	 }
 	 
 	 private void updateBellIcon(Controller c, User user, JButton bellButton) {
 		    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
