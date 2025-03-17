@@ -2,7 +2,7 @@ package classi;
 
 public class Immobile {
 
-	
+	private int id;
 	private double prezzo;
 	private ComposizioneImmobile composizione;
 	private String indirizzo;
@@ -14,8 +14,9 @@ public class Immobile {
 	private User agente;
 	
 
-	public Immobile(double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione, String urls, User agente) {
+	public Immobile(int id, double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione, String urls, User agente) {
 		
+		this.setId(id);
 		this.prezzo = prezzo;
 		this.composizione = composizione;
 		this.classeEnergetica = classeEnergetica;
@@ -34,6 +35,14 @@ public class Immobile {
 		this.annuncio = annuncio;
 	}
 	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public double getPrezzo() {
 		return prezzo;

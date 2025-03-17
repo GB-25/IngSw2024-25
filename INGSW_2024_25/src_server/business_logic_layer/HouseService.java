@@ -13,11 +13,14 @@ public class HouseService {
 
 	
 	private HouseRepositoryInterface houseRepository;
+	
 	public HouseService(HouseRepositoryInterface houseRepository) {
 		this.houseRepository = houseRepository;
 	}
 	
-	
+	public Immobile getImmobile(int id) {
+		return houseRepository.getHouseById(id);
+	}
 	
 	public List<Immobile> retrieveHouse(String query){
 		return houseRepository.findHouses(query);
@@ -27,12 +30,11 @@ public class HouseService {
 		return houseRepository.getComposizioneById(id);
 	}
 	
-	public boolean uploadHouse(Immobile immobile, String agente) {
+	public int uploadHouse(Immobile immobile, String agente) {
 		ComposizioneImmobile composizione = immobile.getComposizione();
 		String indirizzo = immobile.getIndirizzo();
 		Immobile casa = houseRepository.getHouseByAddress(indirizzo);
 		if ((casa == null) || (composizione.isCondominio())) {
-			
 			int quadratura = composizione.getQuadratura();
 			int stanze = composizione.getNumeroStanze();
 			int piani = composizione.getPiani();
@@ -47,12 +49,14 @@ public class HouseService {
 			String classeEnergetica = immobile.getClasseEnergetica();
 			String descrizione = immobile.getDescrizione();
 			String urls = immobile.getUrls();
-			houseRepository.uploadHouse(prezzo, id, indirizzo, annuncio, tipo, classeEnergetica, 
+			return houseRepository.uploadHouse(prezzo, id, indirizzo, annuncio, tipo, classeEnergetica, 
 					descrizione, urls, agente);
-			return true;
 		}
-		return false;
+		return 0;
+		
 	}
 	
-	
+	public boolean newUrls(String urls, int id) {
+		return houseRepository.updateUrls(urls, id);
+	}
 }

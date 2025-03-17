@@ -13,10 +13,12 @@ public interface HouseRepositoryInterface {
 	
 	Immobile getHouseByAddress(String indirizzo);
 	
-	void uploadHouse(double prezzo,int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, 
+	int uploadHouse(double prezzo,int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, 
 			String descrizione, String urls, String agente);
 	
 	ArrayList<Immobile> findHouses(String query);
 	
+	Immobile getHouseById(int id);
 	
+	boolean updateUrls(String urls, int id);
 }

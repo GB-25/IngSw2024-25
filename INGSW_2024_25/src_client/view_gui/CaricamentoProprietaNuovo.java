@@ -332,15 +332,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     }
 
     private void uploadProperty(Controller c, User user) {
-        StringBuilder sb = new StringBuilder();
-        for (File file : files) {
-            if (sb.length() > 0) {
-                sb.append(",");
-            }
-            sb.append(c.fileUpload(file.getAbsolutePath()));
-        }
-
-        String urls = sb.toString();
+    	
+        
         int grandezza = Integer.parseInt(txtWidth.getText());
         int stanze = Integer.parseInt(txtRooms.getText());
         int piani = Integer.parseInt(txtFloors.getText());
@@ -349,15 +342,19 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         boolean ascensore = c.checkComboBox(cmbElevator);
         double prezzo = Double.parseDouble(txtPrice.getText());
         String indirizzo = searchField.getText();
+        ArrayList<String> foto = new ArrayList<>();
+        for (File file : files) {
+        	foto.add(file.getAbsolutePath());
+        	}
         String annuncio = (String) cmbAdType.getSelectedItem();
         String tipo = (String) cmbType.getSelectedItem();
         String descrizione = txtDescription.getText();
         String classeEnergetica = (String) cmbEnergyClass.getSelectedItem();
-        boolean terrazzo = c.checkComboBox(cmbBalcony);
+        boolean terrazzo = c.checkComboBox(cmbBalcony); 
 
         ComposizioneImmobile composizione = new ComposizioneImmobile(0, grandezza, piani, stanze, terrazzo, giardino, ascensore, condominio);
-        Immobile immobile = new Immobile(prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, user);
-        c.uploadNewHouse(immobile);
+        Immobile immobile = new Immobile(0, prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, "", user);
+        c.uploadNewHouse(immobile, foto);
         dispose();
     }
 

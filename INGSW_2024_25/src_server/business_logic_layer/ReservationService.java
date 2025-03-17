@@ -16,15 +16,15 @@ public class ReservationService {
 		this.reservationRepository = reservationRepository;
 	}
 	
-	public boolean newReservation(String data, String ora,  String cliente, String indirizzoImmobile, String agente) {
-		Prenotazione prenotazione = reservationRepository.checkReservation(cliente, indirizzoImmobile);
+	public boolean newReservation(String data, String ora,  String cliente, int idImmobile, String agente) {
+		Prenotazione prenotazione = reservationRepository.checkReservation(cliente, idImmobile);
 		if(prenotazione !=null) {
 			return false;
 		}
 		if (reservationRepository.alreadyGotAppointment(cliente, false, data, ora)) {
 			return false;
 		} else {
-			reservationRepository.createReservation(data, ora, cliente, indirizzoImmobile, agente);
+			reservationRepository.createReservation(data, ora, cliente, idImmobile, agente);
 			return true;
 		}
 	}
@@ -47,8 +47,8 @@ public class ReservationService {
 		return reservationRepository.getReservationByMail(mail, isConfirmed, data, isAgente);
 	}
 	
-	public int retrieveId(String mailCliente, String mailAgente, String data, String ora, String indirizzo ) {
-		return reservationRepository.getReservationId(mailCliente, mailAgente, data, ora, indirizzo, false);
+	public int retrieveId(String mailCliente, String mailAgente, String data, String ora, int idImmobile ) {
+		return reservationRepository.getReservationId(mailCliente, mailAgente, data, ora, idImmobile, false);
 	}
 	
 	public boolean aggiungiNotifica(String destinatario, String messaggio) {

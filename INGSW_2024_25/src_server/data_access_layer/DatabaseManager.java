@@ -136,7 +136,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 if (rs.next()) {
                 	User agente = this.getUserByMail(rs.getString("agente_id"));
                 	ComposizioneImmobile composizione = this.getComposizioneById(rs.getInt("idComposizioneImmobile"));
-                	immobile = new Immobile(rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
+                	immobile = new Immobile(rs.getInt("id"), rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
                 			rs.getString("tipo"), rs.getString("classe_energetica"), rs.getString("descrizione"), rs.getString("urls"), agente);
                 	}
                 }catch (SQLException e) {
@@ -148,18 +148,22 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     
     @Override
-    public void uploadHouse(double prezzo,int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, 
+    public int uploadHouse(double prezzo,int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, 
 					String descrizione, String urls, String agente) {
     	String query = "INSERT INTO immobili (prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classe_energetica, descrizione, urls, agente_id)"
-    			+ "VALUES ('"+prezzo+"','"+idComposizioneImmobile+"','"+indirizzo+"','"+annuncio+"','"+tipo+"','" +classeEnergetica+"','"+descrizione+"','"+urls+"','" +agente+"');";
+    			+ "VALUES ('"+prezzo+"','"+idComposizioneImmobile+"','"+indirizzo+"','"+annuncio+"','"+tipo+"','" +classeEnergetica+"','"+descrizione+"','"+urls+"','" +agente+"') RETURNING id;";
+    	int id=0;
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
                
-               stmt.executeUpdate();
-    		
+               ResultSet rs = stmt.executeQuery();
+               if (rs.next()) {
+                   id = rs.getInt("id");
+               }
            } catch (SQLException e) {
                e.printStackTrace();
            }
+    	return id;
     }
     
     @Override
@@ -188,9 +192,9 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     
     @Override
-    public Prenotazione checkReservation(String mailCliente, String indirizzo) {
+    public Prenotazione checkReservation(String mailCliente, int idImmobile) {
     	Prenotazione prenotazione = null;
-    	String query = "SELECT * FROM prenotazioni WHERE user_id = '"+mailCliente+"' AND immobile_id = '"+indirizzo+"';";
+    	String query = "SELECT * FROM prenotazioni WHERE user_id = '"+mailCliente+"' AND immobile_id = '"+idImmobile+"' and is_Confirmed = TRUE;";
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
                
@@ -212,9 +216,9 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     
     @Override
-    public void createReservation(String data, String ora,  String cliente, String indirizzoImmobile, String agente) {
+    public void createReservation(String data, String ora,  String cliente, int idImmobile, String agente) {
     	String query = "INSERT INTO prenotazioni (data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed)"
-    			+"VALUES ('"+data+"','"+ ora+"','"+cliente+"','"+ indirizzoImmobile+"','"+agente+"', FALSE);";
+    			+"VALUES ('"+data+"','"+ ora+"','"+cliente+"','"+ idImmobile+"','"+agente+"', FALSE);";
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
                
@@ -304,7 +308,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                while (rs.next()) {
             	   agente = this.getUserByMail(rs.getString("agente_id"));
             	   composizione = this.getComposizioneById(rs.getInt("idcomposizioneimmobile"));
-            	   Immobile immobile = new Immobile(rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
+            	   Immobile immobile = new Immobile(rs.getInt("id"), rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
             			   rs.getString("tipo"), rs.getString("classe_energetica"), rs.getString("descrizione"),rs.getString("urls"), agente);
             	   lista.add(immobile);
                }
@@ -316,8 +320,8 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     
     @Override
-    public int getReservationId(String mailCliente, String mailAgente, String data, String ora, String indirizzo, boolean confirmed) {
-    	String query = "SELECT * FROM prenotazioni WHERE data_prenotazione = '"+data+"' AND user_id = '"+mailCliente+"' AND ora_prenotazione = '"+ora+"' AND immobile_id ='"+indirizzo+"' AND agente_id = '"+mailAgente+"' AND is_Confirmed = '"+confirmed+"';";
+    public int getReservationId(String mailCliente, String mailAgente, String data, String ora, int idImmobile, boolean confirmed) {
+    	String query = "SELECT * FROM prenotazioni WHERE data_prenotazione = '"+data+"' AND user_id = '"+mailCliente+"' AND ora_prenotazione = '"+ora+"' AND immobile_id ='"+idImmobile+"' AND agente_id = '"+mailAgente+"' AND is_Confirmed = '"+confirmed+"';";
     	int id=0;
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -381,7 +385,39 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 		}
 	}
     
-    
+    @Override
+	public Immobile getHouseById(int id) {
+		ComposizioneImmobile composizione;
+    	User agente;
+		String query = "SELECT FROM immobili WHERE id ='"+id+"';";
+		try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+			agente = this.getUserByMail(rs.getString("agente_id"));
+         	   composizione = this.getComposizioneById(rs.getInt("idcomposizioneimmobile"));
+         	   return new Immobile(id, rs.getDouble("prezzo"), composizione, rs.getString("indirizzo"), rs.getString("annuncio"),
+         			   rs.getString("tipo"), rs.getString("classe_energetica"), rs.getString("descrizione"),rs.getString("urls"), agente);
+			}
+		} catch (SQLException e) {
+            e.printStackTrace();
+		}
+		return null;
+	}
+	
+    @Override
+	public boolean updateUrls(String urls, int id) {
+		String query = "UPDATE immobili SET urls ='"+urls+"' WHERE id='"+id+"';";
+		try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+			stmt.executeUpdate(query);
+			return true;
+		}catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+		}
+	}
+	
     public void closeConnection() {
         try {
             if (conn != null) conn.close();

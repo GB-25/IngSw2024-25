@@ -192,14 +192,7 @@ public class Controller {
 		
 	}
 	
-	public String fileUpload(String filePath) {
-	    String fileUrl = model.uploadFileModel(filePath);
-	    if (!fileUrl.isEmpty()) {
-	        return fileUrl;  //Restituisce l'URL del file per essere salvato nel database
-	    } else {	        
-	        return null;
-	    }
-	}
+	
 	
 	public String fileDownload(String fileName) {
 		String fileData = model.downloadFileModel(fileName);
@@ -504,10 +497,11 @@ public class Controller {
 	public void createReservation(User user, Immobile immobile, String data, String ora) {
 		
 		String mailCliente=user.getMail();
-		String indirizzo=immobile.getIndirizzo();
+		
+		int idImmobile = immobile.getId();
 		String mailAgente=immobile.getAgente().getMail();
 		User agente= immobile.getAgente();
-		int id = model.makeReservation(data, ora, mailCliente, indirizzo, mailAgente);
+		int id = model.makeReservation(data, ora, mailCliente, idImmobile, mailAgente);
 		if (id == 0) {
 			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile o sei già impegnato quel giorno", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {
@@ -737,9 +731,9 @@ public class Controller {
     	visioneImmobile.setVisible(true);
     }
     
-    public void uploadNewHouse(Immobile immobile) {
+    public void uploadNewHouse(Immobile immobile, ArrayList<String> foto) {
     	
-    	boolean confermato = model.uploadNewHouseModel(immobile);
+    	boolean confermato = model.uploadNewHouseModel(immobile, foto);
     	if (!confermato) {
 			 JOptionPane.showMessageDialog(null, "Immobile già presente", "Errore", JOptionPane.ERROR_MESSAGE);
 		} else {

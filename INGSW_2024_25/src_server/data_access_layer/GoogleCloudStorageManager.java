@@ -24,12 +24,12 @@ public class GoogleCloudStorageManager implements StorageManagerInterface{
 
     
     @Override
-    public String uploadFile(String fileName, String base64Data) throws IOException {
+    public String uploadFile(String fileName, String base64Data, int idCartella) throws IOException {
         // Decodifica la stringa Base64 per ottenere i byte originali
         byte[] fileBytes = Base64.getDecoder().decode(base64Data);
         
         // Costruisci l'objectName: ad esempio, inserisci in una "cartella" chiamata "immobili"
-        String objectName = "immobili/" + fileName;
+        String objectName = "immobili/cartella"+ idCartella+ "/"+ fileName;
         
         // Prepara l'oggetto Blob per Cloud Storage
         BlobId blobId = BlobId.of(BUCKET_NAME, objectName);

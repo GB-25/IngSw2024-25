@@ -111,7 +111,7 @@ public class ClientModel {
      	return (response.getString(STATUS).equals(STATUS));
     }
 
-    public String uploadFileModel(String filePath) {
+    public String uploadFileModel(String filePath, int id) {
         JSONObject request = new JSONObject();
         request.put(ACTION, "uploadFile");
         String fileUrl = null;
@@ -123,6 +123,7 @@ public class ClientModel {
             // Inviamo sia il nome del file che i dati in Base64
             request.put("fileName", path.getFileName().toString());
             request.put("fileData", base64Data);
+            request.put("id", id);
             JSONObject response = sendRequest(request);
             if (response.getString(STATUS).equals(SUCCESS)) {
                 fileUrl = response.getString("fileUrl"); 
@@ -184,13 +185,13 @@ public class ClientModel {
         return prenotazioni;
     }
 
-    public int makeReservation(String data, String ora, String mailCliente, String indirizzo, String mailAgente) {
+    public int makeReservation(String data, String ora, String mailCliente, int idImmobile, String mailAgente) {
         JSONObject request = new JSONObject();
         request.put(ACTION, "makeNewReservation");
         request.put("data", data);
         request.put("ora", ora);
         request.put("mailCliente", mailCliente);
-        request.put(INDIRIZZOSTRING, indirizzo);
+        request.put("idImmobile", idImmobile);
         request.put("mailAgente", mailAgente);
 
         JSONObject response = sendRequest(request);
@@ -233,7 +234,9 @@ public class ClientModel {
         if (response.getString(STATUS).equals(SUCCESS)) {
             JSONArray jsonArray = response.getJSONArray("immobili");
             for (int i = 0; i < jsonArray.length(); i++) {
+            	
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                int id = jsonObject.getInt("id");
                 String indirizzo = jsonObject.getString(INDIRIZZOSTRING);
                 int idComposizione = jsonObject.getInt("composizione");
                 String mailAgente = jsonObject.getString("agente");
@@ -246,7 +249,7 @@ public class ClientModel {
                 User agente = this.getAgente(mailAgente);
 
                 ComposizioneImmobile composizione = this.getComposizione(idComposizione);
-                casa = new Immobile(prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
+                casa = new Immobile(id, prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
                         classe, descrizione, urls, agente);
                 immobili.add(casa);
                 //da capire come visualizzare le foto, però immagino sarà a parte dalla gui
@@ -294,7 +297,7 @@ public class ClientModel {
         return new ComposizioneImmobile(id, quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
     }
 
-    public boolean uploadNewHouseModel(Immobile immobile) {
+    public boolean uploadNewHouseModel(Immobile immobile, ArrayList<String> foto) {
         ComposizioneImmobile composizione = immobile.getComposizione();
         JSONObject request = new JSONObject();
         request.put(ACTION, "uploadNewHouse");
@@ -311,11 +314,27 @@ public class ClientModel {
         request.put("tipo", immobile.getTipo());
         request.put("classeEnergetica", immobile.getClasseEnergetica());
         request.put("descrizione", immobile.getDescrizione());
-        request.put("urls", immobile.getUrls());
+        
         request.put("agente", immobile.getAgente().getMail());
-
+        
         JSONObject response = sendRequest(request);
-        return !(response.getString(STATUS).equals(ERROR));
+        if (response.getString(STATUS).equals(SUCCESS)) {
+        	int id = response.getInt("idImmobile");
+        	StringBuilder sb = new StringBuilder();
+        	for (String filename: foto) {
+        		if (sb.length() > 0) {
+                    sb.append(",");
+                }
+        		
+        		sb.append(this.uploadFileModel(filename, id));
+        	}
+        	String urls = sb.toString();
+        	return updateUrls(urls, id);
+        	
+        }
+        else {
+        	return false;
+        }
     }
 
     public boolean inviaRichiestaNotifica(Notifica notifica) {
@@ -366,9 +385,18 @@ public class ClientModel {
 
     public boolean notificaLetta(Notifica notifica) {
         JSONObject request = new JSONObject();
-        request.put(ACTION, "notifica letta");
+        request.put(ACTION, "notificaLetta");
         request.put("id", notifica.getId());
         JSONObject response = sendRequest(request);
         return !(response.getString(STATUS).equals(ERROR)); 
     }
+    
+    public boolean updateUrls(String urls, int id) {
+    	JSONObject request = new JSONObject();
+    	request.put(ACTION, "updateUrls");
+    	request.put("urls", urls);
+    	request.put("id", id);
+    	JSONObject response = sendRequest(request);
+        return (response.getString(STATUS).equals(SUCCESS)); 
     }
+   }

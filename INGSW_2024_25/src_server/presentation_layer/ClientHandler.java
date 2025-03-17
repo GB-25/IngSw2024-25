@@ -32,6 +32,13 @@ public class ClientHandler extends Thread { //implements Runnable???
     private ReservationRepositoryInterface reservationRepository;
     private StorageManagerInterface storageManager;
     private static final Logger logger = Logger.getLogger(ClientHandler.class.getName());
+    private static final String SUCCESS = "success";
+    private static final String ERROR = "error";
+    private static final String STATUS = "status";
+    private static final String MESSAGE = "message";
+    private static final String ISAGENTE = "isAgente";
+    private static final String PASSWORD = "password";
+    private static final String INDIRIZZO = "indirizzo";
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         this.userRepository = new DatabaseManager();
@@ -77,13 +84,14 @@ public class ClientHandler extends Thread { //implements Runnable???
         actionHandlers.put("uploadNewHouse", this::uploadNewHouse);
         actionHandlers.put("aggiungiNotifica", this::addNotifica);
         actionHandlers.put("getNotifiche", this::getNotifiche);
-        actionHandlers.put("notifica letta", this::setNotifiche);
+        actionHandlers.put("notificaLetta", this::setNotifiche);
+        actionHandlers.put("updateUrls", this:: setUrls);
 
     
         UnaryOperator<JSONObject> handler = actionHandlers.getOrDefault(action, req -> {
             JSONObject errorResponse = new JSONObject();
-            errorResponse.put("status", "error");
-            errorResponse.put("message", "Azione non riconosciuta");
+            errorResponse.put(STATUS, ERROR);
+            errorResponse.put(MESSAGE, "Azione non riconosciuta");
             return errorResponse;
         });
 
@@ -91,16 +99,16 @@ public class ClientHandler extends Thread { //implements Runnable???
     }
     private JSONObject handleLogin(JSONObject request) {
         String mail = request.getString("mail");
-        String password = request.getString("password");
+        String password = request.getString(PASSWORD);
         userService = new UserService(userRepository);
         
         User isAuthenticated = userService.authenticateUser(mail, password);
 
         JSONObject response = new JSONObject();
-        response.put("status", isAuthenticated !=null ? "success" : "error");
-        response.put("message", isAuthenticated != null ? "Login riuscito" : "Credenziali errate");
+        response.put(STATUS, isAuthenticated !=null ? SUCCESS : ERROR);
+        response.put(MESSAGE, isAuthenticated != null ? "Login riuscito" : "Credenziali errate");
         if (isAuthenticated != null) {
-            response.put("isAgente", isAuthenticated.getIsAgente());
+            response.put(ISAGENTE, isAuthenticated.getIsAgente());
             response.put("nome",isAuthenticated.getNome());
             response.put("cognome", isAuthenticated.getCognome());
             response.put("telefono", isAuthenticated.getNumeroTelefono());
@@ -115,15 +123,15 @@ public class ClientHandler extends Thread { //implements Runnable???
     	String data = request.getString("birthdate");
     	String mail = request.getString("mail");
     	String telefono = request.getString("cellphone");
-    	String password = request.getString("password");
-    	Boolean isAgente = request.getBoolean("isAgente");
+    	String password = request.getString(PASSWORD);
+    	Boolean isAgente = request.getBoolean(ISAGENTE);
     	userService = new UserService(userRepository);
     	
     	boolean notRegistered = userService.registerUser(nome, cognome, data, mail, telefono, password, isAgente);
     	
     	JSONObject response = new JSONObject();
-        response.put("status", notRegistered ? "success" : "error");
-        response.put("message", notRegistered ? "Registrazione riuscita" : "Utente esistente");
+        response.put(STATUS, notRegistered ? SUCCESS : ERROR);
+        response.put(MESSAGE, notRegistered ? "Registrazione riuscita" : "Utente esistente");
     	return response;
     }
     
@@ -135,8 +143,8 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   
 	   JSONObject response = new JSONObject();
 	   boolean ok = userService.updatePassword(mail, nuovaPassword);
-	   response.put("status", ok ? "success" : "error");
-       response.put("message", ok ? "pasword aggiornata" : "errore nell'aggiornamento");
+	   response.put(STATUS, ok ? SUCCESS : ERROR);
+       response.put(MESSAGE, ok ? "pasword aggiornata" : "errore nell'aggiornamento");
        return response;
    }
    
@@ -146,15 +154,16 @@ public class ClientHandler extends Thread { //implements Runnable???
 	        // Estrai dal JSON il nome del file e i dati in Base64
 	        String fileName = request.getString("fileName");
 	        String base64Data = request.getString("fileData");
+	        int idCartella = request.getInt("id");
 	        storageService = new GoogleCloudStorageService(storageManager);
 	        // Carica l'immagine su Cloud Storage tramite il service
-	        String fileUrl = storageService.uploadHouseImage(fileName, base64Data);
+	        String fileUrl = storageService.uploadHouseImage(fileName, base64Data, idCartella);
 	        
-	        response.put("status", "success");
+	        response.put(STATUS, SUCCESS);
 	        response.put("fileUrl", fileUrl);
 	    } catch (IOException e) {
-	        response.put("status", "error");
-	        response.put("message", "Errore durante l'upload: " + e.getMessage());
+	        response.put(STATUS, ERROR);
+	        response.put(MESSAGE, "Errore durante l'upload: " + e.getMessage());
 	    }
 	    return response;
 	}
@@ -167,11 +176,11 @@ public class ClientHandler extends Thread { //implements Runnable???
            storageService = new GoogleCloudStorageService(storageManager);
            // Richiama il service per scaricare l'immagine in Base64
            String base64Image = storageService.downloadHouseImage(fileName);
-           response.put("status", "success");
+           response.put(STATUS, SUCCESS);
            response.put("fileData", base64Image);
        } catch (Exception e) {
-           response.put("status", "error");
-           response.put("message", "Errore durante il download: " + e.getMessage());
+           response.put(STATUS, ERROR);
+           response.put(MESSAGE, "Errore durante il download: " + e.getMessage());
        }
        return response;
    }
@@ -186,18 +195,18 @@ public class ClientHandler extends Thread { //implements Runnable???
 	  String data = request.getString("data");
 	  String ora = request.getString("ora");
 	  String cliente = request.getString("mailCliente");
-	  String indirizzoImmobile = request.getString("indirizzo");
+	  int idImmobile = request.getInt("idImmobile");
 	  String agente = request.getString("mailAgente");
 	  reservationService = new ReservationService(reservationRepository);
-	  boolean firstReservation = reservationService.newReservation(data, ora, cliente, indirizzoImmobile, agente);
+	  boolean firstReservation = reservationService.newReservation(data, ora, cliente, idImmobile, agente);
 	  if (firstReservation) {
-		  response.put("status", "success");
-		  response.put("message", "Prenotazione riuscita");
-		  response.put("id", reservationService.retrieveId(cliente, agente, data, ora, indirizzoImmobile) );
+		  response.put(STATUS, SUCCESS);
+		  response.put(MESSAGE, "Prenotazione riuscita");
+		  response.put("id", reservationService.retrieveId(cliente, agente, data, ora, idImmobile) );
 		  
 	  } else {
-		  response.put("status", "error");
-		  response.put("message", "Prenotazione già effettuata o già impegnato");
+		  response.put(STATUS, ERROR);
+		  response.put(MESSAGE, "Prenotazione già effettuata o già impegnato");
 	  }
 	  
 	  return response;
@@ -212,8 +221,8 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   String ora = request.getString("ora");
 	   reservationService = new ReservationService(reservationRepository);
 	   boolean noProbelmInReservation = reservationService.acceptReservation(id, mail, data, ora);
-	   response.put("status", noProbelmInReservation ? "success" : "error");
-	   response.put("message", noProbelmInReservation ? "Prenotazione Confermata" : "Sei già impegnato");
+	   response.put(STATUS, noProbelmInReservation ? SUCCESS : ERROR);
+	   response.put(MESSAGE, noProbelmInReservation ? "Prenotazione Confermata" : "Sei già impegnato");
 	   return response;
 	  
    }
@@ -225,10 +234,10 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   int id = request.getInt("id");
 		   reservationService = new ReservationService(reservationRepository);
 		   reservationService.refusedReservation(id);
-		   response.put("status", "success");
+		   response.put(STATUS, SUCCESS);
 	   } catch (Exception e) {
-           response.put("status", "error");
-           response.put("message", "Errore durante la cancellazione: " + e.getMessage());
+           response.put(STATUS, ERROR);
+           response.put(MESSAGE, "Errore durante la cancellazione: " + e.getMessage());
        }
 	   return response;
    }
@@ -240,11 +249,11 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   try {
 		   String mail = request.getString("mail");
 		   boolean isConfirmed = request.getBoolean("isConfirmed");
-		   boolean isAgente = request.getBoolean("isAgente");
+		   boolean isAgente = request.getBoolean(ISAGENTE);
 		   String data = request.getString("data");
 		   reservationService = new ReservationService(reservationRepository);
 		   List<Prenotazione> lista = reservationService.getReservation(mail, isConfirmed, data, isAgente);
-		   response.put("status", "success");
+		   response.put(STATUS, SUCCESS);
 		   JSONArray jsonArray = new JSONArray();
 		   for (Prenotazione p : lista) {
 			   JSONObject jsonPrenotazione = new JSONObject();
@@ -253,7 +262,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	         
 	           jsonPrenotazione.put("ora", p.getOraPrenotazione());
 	           jsonPrenotazione.put("Cliente", p.getUser().getNome()+" "+p.getUser().getCognome());
-	           jsonPrenotazione.put("indirizzo", p.getImmobile().getIndirizzo());
+	           jsonPrenotazione.put(INDIRIZZO, p.getImmobile().getIndirizzo());
 	           jsonPrenotazione.put("Agente", p.getAgente().getNome()+" "+p.getAgente().getCognome());
 	           jsonPrenotazione.put("confermato", p.isConfirmed());
 	           jsonArray.put(jsonPrenotazione);
@@ -261,8 +270,8 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   
 	       response.put("prenotazioni", jsonArray); 
 	   }catch (Exception e) {
-           response.put("status", "error");
-           response.put("message", "Errore durante il recupero delle prenotazioni: " + e.getMessage());
+           response.put(STATUS, ERROR);
+           response.put(MESSAGE, "Errore durante il recupero delle prenotazioni: " + e.getMessage());
        }
 	   return response;
    }
@@ -273,11 +282,12 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   houseService = new HouseService(houseRepository);
 	   try {
 		   List<Immobile> lista = houseService.retrieveHouse(query);
-		   response.put("status", "success");
+		   response.put(STATUS, SUCCESS);
 		   JSONArray jsonArray = new JSONArray();
 		   for(Immobile i : lista) {
 			   JSONObject jsonImmobile = new JSONObject();
-			   jsonImmobile.put("indirizzo", i.getIndirizzo());
+			   jsonImmobile.put("id", i.getId());
+			   jsonImmobile.put(INDIRIZZO, i.getIndirizzo());
 			   jsonImmobile.put("composizione", i.getComposizione().getId());
 			   jsonImmobile.put("agente", i.getAgente().getMail());
 			   jsonImmobile.put("prezzo", i.getPrezzo());
@@ -290,8 +300,8 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   }
 		   response.put("immobili", jsonArray); 
 	   }catch (Exception e) {
-           response.put("status", "error");
-           response.put("message", "Errore durante il recupero degli immobili: " + e.getMessage());
+           response.put(STATUS, ERROR);
+           response.put(MESSAGE, "Errore durante il recupero degli immobili: " + e.getMessage());
        }
 	   return response;
    }
@@ -302,18 +312,18 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   String mail = request.getString("mail");
 		   userService = new UserService(userRepository);
 		   User user = userService.getUser(mail);
-		   response.put("status", "success");
+		   response.put(STATUS, SUCCESS);
 		   response.put("mail", user.getMail());
-		   response.put("password", user.getPassword());
+		   response.put(PASSWORD, user.getPassword());
 		   response.put("nome", user.getNome());
 		   response.put("cognome", user.getCognome());
 		   response.put("telefono", user.getNumeroTelefono());
 		   response.put("dataNascita", user.getDataNascita());
-		   response.put("isAgente", user.getIsAgente());
+		   response.put(ISAGENTE, user.getIsAgente());
 		  
 	   } catch (Exception e) {
-           response.put("status", "error");
-           response.put("message", "Errore durante il recupero degli agenti: " + e.getMessage());
+           response.put(STATUS, ERROR);
+           response.put(MESSAGE, "Errore durante il recupero degli agenti: " + e.getMessage());
        }
 	   return response;
    }
@@ -324,7 +334,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   int id = request.getInt("idComposizione");
 		   houseService = new HouseService(houseRepository);
 		   ComposizioneImmobile composizione = houseService.getComposizione(id);
-		   response.put("status", "success");
+		   response.put(STATUS, SUCCESS);
 		   response.put("idComposizione", id);
 		   response.put("quadratura",composizione.getQuadratura());
 		   response.put("piani",composizione.getPiani());
@@ -334,8 +344,8 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   response.put("ascensore",composizione.isAscensore());
 		   response.put("condominio",composizione.isCondominio());
 	   }catch (Exception e) {
-		   response.put("status", "error");
-		   response.put("message", "Errore durante il recupero delle composizioni degli immobili: " + e.getMessage());
+		   response.put(STATUS, ERROR);
+		   response.put(MESSAGE, "Errore durante il recupero delle composizioni degli immobili: " + e.getMessage());
 	   }
 	   return response;
    }
@@ -351,19 +361,25 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   boolean ascensore = request.getBoolean("ascensore"); 
 	   boolean terrazzo = request.getBoolean("terrazzo");
 	   double prezzo = request.getInt("prezzo");
-	   String indirizzo = request.getString("indirizzo");
+	   String indirizzo = request.getString(INDIRIZZO);
 	   String annuncio = request.getString("annuncio");
 	   String tipo = request.getString("tipo");
 	   String classeEnergetica = request.getString("classeEnergetica");
 	   String descrizione = request.getString("descrizione");
-	   String urls = request.getString("urls");
+	   
        String agente = request.getString("agente");
        ComposizioneImmobile composizione = new ComposizioneImmobile(0,quadratura, piani, stanze, terrazzo, giardino, ascensore, condominio);
-       Immobile immobile = new Immobile (prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, urls, null);
+       Immobile immobile = new Immobile (0, prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, "", null);
        houseService = new HouseService(houseRepository);
-       boolean caricato = houseService.uploadHouse(immobile, agente);
-       response.put("status", caricato ? "success" : "error");
-	   response.put("message", caricato ? "Immobile caricato!" : "Già presente nel db");
+       int id = houseService.uploadHouse(immobile, agente);
+       if(id==0) {
+    	   response.put(STATUS, SUCCESS);
+    	   response.put("idImmobile", id);
+       } else {
+    	   response.put(STATUS, ERROR);
+    	   response.put(MESSAGE, "Già presente nel db");
+       }
+      
 	   return response;
 	  
    	}
@@ -375,7 +391,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   reservationService = new ReservationService(reservationRepository);
 	   boolean ok = reservationService.aggiungiNotifica(destinatario, messaggio);
 	   JSONObject response = new JSONObject();
-	   response.put("status", ok ? "success" : "error");
+	   response.put(STATUS, ok ? SUCCESS : ERROR);
 	   return response;
    }
    
@@ -394,7 +410,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	        notificheArray.put(obj);
 	    }
 	    JSONObject response = new JSONObject();
-	    response.put("status", "success");
+	    response.put(STATUS, SUCCESS);
 	    response.put("notifiche", notificheArray);
 	    return response;
    }
@@ -405,10 +421,21 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   reservationService = new ReservationService(reservationRepository);
 	   boolean confermato = reservationService.setLetta(id);
 	   JSONObject response = new JSONObject();
-	   response.put("status", confermato ? "success" : "error");
-	   response.put("message", confermato ? "notifica cancellata" : "errore");
+	   response.put(STATUS, confermato ? SUCCESS : ERROR);
+	   response.put(MESSAGE, confermato ? "notifica cancellata" : "errore");
 	   return response;
 	   
+   }
+   
+   public JSONObject setUrls(JSONObject request) {
+	   int id = request.getInt("id");
+	   String urls = request.getString("urls");
+	   houseService = new HouseService(houseRepository);
+	   boolean updated = houseService.newUrls(urls, id);
+	   JSONObject response = new JSONObject();
+	   response.put(STATUS, updated ? SUCCESS : ERROR);
+	   response.put(MESSAGE, updated ? "notifica cancellata" : "errore");
+	   return response;
    }
 }
 

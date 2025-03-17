@@ -15,9 +15,9 @@ public class GoogleCloudStorageService {
 
     
 
-    public String uploadHouseImage(String fileName, String base64Data) throws IOException {
+    public String uploadHouseImage(String fileName, String base64Data, int idCartella) throws IOException {
         // Qui puoi aggiungere logica di validazione (tipo file, dimensione, ecc.)
-        return storageManager.uploadFile(fileName, base64Data);
+        return storageManager.uploadFile(fileName, base64Data, idCartella);
     }
     
     
