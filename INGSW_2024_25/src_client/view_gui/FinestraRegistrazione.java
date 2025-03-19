@@ -67,6 +67,7 @@ public class FinestraRegistrazione extends JFrame {
 	    contentPane.setBorder(null);
 	    setContentPane(contentPane);
 	    contentPane.setLayout(null);
+	    setResizable(false);
 	}
 
 	private void initializeComponents(Controller c) {
