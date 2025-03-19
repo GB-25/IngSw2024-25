@@ -1,3 +1,4 @@
+
 package view_gui;
 
 import java.awt.*;
@@ -66,7 +67,6 @@ public class FinestraRegistrazione extends JFrame {
 	    contentPane.setBorder(null);
 	    setContentPane(contentPane);
 	    contentPane.setLayout(null);
-	    setResizable(false);
 	}
 
 	private void initializeComponents(Controller c) {
@@ -93,7 +93,7 @@ public class FinestraRegistrazione extends JFrame {
 
 	private void addRegistrationLabel() {
 	    JLabel lblRegistratiInPochi = new JLabel("Registrati in pochi passi!");
-	    lblRegistratiInPochi.setFont(new Font("Dialog", Font.BOLD, 26));
+	    lblRegistratiInPochi.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 26));
 	    lblRegistratiInPochi.setForeground(new Color(0, 153, 255));
 	    lblRegistratiInPochi.setBounds(148, 12, 377, 40);
 	    contentPane.add(lblRegistratiInPochi);
@@ -287,39 +287,39 @@ public class FinestraRegistrazione extends JFrame {
 	    contentPane.add(lblPassword);
 
 	    passwordField = new JPasswordField();
-	    passwordField.setBounds(266, 255, 183, 19);
+	    passwordField.setBounds(135, 255, 183, 19);
 	    contentPane.add(passwordField);
 
 	    JLabel lblRequisiti = new JLabel("La password deve:");
-	    lblRequisiti.setBounds(276, 284, 159, 15);
+	    lblRequisiti.setBounds(175, 284, 159, 15);
 	    contentPane.add(lblRequisiti);
 
 	    lblLunghezza = new JLabel("· essere lunga almeno 6 caratteri");
-	    lblLunghezza.setBounds(225, 311, 258, 15);
+	    lblLunghezza.setBounds(135, 311, 258, 15);
 	    contentPane.add(lblLunghezza); // Add label to contentPane
 
 	    lblMaiuscola = new JLabel("· contenere almeno una lettera maiuscola");
-	    lblMaiuscola.setBounds(213, 338, 329, 15);
+	    lblMaiuscola.setBounds(118, 338, 329, 15);
 	    contentPane.add(lblMaiuscola); // Add label to contentPane
 
 	    lblMinuscola = new JLabel("· contenere almeno una lettera minuscola");
-	    lblMinuscola.setBounds(211, 366, 319, 15);
+	    lblMinuscola.setBounds(118, 366, 319, 15);
 	    contentPane.add(lblMinuscola); // Add label to contentPane
 
 	    lblNumero = new JLabel("· contenere almeno un numero");
-	    lblNumero.setBounds(238, 394, 257, 15);
+	    lblNumero.setBounds(143, 394, 257, 15);
 	    contentPane.add(lblNumero); // Add label to contentPane
 
-	    JLabel lblConferma = new JLabel("Conferma Password");
-	    lblConferma.setBounds(22, 469, 169, 15);
+	    JLabel lblConferma = new JLabel("Ripeti Password");
+	    lblConferma.setBounds(32, 439, 169, 15);
 	    contentPane.add(lblConferma);
 
 	    passwordFieldConferma = new JPasswordField();
-	    passwordFieldConferma.setBounds(266, 467, 183, 19);
+	    passwordFieldConferma.setBounds(135, 437, 183, 19);
 	    contentPane.add(passwordFieldConferma);
 
 	    lblCheckPassword = new JLabel("");
-	    lblCheckPassword.setBounds(266, 498, 229, 15);
+	    lblCheckPassword.setBounds(135, 464, 229, 15);
 	    contentPane.add(lblCheckPassword); // Add label to contentPane
 
 	    passwordField.addKeyListener(createPasswordKeyListener(c));
@@ -375,7 +375,7 @@ public class FinestraRegistrazione extends JFrame {
 	
 	    btnConferma.setEnabled(false);
 	    btnConferma.addActionListener(e -> handleConfirmation(c));
-	    btnConferma.setBounds(408, 561, 117, 25);
+	    btnConferma.setBounds(391, 561, 117, 25);
 	    contentPane.add(btnConferma);
 	}
 
@@ -424,7 +424,3 @@ public class FinestraRegistrazione extends JFrame {
 	    btnConferma.setEnabled(enable);
 	}
 }
-	
-	
-	
-

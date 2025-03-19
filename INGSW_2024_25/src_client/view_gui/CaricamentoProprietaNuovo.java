@@ -27,6 +27,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final String ERRORE = "Errore";
 
 	// Dichiarazione dei campi da controllare
 	private List<File> files = new ArrayList<>();
@@ -106,7 +107,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
         indietroButton.addActionListener(e -> {
             dispose();
-            new HomeAgente(c, user);
+            new HomeGenerale(c, user);
         });
         indietroPanel.add(indietroButton);
         leftPanel.add(indietroPanel);
@@ -134,7 +135,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         DefaultListModel<String> listModel = new DefaultListModel<>();
         JList<String> suggestionList = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(suggestionList);
-        scrollPane.getViewport().getView().setBackground(new Color(235, 245, 223));
+        scrollPane.getViewport().getView().setBackground(new Color(64, 168, 211));
 
         leftPanel.add(new JLabel("Indirizzo:"));
         leftPanel.add(searchField);
@@ -296,6 +297,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     }
 
     private void handleUpload(Controller c, User user) {
+    	String check = txtPrice.getText().trim();
         if (!areAllFieldsFilled()) {
             JOptionPane.showMessageDialog(null,
                     "Non sono stati riempiti tutti i campi. Controllare che tutti i campi siano stati riempiti, per poi procedere con il caricamento sulla piattaforma.",
@@ -304,9 +306,16 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         } else if (immaginiCaricate.size() < minFoto || immaginiCaricate.size() > maxFoto) {
             JOptionPane.showMessageDialog(null,
                     "Devi caricare tra " + minFoto + " e " + maxFoto + " foto.",
-                    "Errore",
+                    ERRORE,
                     JOptionPane.ERROR_MESSAGE);
-        } else {
+        } else if (Controller.isNumeric(check)) {
+            JOptionPane.showMessageDialog(null,
+                    "Sono presenti caratteri all'interno del campo del prezzi. Inserire un prezzo valido.",
+                    ERRORE,
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else {
             int response = JOptionPane.showConfirmDialog(null,
                     "I campi sono stati riempiti ed è possibile caricare l'immobile. Procedere?",
                     "Conferma Caricamento",
@@ -403,7 +412,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                     JLabel lblFoto = new JLabel(new ImageIcon(scaledImage));
                     photoPanel.add(lblFoto);
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Errore durante il caricamento dell'immagine.", "Errore", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Errore durante il caricamento dell'immagine.", ERRORE, JOptionPane.ERROR_MESSAGE);
                 }
             }
 

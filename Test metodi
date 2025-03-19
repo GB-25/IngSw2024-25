@@ -1,0 +1,145 @@
+per ora scrivo qua poi s vr
+
+public boolean checkPrezzi(double prezzoA, double prezzoB);
+
+CAMPI DI ESISTENZA:
+
+CE1: 500<=prezzoA<=1000000 (VALIDO)
+CE2: prezzoA<500 (NON VALIDO)
+CE3: prezzoA>1000000 (NON VALIDO)
+
+CE4: 500<=prezzoB<=1000000 (VALIDO)
+CE5: prezzoB<500 (NON VALIDO)
+CE6: prezzoB>1000000 (NON VALIDO)
+
+CE7: prezzoA <= prezzoB (VALIDO)
+CE8: prezzoA > prezzoB (NON VALIDO)
+
+STRATEGIA: R-WECT (SOMMA CASI NON VALIDI +1)== 6 TEST TOTALI
+
+public String checkDettagliComposizione(boolean ascensore, boolean condominio, boolean terrazzo, boolean giardino)
+
+CAMPI DI ESISTENZA:
+
+CE1,3,5,7: valore = true
+CE2,4,6,8: valore = false
+
+STRATEGIA: N-WECT (CLASSE CON PIÙ CAMPI + 2 CASI LIMITE)== 4 TEST TOTALI
+
+class TestClass {
+  private final Controller controller = new Controller();
+
+
+  @Test
+  void testCheckPrezzi_CE1_CE5(){
+    private double prezzoA=90000;
+    private double prezzoB=400;
+
+    private boolean result = controller.checkPrezzi(prezzoA, prezzoB);
+    assertFalse(result);
+  }
+
+  @Test
+  void testCheckPrezzi_CE1_CE6(){
+    private double prezzoA=80000;
+    private double prezzoB=400000000;
+
+    private boolean result = controller.checkPrezzi(prezzoA, prezzoB);
+    assertFalse(result);
+  }
+
+  @Test
+    void testCheckPrezzi_CE2_CE4(){
+      private double prezzoA=100;
+      private double prezzoB=40000;
+
+      private boolean result = controller.checkPrezzi(prezzoA, prezzoB);
+      assertFalse(result);
+    }
+
+  @Test
+    void testCheckPrezzi_CE3_CE4(){
+      private double prezzoA=100000000;
+      private double prezzoB=40000;
+
+      private boolean result = controller.checkPrezzi(prezzoA, prezzoB);
+      assertFalse(result);
+    }
+
+  @Test
+    void testCheckPrezzi_CE8(){
+      private double prezzoA=100000000;
+      private double prezzoB=40000;
+
+      private boolean result = controller.checkPrezzi(prezzoA, prezzoB);
+      assertFalse(result);
+    }
+
+  @Test
+    void testCheckPrezzi_CE1_CE4_CE7(){
+      private double prezzoA=1000;
+      private double prezzoB=40000;
+
+      private boolean result = controller.checkPrezzi(prezzoA, prezzoB);
+      assertTrue(result);
+    }
+
+
+}
+
+
+class TestClass {
+  private final Controller controller = new Controller();
+
+
+  @Test
+  void testCheckDettagliComposizione_CE1_CE3_CE6_CE8(){
+    private boolean valA=true;
+    private boolean valB=true;
+    private boolean valC=false;
+    private boolean valD=false;
+
+    private String result=controller.checkDettagliComposizione(valA,valB,valC,valD);
+    assertEquals(result, " AND ascensore = 'TRUE' AND condominio = 'TRUE'");
+
+  }
+
+  @Test
+  void testCheckDettagliComposizione_CE2_CE4_CE5_CE7(){
+    private boolean valA=false;
+    private boolean valB=false;
+    private boolean valC=true;
+    private boolean valD=true;
+
+    private String result=controller.checkDettagliComposizione(valA,valB,valC,valD);
+    assertEquals(result, " AND terrazzo = 'TRUE' AND giardino = 'TRUE'");
+
+  }
+
+  @Test
+  void testCheckDettagliComposizione_CE1_CE3_CE5_CE7(){
+    private boolean valA=true;
+    private boolean valB=true;
+    private boolean valC=true;
+    private boolean valD=true;
+
+    private String result=controller.checkDettagliComposizione(valA,valB,valC,valD);
+    assertEquals(result, " AND ascensore = 'TRUE' AND condominio = 'TRUE' AND terrazzo = 'TRUE' AND giardino = 'TRUE'");
+
+  }
+
+  @Test
+  void testCheckDettagliComposizione_CE2_CE4_CE6_CE8(){
+    private boolean valA=false;
+    private boolean valB=false;
+    private boolean valC=false;
+    private boolean valD=false;
+
+    private String result=controller.checkDettagliComposizione(valA,valB,valC,valD);
+    assertEquals(result, "");
+
+  }
+
+  
+
+}

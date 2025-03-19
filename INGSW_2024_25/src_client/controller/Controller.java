@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -53,6 +54,10 @@ import eccezioni.*;
 public class Controller {
 
 	private Point lastPoint;
+	private static final String APIKEYSTRING = "7a5d95a05b0245eb865812ff441e5e43";
+	private static final String ERRORE = "Errore";
+	private static final String FEATURES = "features";
+	private static final String COORDINATESSTRING = "coordinates";
 	//frame
 	JFrame finestraCorrente;
 	JFrame finestraPrincipale;
@@ -71,6 +76,8 @@ public class Controller {
 	JFrame prenota;
 	JFrame visioneImmobile;
 	JFrame prenotazioneConfermata;
+	JFrame visionePrenotazione;
+	JFrame calendarioAttesa;
 	String ip = "34.76.2.59";
 	int porta = 12345;
 	Logger logger = Logger.getLogger(getClass().getName());
@@ -99,15 +106,8 @@ public class Controller {
 				
 			finestraPrincipale.setVisible(false);
 			
-			if(user.getIsAgente()) {
-					
-				homeAgente= new HomeAgente(this, user);
-				homeAgente.setVisible(true);
-			} else {
-				homeUtente = new HomeCliente(this, user);
+				homeUtente = new HomeGenerale(this, user);
 				homeUtente.setVisible(true);
-				
-			}
 		}
 		
 	}
@@ -116,10 +116,10 @@ public class Controller {
 		
 		User user = model.registerModel(nome, cognome, data, mail, telefono, password, isAgente);
 		if (user == null) {
-			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Utente già registrato", ERRORE, JOptionPane.ERROR_MESSAGE);
 		} else {
 			finestraRegistrazione.setVisible(false);
-			homeUtente = new HomeCliente(this, user);
+			homeUtente = new HomeGenerale(this, user);
 			homeUtente.setVisible(true);
 		}
 	}
@@ -189,7 +189,7 @@ public class Controller {
 		if (ok) {
 			JOptionPane.showMessageDialog(null, "Password aggiornata con successo!", "Operazione Eseguita", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(null, "Errore nel sistema! Ci scusiamo per il disagio", "Errore", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Errore nel sistema! Ci scusiamo per il disagio", ERRORE, JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
@@ -211,6 +211,9 @@ public class Controller {
         return !(valore.matches("No"));
 	}
 
+	public static boolean isNumeric(String prezzo) {
+	    return prezzo != null && prezzo.matches("\\d+");
+	}
 	
 	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
 	        boolean isSearchMode, List<Immobile> immobili, User user) throws GeocodingException  {
@@ -218,7 +221,7 @@ public class Controller {
 	        double[] coordinates = getCoordinatesFromAPI(address);
 	        //era == null ma boh
 	        if (coordinates.length==0) {
-	            JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", "Errore", JOptionPane.ERROR_MESSAGE);
+	            JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", ERRORE, JOptionPane.ERROR_MESSAGE);
 	            return;
 	        }
 
@@ -247,12 +250,12 @@ public class Controller {
 	        mapViewer.repaint();
 	    } catch (GeocodingException e) {
 	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(null, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+	        JOptionPane.showMessageDialog(null, e.getMessage(), ERRORE, JOptionPane.ERROR_MESSAGE);
 	    }
 	}
 
 	private double[] getCoordinatesFromAPI(String address) throws GeocodingException {
-	    String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
+	    String apiKey = APIKEYSTRING;
 	    String encodedAddress;
 	    try {
 	        encodedAddress = URLEncoder.encode(address, "UTF-8");
@@ -286,11 +289,11 @@ public class Controller {
 	        throw new GeocodingException("Failed to parse API response", e);
 	    }
 
-	    if (jsonResponse.getJSONArray("features").length() > 0) {
+	    if (jsonResponse.getJSONArray(FEATURES).length() > 0) {
 	        try {
-	            JSONObject location = jsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
-	            double lat = location.getJSONArray("coordinates").getDouble(1);
-	            double lon = location.getJSONArray("coordinates").getDouble(0);
+	            JSONObject location = jsonResponse.getJSONArray(FEATURES).getJSONObject(0).getJSONObject("geometry");
+	            double lat = location.getJSONArray(COORDINATESSTRING).getDouble(1);
+	            double lon = location.getJSONArray(COORDINATESSTRING).getDouble(0);
 	            return new double[]{lat, lon};
 	        } catch (JSONException e) {
 	            throw new GeocodingException("Failed to extract coordinates from API response", e);
@@ -312,7 +315,7 @@ public class Controller {
 
 	private void addImmobileWaypoints(List<Immobile> immobili, Map<DefaultWaypoint, Immobile> waypointMap, Set<DefaultWaypoint> waypoints) {
 	    try {
-	    		String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
+	    		String apiKey = APIKEYSTRING;
 	    		
 	    		for (Immobile immobile : immobili) {
 	    			String immobileAddress = URLEncoder.encode(immobile.getIndirizzo(), "UTF-8");
@@ -329,10 +332,10 @@ public class Controller {
 	    			immobileReader.close();
 
 	    			JSONObject immobileJsonResponse = new JSONObject(immobileResponse.toString());
-	    			if (immobileJsonResponse.getJSONArray("features").length() > 0) {
-	    				JSONObject immobileLocation = immobileJsonResponse.getJSONArray("features").getJSONObject(0).getJSONObject("geometry");
-	    				double immobileLat = immobileLocation.getJSONArray("coordinates").getDouble(1);
-	    				double immobileLon = immobileLocation.getJSONArray("coordinates").getDouble(0);
+	    			if (immobileJsonResponse.getJSONArray(FEATURES).length() > 0) {
+	    				JSONObject immobileLocation = immobileJsonResponse.getJSONArray(FEATURES).getJSONObject(0).getJSONObject("geometry");
+	    				double immobileLat = immobileLocation.getJSONArray(COORDINATESSTRING).getDouble(1);
+	    				double immobileLon = immobileLocation.getJSONArray(COORDINATESSTRING).getDouble(0);
 
 	    				GeoPosition immobilePosition = new GeoPosition(immobileLat, immobileLon);
 	    				DefaultWaypoint waypoint = new DefaultWaypoint(immobilePosition);
@@ -342,7 +345,7 @@ public class Controller {
 	    		}
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(null, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+	        JOptionPane.showMessageDialog(null, e.getMessage(), ERRORE, JOptionPane.ERROR_MESSAGE);
 	    	}
 	    }
 
@@ -438,7 +441,7 @@ public class Controller {
 	}
 
 	public void fetchAddressSuggestions(String query, DefaultListModel<String> listModel) {
-    	String apiKey = "7a5d95a05b0245eb865812ff441e5e43";
+    	String apiKey = APIKEYSTRING;
     	String apiUrl = "https://api.geoapify.com/v1/geocode/autocomplete?apiKey=" + apiKey;
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(apiUrl).newBuilder();
@@ -464,7 +467,7 @@ public class Controller {
                 String responseData = response.body().string();
                 try {
                     JSONObject json = new JSONObject(responseData);
-                    JSONArray features = json.getJSONArray("features");
+                    JSONArray features = json.getJSONArray(FEATURES);
 
                     ArrayList<String> addresses = new ArrayList<>();
                     for (int i = 0; i < features.length(); i++) {
@@ -505,7 +508,7 @@ public class Controller {
 		User agente= immobile.getAgente();
 		int id = model.makeReservation(data, ora, mailCliente, idImmobile, mailAgente);
 		if (id == 0) {
-			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile o sei già impegnato quel giorno", "Errore", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile o sei già impegnato quel giorno", ERRORE, JOptionPane.ERROR_MESSAGE);
 		} else {
 			//metodo per mostrare "bravo hai prenotato"
 			Prenotazione prenotazione = new Prenotazione(id, data, ora, user, immobile, agente, false);
@@ -514,11 +517,25 @@ public class Controller {
 		}
 	}
 	
+	public ArrayList<Prenotazione> getPrenotazione(User user, LocalDate selectedDateGlobal) {		
+		return model.getWholeReservationAgent(user, selectedDateGlobal.toString());
+	}
+	
+	public void viewPendingReservation(User user, Prenotazione prenotazione, Controller c) {
+		visionePrenotazione = new VisionePrenotazione (user, prenotazione, c);
+		finestraCorrente.setVisible(false);
+		visionePrenotazione.setVisible(true);
+	}
+	
+	public void viewReservationsScreen(Controller c, User user, LocalDate selectedDateGlobal) {
+		calendarioAttesa = new CalendarioInAttesa(c, user, selectedDateGlobal);
+		calendarioAttesa.setVisible(true);
+	}
 
 	public boolean reservationConfirm(int id, String mail, String data, String ora) {
 		boolean confirmed = model.confirmReservation(id, mail, data, ora);
 		if (!confirmed) {
-			 JOptionPane.showMessageDialog(null, "Errore durante la conferma: Sei già impeganto quel giorno", "Errore", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Errore durante la conferma: Sei già impeganto quel giorno", ERRORE, JOptionPane.ERROR_MESSAGE);
 			 return false;
 		} else {
 			JOptionPane.showMessageDialog(null, "Prenotazione confermata! Sarà visualizzabile nel calendario", "Nuova visita!", JOptionPane.INFORMATION_MESSAGE);
@@ -530,7 +547,7 @@ public class Controller {
 	public void reservationDeny(int id) {
 		boolean deleted = model.denyReservation(id);
 		if (!deleted) {
-			 JOptionPane.showMessageDialog(null, "Errore durante la cancellazione", "Errore", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Errore durante la cancellazione", ERRORE, JOptionPane.ERROR_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(null, "Prenotazione rifiutata! Avviseremo il cliente per te ;)", "Rifiutato", JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -559,7 +576,7 @@ public class Controller {
 		ArrayList<Immobile> immobili = (ArrayList<Immobile>) model.searchHouse(query);
 	
 		if (immobili.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", "Errore", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", ERRORE, JOptionPane.ERROR_MESSAGE);
 		}
 		return immobili;
 	}
@@ -568,7 +585,7 @@ public class Controller {
 	    User agente = prenotazione.getAgente();
 	    
 	    if (agente == null) {
-	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", "Errore", JOptionPane.ERROR_MESSAGE);
+	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", ERRORE, JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
 
@@ -601,7 +618,7 @@ public class Controller {
 	    String messaggioNotifica;
 	    // Anche qui si verificano i dati
 	    if (cliente == null ) {
-	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", "Errore", JOptionPane.ERROR_MESSAGE);
+	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", ERRORE, JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
 	    
@@ -619,7 +636,7 @@ public class Controller {
 	public void setNotificaLetta(Notifica notifica) {
 		boolean cancellato = model.notificaLetta(notifica);
 		if (!cancellato) {
-			JOptionPane.showMessageDialog(null, "Problemi nel recupero delle notifiche. Riprova più tardi", "Errore", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Problemi nel recupero delle notifiche. Riprova più tardi", ERRORE, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -629,13 +646,13 @@ public class Controller {
     }
     
     public void createHomeAgente(JFrame finestraCorrente, User user) {
-    	homeAgente = new HomeAgente(this, user);
+    	homeAgente = new HomeGenerale(this, user);
     	finestraCorrente.setVisible(false);
     	homeAgente.setVisible(true);
     	}
 
     public void createHomeUtente(JFrame finestraCorrente, User user) {
-    	homeUtente = new HomeCliente(this, user);
+    	homeUtente = new HomeGenerale(this, user);
     	finestraCorrente.setVisible(false);
     	homeUtente.setVisible(true);
     	}
@@ -716,7 +733,7 @@ public class Controller {
     	
     	boolean confermato = model.uploadNewHouseModel(immobile, foto);
     	if (!confermato) {
-			 JOptionPane.showMessageDialog(null, "Immobile già presente", "Errore", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Immobile già presente", ERRORE, JOptionPane.ERROR_MESSAGE);
 		} else {
 			new CaricamentoConfermato(this, immobile.getAgente());
 		}
@@ -726,7 +743,7 @@ public class Controller {
     public void createAdmin(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
     	User user = model.registerModel(nome, cognome, data, mail, telefono, password, isAgente);
 		if (user == null) {
-			 JOptionPane.showMessageDialog(null, "Utente già registrato", "Errore", JOptionPane.ERROR_MESSAGE);
+			 JOptionPane.showMessageDialog(null, "Utente già registrato", ERRORE, JOptionPane.ERROR_MESSAGE);
 		} 
     }
 

@@ -14,7 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
-public class HomeCliente extends JFrame {
+public class HomeGenerale extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel;
 	private JPanel topPanel;
@@ -23,7 +23,7 @@ public class HomeCliente extends JFrame {
 	private String fontScritte = "Microsoft YaHei UI Light";
 	ImageIcon bellIcon;
 	
-	public HomeCliente(Controller c, User user) {
+	public HomeGenerale(Controller c, User user) {
 		
 		finestraCorrente = this;
 		FlatLaf.setup(new FlatLightLaf());
@@ -41,7 +41,13 @@ public class HomeCliente extends JFrame {
         topPanel = createTopPanel(c, user);
         mainPanel.add(topPanel, BorderLayout.NORTH);
         
-        JButton searchButton = new JButton("Ricerca immobile");
+        JButton searchButton;
+        if (!user.getIsAgente()) {
+            searchButton = new JButton("Ricerca immobile");
+            searchButton.addActionListener(e -> c.findImmobili(finestraCorrente, user));}
+        else {
+        	searchButton = new JButton("Inserisci un nuovo immobile sulla piattaforma");
+        	searchButton.addActionListener(e -> c.createCaricamentoImmobile(finestraCorrente, user));}
         JButton viewCalendarButton = new JButton("Visualizza il calendario con gli appuntamenti");
         JButton changePasswordButton = new JButton("Cambia password di questo account");
 
@@ -73,7 +79,6 @@ public class HomeCliente extends JFrame {
             	searchButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
             }
         });
-        searchButton.addActionListener(e -> c.findImmobili(finestraCorrente, user));
         
         
         viewCalendarButton.addMouseListener(new MouseAdapter() {
@@ -131,7 +136,7 @@ public class HomeCliente extends JFrame {
 	        logoButton.setFocusPainted(false);
 	        logoButton.setContentAreaFilled(false);
 	        logoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	        logoButton.addActionListener(e -> { dispose(); new HomeCliente(c, user);});
+	        logoButton.addActionListener(e -> { dispose(); new HomeGenerale(c, user);});
 
 	        JPopupMenu popupUser = new JPopupMenu();
 	        popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
@@ -146,6 +151,11 @@ public class HomeCliente extends JFrame {
 	        });
 
 	        popupUser.add(userInfo);
+	        if(user.getIsAgente()) {
+	        	JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
+	            creaAccount.addActionListener(e -> c.createAdmin(finestraCorrente, user));
+	            popupUser.add(creaAccount);
+	        }
 	        popupUser.add(new JSeparator());
 	        popupUser.add(logout);
 

@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import classi.ComposizioneImmobile;
 import classi.Immobile;
 import classi.Notifica;
+import classi.Prenotazione;
 import classi.User;
 
 public class ClientModel {
@@ -183,6 +184,33 @@ public class ClientModel {
             prenotazioni = null;
         }
         return prenotazioni;
+    }
+    
+    public ArrayList<Prenotazione> getWholeReservationAgent (User agente, String data) {
+    	JSONObject request = new JSONObject();
+    	User cliente;
+    	String mailCliente;
+        request.put(ACTION, "getReservation");
+        request.put("mail", agente.getMail());
+        request.put("isConfirmed", false);
+        request.put("data", data);
+        request.put(ISAGENTESTRING, true);
+        JSONObject response = sendRequest(request);
+        ArrayList<Prenotazione> prenotazioni = new ArrayList<>();
+        List <Immobile> immobili;
+        if (response.getString(STATUS).equals(SUCCESS)) {
+            JSONArray jsonArray = response.getJSONArray("prenotazioni");
+            for (int i = 0; i < jsonArray.length(); i++) {
+            	JSONObject jsonObject = jsonArray.getJSONObject(i);
+            	immobili = searchHouse(jsonObject.getString(INDIRIZZOSTRING));
+            	mailCliente = jsonObject.getString("mailCliente");
+            	cliente = getAgente(mailCliente);
+            	Prenotazione prenotazione = new Prenotazione(jsonObject.getInt("id"), jsonObject.getString("data"),
+            			jsonObject.getString("ora"), cliente, immobili.get(0), agente, false);
+            	prenotazioni.add(prenotazione);
+              }
+            }
+    	return prenotazioni;
     }
 
     public int makeReservation(String data, String ora, String mailCliente, int idImmobile, String mailAgente) {
