@@ -39,7 +39,7 @@ public class RicercaImmobili extends JFrame {
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
-        indietroButton.addActionListener(e -> {dispose(); new HomeCliente(c, user);});
+        indietroButton.addActionListener(e -> {dispose(); new HomeGenerale(c, user);});
         GridBagConstraints gbcIndietroButton = new GridBagConstraints();
         gbcIndietroButton.insets = new Insets(0, 0, 5, 5);
         gbcIndietroButton.gridx = 1;

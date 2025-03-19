@@ -27,7 +27,6 @@ public class VisioneCalendario extends JFrame {
     private LocalDate today;
     private LocalDate startDate;
     private Map<LocalDate, List<String>> confirmedAppointments = new HashMap<>();
-    private Map<LocalDate, List<String>> pendingAppointments = new HashMap<>();
     private ArrayList<String> prenotazioni;
     
     public VisioneCalendario(Controller c, User user) {
@@ -81,7 +80,8 @@ public class VisioneCalendario extends JFrame {
         // Pannello per i pulsanti
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(showConfirmedBtn);
-        buttonPanel.add(showPendingBtn);
+        if(user.getIsAgente()) {
+        buttonPanel.add(showPendingBtn);}
         
      // Aggiunta di un ListSelectionListener per ottenere il click sulle date
         calendarTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
@@ -104,15 +104,7 @@ public class VisioneCalendario extends JFrame {
             }
         });
 
-        showPendingBtn.addActionListener((ActionEvent e) -> {
-            if (selectedDateGlobal != null) {
-            	prenotazioni = (ArrayList<String>) c.showReservation(user, false, selectedDateGlobal.toString());
-            	pendingAppointments.put(selectedDateGlobal, prenotazioni);
-                showAppointmentsForDate(pendingAppointments, selectedDateGlobal, "Prenotazioni in Attesa");
-            } else {
-                JOptionPane.showMessageDialog(frame, "Seleziona prima una data!", "Errore", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+        showPendingBtn.addActionListener(e -> c.viewReservationsScreen(c, user, selectedDateGlobal));
 
         // Aggiunta dei componenti alla finestra
         frame.add(new JScrollPane(calendarTable), BorderLayout.CENTER);

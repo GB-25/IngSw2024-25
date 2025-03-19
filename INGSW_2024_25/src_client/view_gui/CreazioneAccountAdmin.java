@@ -57,7 +57,7 @@ public class CreazioneAccountAdmin extends JFrame {
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
-        indietroButton.addActionListener(e -> {dispose(); new HomeAgente(c, user);});
+        indietroButton.addActionListener(e -> {dispose(); new HomeGenerale(c, user);});
         indietroPanel.add(indietroButton, BorderLayout.NORTH);
         mainPanel.add(indietroPanel);
         
