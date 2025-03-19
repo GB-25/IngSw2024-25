@@ -201,7 +201,7 @@ public class HomeCliente extends JFrame {
              } else {
                  for (Notifica notifica : notifiche) {
                      JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-                     menuItem.addActionListener(ae -> {
+                     menuItem.addActionListener(e -> {
                          try {
                              c.setNotificaLetta(notifica);
                              popupMenu.remove(menuItem);

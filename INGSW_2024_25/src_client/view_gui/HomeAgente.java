@@ -62,7 +62,10 @@ public class HomeAgente extends JFrame {
         JPopupMenu popupMenu = new JPopupMenu();
         bellButton = new JButton();
         bellButton.addActionListener(e -> bellButtonVisible (c, popupMenu, user, bellButton));
-
+        bellButton.setBackground(new Color(40, 132, 212));
+        bellButton.setBorderPainted(false);
+        bellButton.setFocusPainted(false);
+        bellButton.setContentAreaFilled(false);
         updateBellIcon(c, user, bellButton);
 
 
@@ -224,6 +227,7 @@ public class HomeAgente extends JFrame {
                         try {
                             c.setNotificaLetta(notifica);
                             popupMenu.remove(menuItem);
+                            c.viewCalendar(finestraCorrente, user);
                             updateBellIcon(c, user, bellButton);
                         } catch (Exception ex) {
                             ex.printStackTrace();

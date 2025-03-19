@@ -74,6 +74,8 @@ public class Controller {
 	String ip = "34.76.2.59";
 	int porta = 12345;
 	Logger logger = Logger.getLogger(getClass().getName());
+	private static final double MIN = 500;
+	private static final double MAX = 1000000;
 
 	
 	//costruttore
@@ -542,35 +544,14 @@ public class Controller {
 	//boh cosa gli deve tornare, le istanze singole, una lista?
 	public List<Immobile> ricercaImmobili(double prezzoMin, double prezzoMax, Immobile immobile, ComposizioneImmobile composizione ){
 		StringBuilder sql = new StringBuilder("SELECT * FROM immobili WHERE 1=1");
-		if (prezzoMin > 0 ) {
-			sql.append(" AND prezzo >= "+prezzoMin);
-		}
-		if (prezzoMax > 0 && prezzoMax>=prezzoMin) {
-			sql.append(" AND prezzo <= "+prezzoMin);
-		}
-		if (immobile.getIndirizzo() != null) {
+		if(!checkPrezzi(prezzoMin, prezzoMax)) {
+			JOptionPane.showMessageDialog(null, "Inserisci un intervallo di prezzo giusto (tra i 500 e 1000000€). Occhio a non mettere il prezzo massimo minore di quello minimo", "Errore", JOptionPane.ERROR_MESSAGE);
+			
+		}else {
+			sql.append(" AND prezzo >= "+prezzoMin+" AND prezzo <= "+prezzoMin);
 			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) ILIKE '%"+immobile.getIndirizzo()+"%'");
-		}
-		if (!immobile.getClasseEnergetica().isBlank()) {
-			sql.append(" AND classe_energetica = '"+immobile.getClasseEnergetica()+"'");
-		}
-		if (!immobile.getTipo().isBlank()) {
-			sql.append(" AND tipo = '"+immobile.getTipo()+"'");
-		}
-		if (!immobile.getAnnuncio().isBlank()) {
-			sql.append(" AND annuncio = '"+immobile.getAnnuncio()+"'");
-		}
-		if (composizione.isAscensore()) {
-			sql.append(" AND ascensore = 'TRUE'");
-		}
-		if (composizione.isCondominio()) {
-			sql.append(" AND condominio = 'TRUE'");
-		}
-		if (composizione.isTerrazzo()) {
-			sql.append(" AND terrazzo = 'TRUE'");
-		}
-		if (composizione.isGiardino()) {
-			sql.append(" AND giardino = 'TRUE'");
+			sql.append(checkDettagliImmobile(immobile.getClasseEnergetica(), immobile.getTipo(), immobile.getAnnuncio()));
+			sql.append(checkDettagliComposizione(composizione.isAscensore(), composizione.isCondominio(), composizione.isTerrazzo(), composizione.isGiardino()));
 		}
 		sql.append(";");
 		String query = sql.toString();
@@ -754,6 +735,44 @@ public class Controller {
     	schermataCaricamento.setVisible(true);
     }
 
+	public boolean checkPrezzi(double prezzoMin, double prezzoMax) {
+		 return (prezzoMin >= MIN && prezzoMin <= MAX) && (prezzoMax >= MIN && prezzoMax <= MAX) && (prezzoMax >= prezzoMin);
+	}
+	
+	public String checkDettagliComposizione(boolean ascensore, boolean condominio, boolean terrazzo, boolean giardino) {
+		
+		StringBuilder string = new StringBuilder();
+		if (ascensore) {
+			string.append(" AND ascensore = 'TRUE'");
+		}
+		if (condominio) {
+			string.append(" AND condominio = 'TRUE'");
+		}
+		if (terrazzo) {
+			string.append(" AND terrazzo = 'TRUE'");
+		}
+		if (giardino) {
+			string.append(" AND giardino = 'TRUE'");
+		}
+		
+		return string.toString();
+	}
+	
+	public String checkDettagliImmobile(String classe, String tipo, String annuncio) {
+		StringBuilder string = new StringBuilder();
+		
+		if (!classe.isBlank()) {
+			string.append(" AND classe_energetica = '"+classe+"'");
+		}
+		if (!tipo.isBlank()) {
+			string.append(" AND tipo = '"+tipo+"'");
+		}
+		if (!annuncio.isBlank()) {
+			string.append(" AND annuncio = '"+annuncio+"'");
+		}
+		return string.toString();
+	}
+	
 	public static void main(String[] args)
 	{
 		new Controller();
