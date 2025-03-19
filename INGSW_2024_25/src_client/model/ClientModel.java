@@ -186,7 +186,7 @@ public class ClientModel {
         return prenotazioni;
     }
     
-    public ArrayList<Prenotazione> getWholeReservationAgent (User agente, String data) {
+    public List<Prenotazione> getWholeReservationAgent (User agente, String data) {
     	JSONObject request = new JSONObject();
     	User cliente;
     	String mailCliente;
@@ -325,7 +325,7 @@ public class ClientModel {
         return new ComposizioneImmobile(id, quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
     }
 
-    public boolean uploadNewHouseModel(Immobile immobile, ArrayList<String> foto) {
+    public boolean uploadNewHouseModel(Immobile immobile, List<String> foto) {
         ComposizioneImmobile composizione = immobile.getComposizione();
         JSONObject request = new JSONObject();
         request.put(ACTION, "uploadNewHouse");

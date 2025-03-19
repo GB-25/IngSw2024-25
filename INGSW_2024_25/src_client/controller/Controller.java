@@ -517,7 +517,7 @@ public class Controller {
 		}
 	}
 	
-	public ArrayList<Prenotazione> getPrenotazione(User user, LocalDate selectedDateGlobal) {		
+	public List<Prenotazione> getPrenotazione(User user, LocalDate selectedDateGlobal) {		
 		return model.getWholeReservationAgent(user, selectedDateGlobal.toString());
 	}
 	
@@ -729,7 +729,7 @@ public class Controller {
     	visioneImmobile.setVisible(true);
     }
     
-    public void uploadNewHouse(Immobile immobile, ArrayList<String> foto) {
+    public void uploadNewHouse(Immobile immobile, List<String> foto) {
     	
     	boolean confermato = model.uploadNewHouseModel(immobile, foto);
     	if (!confermato) {

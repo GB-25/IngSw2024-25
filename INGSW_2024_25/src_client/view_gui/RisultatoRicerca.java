@@ -17,6 +17,7 @@ import javax.swing.*;
 import org.jxmapviewer.JXMapViewer;
 
 import controller.Controller;
+import eccezioni.GeocodingException;
 
 public class RisultatoRicerca extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +26,7 @@ public class RisultatoRicerca extends JFrame {
     private JPanel mapPanel;
 
 
-    public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws Exception {
+    public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException {
         FlatLaf.setup(new FlatLightLaf());
 
         // Configura il JFrame

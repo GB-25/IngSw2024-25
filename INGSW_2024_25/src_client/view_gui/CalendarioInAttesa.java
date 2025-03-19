@@ -31,11 +31,11 @@ public class CalendarioInAttesa extends JFrame{
 		setTitle("Visualizza appuntamenti pendenti");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		frame.setPreferredSize(new Dimension(550, 550));;
+		frame.setPreferredSize(new Dimension(550, 550));
 		setContentPane(frame);
 		
 		//hello i am john funzionante, please fix finestra, nun s ver nient
-		prenotazioni = c.getPrenotazione(user, selectedDateGlobal);
+		prenotazioni = (ArrayList<Prenotazione>) c.getPrenotazione(user, selectedDateGlobal);
 		for (int i = 0; i < prenotazioni.size(); i++) {
 			prenotazione = prenotazioni.get(i);
 			immobile = prenotazione.getImmobile();
