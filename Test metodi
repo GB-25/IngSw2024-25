@@ -68,7 +68,7 @@ class TestClass {
 
   @Test
     void testCheckPrezzi_CE8(){
-      private double prezzoA=100000000;
+      private double prezzoA=100000;
       private double prezzoB=40000;
 
       private boolean result = controller.checkPrezzi(prezzoA, prezzoB);
