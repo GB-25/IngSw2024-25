@@ -308,7 +308,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                     "Devi caricare tra " + minFoto + " e " + maxFoto + " foto.",
                     ERRORE,
                     JOptionPane.ERROR_MESSAGE);
-        } else if (Controller.isNumeric(check)) {
+        } else if (!Controller.isNumeric(check)) {
             JOptionPane.showMessageDialog(null,
                     "Sono presenti caratteri all'interno del campo del prezzi. Inserire un prezzo valido.",
                     ERRORE,

@@ -44,6 +44,7 @@ public class ReservationService {
 	}
 	
 	public List<Prenotazione> getReservation(String mail, boolean isConfirmed, String data, boolean isAgente){
+		System.out.println("ciao sono il service");
 		return reservationRepository.getReservationByMail(mail, isConfirmed, data, isAgente);
 	}
 	

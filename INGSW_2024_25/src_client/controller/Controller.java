@@ -521,7 +521,7 @@ public class Controller {
 		return model.getWholeReservationAgent(user, selectedDateGlobal.toString());
 	}
 	
-	public void viewPendingReservation(User user, Prenotazione prenotazione, Controller c) {
+	public void viewPendingReservation(JFrame finestraCorrente, User user, Prenotazione prenotazione, Controller c) {
 		visionePrenotazione = new VisionePrenotazione (user, prenotazione, c);
 		finestraCorrente.setVisible(false);
 		visionePrenotazione.setVisible(true);

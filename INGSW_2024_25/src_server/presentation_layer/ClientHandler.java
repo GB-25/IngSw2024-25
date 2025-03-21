@@ -252,24 +252,37 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   boolean isAgente = request.getBoolean(ISAGENTE);
 		   String data = request.getString("data");
 		   reservationService = new ReservationService(reservationRepository);
+		   System.out.println("ciao sono l'handler prima del recupero");
 		   List<Prenotazione> lista = reservationService.getReservation(mail, isConfirmed, data, isAgente);
+		   System.out.println("io sono l'handler dopo il recupero, la dimensione è: "+lista.size());
 		   response.put(STATUS, SUCCESS);
 		   JSONArray jsonArray = new JSONArray();
 		   for (Prenotazione p : lista) {
+			   System.out.println("ciao sono nel for");
 			   JSONObject jsonPrenotazione = new JSONObject();
 	           jsonPrenotazione.put("id", p.getId());
+	           System.out.println("ho preso l'id");
 	           jsonPrenotazione.put("data", p.getDataPrenotazione());
-	         
+	           System.out.println("ho preso la data");
 	           jsonPrenotazione.put("ora", p.getOraPrenotazione());
+	           System.out.println("ho preso l'ora");
 	           jsonPrenotazione.put("Cliente", p.getUser().getNome()+" "+p.getUser().getCognome());
+	           jsonPrenotazione.put("mailCliente", p.getUser().getMail());
+	           System.out.println("ho preso il cliente");
 	           jsonPrenotazione.put(INDIRIZZO, p.getImmobile().getIndirizzo());
+	           jsonPrenotazione.put("idImmobile", p.getImmobile().getId());
+	           System.out.println("ho preso l'immobile");
 	           jsonPrenotazione.put("Agente", p.getAgente().getNome()+" "+p.getAgente().getCognome());
+	           System.out.println("ho preso l'agente");
 	           jsonPrenotazione.put("confermato", p.isConfirmed());
+	           System.out.println("ho preso il valore di conferma");
 	           jsonArray.put(jsonPrenotazione);
+	           System.out.println("ho messo tutto nell'array");
 		   }
 		   
 	       response.put("prenotazioni", jsonArray); 
 	   }catch (Exception e) {
+		   System.out.println("che ci faccio nel catch dell'handler");
            response.put(STATUS, ERROR);
            response.put(MESSAGE, "Errore durante il recupero delle prenotazioni: " + e.getMessage());
        }

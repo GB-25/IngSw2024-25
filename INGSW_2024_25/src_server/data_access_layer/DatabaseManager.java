@@ -246,7 +246,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	User cliente;
     	String query;
     	ArrayList<Prenotazione> lista = new ArrayList<>();
-    	
+    	System.out.println("ciao sono il db");
     	if(isAgente) {
     		query = "SELECT * FROM prenotazioni WHERE agente_id = '"+mail+"' AND is_confirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
     	} else {
@@ -256,10 +256,10 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 PreparedStatement stmt = connection.prepareStatement(query)) {
                 
                 ResultSet rs = stmt.executeQuery();
-
+                
                 while (rs.next()) {
                 	agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
-                	immobile = this.getHouseByAddress(rs.getString("immobile_id"));
+                	immobile = this.getHouseById(rs.getInt("immobile_id"));
                 	cliente = this.getUserByMail(rs.getString("user_id"));
                 	
                 	Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), 
@@ -269,8 +269,10 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 
                 
             }catch (SQLException e) {
+            	System.out.println("hey sono nel catch del db aiuto");
                 e.printStackTrace();
             }
+    	 System.out.println("tutto apposto");
     	 return lista;
     }
     
@@ -398,7 +400,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 	public Immobile getHouseById(int id) {
 		ComposizioneImmobile composizione;
     	User agente;
-		String query = "SELECT FROM immobili WHERE id ='"+id+"';";
+		String query = "SELECT * FROM immobili WHERE id ='"+id+"';";
 		try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
 			ResultSet rs = stmt.executeQuery();

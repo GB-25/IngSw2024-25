@@ -164,6 +164,7 @@ public class ClientModel {
         ArrayList<String> prenotazioni = new ArrayList<>(); 
         if (response.getString(STATUS).equals(SUCCESS)) {
             JSONArray jsonArray = response.getJSONArray("prenotazioni");
+            
             for (int i = 0; i < jsonArray.length(); i++) {
                 StringBuilder sb = new StringBuilder();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -198,11 +199,15 @@ public class ClientModel {
         JSONObject response = sendRequest(request);
         ArrayList<Prenotazione> prenotazioni = new ArrayList<>();
         List <Immobile> immobili;
+        System.out.println(response.getString(STATUS));
         if (response.getString(STATUS).equals(SUCCESS)) {
             JSONArray jsonArray = response.getJSONArray("prenotazioni");
+            System.out.println("dimensione array: "+jsonArray.length());
             for (int i = 0; i < jsonArray.length(); i++) {
             	JSONObject jsonObject = jsonArray.getJSONObject(i);
-            	immobili = searchHouse(jsonObject.getString(INDIRIZZOSTRING));
+            	int idImmobile = jsonObject.getInt("idImmobile");
+            	String query = "SELECT * FROM immobili WHERE id ='"+idImmobile+"';";
+            	immobili = searchHouse(query);
             	mailCliente = jsonObject.getString("mailCliente");
             	cliente = getAgente(mailCliente);
             	Prenotazione prenotazione = new Prenotazione(jsonObject.getInt("id"), jsonObject.getString("data"),
