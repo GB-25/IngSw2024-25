@@ -385,7 +385,7 @@ public class ClientHandler extends Thread { //implements Runnable???
        Immobile immobile = new Immobile (0, prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, "", null);
        houseService = new HouseService(houseRepository);
        int id = houseService.uploadHouse(immobile, agente);
-       if(id==0) {
+       if(id!=0) {
     	   response.put(STATUS, SUCCESS);
     	   response.put("idImmobile", id);
        } else {

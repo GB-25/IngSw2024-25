@@ -168,7 +168,8 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                ResultSet rs = stmt.executeQuery();
                if (rs.next()) {
                    id = rs.getInt("id");
-               }
+                   System.out.println("ciao il valore di id è: "+id);
+                   }
            } catch (SQLException e) {
                e.printStackTrace();
            }
@@ -421,7 +422,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 		String query = "UPDATE immobili SET urls ='"+urls+"' WHERE id='"+id+"';";
 		try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.executeUpdate(query);
+			stmt.executeUpdate();
 			return true;
 		}catch (SQLException e) {
             e.printStackTrace();
