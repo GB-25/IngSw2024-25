@@ -26,6 +26,32 @@ CE2,4,6,8: valore = false
 
 STRATEGIA: N-WECT (CLASSE CON PIÙ CAMPI + 2 CASI LIMITE)== 4 TEST TOTALI
 
+
+public String checkDettagliImmobile(String classe, String tipo, String annuncio)
+
+CAMPI DI ESISTENZA
+
+CE1: classe = ""
+CE2: classe = "A"
+CE3: classe = "B"
+CE4: classe = "C"
+CE5: classe = "D"
+CE6: classe = "E"
+CE7: classe = "F"
+CE8: classe = "G"
+
+CE9: tipo = ""
+CE10: tipo = "Casa"
+CE11: tipo = "Appartamento"
+CE12: tipo = "Villa"
+
+CE13: annuncio = ""
+CE14: annuncio = "Vendita"
+CE15: annuncio = "Affitto"
+
+STRATEGIA: N-WECT (CLASSE CON PIÙ CAMPI)== 8 TEST TOTALI
+
+
 class TestClass {
   private final Controller controller = new Controller();
 
@@ -139,7 +165,89 @@ class TestClass {
     assertEquals(result, "");
 
   }
+}
 
+class TestClass {
+  private final Controller controller = new Controller();
   
-
+  @Test
+  void testCheckDettagliImmobile_CE1_CE10_CE14(){
+    private String classe = "";
+    private String tipo = "Casa";
+    private String annuncio = "Vendita";
+    
+    private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
+    assertEquals(result, " AND tipo = 'Casa' AND annuncio = 'Vendita'");
+  }
+  
+  @Test
+  void testCheckDettagliImmobile_CE2_CE9_CE15(){
+    private String classe = "A";
+    private String tipo = "";
+    private String annuncio = "Affitto";
+    
+    private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
+    assertEquals(result, " AND classe_energetica = 'A' AND annuncio = 'Affitto'");
+  } 
+  
+  @Test
+  void testCheckDettagliImmobile_CE3_CE11_CE13(){
+    private String classe = "B";
+    private String tipo = "Appartamento";
+    private String annuncio = "";
+    
+    private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
+    assertEquals(result, " AND classe_energetica = 'B' AND tipo = 'Appartamento'");
+  } 
+  
+  @Test
+  void testCheckDettagliImmobile_CE4_CE12_CE13(){
+    private String classe = "C";
+    private String tipo = "Villa";
+    private String annuncio = "";
+    
+    private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
+    assertEquals(result, " AND classe_energetica = 'C' AND tipo = 'Villa'");
+  } 
+  
+  @Test
+  void testCheckDettagliImmobile_CE5_CE11_CE14(){
+    private String classe = "D";
+    private String tipo = "Appartamento";
+    private String annuncio = "Vendita";
+    
+    private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
+    assertEquals(result, " AND classe_energetica = 'D' AND tipo = 'Appartamento' AND annuncio = 'Vendita'");
+  } 
+  
+  @Test
+  void testCheckDettagliImmobile_CE6_CE10_CE15(){
+    private String classe = "E";
+    private String tipo = "Casa";
+    private String annuncio = "Affitto";
+    
+    private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
+    assertEquals(result, " AND classe_energetica = 'E' AND tipo = 'Casa' AND annuncio = 'Affitto'");
+  } 
+  
+  @Test
+  void testCheckDettagliImmobile_CE7_CE9_CE13(){
+    private String classe = "F";
+    private String tipo = "";
+    private String annuncio = "";
+    
+    private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
+    assertEquals(result, " AND classe_energetica = 'F'");
+  } 
+    
+  @Test
+  void testCheckDettagliImmobile_CE8_CE11_CE14(){
+    private String classe = "G";
+    private String tipo = "Appartamento";
+    private String annuncio = "Vendita";
+    
+    private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
+    assertEquals(result, " AND classe_energetica = 'G' AND tipo = 'Appartamento' AND annuncio = 'Vendita'");
+  } 
+  
 }
