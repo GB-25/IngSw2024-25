@@ -52,6 +52,17 @@ CE15: annuncio = "Affitto"
 STRATEGIA: N-WECT (CLASSE CON PIÙ CAMPI)== 8 TEST TOTALI
 
 
+public void isValidPassword(char[] pass, boolean[] valori)
+
+CE1: pass.lenght < 6 (NON VALIDA)
+CE2: pass senza numeri (NON VALIDA)
+CE3: pass senza lettere minuscole (NON VALIDA)
+CE4: pass senza lettere maiuscole (NON VALIDA)
+CE5: pass valida (VALIDA)
+
+STRATEGIA N-SECT (TUTTE LE COMBINAZIONI) == 5
+
+
 class TestClass {
   private final Controller controller = new Controller();
 
@@ -249,5 +260,71 @@ class TestClass {
     private String result = controller.checkDettagliImmobile(classe, tipo, annuncio);
     assertEquals(result, " AND classe_energetica = 'G' AND tipo = 'Appartamento' AND annuncio = 'Vendita'");
   } 
+  
+}
+
+
+class TestClass {
+  private final Controller controller = new Controller();
+   
+  @Test
+  void testIsValidPassword_CE1(){
+    private char[] password = "Pro12";
+    private boolean[] valori = {false, false, false, false};
+    
+    controller.isValidPassword(password, valori);
+    assertFalse(valori[0]);
+    assertTrue(valori[1];
+    assertTrue(valori[2];
+    assertTrue(valori[3];
+  }
+  
+  @Test
+  void testIsValidPassword_CE2(){
+    private char[] password = "Password";
+    private boolean[] valori = {false, false, false, false};
+    
+    controller.isValidPassword(password, valori);
+    assertTrue(valori[0]);
+    assertTrue(valori[1];
+    assertTrue(valori[2];
+    assertFalse(valori[3];
+  }
+  
+  @Test
+  void testIsValidPassword_CE3(){
+    private char[] password = "PASSWORD1;
+    private boolean[] valori = {false, false, false, false};
+    
+    controller.isValidPassword(password, valori);
+    assertTrue(valori[0]);
+    assertTrue(valori[1];
+    assertFalse(valori[2];
+    assertTrue(valori[3];
+  }
+  
+  @Test
+  void testIsValidPassword_CE4(){
+    private char[] password = "password1";
+    private boolean[] valori = {false, false, false, false};
+    
+    controller.isValidPassword(password, valori);
+    assertTrue(valori[0]);
+    assertFalse(valori[1];
+    assertTrue(valori[2];
+    assertTrue(valori[3];
+  }
+  
+  @Test
+  void testIsValidPassword_CE5(){
+    private char[] password = "Password1";
+    private boolean[] valori = {false, false, false, false};
+    
+    controller.isValidPassword(password, valori);
+    assertTrue(valori[0]);
+    assertTrue(valori[1];
+    assertTrue(valori[2];
+    assertTrue(valori[3];
+  }
   
 }
