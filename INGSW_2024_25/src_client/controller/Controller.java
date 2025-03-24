@@ -21,7 +21,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class Controller {
 	JFrame finestraCorrente;
 	JFrame finestraPrincipale;
 	ClientModel model;
-	JFrame schermataCaricamento;
+	SchermataCaricamento schermataCaricamento;
 	JFrame homeUtente;
 	JFrame homeAgente;
 	JFrame finestraRegistrazione;
@@ -216,7 +217,7 @@ public class Controller {
 	}
 	
 	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
-	        boolean isSearchMode, List<Immobile> immobili, User user) throws GeocodingException  {
+	        boolean isSearchMode, List<Immobile> immobili, User user) throws GeocodingException, URISyntaxException  {
 	    try {
 	        double[] coordinates = getCoordinatesFromAPI(address);
 	        //era == null ma boh
@@ -254,7 +255,7 @@ public class Controller {
 	    }
 	}
 
-	private double[] getCoordinatesFromAPI(String address) throws GeocodingException {
+	private double[] getCoordinatesFromAPI(String address) throws GeocodingException, URISyntaxException {
 	    String apiKey = APIKEYSTRING;
 	    String encodedAddress;
 	    try {
@@ -266,18 +267,21 @@ public class Controller {
 	    String url = "https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + apiKey;
 	    HttpURLConnection conn;
 	    try {
-	        conn = (HttpURLConnection) new URL(url).openConnection();
+	    	URI uri = new URI(url);
+	        conn = (HttpURLConnection) uri.toURL().openConnection();
 	        conn.setRequestMethod("GET");
 	    } catch (IOException e) {
 	        throw new GeocodingException("Failed to establish connection to the API", e);
 	    }
 
 	    StringBuilder response = new StringBuilder();
-	    try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+	    try {
+	    	BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        String line;
 	        while ((line = reader.readLine()) != null) {
 	            response.append(line);
 	        }
+	        reader.close();
 	    } catch (IOException e) {
 	        throw new GeocodingException("Failed to read API response", e);
 	    }
@@ -320,7 +324,8 @@ public class Controller {
 	    		for (Immobile immobile : immobili) {
 	    			String immobileAddress = URLEncoder.encode(immobile.getIndirizzo(), "UTF-8");
 	    			String immobileUrl = "https://api.geoapify.com/v1/geocode/search?text=" + immobileAddress + "&apiKey=" + apiKey;
-	    			HttpURLConnection immobileConn = (HttpURLConnection) new URL(immobileUrl).openConnection();
+	    			URI uri = new URI(immobileUrl);
+	    			HttpURLConnection immobileConn = (HttpURLConnection) uri.toURL().openConnection();
 	    			immobileConn.setRequestMethod("GET");
 
 	    			BufferedReader immobileReader = new BufferedReader(new InputStreamReader(immobileConn.getInputStream()));
@@ -374,7 +379,7 @@ public class Controller {
 	                double pixelDistance = clickPoint.distance(viewPoint);
 
 	                if (pixelDistance < 20) {
-	                    c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+	                    schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
 	                    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 	                        @Override
 	                        protected Void doInBackground() throws Exception {
@@ -383,10 +388,8 @@ public class Controller {
 	                        }
 
 	                        @Override
-	                        protected void done() {
-	                            if (c.schermataCaricamento != null) {
-	                                c.schermataCaricamento.dispose();
-	                            }
+	                        protected void done() {  
+	                                schermataCaricamento.close();
 	                        }
 	                    };
 	                    worker.execute();
@@ -562,10 +565,10 @@ public class Controller {
 	public List<Immobile> ricercaImmobili(double prezzoMin, double prezzoMax, Immobile immobile, ComposizioneImmobile composizione ){
 		StringBuilder sql = new StringBuilder("SELECT * FROM immobili WHERE 1=1");
 		if(!checkPrezzi(prezzoMin, prezzoMax)) {
-			JOptionPane.showMessageDialog(null, "Inserisci un intervallo di prezzo giusto (tra i 500 e 1000000€). Occhio a non mettere il prezzo massimo minore di quello minimo", "Errore", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Inserisci un intervallo di prezzo giusto (tra i 500 e 1000000€). Occhio a non mettere il prezzo massimo minore di quello minimo", ERRORE, JOptionPane.ERROR_MESSAGE);
 			
 		}else {
-			sql.append(" AND prezzo >= "+prezzoMin+" AND prezzo <= "+prezzoMin);
+			sql.append(" AND prezzo >= "+prezzoMin+" AND prezzo <= "+prezzoMax);
 			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) ILIKE '%"+immobile.getIndirizzo()+"%'");
 			sql.append(checkDettagliImmobile(immobile.getClasseEnergetica(), immobile.getTipo(), immobile.getAnnuncio()));
 			sql.append(checkDettagliComposizione(composizione.isAscensore(), composizione.isCondominio(), composizione.isTerrazzo(), composizione.isGiardino()));
@@ -573,12 +576,7 @@ public class Controller {
 		sql.append(";");
 		String query = sql.toString();
 		
-		ArrayList<Immobile> immobili = (ArrayList<Immobile>) model.searchHouse(query);
-	
-		if (immobili.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", ERRORE, JOptionPane.ERROR_MESSAGE);
-		}
-		return immobili;
+		return model.searchHouse(query);
 	}
 	
 	public void notifyAgente(Prenotazione prenotazione) {
@@ -711,7 +709,7 @@ public class Controller {
     	finestraRegistrazione.setVisible(true);
     }
     
-    public void showResultImmobili(JFrame finestraCorrente, User user, List<Immobile> ricerca, String indirizzo) throws Exception {
+    public void showResultImmobili(JFrame finestraCorrente, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException, URISyntaxException {
     	risultato = new RisultatoRicerca(this, user, ricerca, indirizzo);
     	finestraCorrente.setVisible(false);
     	risultato.setVisible(true);
@@ -723,7 +721,7 @@ public class Controller {
     	prenota.setVisible(true);
     }
     
-    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user) throws Exception {
+    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user) throws GeocodingException, URISyntaxException  {
     	visioneImmobile = new VisioneImmobile(this, immobile, user);
     	finestraCorrente.setVisible(false);
     	visioneImmobile.setVisible(true);
@@ -747,9 +745,9 @@ public class Controller {
 		} 
     }
 
-	public void createSchermataCaricamento(JFrame finestraCorrente, String message) {
+	public SchermataCaricamento createSchermataCaricamento(JFrame finestraCorrente, String message) {
     	schermataCaricamento = new SchermataCaricamento(finestraCorrente, message);
-    	schermataCaricamento.setVisible(true);
+    	return schermataCaricamento;
     }
 
 	public boolean checkPrezzi(double prezzoMin, double prezzoMax) {
