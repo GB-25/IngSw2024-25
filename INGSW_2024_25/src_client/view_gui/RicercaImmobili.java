@@ -16,6 +16,7 @@ public class RicercaImmobili extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JFrame finestraCorrente;
+	private SchermataCaricamento schermataCaricamento;
 	
     public RicercaImmobili(Controller c, User user) {
     	FlatLaf.setup(new FlatLightLaf());
@@ -219,7 +220,7 @@ public class RicercaImmobili extends JFrame {
 		// Bottone di ricerca
 		JButton cercaButton = new JButton("Cerca");
 		cercaButton.addActionListener(e -> {
-			c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+			schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
     		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
@@ -241,11 +242,13 @@ public class RicercaImmobili extends JFrame {
 					ArrayList<Immobile> ricerca = (ArrayList<Immobile>) c.ricercaImmobili(prezzoMin, prezzoMax, immobile, composizione);
 					if (!ricerca.isEmpty()) {
 						c.showResultImmobili(finestraCorrente, user, ricerca, indirizzo);
-					}}
+					} else
+						JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", "Errore" , JOptionPane.ERROR_MESSAGE);
+				}
 					return null;}
 				 @Override
                  protected void done() {
-                     dispose();
+                     schermataCaricamento.close();
                  }
 			};
 			worker.execute();});

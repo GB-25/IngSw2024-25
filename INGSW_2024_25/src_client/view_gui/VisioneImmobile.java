@@ -2,6 +2,7 @@ package view_gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.logging.Logger;
@@ -15,6 +16,7 @@ import classi.ComposizioneImmobile;
 import classi.Immobile;
 import classi.User;
 import controller.Controller;
+import eccezioni.GeocodingException;
 
 public class VisioneImmobile extends JFrame {
 
@@ -25,9 +27,9 @@ public class VisioneImmobile extends JFrame {
     private JButton nextButton;
     private JFrame finestraCorrente;
     private String fontScritte = "Helvetica";
-    Logger logger = Logger.getLogger(getClass().getName());
+    transient Logger logger = Logger.getLogger(getClass().getName());
 
-    public VisioneImmobile(Controller c, Immobile immobile, User user) throws Exception {
+    public VisioneImmobile(Controller c, Immobile immobile, User user) throws GeocodingException, URISyntaxException {
     	finestraCorrente=this;
         // Configurazione della finestra
     	FlatLaf.setup(new FlatLightLaf());
@@ -122,63 +124,9 @@ public class VisioneImmobile extends JFrame {
         logoButton.setFocusPainted(false);
         logoButton.setContentAreaFilled(false);
         logoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        logoButton.addActionListener(e -> dispose());
-
-        JPopupMenu popupUser = new JPopupMenu();
-        popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-
-        JMenuItem userInfo = new JMenuItem(user.getNome()+" "+user.getCognome());
-        userInfo.setEnabled(false);
-        JMenuItem logout = new JMenuItem("Logout");
-        logout.addActionListener(e -> {
-            int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
-            if (response == JOptionPane.YES_OPTION) {
-            	c.returnLogin(finestraCorrente);
-            }
-        });
-
-        popupUser.add(userInfo);
-        popupUser.add(new JSeparator());
-        popupUser.add(logout);
-
-        ImageIcon userIcon = new ImageIcon(getClass().getResource("/immagini/userwhite.png"));
-        Image userImage = userIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        JButton userButton = new JButton(new ImageIcon(userImage));
-        userButton.addActionListener(e -> popupUser.show(userButton, 0, userButton.getHeight()));
-        userButton.setBackground(new Color(40, 132, 212));
-        userButton.setBorderPainted(false);
-        userButton.setFocusPainted(false);
-        userButton.setContentAreaFilled(false);
-        userButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JPopupMenu popupMenu = new JPopupMenu();
-        popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-
-        JMenuItem notifica1 = new JMenuItem("Prenotazione confermata per Appartamento Roma");
-        JMenuItem notifica2 = new JMenuItem("Prenotazione rifiutata per Casa Tivoli");
-        JMenuItem notifica3 = new JMenuItem("Messaggio da Mario Rossi");
-
-        popupMenu.add(notifica1);
-        popupMenu.add(notifica2);
-        popupMenu.add(notifica3);
-
-        ImageIcon bellIcon = new ImageIcon(getClass().getResource("/immagini/bellwhite.png"));
-        Image bellImage = bellIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        JButton bellButton = new JButton(new ImageIcon(bellImage));
-        bellButton.addActionListener(e -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
-        bellButton.setBackground(new Color(40, 132, 212));
-        bellButton.setBorderPainted(false);
-        bellButton.setFocusPainted(false);
-        bellButton.setContentAreaFilled(false);
-        bellButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JPanel topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 30));
-        topRightPanel.setBackground(new Color(40, 132, 212));
-        topRightPanel.add(bellButton);
-        topRightPanel.add(userButton);
+        logoButton.addActionListener(e -> { dispose(); new HomeGenerale(c, user);});
 
         topPanel.add(logoButton, BorderLayout.WEST);
-        topPanel.add(topRightPanel, BorderLayout.EAST);
         topPanel.add(separator, BorderLayout.SOUTH);
 
         return topPanel;

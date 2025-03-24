@@ -1,7 +1,7 @@
 package view_gui;
 
 import java.awt.*;
-
+import java.net.URISyntaxException;
 
 import com.formdev.flatlaf.FlatLaf;
 
@@ -26,7 +26,7 @@ public class RisultatoRicerca extends JFrame {
     private JPanel mapPanel;
 
 
-    public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException {
+    public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException, URISyntaxException {
         FlatLaf.setup(new FlatLightLaf());
 
         // Configura il JFrame

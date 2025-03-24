@@ -18,36 +18,38 @@ import controller.Controller;
 
 public class CalendarioInAttesa extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Prenotazione> prenotazioni;
+	private transient ArrayList<Prenotazione> prenotazioni;
 	private ArrayList<String> reservations = new ArrayList<>();
 	private JPanel frame;
-	private Prenotazione prenotazione;
+	private transient Prenotazione prenotazione;
 	private String indirizzo; 
-	private Immobile immobile;
+	private transient Immobile immobile;
 	private JFrame finestraCorrente;
 	public CalendarioInAttesa(Controller c, User user, LocalDate selectedDateGlobal) {
 		FlatLaf.setup(new FlatLightLaf());
-		frame = new JPanel();
+		frame = new JPanel(new BorderLayout());
 		finestraCorrente = this;
 		setTitle("Visualizza appuntamenti pendenti");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		frame.setPreferredSize(new Dimension(550, 550));
+		setSize(new Dimension(400, 400));
 		setContentPane(frame);
-		System.out.println("la data è: "+selectedDateGlobal);
+		JPanel reservationsPanel = new JPanel (new BorderLayout());
 		//hello i am john funzionante, please fix finestra, nun s ver nient
 		prenotazioni = (ArrayList<Prenotazione>) c.getPrenotazione(user, selectedDateGlobal);
+		if (prenotazioni.size() == 0)
+			JOptionPane.showMessageDialog(null, "Nessuna prenotazione trovata per questa data.");
 		for (int i = 0; i < prenotazioni.size(); i++) {
 			prenotazione = prenotazioni.get(i);
 			immobile = prenotazione.getImmobile();
 			indirizzo = immobile.getIndirizzo();
-			reservations.add(i, prenotazione.getUser() + " a " + indirizzo + " alle ore " + prenotazione.getOraPrenotazione());
+			reservations.add(i, "Sig.\ra " + prenotazione.getUser().getNome() + " " + prenotazione.getUser().getCognome() + " a " + indirizzo + " alle ore " + prenotazione.getOraPrenotazione());
             }
 		JList<String> reservationsList = new JList<>(reservations.toArray(new String[0]));
 		reservationsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollPane = new JScrollPane(reservationsList);
-		frame.add(scrollPane, BorderLayout.CENTER);
-		System.out.println("la dimensione è: "+prenotazioni.size());
+		reservationsPanel.add(new JLabel("Prenotazioni per il " + prenotazione.getDataPrenotazione()), BorderLayout.NORTH);
+		reservationsPanel.add(scrollPane, BorderLayout.CENTER);
 		reservationsList.addMouseListener(new MouseAdapter() {
 		    @Override
 		    
@@ -58,13 +60,12 @@ public class CalendarioInAttesa extends JFrame{
 		                prenotazione = prenotazioni.get(selectedPrenotazione);
 		                c.viewPendingReservation(finestraCorrente, user, prenotazione, c);
 		            } else {
-		                // Puoi gestire il caso di indice non valido, ad esempio:
 		                JOptionPane.showMessageDialog(null, "Nessuna prenotazione selezionata.");
 		            }
 		        }
 		    }
 		});
-
-		frame.setVisible(true);
+		frame.add(reservationsPanel);
+		setVisible(true);
 	}
 }

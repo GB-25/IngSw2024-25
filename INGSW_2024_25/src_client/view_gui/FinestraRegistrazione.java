@@ -24,6 +24,7 @@ public class FinestraRegistrazione extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JFrame finestraCorrente;
+	private SchermataCaricamento schermataCaricamento;
 	private JLabel labelVerifyNome = new JLabel();
 	private JLabel labelVerifyCognome = new JLabel();
 	private JLabel validationLabel = new JLabel();
@@ -381,7 +382,7 @@ public class FinestraRegistrazione extends JFrame {
 	}
 
 	private void handleConfirmation(Controller c) {
-	    c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+	    schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
 	    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 	        @Override
 	        protected Void doInBackground() throws Exception {
@@ -394,7 +395,7 @@ public class FinestraRegistrazione extends JFrame {
 
 	        @Override
 	        protected void done() {
-	            dispose();
+	            schermataCaricamento.close();
 	        }
 	    };
 	    worker.execute();
