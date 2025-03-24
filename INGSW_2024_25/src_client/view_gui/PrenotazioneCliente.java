@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatLaf;
@@ -27,9 +27,12 @@ public class PrenotazioneCliente extends JFrame {
 	private JDateChooser dateChooser;
     private JPanel mainPanel;
     private String orario;
+    private JFrame finestraCorrente;
+    private SchermataCaricamento schermataCaricamento;
 
     public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
     	FlatLaf.setup(new FlatLightLaf());
+    	finestraCorrente = this;
         setTitle("Prenotazione Cliente - DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -140,33 +143,7 @@ public class PrenotazioneCliente extends JFrame {
         weatherButton.addActionListener(e -> getWeather (outputLabel, timeSpinner, weatherLabel));
 
         // Tasto per confermare la prenotazione. Da aggiustare ovviamente la conferma e tutto il resto, ma per il momento la base è questa
-        confirmButton.addActionListener(e -> {
-            Date selectedTime = (Date) timeSpinner.getValue();
-            Date selectedDate = dateChooser.getDate();
-            if (selectedDate == null ) {
-                outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
-                return;
-            }
-            
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(selectedTime);
-
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-
-            if (hour >= 10 && hour < 18 && minute == 00 || hour >= 10 && hour < 18 && minute == 30 || (hour == 18 && minute == 0)) {
-            	if (minute == 0) {
-            	    orario = (Integer.toString(hour)+":"+Integer.toString(minute)+"0");} // QUESTA E' DA PASSARE, ORARIO A STRINGA
-            	else {
-            		orario = (Integer.toString(hour)+":"+Integer.toString(minute));}
-            	String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-                c.createReservation(user, immobile, data, orario);
-                c.reservationConfirmed(this, user);
-            } else {
-                outputLabel.setText("⚠️ Orario fuori range! (10:00 - 18:00)");
-            }
-        });
+        confirmButton.addActionListener(e -> postReservation(c, timeSpinner, outputLabel, user, immobile));
 
         mainPanel.add(middlePanel, BorderLayout.CENTER);
     }
@@ -179,7 +156,8 @@ public class PrenotazioneCliente extends JFrame {
                 latitude, longitude, date, date
             );
 
-            HttpURLConnection conn = (HttpURLConnection) new URL(urlString).openConnection();
+            URI uri = new URI(urlString);
+            HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();
             conn.setRequestMethod("GET");
 
             // Verifica il codice di risposta HTTP (fatto solo perché stavo impazzendo con l'API e non riuscivo a capire il problema)
@@ -228,6 +206,43 @@ public class PrenotazioneCliente extends JFrame {
             e.printStackTrace();
             return "❌ Errore nel recupero meteo: " + e.getMessage();
         }
+    }
+    
+    private void postReservation(Controller c, JSpinner timeSpinner, JLabel outputLabel, User user, Immobile immobile) {
+    	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+		 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {			 
+			 @Override
+			 protected Void doInBackground () throws Exception {
+        Date selectedTime = (Date) timeSpinner.getValue();
+        Date selectedDate = dateChooser.getDate();
+        if (selectedDate == null ) {
+            outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
+            return null;
+        }
+        
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(selectedTime);
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        if (hour >= 10 && hour < 18 && minute == 00 || hour >= 10 && hour < 18 && minute == 30 || (hour == 18 && minute == 0)) {
+        	if (minute == 0) {
+        	    orario = (Integer.toString(hour)+":"+Integer.toString(minute)+"0");} // QUESTA E' DA PASSARE, ORARIO A STRINGA
+        	else {
+        		orario = (Integer.toString(hour)+":"+Integer.toString(minute));}
+        	String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+            c.createReservation(user, immobile, data, orario);
+            c.reservationConfirmed(finestraCorrente, user);
+        } else {
+            outputLabel.setText("⚠️ Orario fuori range! (10:00 - 18:00)");
+        } return null;}
+			 
+			 @Override
+			 protected void done() {
+				 schermataCaricamento.close();
+			 }}; worker.execute();
     }
 
     private void getWeather (JLabel outputLabel, JSpinner timeSpinner, JLabel weatherLabel) {

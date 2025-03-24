@@ -35,6 +35,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 	private Point lastPoint;
     private JPanel photoPanel; // Pannello per le foto
     private JPanel mapPanel;
+    private SchermataCaricamento schermataCaricamento;
+    private JFrame finestraCorrente;
     
     private JComboBox<String> cmbBalcony;
     private JComboBox<String> cmbGarden;
@@ -56,13 +58,15 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 	int maxFoto = 10;
     // Lista per memorizzare le immagini caricate
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();
+    private JPanel leftPanel;
 
     public CaricamentoProprietaNuovo(Controller c, User user) {
-
+        finestraCorrente = this;
         FlatLaf.setup(new FlatLightLaf());
+        setResizable(false);
         setupWindow();
         JPanel mainPanel = createMainPanel();
-        JPanel leftPanel = createLeftPanel(c, user);
+        leftPanel = createLeftPanel(c, user);
         JPanel rightPanel = createRightPanel();
         setupUploadButton(c, user, leftPanel);
         mainPanel.add(leftPanel, BorderLayout.WEST);
@@ -84,7 +88,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     }
 
     private JPanel createLeftPanel(Controller c, User user) {
-        JPanel leftPanel = new JPanel(new GridLayout(0, 2, 10, 10));
+        leftPanel = new JPanel();
         leftPanel.setPreferredSize(new Dimension(370, 400));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         leftPanel.setBackground(Color.WHITE);
@@ -101,6 +105,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
     private void addBackButton(JPanel leftPanel, Controller c, User user) {
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        indietroPanel.setBounds(20, 22, 160, 35);
         indietroPanel.setBackground(Color.WHITE);
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25));
@@ -109,42 +114,57 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
             dispose();
             new HomeGenerale(c, user);
         });
+        leftPanel.setLayout(null);
         indietroPanel.add(indietroButton);
         leftPanel.add(indietroPanel);
-        leftPanel.add(new JLabel());
     }
 
     private void addInputFields(JPanel leftPanel) {
-        leftPanel.add(new JLabel("Tipo di immobile:"));
+        JLabel label = new JLabel("Tipo di immobile:");
+        label.setBounds(20, 67, 160, 35);
+        leftPanel.add(label);
         cmbType = new JComboBox<>(new String[]{"", "Casa", "Appartamento", "Villa"});
+        cmbType.setBounds(190, 67, 160, 35);
         leftPanel.add(cmbType);
 
-        leftPanel.add(new JLabel("Tipo di annuncio:"));
+        JLabel adLabel = new JLabel("Tipo di annuncio:");
+        adLabel.setBounds(20, 112, 160, 35);
+        leftPanel.add(adLabel);
         cmbAdType = new JComboBox<>(new String[]{"", "Vendita", "Affitto"});
+        cmbAdType.setBounds(190, 112, 160, 35);
         leftPanel.add(cmbAdType);
 
-        leftPanel.add(new JLabel("Prezzo (€):"));
+        JLabel priceLabel = new JLabel("Prezzo (€):");
+        priceLabel.setBounds(20, 157, 160, 35);
+        leftPanel.add(priceLabel);
         txtPrice = new JTextField(10);
+        txtPrice.setBounds(190, 157, 160, 35);
         leftPanel.add(txtPrice);
     }
 
 
     private void addSearchComponents(JPanel leftPanel, Controller c, User user) {
         searchField = new JTextField();
+        searchField.setBounds(190, 202, 160, 35);
 
         DefaultListModel<String> listModel = new DefaultListModel<>();
         JList<String> suggestionList = new JList<>(listModel);
+        suggestionList.setSelectionBackground(new Color(255, 255, 255));
         JScrollPane scrollPane = new JScrollPane(suggestionList);
-        scrollPane.getViewport().getView().setBackground(new Color(64, 168, 211));
+        scrollPane.setBounds(190, 247, 160, 80);
+        scrollPane.getViewport().getView().setBackground(new Color(255, 255, 255));
 
-        leftPanel.add(new JLabel("Indirizzo:"));
+        JLabel addressLabel = new JLabel("Indirizzo:");
+        addressLabel.setBounds(20, 202, 160, 35);
+        leftPanel.add(addressLabel);
         leftPanel.add(searchField);
-        leftPanel.add(new JLabel(""));
         JButton buttonSearch = new JButton("Mostra sulla mappa");
+        buttonSearch.setBounds(20, 292, 160, 35);
         buttonSearch.setMaximumSize(new Dimension(100, 25));
 
         buttonSearch.addActionListener(e -> {
             try {
+            	mapViewer = new JXMapViewer();
                 c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false, null, user);
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -152,7 +172,6 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         });
 
         leftPanel.add(scrollPane);
-        leftPanel.add(new JLabel(""));
         leftPanel.add(buttonSearch);
 
         setupSearchListeners(searchField, listModel, suggestionList, c);
@@ -199,49 +218,78 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     }
 
     private void addDescriptionField(JPanel leftPanel) {
-        leftPanel.add(new JLabel("Descrizione:"));
+        JLabel descriptionLabel = new JLabel("Descrizione:");
+        descriptionLabel.setBounds(20, 337, 160, 35);
+        leftPanel.add(descriptionLabel);
         txtDescription = new JTextArea(4, 20);
         txtDescription.setLineWrap(true);
         txtDescription.setWrapStyleWord(true);
-        leftPanel.add(new JScrollPane(txtDescription));
+        JScrollPane scrollPane = new JScrollPane(txtDescription);
+        scrollPane.setBounds(190, 337, 160, 35);
+        leftPanel.add(scrollPane);
     }
 
     private void addAdditionalFields(JPanel leftPanel) {
-        leftPanel.add(new JLabel("Dimensioni alloggio:"));
+        JLabel widthLabel = new JLabel("Dimensioni alloggio:");
+        widthLabel.setBounds(20, 382, 160, 35);
+        leftPanel.add(widthLabel);
         txtWidth = new JTextField(10);
+        txtWidth.setBounds(190, 382, 160, 35);
         leftPanel.add(txtWidth);
 
-        leftPanel.add(new JLabel("Numero di stanze:"));
+        JLabel roomsLabel = new JLabel("Numero di stanze:");
+        roomsLabel.setBounds(20, 427, 160, 35);
+        leftPanel.add(roomsLabel);
         txtRooms = new JTextField(10);
+        txtRooms.setBounds(190, 427, 160, 35);
         leftPanel.add(txtRooms);
 
-        leftPanel.add(new JLabel("Piani:"));
+        JLabel floorsLabel = new JLabel("Piani:");
+        floorsLabel.setBounds(20, 472, 160, 35);
+        leftPanel.add(floorsLabel);
         txtFloors = new JTextField(10);
+        txtFloors.setBounds(190, 472, 160, 35);
         leftPanel.add(txtFloors);
 
-        leftPanel.add(new JLabel("Condominiale:"));
+        JLabel complexLabel = new JLabel("Condominiale:");
+        complexLabel.setBounds(20, 517, 160, 35);
+        leftPanel.add(complexLabel);
         cmbCondo = new JComboBox<>(new String[]{"No", "Sì"});
+        cmbCondo.setBounds(190, 517, 160, 35);
         leftPanel.add(cmbCondo);
 
-        leftPanel.add(new JLabel("Classe energetica:"));
+        JLabel energyClassLabel = new JLabel("Classe energetica:");
+        energyClassLabel.setBounds(20, 562, 160, 35);
+        leftPanel.add(energyClassLabel);
         cmbEnergyClass = new JComboBox<>(new String[]{"", "A", "B", "C", "D", "E", "F", "G"});
+        cmbEnergyClass.setBounds(190, 562, 160, 35);
         leftPanel.add(cmbEnergyClass);
 
-        leftPanel.add(new JLabel("Giardino:"));
+        JLabel gardenLabel = new JLabel("Giardino:");
+        gardenLabel.setBounds(20, 607, 160, 35);
+        leftPanel.add(gardenLabel);
         cmbGarden = new JComboBox<>(new String[]{"No", "Sì"});
+        cmbGarden.setBounds(190, 607, 160, 35);
         leftPanel.add(cmbGarden);
 
-        leftPanel.add(new JLabel("Terrazzo:"));
+        JLabel balconyLabel = new JLabel("Terrazzo:");
+        balconyLabel.setBounds(20, 652, 160, 35);
+        leftPanel.add(balconyLabel);
         cmbBalcony = new JComboBox<>(new String[]{"No", "Sì"});
+        cmbBalcony.setBounds(190, 652, 160, 35);
         leftPanel.add(cmbBalcony);
 
-        leftPanel.add(new JLabel("Ascensore:"));
+        JLabel elevatorLabel = new JLabel("Ascensore:");
+        elevatorLabel.setBounds(20, 697, 160, 35);
+        leftPanel.add(elevatorLabel);
         cmbElevator = new JComboBox<>(new String[]{"No", "Sì"});
+        cmbElevator.setBounds(190, 697, 160, 35);
         leftPanel.add(cmbElevator);
     }
 
     private void addUploadButtonPanel(JPanel leftPanel) {
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setBounds(190, 732, 160, 35);
         buttonPanel.setBackground(Color.WHITE);
         JButton btnUpload = new JButton("CARICA");
         btnUpload.setPreferredSize(new Dimension(250, 25));
@@ -249,7 +297,6 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         btnUpload.setBackground(new Color(0, 153, 51));
         btnUpload.setForeground(Color.WHITE);
         buttonPanel.add(btnUpload);
-        leftPanel.add(new JLabel());
         leftPanel.add(buttonPanel);
     }
 
@@ -323,10 +370,20 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                     JOptionPane.QUESTION_MESSAGE);
 
             if (response == JOptionPane.YES_OPTION) {
+            	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
                 uploadProperty(c, user);
-            }
+                return null;}
+                    
+                    @Override
+                    protected void done() {
+                    	schermataCaricamento.close();
+                    }
+            }; worker.execute();
         }
-    }
+    }}
 
 
     private boolean areAllFieldsFilled() {

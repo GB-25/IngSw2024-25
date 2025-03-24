@@ -24,6 +24,7 @@ import java.awt.Font;
 import java.awt.Component;
 import javax.swing.SwingWorker;
 import javax.swing.JTextField;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -35,6 +36,7 @@ public class ProvaLogin extends JFrame {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JFrame finestraCorrente;
+	private SchermataCaricamento schermataCaricamento;
 	private String fontScritte = "Microsoft YaHei UI Light";
 
 	public ProvaLogin(Controller c) {
@@ -141,7 +143,7 @@ public class ProvaLogin extends JFrame {
 		btnAccedi.setBackground(new Color(166, 204, 238));
 		btnAccedi.setFont(new Font(fontScritte, Font.BOLD | Font.ITALIC, 13));
 		btnAccedi.addActionListener(e -> {
-				c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+			schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
 				 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                      @Override
                      protected Void doInBackground() throws Exception {
@@ -150,7 +152,7 @@ public class ProvaLogin extends JFrame {
                      
                      @Override
                      protected void done() {
-                         dispose();
+                    	 schermataCaricamento.close();
                      }
 			};
 			worker.execute();
@@ -174,7 +176,19 @@ public class ProvaLogin extends JFrame {
 		
 		JButton btnRegistrati = new JButton("Registrati!");
 		btnRegistrati.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRegistrati.addActionListener(e -> c.registerUser(finestraCorrente));
+		btnRegistrati.addActionListener(e -> {
+			schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+			 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+			c.registerUser(finestraCorrente);
+			return null;}
+                
+                @Override
+				protected void done() {
+                	schermataCaricamento.close();
+                }};
+			 worker.execute();});
         
 		JLabel label = new JLabel("Non sei ancora iscritto? ");
 		label.setFont(new Font(fontScritte, Font.ITALIC, 17));

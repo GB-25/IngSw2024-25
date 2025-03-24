@@ -27,6 +27,7 @@ public class CreazioneAccountAdmin extends JFrame {
     private JTextField txtPassword;
     private JDateChooser dateChooser;
     private JFrame finestraCorrente;
+    private SchermataCaricamento schermataCaricamento;
     private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
     private static final String DIGITS = "0123456789";
@@ -100,7 +101,7 @@ public class CreazioneAccountAdmin extends JFrame {
         JButton btnCreaAccount = new JButton("Crea Account");
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnCreaAccount.addActionListener(e -> {
-        	c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
         	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
@@ -108,7 +109,7 @@ public class CreazioneAccountAdmin extends JFrame {
                 return null;}
             @Override
             protected void done() {
-                dispose();
+                schermataCaricamento.close();
             }
 	};
 	worker.execute();});

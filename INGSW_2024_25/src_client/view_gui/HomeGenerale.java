@@ -20,6 +20,7 @@ public class HomeGenerale extends JFrame {
 	private JPanel topPanel;
 	private JPanel centerPanel;
 	private JFrame finestraCorrente;
+	private SchermataCaricamento schermataCaricamento;
 	private String fontScritte = "Microsoft YaHei UI Light";
 	ImageIcon bellIcon;
 	
@@ -44,10 +45,32 @@ public class HomeGenerale extends JFrame {
         JButton searchButton;
         if (!user.getIsAgente()) {
             searchButton = new JButton("Ricerca immobile");
-            searchButton.addActionListener(e -> c.findImmobili(finestraCorrente, user));}
+            searchButton.addActionListener(e -> {
+        		schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        	    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+        	        @Override
+        	        protected Void doInBackground() throws Exception {
+        	        	c.findImmobili(finestraCorrente, user);
+        	           return null;}
+        	        @Override
+        	        protected void done() {
+        	        	schermataCaricamento.close();}
+        	        };
+        	           worker.execute();});}
         else {
         	searchButton = new JButton("Inserisci un nuovo immobile sulla piattaforma");
-        	searchButton.addActionListener(e -> c.createCaricamentoImmobile(finestraCorrente, user));}
+        	searchButton.addActionListener(e -> {
+        		schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        	    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+        	        @Override
+        	        protected Void doInBackground() throws Exception {
+        	           c.createCaricamentoImmobile(finestraCorrente, user);
+        	           return null;}
+        	        @Override
+        	        protected void done() {
+        	        	schermataCaricamento.close();}
+        	        };
+        	           worker.execute();});}
         JButton viewCalendarButton = new JButton("Visualizza il calendario con gli appuntamenti");
         JButton changePasswordButton = new JButton("Cambia password di questo account");
 

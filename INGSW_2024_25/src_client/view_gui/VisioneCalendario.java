@@ -22,6 +22,7 @@ public class VisioneCalendario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private LocalDate selectedDateGlobal = null;
 	private JFrame frame;
+	private SchermataCaricamento schermataCaricamento;
     private JTable calendarTable;
     private DefaultTableModel tableModel;
     private LocalDate today;
@@ -87,11 +88,12 @@ public class VisioneCalendario extends JFrame {
         calendarTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (!event.getValueIsAdjusting() && calendarTable.getSelectedRow() != -1 && calendarTable.getSelectedColumn() != -1) {
                 Object selectedDate = tableModel.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
-                if (selectedDate instanceof LocalDate) {
-                    selectedDateGlobal = (LocalDate) selectedDate; // Salva la data selezionata
-                }
+
+                if (selectedDate instanceof LocalDate localDate) 
+                    selectedDateGlobal = localDate;               
             }
         });
+
 
         // Pulsanti che mostrano gli appuntamenti della data selezionata (in attesa o confermati)
         showConfirmedBtn.addActionListener((ActionEvent e) -> {
@@ -104,7 +106,19 @@ public class VisioneCalendario extends JFrame {
             }
         });
 
-        showPendingBtn.addActionListener(e -> c.viewReservationsScreen(c, user, selectedDateGlobal));
+        showPendingBtn.addActionListener(e -> { 
+        	schermataCaricamento = c.createSchermataCaricamento(frame, "Caricamento");
+			 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
+        	c.viewReservationsScreen(c, user, selectedDateGlobal);
+        	return null;}
+                
+                @Override
+                protected void done() {
+                	schermataCaricamento.close();
+                }}; worker.execute();
+			 });
 
         // Aggiunta dei componenti alla finestra
         frame.add(new JScrollPane(calendarTable), BorderLayout.CENTER);
@@ -118,7 +132,7 @@ public class VisioneCalendario extends JFrame {
         for (int row = 0; row < 2; row++) {
             Object[] weekRow = new Object[7];
             for (int col = 0; col < 7; col++) {
-                weekRow[col] = startDate.plusDays(row * 7 + col);
+                weekRow[col] = startDate.plusDays(row * 7L + col);
             }
             tableModel.addRow(weekRow);
         }
