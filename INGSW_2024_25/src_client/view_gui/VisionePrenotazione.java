@@ -88,22 +88,42 @@ public class VisionePrenotazione extends JFrame {
         indietroButton.addActionListener(e -> dispose());
         
         confermaButton.addActionListener(e -> {
+        	int response = JOptionPane.showConfirmDialog(null,
+                    "Vuoi confermare la prenotazione?",
+                    "Conferma prenotazione",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (response == JOptionPane.YES_OPTION) {
             	int id = prenotazione.getId();
             	String mail = prenotazione.getAgente().getMail();
             	String data = prenotazione.getDataPrenotazione();
             	String ora= prenotazione.getOraPrenotazione();
             	if(c.reservationConfirm(id, mail, data, ora)) {
             		c.notifyCliente(prenotazione, true);
+            		JOptionPane.showMessageDialog(null,
+                            "La prenotazione è stata confermata ed il cliente è stato notificato.",
+                            "Prenotazione confermata", JOptionPane.INFORMATION_MESSAGE);
             		c.createHomeAgente(finestraCorrente, user);
             	}
-            });
+            }});
         
         
         rifiutaButton.addActionListener(e -> {
+        	int response = JOptionPane.showConfirmDialog(null,
+                    "Vuoi rifiutare la prenotazione?",
+                    "Conferma prenotazione",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (response == JOptionPane.YES_OPTION) {
             	int id = prenotazione.getId();
             	c.reservationDeny(id);
             	c.notifyCliente(prenotazione, false);
-            	c.createHomeAgente(finestraCorrente, user);});
+            	JOptionPane.showMessageDialog(null,
+                        "La prenotazione è stata rifiutata ed il cliente è stato notificato.",
+                        "Prenotazione rifiutata", JOptionPane.INFORMATION_MESSAGE);
+            	c.createHomeAgente(finestraCorrente, user);}});
 
         buttonPanel.add(rifiutaButton);
         buttonPanel.add(confermaButton);
