@@ -788,6 +788,15 @@ public class Controller {
 		return string.toString();
 	}
 	
+	public boolean checkDettagliInserzione(String grandezza, String piani, String stanze) {
+		boolean primoCheck = isNumeric(grandezza) && !grandezza.equals("0");
+		boolean secondoCheck = isNumeric(piani) && !piani.equals("0");
+		boolean terzoCheck = isNumeric(stanze) && !stanze.equals("0");
+		
+		return primoCheck && secondoCheck && terzoCheck;
+	}
+	
+	
 	public static void main(String[] args)
 	{
 		new Controller();

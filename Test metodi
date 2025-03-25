@@ -52,16 +52,23 @@ CE15: annuncio = "Affitto"
 STRATEGIA: N-WECT (CLASSE CON PIÙ CAMPI)== 8 TEST TOTALI
 
 
-public void isValidPassword(char[] pass, boolean[] valori)
+public boolean checkDettagliInserzione(String quadratura, String piani, String stanze)
 
-CE1: pass.lenght < 6 (NON VALIDA)
-CE2: pass senza numeri (NON VALIDA)
-CE3: pass senza lettere minuscole (NON VALIDA)
-CE4: pass senza lettere maiuscole (NON VALIDA)
-CE5: pass valida (VALIDA)
+CAMPI DI ESISTENZA 
 
-STRATEGIA N-SECT (TUTTE LE COMBINAZIONI) == 5
+CE1: quadratura contiene lettere (NON VALIDO)
+CE2: quadratura è "0" (NON VALIDO)
+CE3: quadratura è un numero > 0 (VALIDO)
 
+CE4: piani contiene lettere (NON VALIDO)
+CE5: piani è "0" (NON VALIDO)
+CE6: piani è un numero > 0 (VALIDO)
+
+CE7: stanze contiene lettere (NON VALIDO)
+CE8: stanze è "0" (NON VALIDO)
+CE9: stanze è un numero > 0 (VALIDO)
+
+STRATEGIA: R-WECT (NUMERO CLASSI NON VALIDE +1)== 7 TEST TOTALI
 
 class TestClass {
   private final Controller controller = new Controller();
@@ -266,65 +273,74 @@ class TestClass {
 
 class TestClass {
   private final Controller controller = new Controller();
-   
+
   @Test
-  void testIsValidPassword_CE1(){
-    private char[] password = "Pro12";
-    private boolean[] valori = {false, false, false, false};
+  void testCheckDettagliInserzione_CE1_CE6_CE9(){
+    private String quadratura = "trecento";
+    private String piani = "3";
+    private String stanze = "5";
     
-    controller.isValidPassword(password, valori);
-    assertFalse(valori[0]);
-    assertTrue(valori[1];
-    assertTrue(valori[2];
-    assertTrue(valori[3];
+    private boolean result = controller.checkDettagliInserzione(quadratura, piani, stanze);
+    assertFalse(result);
   }
   
   @Test
-  void testIsValidPassword_CE2(){
-    private char[] password = "Password";
-    private boolean[] valori = {false, false, false, false};
+  void testCheckDettagliInserzione_CE2_CE6_CE9(){
+    private String quadratura = "0";
+    private String piani = "1";
+    private String stanze = "6";
     
-    controller.isValidPassword(password, valori);
-    assertTrue(valori[0]);
-    assertTrue(valori[1];
-    assertTrue(valori[2];
-    assertFalse(valori[3];
+    private boolean result = controller.checkDettagliInserzione(quadratura, piani, stanze);
+    assertFalse(result);
   }
   
   @Test
-  void testIsValidPassword_CE3(){
-    private char[] password = "PASSWORD1;
-    private boolean[] valori = {false, false, false, false};
+  void testCheckDettagliInserzione_CE3_CE4_CE9(){
+    private String quadratura = "500";
+    private String piani = "quattro";
+    private String stanze = "3";
     
-    controller.isValidPassword(password, valori);
-    assertTrue(valori[0]);
-    assertTrue(valori[1];
-    assertFalse(valori[2];
-    assertTrue(valori[3];
+    private boolean result = controller.checkDettagliInserzione(quadratura, piani, stanze);
+    assertFalse(result);
   }
   
   @Test
-  void testIsValidPassword_CE4(){
-    private char[] password = "password1";
-    private boolean[] valori = {false, false, false, false};
+  void testCheckDettagliInserzione_CE3_CE5_CE9(){
+    private String quadratura = "128;
+    private String piani = "0";
+    private String stanze = "6";
     
-    controller.isValidPassword(password, valori);
-    assertTrue(valori[0]);
-    assertFalse(valori[1];
-    assertTrue(valori[2];
-    assertTrue(valori[3];
+    private boolean result = controller.checkDettagliInserzione(quadratura, piani, stanze);
+    assertFalse(result);
   }
   
   @Test
-  void testIsValidPassword_CE5(){
-    private char[] password = "Password1";
-    private boolean[] valori = {false, false, false, false};
+  void testCheckDettagliInserzione_CE3_CE6_CE7(){
+    private String quadratura = "234";
+    private String piani = "2";
+    private String stanze = "sette";
     
-    controller.isValidPassword(password, valori);
-    assertTrue(valori[0]);
-    assertTrue(valori[1];
-    assertTrue(valori[2];
-    assertTrue(valori[3];
+    private boolean result = controller.checkDettagliInserzione(quadratura, piani, stanze);
+    assertFalse(result);
   }
   
+  @Test
+  void testCheckDettagliInserzione_CE3_CE6_CE8(){
+    private String quadratura = "143";
+    private String piani = "3";
+    private String stanze = "0";
+    
+    private boolean result = controller.checkDettagliInserzione(quadratura, piani, stanze);
+    assertFalse(result);
+  }
+  
+  @Test
+  void testCheckDettagliInserzione_CE3_CE6_CE9(){
+    private String quadratura = "89";
+    private String piani = "1";
+    private String stanze = "3";
+    
+    private boolean result = controller.checkDettagliInserzione(quadratura, piani, stanze);
+    assertTrue(result);
+  }
 }

@@ -345,6 +345,9 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 
     private void handleUpload(Controller c, User user) {
     	String check = txtPrice.getText().trim();
+    	String quadratura = txtWidth.getText();
+    	String rooms = txtRooms.getText();
+    	String floors = txtFloors.getText();
         if (!areAllFieldsFilled()) {
             JOptionPane.showMessageDialog(null,
                     "Non sono stati riempiti tutti i campi. Controllare che tutti i campi siano stati riempiti, per poi procedere con il caricamento sulla piattaforma.",
@@ -358,6 +361,11 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         } else if (!Controller.isNumeric(check)) {
             JOptionPane.showMessageDialog(null,
                     "Sono presenti caratteri all'interno del campo del prezzi. Inserire un prezzo valido.",
+                    ERRORE,
+                    JOptionPane.ERROR_MESSAGE);
+        } else if(!c.checkDettagliInserzione(quadratura, floors, rooms)) {
+        	JOptionPane.showMessageDialog(null,
+                    "Qualcosa non va! Prova a ricontrollare i campi della dimensione, stanze e piani!",
                     ERRORE,
                     JOptionPane.ERROR_MESSAGE);
         }
