@@ -35,7 +35,18 @@ public class VisioneCalendario extends JFrame {
     	frame = this;
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setSize(600, 400);
-        frame.setLayout(new BorderLayout());
+        frame.getContentPane().setLayout(new BorderLayout());
+        
+        JPanel indietroPanel = new JPanel(new BorderLayout());
+        JButton indietroButton = new JButton("←");
+        indietroButton.setHorizontalAlignment(SwingConstants.LEFT);
+        indietroButton.setPreferredSize(new Dimension(60, 25));
+        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        indietroButton.addActionListener(e -> {
+            dispose();
+            new HomeGenerale(c, user);
+        });
+        indietroPanel.add(indietroButton, BorderLayout.WEST);
         
         today = LocalDate.now();
         startDate = today;
@@ -121,8 +132,9 @@ public class VisioneCalendario extends JFrame {
 			 });
 
         // Aggiunta dei componenti alla finestra
-        frame.add(new JScrollPane(calendarTable), BorderLayout.CENTER);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
+        frame.getContentPane().add(indietroPanel, BorderLayout.NORTH);
+        frame.getContentPane().add(new JScrollPane(calendarTable), BorderLayout.CENTER);
+        frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         
         frame.setVisible(true);
     }
