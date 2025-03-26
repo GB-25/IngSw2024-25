@@ -2,6 +2,7 @@ package view_gui;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.google.re2j.Pattern;
 
 import classi.ComposizioneImmobile;
 import classi.Immobile;
@@ -344,10 +345,11 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     }
 
     private void handleUpload(Controller c, User user) {
-    	String check = txtPrice.getText().trim();
+    	String checkPrice = txtPrice.getText().trim();
+    	String checkAddress = searchField.getText().trim();
     	String quadratura = txtWidth.getText();
-    	String rooms = txtRooms.getText();
-    	String floors = txtFloors.getText();
+     	String rooms = txtRooms.getText();
+     	String floors = txtFloors.getText();
         if (!areAllFieldsFilled()) {
             JOptionPane.showMessageDialog(null,
                     "Non sono stati riempiti tutti i campi. Controllare che tutti i campi siano stati riempiti, per poi procedere con il caricamento sulla piattaforma.",
@@ -358,17 +360,23 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                     "Devi caricare tra " + minFoto + " e " + maxFoto + " foto.",
                     ERRORE,
                     JOptionPane.ERROR_MESSAGE);
-        } else if (!Controller.isNumeric(check)) {
+        } else if (!Controller.isNumeric(checkPrice)) {
             JOptionPane.showMessageDialog(null,
                     "Sono presenti caratteri all'interno del campo del prezzi. Inserire un prezzo valido.",
                     ERRORE,
                     JOptionPane.ERROR_MESSAGE);
-        } else if(!c.checkDettagliInserzione(quadratura, floors, rooms)) {
+        } else if (!Pattern.matches("^[A-Za-z ]+ \\d+, \\d+ [A-Za-z ]+, [A-Za-z ]+$", checkAddress)) {
         	JOptionPane.showMessageDialog(null,
-                    "Qualcosa non va! Prova a ricontrollare i campi della dimensione, stanze e piani!",
+                    "Indirizzo non valido. È necessario inserire l'indirizzo suggerito dal sistema.",
                     ERRORE,
                     JOptionPane.ERROR_MESSAGE);
         }
+        else if(!c.checkDettagliInserzione(quadratura, floors, rooms)) {
+         	JOptionPane.showMessageDialog(null,
+                     "Qualcosa non va! Prova a ricontrollare i campi della dimensione, stanze e piani!",
+                     ERRORE,
+                     JOptionPane.ERROR_MESSAGE);
+         }
         
         else {
             int response = JOptionPane.showConfirmDialog(null,
