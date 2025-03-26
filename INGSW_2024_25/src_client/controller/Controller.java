@@ -566,17 +566,18 @@ public class Controller {
 		StringBuilder sql = new StringBuilder("SELECT * FROM immobili WHERE 1=1");
 		if(!checkPrezzi(prezzoMin, prezzoMax)) {
 			JOptionPane.showMessageDialog(null, "Inserisci un intervallo di prezzo giusto (tra i 500 e 1000000€). Occhio a non mettere il prezzo massimo minore di quello minimo", ERRORE, JOptionPane.ERROR_MESSAGE);
-			
+			return null;
 		}else {
 			sql.append(" AND prezzo >= "+prezzoMin+" AND prezzo <= "+prezzoMax);
 			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) ILIKE '%"+immobile.getIndirizzo()+"%'");
 			sql.append(checkDettagliImmobile(immobile.getClasseEnergetica(), immobile.getTipo(), immobile.getAnnuncio()));
 			sql.append(checkDettagliComposizione(composizione.isAscensore(), composizione.isCondominio(), composizione.isTerrazzo(), composizione.isGiardino()));
+			sql.append(";");
+			String query = sql.toString();
+			
+			return model.searchHouse(query);
 		}
-		sql.append(";");
-		String query = sql.toString();
 		
-		return model.searchHouse(query);
 	}
 	
 	public void notifyAgente(Prenotazione prenotazione) {
