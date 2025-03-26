@@ -100,19 +100,7 @@ public class CreazioneAccountAdmin extends JFrame {
         // Pulsante per la creazione account
         JButton btnCreaAccount = new JButton("Crea Account");
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnCreaAccount.addActionListener(e -> {
-        	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
-        	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-                @Override
-                protected Void doInBackground() throws Exception {
-        	creaAccount(c, user);
-                return null;}
-            @Override
-            protected void done() {
-                schermataCaricamento.close();
-            }
-	};
-	worker.execute();});
+        btnCreaAccount.addActionListener(e -> creaAccount(c, user));
 
      // Panel per  il pulsante
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -184,10 +172,20 @@ public class CreazioneAccountAdmin extends JFrame {
                 JOptionPane.QUESTION_MESSAGE);
 
         if (response == JOptionPane.YES_OPTION) {
+        	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                @Override
+                protected Void doInBackground() throws Exception {
         	c.createAdmin(nome, cognome, data, email, telefono, password, true);
+        	return null;}
+                
+                @Override
+                protected void done() {
         	// Sono stato costretto a commentare questa sezione altrimenti non partiva, bisogna fare in modo che password venga poi restituita in versione JPasswordField
-        	JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            c.createHomeAgente(finestraCorrente, agenteChiamante);
+            schermataCaricamento.close();
+            c.createHomeAgente(finestraCorrente, agenteChiamante);}};
+            worker.execute();
+            JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
