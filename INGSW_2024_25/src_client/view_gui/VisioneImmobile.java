@@ -190,7 +190,7 @@ public class VisioneImmobile extends JFrame {
         prenotaButton.setFocusPainted(false);
         prenotaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         prenotaButton.addActionListener(e -> { c.makeReservationClient(finestraCorrente, immobile, user);
-finestra.dispose()});
+finestra.dispose();});
 
         JButton indietroButton = new JButton("Indietro");
         indietroButton.setBackground(Color.GRAY);
