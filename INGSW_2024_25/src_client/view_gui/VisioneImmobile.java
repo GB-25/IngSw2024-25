@@ -29,7 +29,7 @@ public class VisioneImmobile extends JFrame {
     private String fontScritte = "Helvetica";
     transient Logger logger = Logger.getLogger(getClass().getName());
 
-    public VisioneImmobile(Controller c, Immobile immobile, User user) throws GeocodingException, URISyntaxException {
+    public VisioneImmobile(Controller c, Immobile immobile, User user, JFrame finestra) throws GeocodingException, URISyntaxException {
     	finestraCorrente=this;
         // Configurazione della finestra
     	FlatLaf.setup(new FlatLightLaf());
@@ -189,7 +189,8 @@ public class VisioneImmobile extends JFrame {
         prenotaButton.setFont(new Font(fontScritte, Font.BOLD, 13));
         prenotaButton.setFocusPainted(false);
         prenotaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        prenotaButton.addActionListener(e -> c.makeReservationClient(finestraCorrente, immobile, user));
+        prenotaButton.addActionListener(e -> { c.makeReservationClient(finestraCorrente, immobile, user);
+finestra.dispose()});
 
         JButton indietroButton = new JButton("Indietro");
         indietroButton.setBackground(Color.GRAY);
