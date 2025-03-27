@@ -34,6 +34,7 @@ public class ClientModel {
     private static final String SUCCESS = "success";
     private static final String ISAGENTESTRING = "isAgente";
     private static final String INDIRIZZOSTRING = "indirizzo";
+    private static final String IMMOBILESTRING = "idImmobile";
     
     public ClientModel(String serverIP, int port) {
         this.serverIP = serverIP;
@@ -199,13 +200,11 @@ public class ClientModel {
         JSONObject response = sendRequest(request);
         ArrayList<Prenotazione> prenotazioni = new ArrayList<>();
         List <Immobile> immobili;
-        System.out.println(response.getString(STATUS));
         if (response.getString(STATUS).equals(SUCCESS)) {
             JSONArray jsonArray = response.getJSONArray("prenotazioni");
-            System.out.println("dimensione array: "+jsonArray.length());
             for (int i = 0; i < jsonArray.length(); i++) {
             	JSONObject jsonObject = jsonArray.getJSONObject(i);
-            	int idImmobile = jsonObject.getInt("idImmobile");
+            	int idImmobile = jsonObject.getInt(IMMOBILESTRING);
             	String query = "SELECT * FROM immobili WHERE id ='"+idImmobile+"';";
             	immobili = searchHouse(query);
             	mailCliente = jsonObject.getString("mailCliente");
@@ -224,7 +223,7 @@ public class ClientModel {
         request.put("data", data);
         request.put("ora", ora);
         request.put("mailCliente", mailCliente);
-        request.put("idImmobile", idImmobile);
+        request.put(IMMOBILESTRING, idImmobile);
         request.put("mailAgente", mailAgente);
 
         JSONObject response = sendRequest(request);
@@ -326,21 +325,22 @@ public class ClientModel {
         boolean condominio = response.getBoolean("condominio");
         boolean ascensore = response.getBoolean("ascensore"); 
         boolean terrazzo = response.getBoolean("terrazzo");
-
-        return new ComposizioneImmobile(id, quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
+        ComposizioneImmobile composizioneBoolean = new ComposizioneImmobile(terrazzo, giardino, ascensore, condominio);
+        return new ComposizioneImmobile(id, quadratura, stanze, piani, composizioneBoolean);
     }
 
     public boolean uploadNewHouseModel(Immobile immobile, List<String> foto) {
-        ComposizioneImmobile composizione = immobile.getComposizione();
+    	ComposizioneImmobile composizione = immobile.getComposizione();
+    	ComposizioneImmobile composizioneBoolean = composizione.getComposizione();
         JSONObject request = new JSONObject();
         request.put(ACTION, "uploadNewHouse");
         request.put("quadratura", composizione.getQuadratura());
         request.put("stanze", composizione.getNumeroStanze());
         request.put("piani", composizione.getPiani());
-        request.put("giardino", composizione.isGiardino());
-        request.put("condominio", composizione.isCondominio());
-        request.put("ascensore", composizione.isAscensore());
-        request.put("terrazzo", composizione.isTerrazzo());
+        request.put("giardino", composizioneBoolean.isGiardino());
+        request.put("condominio", composizioneBoolean.isCondominio());
+        request.put("ascensore", composizioneBoolean.isAscensore());
+        request.put("terrazzo", composizioneBoolean.isTerrazzo());
         request.put("prezzo", immobile.getPrezzo());
         request.put(INDIRIZZOSTRING, immobile.getIndirizzo());
         request.put("annuncio", immobile.getAnnuncio());
@@ -352,7 +352,7 @@ public class ClientModel {
         
         JSONObject response = sendRequest(request);
         if (response.getString(STATUS).equals(SUCCESS)) {
-        	int id = response.getInt("idImmobile");
+        	int id = response.getInt(IMMOBILESTRING);
         	StringBuilder sb = new StringBuilder();
         	for (String filename: foto) {
         		if (sb.length() > 0) {

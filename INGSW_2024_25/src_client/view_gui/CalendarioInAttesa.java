@@ -37,7 +37,7 @@ public class CalendarioInAttesa extends JFrame{
 		JPanel reservationsPanel = new JPanel (new BorderLayout());
 		//hello i am john funzionante, please fix finestra, nun s ver nient
 		prenotazioni = (ArrayList<Prenotazione>) c.getPrenotazione(user, selectedDateGlobal);
-		if (prenotazioni.size() == 0)
+		if (prenotazioni.isEmpty())
 			JOptionPane.showMessageDialog(null, "Nessuna prenotazione trovata per questa data.");
 		for (int i = 0; i < prenotazioni.size(); i++) {
 			prenotazione = prenotazioni.get(i);

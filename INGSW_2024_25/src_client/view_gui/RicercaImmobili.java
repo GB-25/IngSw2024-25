@@ -242,9 +242,10 @@ public class RicercaImmobili extends JFrame {
 					ArrayList<Immobile> ricerca = (ArrayList<Immobile>) c.ricercaImmobili(prezzoMin, prezzoMax, immobile, composizione);
 					if (!ricerca.isEmpty()) {
 						c.showResultImmobili(finestraCorrente, user, ricerca, indirizzo);
-					} else
+					} else if (c.checkPrezzi(prezzoMin, prezzoMax)) {
 						
 						JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", "Errore" , JOptionPane.ERROR_MESSAGE);
+					}
 				}
 					return null;}
 				 @Override

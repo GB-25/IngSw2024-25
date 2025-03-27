@@ -10,19 +10,19 @@ public class ComposizioneImmobile {
 	private boolean giardino;
 	private boolean ascensore;
 	private boolean condominio;
+	private ComposizioneImmobile composizione;
 	
-	
-	public ComposizioneImmobile(int id, int quadratura, int piani, int numeroStanze, boolean terrazzo,
-			boolean giardino, boolean ascensore, boolean condominio) {
-		this.id = id;
-		this.quadratura = quadratura;
-		this.piani = piani;
-		this.numeroStanze = numeroStanze;
-		this.terrazzo = terrazzo;
-		this.giardino = giardino;
-		this.ascensore = ascensore;
-		this.condominio = condominio;
-	}
+//	public ComposizioneImmobile(int id, int quadratura, int piani, int numeroStanze, boolean terrazzo,
+//			boolean giardino, boolean ascensore, boolean condominio) {
+//		this.id = id;
+//		this.quadratura = quadratura;
+//		this.piani = piani;
+//		this.numeroStanze = numeroStanze;
+//		this.terrazzo = terrazzo;
+//		this.giardino = giardino;
+//		this.ascensore = ascensore;
+//		this.condominio = condominio;
+//	}
 	
 	public ComposizioneImmobile(boolean terrazzo, boolean giardino, boolean ascensore, boolean condominio) {
 		this.terrazzo = terrazzo;
@@ -31,6 +31,13 @@ public class ComposizioneImmobile {
 		this.condominio = condominio;
 	}
 
+	public ComposizioneImmobile(int id, int quadratura, int piani, int numeroStanze, ComposizioneImmobile composizione) {
+		this.id = id;
+		this.quadratura = quadratura;
+		this.piani = piani;
+		this.numeroStanze = numeroStanze;
+		this.composizione = composizione;
+	}
 
 	public int getId() {
 		return id;
@@ -109,5 +116,13 @@ public class ComposizioneImmobile {
 
 	public void setCondominio(boolean condominio) {
 		this.condominio = condominio;
+	}
+
+	public ComposizioneImmobile getComposizione() {
+		return composizione;
+	}
+
+	public void setComposizione(ComposizioneImmobile composizione) {
+		this.composizione = composizione;
 	}
 }

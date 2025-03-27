@@ -111,7 +111,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     @Override
     public ComposizioneImmobile getComposizioneById(int id) {
     	ComposizioneImmobile composizione = null;
-    	
+    	ComposizioneImmobile composizioneBoolean = null;
     	String query = "SELECT * FROM composizione_immobile WHERE id ="+id+";";
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -120,8 +120,8 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     		ResultSet rs = stmt.executeQuery();
     		
     		if (rs.next()) {
-    			composizione = new ComposizioneImmobile(rs.getInt("id"), rs.getInt("quadratura"), rs.getInt("piani"), rs.getInt("stanze"), 
-    					rs.getBoolean("terrazzo"), rs.getBoolean("giardino"), rs.getBoolean("ascensore"), rs.getBoolean("condominio"));
+    			composizioneBoolean = new ComposizioneImmobile(rs.getBoolean("terrazzo"), rs.getBoolean("giardino"), rs.getBoolean("ascensore"), rs.getBoolean("condominio"));
+    			composizione = new ComposizioneImmobile(rs.getInt("id"), rs.getInt("quadratura"), rs.getInt("piani"), rs.getInt("stanze"), composizioneBoolean);
     		}
     	}catch (SQLException e) {
             e.printStackTrace();
@@ -168,7 +168,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                ResultSet rs = stmt.executeQuery();
                if (rs.next()) {
                    id = rs.getInt("id");
-                   System.out.println("ciao il valore di id è: "+id);
+         
                    }
            } catch (SQLException e) {
                e.printStackTrace();
@@ -247,7 +247,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	User cliente;
     	String query;
     	ArrayList<Prenotazione> lista = new ArrayList<>();
-    	System.out.println("ciao sono il db");
+    	
     	if(isAgente) {
     		query = "SELECT * FROM prenotazioni WHERE agente_id = '"+mail+"' AND is_confirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
     	} else {
@@ -270,10 +270,10 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 
                 
             }catch (SQLException e) {
-            	System.out.println("hey sono nel catch del db aiuto");
+            
                 e.printStackTrace();
             }
-    	 System.out.println("tutto apposto");
+    	
     	 return lista;
     }
     

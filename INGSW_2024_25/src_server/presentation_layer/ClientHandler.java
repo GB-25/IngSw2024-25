@@ -39,6 +39,7 @@ public class ClientHandler extends Thread { //implements Runnable???
     private static final String ISAGENTE = "isAgente";
     private static final String PASSWORD = "password";
     private static final String INDIRIZZO = "indirizzo";
+    private static final String IMMOBILEID = "idImmobile";
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         this.userRepository = new DatabaseManager();
@@ -195,7 +196,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	  String data = request.getString("data");
 	  String ora = request.getString("ora");
 	  String cliente = request.getString("mailCliente");
-	  int idImmobile = request.getInt("idImmobile");
+	  int idImmobile = request.getInt(IMMOBILEID);
 	  String agente = request.getString("mailAgente");
 	  reservationService = new ReservationService(reservationRepository);
 	  boolean firstReservation = reservationService.newReservation(data, ora, cliente, idImmobile, agente);
@@ -252,37 +253,37 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   boolean isAgente = request.getBoolean(ISAGENTE);
 		   String data = request.getString("data");
 		   reservationService = new ReservationService(reservationRepository);
-		   System.out.println("ciao sono l'handler prima del recupero");
+		 
 		   List<Prenotazione> lista = reservationService.getReservation(mail, isConfirmed, data, isAgente);
-		   System.out.println("io sono l'handler dopo il recupero, la dimensione è: "+lista.size());
+		 
 		   response.put(STATUS, SUCCESS);
 		   JSONArray jsonArray = new JSONArray();
 		   for (Prenotazione p : lista) {
-			   System.out.println("ciao sono nel for");
+			
 			   JSONObject jsonPrenotazione = new JSONObject();
 	           jsonPrenotazione.put("id", p.getId());
-	           System.out.println("ho preso l'id");
+
 	           jsonPrenotazione.put("data", p.getDataPrenotazione());
-	           System.out.println("ho preso la data");
+	    
 	           jsonPrenotazione.put("ora", p.getOraPrenotazione());
-	           System.out.println("ho preso l'ora");
+	     
 	           jsonPrenotazione.put("Cliente", p.getUser().getNome()+" "+p.getUser().getCognome());
 	           jsonPrenotazione.put("mailCliente", p.getUser().getMail());
-	           System.out.println("ho preso il cliente");
+	
 	           jsonPrenotazione.put(INDIRIZZO, p.getImmobile().getIndirizzo());
-	           jsonPrenotazione.put("idImmobile", p.getImmobile().getId());
-	           System.out.println("ho preso l'immobile");
+	           jsonPrenotazione.put(IMMOBILEID, p.getImmobile().getId());
+
 	           jsonPrenotazione.put("Agente", p.getAgente().getNome()+" "+p.getAgente().getCognome());
-	           System.out.println("ho preso l'agente");
+
 	           jsonPrenotazione.put("confermato", p.isConfirmed());
-	           System.out.println("ho preso il valore di conferma");
+
 	           jsonArray.put(jsonPrenotazione);
-	           System.out.println("ho messo tutto nell'array");
+	 
 		   }
 		   
 	       response.put("prenotazioni", jsonArray); 
 	   }catch (Exception e) {
-		   System.out.println("che ci faccio nel catch dell'handler");
+		
            response.put(STATUS, ERROR);
            response.put(MESSAGE, "Errore durante il recupero delle prenotazioni: " + e.getMessage());
        }
@@ -347,15 +348,16 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   int id = request.getInt("idComposizione");
 		   houseService = new HouseService(houseRepository);
 		   ComposizioneImmobile composizione = houseService.getComposizione(id);
+		   ComposizioneImmobile composizioneBoolean = composizione.getComposizione();
 		   response.put(STATUS, SUCCESS);
 		   response.put("idComposizione", id);
 		   response.put("quadratura",composizione.getQuadratura());
 		   response.put("piani",composizione.getPiani());
 		   response.put("stanze",composizione.getNumeroStanze());
-		   response.put("terrazzo",composizione.isTerrazzo());
-		   response.put("giardino",composizione.isGiardino());
-		   response.put("ascensore",composizione.isAscensore());
-		   response.put("condominio",composizione.isCondominio());
+		   response.put("terrazzo",composizioneBoolean.isTerrazzo());
+		   response.put("giardino",composizioneBoolean.isGiardino());
+		   response.put("ascensore",composizioneBoolean.isAscensore());
+		   response.put("condominio",composizioneBoolean.isCondominio());
 	   }catch (Exception e) {
 		   response.put(STATUS, ERROR);
 		   response.put(MESSAGE, "Errore durante il recupero delle composizioni degli immobili: " + e.getMessage());
@@ -381,13 +383,14 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   String descrizione = request.getString("descrizione");
 	   
        String agente = request.getString("agente");
-       ComposizioneImmobile composizione = new ComposizioneImmobile(0,quadratura, piani, stanze, terrazzo, giardino, ascensore, condominio);
+       ComposizioneImmobile composizioneBoolean = new ComposizioneImmobile(terrazzo, giardino, ascensore, condominio);
+       ComposizioneImmobile composizione = new ComposizioneImmobile(0,quadratura, piani, stanze, composizioneBoolean);
        Immobile immobile = new Immobile (0, prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, "", null);
        houseService = new HouseService(houseRepository);
        int id = houseService.uploadHouse(immobile, agente);
        if(id!=0) {
     	   response.put(STATUS, SUCCESS);
-    	   response.put("idImmobile", id);
+    	   response.put(IMMOBILEID, id);
        } else {
     	   response.put(STATUS, ERROR);
     	   response.put(MESSAGE, "Già presente nel db");

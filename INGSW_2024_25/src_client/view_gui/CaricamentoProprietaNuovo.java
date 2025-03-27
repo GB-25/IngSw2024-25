@@ -433,8 +433,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         String descrizione = txtDescription.getText();
         String classeEnergetica = (String) cmbEnergyClass.getSelectedItem();
         boolean terrazzo = c.checkComboBox(cmbBalcony); 
-
-        ComposizioneImmobile composizione = new ComposizioneImmobile(0, grandezza, piani, stanze, terrazzo, giardino, ascensore, condominio);
+        ComposizioneImmobile composizioneBoolean = new ComposizioneImmobile(terrazzo, giardino, ascensore, condominio);
+        ComposizioneImmobile composizione = new ComposizioneImmobile(0, grandezza, piani, stanze, composizioneBoolean);
         Immobile immobile = new Immobile(0, prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, "", user);
         c.uploadNewHouse(immobile, foto);
         dispose();

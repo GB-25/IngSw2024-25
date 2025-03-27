@@ -32,16 +32,17 @@ public class HouseService {
 	
 	public int uploadHouse(Immobile immobile, String agente) {
 		ComposizioneImmobile composizione = immobile.getComposizione();
+		ComposizioneImmobile composizioneBoolean = composizione.getComposizione();
 		String indirizzo = immobile.getIndirizzo();
 		Immobile casa = houseRepository.getHouseByAddress(indirizzo);
-		if ((casa == null) || (composizione.isCondominio())) {
+		if ((casa == null) || (composizioneBoolean.isCondominio())) {
 			int quadratura = composizione.getQuadratura();
 			int stanze = composizione.getNumeroStanze();
 			int piani = composizione.getPiani();
-			boolean giardino = composizione.isGiardino();
-			boolean condominio = composizione.isCondominio();
-			boolean ascensore = composizione.isAscensore();
-			boolean terrazzo = composizione.isTerrazzo();
+			boolean giardino = composizioneBoolean.isGiardino();
+			boolean condominio = composizioneBoolean.isCondominio();
+			boolean ascensore = composizioneBoolean.isAscensore();
+			boolean terrazzo = composizioneBoolean.isTerrazzo();
 			int id = houseRepository.uploadComposizione(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
 			double prezzo = immobile.getPrezzo();
 			String annuncio = immobile.getAnnuncio();

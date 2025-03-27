@@ -88,7 +88,7 @@ public class VisioneImmobile extends JFrame {
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
         // **Pulsanti Prenota Visita e Indietro**
-        JPanel buttonPanel = createButtonPanel(c, immobile, user);
+        JPanel buttonPanel = createButtonPanel(c, immobile, user, finestra);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         
        JXMapViewer mapViewer = new JXMapViewer();
@@ -99,7 +99,7 @@ public class VisioneImmobile extends JFrame {
         mapPanel.setPreferredSize(new Dimension(200, 200));
         ArrayList<Immobile> immobileList = new ArrayList<>();
         immobileList.add(immobile);
-        c.getCoordinates(c, immobile.getIndirizzo(), mapPanel, mapViewer, false, immobileList, user);
+        c.getCoordinates(c, immobile.getIndirizzo(), mapPanel, mapViewer, false, immobileList, user, finestra);
         carouselPanel.add(mapPanel, BorderLayout.SOUTH);
         
 
@@ -134,6 +134,7 @@ public class VisioneImmobile extends JFrame {
 
     private JPanel createDetailsPanel(Immobile immobile) {
     	ComposizioneImmobile composizione = immobile.getComposizione();
+    	ComposizioneImmobile composizioneBoolean = composizione.getComposizione();
         JPanel detailsPanel = new JPanel();
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
         detailsPanel.setBackground(Color.WHITE);
@@ -148,8 +149,9 @@ public class VisioneImmobile extends JFrame {
         JLabel roomsLabel = new JLabel("Stanze: "+composizione.getNumeroStanze());
         JLabel energyLabel = new JLabel("Classe Energetica: "+immobile.getClasseEnergetica());
         JLabel condoLabel = new JLabel(immobile.getTipo());
-        JLabel elevatorLabel = new JLabel("Ascensore: "+(composizione.isAscensore() ? "✓" : "✗"));
-        JLabel gardenLabel = new JLabel("Giardino: "+(composizione.isGiardino() ? "✓" : "✗"));
+        JLabel elevatorLabel = new JLabel("Ascensore: "+(composizioneBoolean.isAscensore() ? "✓" : "✗"));
+        JLabel gardenLabel = new JLabel("Giardino: "+(composizioneBoolean.isGiardino() ? "✓" : "✗"));
+        //GENNO QUA AGGIUNGI TERRAZZO E CONDOMINIO UTILIZZANDO COMPOSIZIONEBOOLEAN
         JLabel descriptionLabel = new JLabel("Descrizione: ");
 
         JTextArea descriptionArea = new JTextArea(immobile.getDescrizione());
@@ -179,7 +181,7 @@ public class VisioneImmobile extends JFrame {
         return detailsPanel;
     }
 
-    private JPanel createButtonPanel(Controller c, Immobile immobile, User user) {
+    private JPanel createButtonPanel(Controller c, Immobile immobile, User user, JFrame finestra) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.WHITE);
 
@@ -190,7 +192,7 @@ public class VisioneImmobile extends JFrame {
         prenotaButton.setFocusPainted(false);
         prenotaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         prenotaButton.addActionListener(e -> { c.makeReservationClient(finestraCorrente, immobile, user);
-finestra.dispose()});
+        finestra.dispose();});
 
         JButton indietroButton = new JButton("Indietro");
         indietroButton.setBackground(Color.GRAY);

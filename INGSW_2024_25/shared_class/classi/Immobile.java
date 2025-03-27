@@ -12,11 +12,12 @@ public class Immobile {
 	private String descrizione;
 	private String urls;
 	private User agente;
+	private Immobile immobileDettagli;
 	
 
 	public Immobile(int id, double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione, String urls, User agente) {
 		
-		this.setId(id);
+		this.id = id;
 		this.prezzo = prezzo;
 		this.composizione = composizione;
 		this.classeEnergetica = classeEnergetica;
@@ -33,6 +34,16 @@ public class Immobile {
 		this.indirizzo = posizione;
 		this.tipo = tipoImmobile;
 		this.annuncio = annuncio;
+	}
+	
+	public Immobile(int id, double prezzo, ComposizioneImmobile composizione, String descrizione, String urls, User agente, Immobile immobileDettagli) {
+		this.id = id;
+		this.prezzo = prezzo;
+		this.composizione = composizione;
+		this.descrizione = descrizione;
+		this.urls = urls;
+		this.agente = agente;
+		this.setImmobileDettagli(immobileDettagli);
 	}
 	
 
@@ -131,6 +142,14 @@ public class Immobile {
 
 	public void setAgente(User agente) {
 		this.agente = agente;
+	}
+
+	public Immobile getImmobileDettagli() {
+		return immobileDettagli;
+	}
+
+	public void setImmobileDettagli(Immobile immobileDettagli) {
+		this.immobileDettagli = immobileDettagli;
 	}
 	
 	
