@@ -166,7 +166,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         buttonSearch.addActionListener(e -> {
             try {
             	mapViewer = new JXMapViewer();
-                c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false, null, user);
+                c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false, null, user, finestraCorrente);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
