@@ -24,12 +24,14 @@ public class RisultatoRicerca extends JFrame {
 	private JPanel mainPanel;
     private JXMapViewer mapViewer;
     private JPanel mapPanel;
+    private JFrame finestraCorrente;
 
 
     public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException, URISyntaxException {
         FlatLaf.setup(new FlatLightLaf());
 
         // Configura il JFrame
+        finestraCorrente = this;
         setTitle("Risultato Ricerca - DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 600);
@@ -60,7 +62,7 @@ public class RisultatoRicerca extends JFrame {
         // Ottieni le coordinate e visualizza la mappa
         
       
-        c.getCoordinates(c, indirizzo , mapPanel, mapViewer, true, ricerca, user);
+        c.getCoordinates(c, indirizzo , mapPanel, mapViewer, true, ricerca, user, finestraCorrente);
         
         // Mostra la finestra
         setVisible(true);
