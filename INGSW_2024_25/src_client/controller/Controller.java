@@ -206,6 +206,13 @@ public class Controller {
         }
     }
 	
+	public boolean checkDettagliInserzione(String grandezza, String piani, String stanze) {
+ 		boolean primoCheck = isNumeric(grandezza) && !grandezza.equals("0");
+ 		boolean secondoCheck = isNumeric(piani) && !piani.equals("0");
+ 		boolean terzoCheck = isNumeric(stanze) && !stanze.equals("0");
+ 		
+ 		return primoCheck && secondoCheck && terzoCheck;
+ 	}
 	
 	public boolean checkComboBox(JComboBox<?> comboBox) {
 		String valore = (String) comboBox.getSelectedItem();
@@ -217,7 +224,7 @@ public class Controller {
 	}
 	
 	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
-	        boolean isSearchMode, List<Immobile> immobili, User user) throws GeocodingException, URISyntaxException  {
+	        boolean isSearchMode, List<Immobile> immobili, User user, JFrame finestra) throws GeocodingException, URISyntaxException  {
 	    try {
 	        double[] coordinates = getCoordinatesFromAPI(address);
 	        //era == null ma boh
@@ -240,7 +247,7 @@ public class Controller {
 	        configureWaypoints(mapViewer, waypoints);
 
 	        if (isSearchMode) {
-	            addWaypointClickListener(c, mapViewer, waypointMap, user);
+	            addWaypointClickListener(c, mapViewer, waypointMap, user, finestra);
 	        }
 
 	        addMapInteractionListeners(mapViewer);
@@ -360,7 +367,7 @@ public class Controller {
 	    mapViewer.setOverlayPainter(waypointPainter);
 	}
 
-	private void addWaypointClickListener(Controller c, JXMapViewer mapViewer, Map<DefaultWaypoint, Immobile> waypointMap, User user) {
+	private void addWaypointClickListener(Controller c, JXMapViewer mapViewer, Map<DefaultWaypoint, Immobile> waypointMap, User user, JFrame finestra) {
 	    mapViewer.addMouseListener(new MouseAdapter() {
 	        @Override
 	        public void mouseClicked(MouseEvent e) {
@@ -383,7 +390,7 @@ public class Controller {
 	                    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 	                        @Override
 	                        protected Void doInBackground() throws Exception {
-	                            new VisioneImmobile(c, immobile, user);
+	                            new VisioneImmobile(c, immobile, user, finestra);
 	                            return null;
 	                        }
 
@@ -567,17 +574,17 @@ public class Controller {
 		if(!checkPrezzi(prezzoMin, prezzoMax)) {
 			JOptionPane.showMessageDialog(null, "Inserisci un intervallo di prezzo giusto (tra i 500 e 1000000€). Occhio a non mettere il prezzo massimo minore di quello minimo", ERRORE, JOptionPane.ERROR_MESSAGE);
 			return null;
+			
 		}else {
 			sql.append(" AND prezzo >= "+prezzoMin+" AND prezzo <= "+prezzoMax);
 			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) ILIKE '%"+immobile.getIndirizzo()+"%'");
 			sql.append(checkDettagliImmobile(immobile.getClasseEnergetica(), immobile.getTipo(), immobile.getAnnuncio()));
 			sql.append(checkDettagliComposizione(composizione.isAscensore(), composizione.isCondominio(), composizione.isTerrazzo(), composizione.isGiardino()));
-			sql.append(";");
-			String query = sql.toString();
-			
-			return model.searchHouse(query);
 		}
+		sql.append(";");
+		String query = sql.toString();
 		
+		return model.searchHouse(query);
 	}
 	
 	public void notifyAgente(Prenotazione prenotazione) {
@@ -722,8 +729,8 @@ public class Controller {
     	prenota.setVisible(true);
     }
     
-    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user) throws GeocodingException, URISyntaxException  {
-    	visioneImmobile = new VisioneImmobile(this, immobile, user);
+    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user, JFrame finestra) throws GeocodingException, URISyntaxException  {
+    	visioneImmobile = new VisioneImmobile(this, immobile, user, finestra);
     	finestraCorrente.setVisible(false);
     	visioneImmobile.setVisible(true);
     }
@@ -788,15 +795,6 @@ public class Controller {
 		}
 		return string.toString();
 	}
-	
-	public boolean checkDettagliInserzione(String grandezza, String piani, String stanze) {
-		boolean primoCheck = isNumeric(grandezza) && !grandezza.equals("0");
-		boolean secondoCheck = isNumeric(piani) && !piani.equals("0");
-		boolean terzoCheck = isNumeric(stanze) && !stanze.equals("0");
-		
-		return primoCheck && secondoCheck && terzoCheck;
-	}
-	
 	
 	public static void main(String[] args)
 	{
