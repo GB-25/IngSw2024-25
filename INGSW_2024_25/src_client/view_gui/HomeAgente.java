@@ -61,11 +61,12 @@ public class HomeAgente extends JFrame {
      // Creazione del bottone della campanella
         JPopupMenu popupMenu = new JPopupMenu();
         bellButton = new JButton();
-        bellButton.addActionListener(e -> bellButtonVisible (c, popupMenu, user, bellButton));
+        bellButton.addActionListener(e -> bellButtonVisible(c, popupMenu, user, bellButton));
         bellButton.setBackground(new Color(40, 132, 212));
         bellButton.setBorderPainted(false);
         bellButton.setFocusPainted(false);
         bellButton.setContentAreaFilled(false);
+        bellButton.setPreferredSize(new Dimension(30, 30)); // Imposta una dimensione fissa
         updateBellIcon(c, user, bellButton);
 
 
@@ -97,7 +98,10 @@ public class HomeAgente extends JFrame {
         Image userImage = userIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon finalUserIcon = new ImageIcon(userImage);
         JButton userButton = new JButton(finalUserIcon);
-        userButton.addActionListener(e -> popupUser.show(userButton, 0, userButton.getHeight()));
+        userButton.addActionListener(e -> {
+        System.out.println("ciao mi hai cliccato");	
+        popupUser.show(userButton, 0, userButton.getHeight());
+        });
         userButton.setBackground(new Color(40, 132, 212));
         userButton.setBorderPainted(false);
         userButton.setFocusPainted(false);
@@ -206,19 +210,20 @@ public class HomeAgente extends JFrame {
         setVisible(true);
     }
     
-    private void bellButtonVisible (Controller c, JPopupMenu popupMenu, User user, JButton bellButton) {
+    private void bellButtonVisible(Controller c, JPopupMenu popupMenu, User user, JButton bellButton) {
+        System.out.println("ciao mi hai cliccato");
     	if (popupMenu.isVisible()) {
-            // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
             popupMenu.setVisible(false);
         } else {
-            // 🔹 Se il popup non è visibile, aggiornalo e mostralo
             popupMenu.removeAll();
             popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
             List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+            System.out.println("Numero di notifiche: " + notifiche.size()); // Debug
 
             if (notifiche.isEmpty()) {
                 JMenuItem dummy = new JMenuItem("Nessuna notifica");
+                dummy.setEnabled(false);
                 popupMenu.add(dummy);
             } else {
                 for (Notifica notifica : notifiche) {
@@ -229,6 +234,9 @@ public class HomeAgente extends JFrame {
                             popupMenu.remove(menuItem);
                             c.viewCalendar(finestraCorrente, user);
                             updateBellIcon(c, user, bellButton);
+                            if (popupMenu.getComponentCount() == 0) {
+                                popupMenu.setVisible(false);
+                            }
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
@@ -236,16 +244,29 @@ public class HomeAgente extends JFrame {
                     popupMenu.add(menuItem);
                 }
             }
-            popupMenu.show(bellButton, 0, bellButton.getHeight());
+
+            popupMenu.revalidate();
+            popupMenu.repaint();
+
+            // Mostra il popup in una posizione testata
+            SwingUtilities.invokeLater(() -> popupMenu.show(bellButton, 10, 50)); // Posizione corretta
         }
     }
+
 
     private void updateBellIcon(Controller c, User user, JButton bellButton) {
         List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
         String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitebellnotifiche.png";
 
         ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
+        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+            System.err.println("Errore nel caricamento dell'icona: " + iconPath);
+            return;
+        }
+
         Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         bellButton.setIcon(new ImageIcon(img));
+        bellButton.revalidate();
+        bellButton.repaint();
     }
 }

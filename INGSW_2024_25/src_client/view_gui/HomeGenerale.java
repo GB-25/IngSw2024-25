@@ -193,6 +193,8 @@ public class HomeGenerale extends JFrame {
 	        userButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 	        JPopupMenu popupMenu = new JPopupMenu();
+
+
 	        JButton bellButton = new JButton();
 	        bellButton.addActionListener(e -> bellButtonVisible(c, popupMenu, user, bellButton));
 
@@ -213,49 +215,92 @@ public class HomeGenerale extends JFrame {
 	        topPanel.add(logoButton, BorderLayout.WEST);
 	        topPanel.add(topRightPanel, BorderLayout.EAST);
 	        topPanel.add(separator, BorderLayout.SOUTH);
+	        
+	        finestraCorrente.addComponentListener(new java.awt.event.ComponentAdapter() {
+	            @Override
+	            public void componentMoved(java.awt.event.ComponentEvent e) {
+	                if (popupMenu.isVisible()) {
+	                    popupMenu.setVisible(false); 
+	                    popupMenu.show(bellButton, 0, bellButton.getHeight());
+			        
+	                }
+	                if (popupUser.isVisible()) {
+	                	popupUser.setVisible(false);
+	                    popupUser.show(userButton, 0, userButton.getHeight());
+	                }
+	                
+	            }
+	            
+	            @Override
+	            public void componentResized(java.awt.event.ComponentEvent e) {
+	                if (popupMenu.isVisible()) {
+	              
+	                    popupMenu.show(bellButton, 0, bellButton.getHeight());
+	                }
+	                if (popupUser.isVisible()) {
+	                	popupUser.setVisible(false);
+	                    popupUser.show(userButton, 0, userButton.getHeight());
+	                }
+	                
+	            }
+	            
+	        });
 
 	        return topPanel;
 	    }
 	 
-	 private void bellButtonVisible (Controller c, JPopupMenu popupMenu, User user, JButton bellButton){
-		 if (popupMenu.isVisible()) {
-             // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
-             popupMenu.setVisible(false);
-         } else {
-             // 🔹 Se il popup non è visibile, aggiornalo e mostralo
-             popupMenu.removeAll();
-             popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
+	 private void bellButtonVisible(Controller c, JPopupMenu popupMenu, User user, JButton bellButton) {
+		    popupMenu.removeAll();
+		    popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-             List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-
-             if (notifiche.isEmpty()) {
-                 JMenuItem dummy = new JMenuItem("Nessuna notifica");
-                 popupMenu.add(dummy);
-             } else {
-                 for (Notifica notifica : notifiche) {
-                     JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-                     menuItem.addActionListener(e -> {
-                         try {
-                             c.setNotificaLetta(notifica);
-                             popupMenu.remove(menuItem);
-                             updateBellIcon(c, user, bellButton);
-                         } catch (Exception ex) {
-                             ex.printStackTrace();
-                         }
-                     });
-                     popupMenu.add(menuItem);
-                 }
-             }
-             popupMenu.show(bellButton, 0, bellButton.getHeight());
-         }
-	 }
-	 
-	 private void updateBellIcon(Controller c, User user, JButton bellButton) {
 		    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-		    String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitebellnotifiche.png";
+		    if (notifiche.isEmpty()) {
+		        JMenuItem dummy = new JMenuItem("Nessuna notifica");
+		        dummy.setEnabled(false);
+		        popupMenu.add(dummy);
+		    } else {
+		        for (Notifica notifica : notifiche) {
+		            JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+		            menuItem.addActionListener(ae -> {
+		                try {
+		                    c.setNotificaLetta(notifica);
+		                    popupMenu.remove(menuItem);
+		                    c.viewCalendar(finestraCorrente, user);
+		                    updateBellIcon(c, user, bellButton);
+		                    if (popupMenu.getComponentCount() == 0) {
+		                        popupMenu.setVisible(false);
+		                    }
+		                } catch (Exception ex) {
+		                    ex.printStackTrace();
+		                }
+		            });
+		            popupMenu.add(menuItem);
+		        }
+		    }
 
-		    ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
-		    Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-		    bellButton.setIcon(new ImageIcon(img));
+		    popupMenu.pack(); // Assicura il calcolo delle dimensioni del popup
+		    popupMenu.revalidate();
+		    popupMenu.repaint();
+
+		    SwingUtilities.invokeLater(() -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
 		}
+
+
+
+
+	    private void updateBellIcon(Controller c, User user, JButton bellButton) {
+	        List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+	        String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitebellnotifiche.png";
+
+	        ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
+	        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+	          
+	            return;
+	        }
+
+	        Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+	        bellButton.setIcon(new ImageIcon(img));
+	        bellButton.revalidate();
+	        bellButton.repaint();
+	    }
 }
