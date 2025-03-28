@@ -29,7 +29,7 @@ public class VisioneImmobile extends JFrame {
     private String fontScritte = "Helvetica";
     transient Logger logger = Logger.getLogger(getClass().getName());
 
-    public VisioneImmobile(Controller c, Immobile immobile, User user, JFrame finestra) throws GeocodingException, URISyntaxException {
+    public VisioneImmobile(Controller c, Immobile immobile, User user) throws GeocodingException, URISyntaxException {
     	finestraCorrente=this;
         // Configurazione della finestra
     	FlatLaf.setup(new FlatLightLaf());
@@ -88,7 +88,7 @@ public class VisioneImmobile extends JFrame {
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
         // **Pulsanti Prenota Visita e Indietro**
-        JPanel buttonPanel = createButtonPanel(c, immobile, user, finestra);
+        JPanel buttonPanel = createButtonPanel(c, immobile, user);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         
        JXMapViewer mapViewer = new JXMapViewer();
@@ -99,7 +99,7 @@ public class VisioneImmobile extends JFrame {
         mapPanel.setPreferredSize(new Dimension(200, 200));
         ArrayList<Immobile> immobileList = new ArrayList<>();
         immobileList.add(immobile);
-        c.getCoordinates(c, immobile.getImmobileDettagli().getIndirizzo(), mapPanel, mapViewer, false, immobileList, user, finestra);
+        c.getCoordinates(c, immobile.getImmobileDettagli().getIndirizzo(), mapPanel, mapViewer, false, immobileList, user);
         carouselPanel.add(mapPanel, BorderLayout.SOUTH);
         
 
@@ -181,7 +181,7 @@ public class VisioneImmobile extends JFrame {
         return detailsPanel;
     }
 
-    private JPanel createButtonPanel(Controller c, Immobile immobile, User user, JFrame finestra) {
+    private JPanel createButtonPanel(Controller c, Immobile immobile, User user) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.WHITE);
 
@@ -191,9 +191,7 @@ public class VisioneImmobile extends JFrame {
         prenotaButton.setFont(new Font(fontScritte, Font.BOLD, 13));
         prenotaButton.setFocusPainted(false);
         prenotaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        prenotaButton.addActionListener(e -> { c.makeReservationClient(finestraCorrente, immobile, user);
-
-        finestra.dispose();});
+        prenotaButton.addActionListener(e -> c.makeReservationClient(finestraCorrente, immobile, user));
 
         JButton indietroButton = new JButton("Indietro");
         indietroButton.setBackground(Color.GRAY);
