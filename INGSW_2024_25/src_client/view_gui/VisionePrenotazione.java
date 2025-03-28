@@ -50,7 +50,7 @@ public class VisionePrenotazione extends JFrame {
         dataLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
         oraLabel = new JLabel("Ora: " + prenotazione.getOraPrenotazione(), SwingConstants.CENTER);
         oraLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
-        posizioneLabel = new JLabel("Posizione: "+prenotazione.getImmobile().getIndirizzo());
+        posizioneLabel = new JLabel("Posizione: "+prenotazione.getImmobile().getImmobileDettagli().getIndirizzo());
         posizioneLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
         idCasaLabel = new JLabel("ID Prenotazione: "+prenotazione.getId());
         idCasaLabel.setFont(new Font(fontScritte, Font.BOLD, 20));

@@ -254,36 +254,53 @@ public class HomeGenerale extends JFrame {
 		    popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
 		    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+		    
 		    if (notifiche.isEmpty()) {
-		        JMenuItem dummy = new JMenuItem("Nessuna notifica");
-		        dummy.setEnabled(false);
-		        popupMenu.add(dummy);
+		        nessunaNotifica(popupMenu);
 		    } else {
-		        for (Notifica notifica : notifiche) {
-		            JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-		            menuItem.addActionListener(ae -> {
-		                try {
-		                    c.setNotificaLetta(notifica);
-		                    popupMenu.remove(menuItem);
-		                    c.viewCalendar(finestraCorrente, user);
-		                    updateBellIcon(c, user, bellButton);
-		                    if (popupMenu.getComponentCount() == 0) {
-		                        popupMenu.setVisible(false);
-		                    }
-		                } catch (Exception ex) {
-		                    ex.printStackTrace();
-		                }
-		            });
-		            popupMenu.add(menuItem);
-		        }
+		        notifiche.forEach(notifica -> nuovaNotifica(c, popupMenu, user, bellButton, notifica));
 		    }
 
-		    popupMenu.pack(); // Assicura il calcolo delle dimensioni del popup
+		    popupMenu.pack();
 		    popupMenu.revalidate();
 		    popupMenu.repaint();
 
 		    SwingUtilities.invokeLater(() -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
 		}
+
+		private void nessunaNotifica(JPopupMenu popupMenu) {
+		    JMenuItem dummy = new JMenuItem("Nessuna notifica");
+		    dummy.setEnabled(false);
+		    popupMenu.add(dummy);
+		}
+
+		private void nuovaNotifica(Controller c, JPopupMenu popupMenu, User user, JButton bellButton, Notifica notifica) {
+		    JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+		    menuItem.addActionListener(ae -> handleNotificationClick(c, popupMenu, user, bellButton, menuItem, notifica));
+		    popupMenu.add(menuItem);
+		}
+
+		private void handleNotificationClick(Controller c, JPopupMenu popupMenu, User user, JButton bellButton, JMenuItem menuItem, Notifica notifica) {
+		    try {
+		        c.setNotificaLetta(notifica);
+		        popupMenu.remove(menuItem);
+
+		        if (notifica.getMessaggio().startsWith("La tua prenotazione per l'immobile in ")) {
+		            c.createCaricamentoImmobile(finestraCorrente, user);
+		        } else {
+		            c.viewCalendar(finestraCorrente, user);
+		        }
+
+		        updateBellIcon(c, user, bellButton);
+
+		        if (popupMenu.getComponentCount() == 0) {
+		            popupMenu.setVisible(false);
+		        }
+		    } catch (Exception ex) {
+		        ex.printStackTrace();
+		    }
+		}
+
 
 
 

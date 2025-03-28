@@ -134,7 +134,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     @Override
     public Immobile getHouseByAddress(String indirizzo) {
     	Immobile immobile = null;
-    	
+    	Immobile immobileDettagli = null;
     	String query = "SELECT * FROM immobili WHERE indirizzo = '"+indirizzo+"';";
     	
     	 try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -145,8 +145,8 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 if (rs.next()) {
                 	User agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
                 	ComposizioneImmobile composizione = this.getComposizioneById(rs.getInt("idComposizioneImmobile"));
-                	immobile = new Immobile(rs.getInt("id"), rs.getDouble(PREZZOSTRING), composizione, rs.getString(INDIRIZZOSTRING), rs.getString(ANNUNCIOSTRING),
-                			rs.getString("tipo"), rs.getString(CLASSEENERGITICASTRING), rs.getString(DESCRIZIONESTRING), rs.getString("urls"), agente);
+                	immobileDettagli = new Immobile(rs.getString(CLASSEENERGITICASTRING), rs.getString(INDIRIZZOSTRING), rs.getString("tipo"),rs.getString(ANNUNCIOSTRING));
+                	immobile = new Immobile(rs.getInt("id"), rs.getDouble(PREZZOSTRING), composizione, rs.getString(DESCRIZIONESTRING), rs.getString("urls"), agente, immobileDettagli);
                 	}
                 }catch (SQLException e) {
                     e.printStackTrace();
@@ -157,8 +157,11 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     
     @Override
-    public int uploadHouse(double prezzo,int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, 
-					String descrizione, String urls, String agente) {
+    public int uploadHouse(double prezzo, int idComposizioneImmobile, Immobile immobileDettagli, String descrizione, String urls, String agente) {
+    	String indirizzo = immobileDettagli.getIndirizzo();
+    	String annuncio = immobileDettagli.getAnnuncio();
+    	String tipo = immobileDettagli.getTipo();
+    	String classeEnergetica = immobileDettagli.getClasseEnergetica();
     	String query = "INSERT INTO immobili ("+ PREZZOSTRING + ", idComposizioneImmobile, "+ INDIRIZZOSTRING +", "+ ANNUNCIOSTRING + ", tipo, "+ CLASSEENERGITICASTRING +", "+ DESCRIZIONESTRING +", urls, " + AGENTEIDSTRING + ")"
     			+ VALUES + " ('"+prezzo+"','"+idComposizioneImmobile+"','"+indirizzo+"','"+annuncio+"','"+tipo+"','" +classeEnergetica+"','"+descrizione+"','"+urls+"','" +agente+"') RETURNING id;";
     	int id=0;
@@ -320,8 +323,8 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                while (rs.next()) {
             	   agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
             	   composizione = this.getComposizioneById(rs.getInt("idcomposizioneimmobile"));
-            	   Immobile immobile = new Immobile(rs.getInt("id"), rs.getDouble(PREZZOSTRING), composizione, rs.getString(INDIRIZZOSTRING), rs.getString(ANNUNCIOSTRING),
-            			   rs.getString("tipo"), rs.getString(CLASSEENERGITICASTRING), rs.getString(DESCRIZIONESTRING),rs.getString("urls"), agente);
+            	   Immobile immobileDettagli = new Immobile(rs.getString(CLASSEENERGITICASTRING), rs.getString(INDIRIZZOSTRING), rs.getString("tipo"),rs.getString(ANNUNCIOSTRING));
+            	   Immobile immobile = new Immobile(rs.getInt("id"), rs.getDouble(PREZZOSTRING), composizione, rs.getString(DESCRIZIONESTRING),rs.getString("urls"), agente, immobileDettagli);
             	   lista.add(immobile);
                }
     	} catch (SQLException e) {
@@ -352,7 +355,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     public boolean salvaNotifica(Notifica notifica) {
         String sql = "INSERT INTO notifiche (destinatario_email, messaggio, letta) VALUES (?, ?, false)";
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, notifica.getDestinatarioEmail());
             stmt.setString(2, notifica.getMessaggio());
             stmt.executeUpdate();
@@ -401,6 +404,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 	public Immobile getHouseById(int id) {
 		ComposizioneImmobile composizione;
     	User agente;
+    	Immobile immobileDettagli;
 		String query = "SELECT * FROM immobili WHERE id ='"+id+"';";
 		try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -408,8 +412,8 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 			if(rs.next()) {
 			agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
          	   composizione = this.getComposizioneById(rs.getInt("idcomposizioneimmobile"));
-         	   return new Immobile(id, rs.getDouble(PREZZOSTRING), composizione, rs.getString(INDIRIZZOSTRING), rs.getString(ANNUNCIOSTRING),
-         			   rs.getString("tipo"), rs.getString(CLASSEENERGITICASTRING), rs.getString(DESCRIZIONESTRING),rs.getString("urls"), agente);
+         	   immobileDettagli = new Immobile(rs.getString(CLASSEENERGITICASTRING), rs.getString(INDIRIZZOSTRING), rs.getString("tipo"),rs.getString(ANNUNCIOSTRING));
+         	   return new Immobile(id, rs.getDouble(PREZZOSTRING), composizione, rs.getString(DESCRIZIONESTRING),rs.getString("urls"), agente, immobileDettagli);
 			}
 		} catch (SQLException e) {
             e.printStackTrace();

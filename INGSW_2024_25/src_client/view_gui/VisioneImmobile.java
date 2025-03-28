@@ -99,7 +99,7 @@ public class VisioneImmobile extends JFrame {
         mapPanel.setPreferredSize(new Dimension(200, 200));
         ArrayList<Immobile> immobileList = new ArrayList<>();
         immobileList.add(immobile);
-        c.getCoordinates(c, immobile.getIndirizzo(), mapPanel, mapViewer, false, immobileList, user, finestra);
+        c.getCoordinates(c, immobile.getImmobileDettagli().getIndirizzo(), mapPanel, mapViewer, false, immobileList, user, finestra);
         carouselPanel.add(mapPanel, BorderLayout.SOUTH);
         
 
@@ -144,11 +144,11 @@ public class VisioneImmobile extends JFrame {
         priceLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
         priceLabel.setForeground(Color.BLACK);
 
-        JLabel adLabel = new JLabel("Annuncio: "+immobile.getAnnuncio());
+        JLabel adLabel = new JLabel("Annuncio: "+immobile.getImmobileDettagli().getAnnuncio());
         JLabel surfaceLabel = new JLabel("Superficie: "+composizione.getQuadratura()+" m²");
         JLabel roomsLabel = new JLabel("Stanze: "+composizione.getNumeroStanze());
-        JLabel energyLabel = new JLabel("Classe Energetica: "+immobile.getClasseEnergetica());
-        JLabel condoLabel = new JLabel(immobile.getTipo());
+        JLabel energyLabel = new JLabel("Classe Energetica: "+immobile.getImmobileDettagli().getClasseEnergetica());
+        JLabel condoLabel = new JLabel(immobile.getImmobileDettagli().getTipo());
         JLabel elevatorLabel = new JLabel("Ascensore: "+(composizioneBoolean.isAscensore() ? "✓" : "✗"));
         JLabel gardenLabel = new JLabel("Giardino: "+(composizioneBoolean.isGiardino() ? "✓" : "✗"));
         //GENNO QUA AGGIUNGI TERRAZZO E CONDOMINIO UTILIZZANDO COMPOSIZIONEBOOLEAN

@@ -42,7 +42,7 @@ public class CalendarioInAttesa extends JFrame{
 		for (int i = 0; i < prenotazioni.size(); i++) {
 			prenotazione = prenotazioni.get(i);
 			immobile = prenotazione.getImmobile();
-			indirizzo = immobile.getIndirizzo();
+			indirizzo = immobile.getImmobileDettagli().getIndirizzo();
 			reservations.add(i, "Sig.\ra " + prenotazione.getUser().getNome() + " " + prenotazione.getUser().getCognome() + " a " + indirizzo + " alle ore " + prenotazione.getOraPrenotazione());
             }
 		JList<String> reservationsList = new JList<>(reservations.toArray(new String[0]));

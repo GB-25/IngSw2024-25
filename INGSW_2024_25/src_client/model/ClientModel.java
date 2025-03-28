@@ -263,6 +263,7 @@ public class ClientModel {
 
         ArrayList<Immobile> immobili = new ArrayList<>();
         Immobile casa;
+        Immobile immobileDettagli;
         if (response.getString(STATUS).equals(SUCCESS)) {
             JSONArray jsonArray = response.getJSONArray("immobili");
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -281,8 +282,8 @@ public class ClientModel {
                 User agente = this.getAgente(mailAgente);
 
                 ComposizioneImmobile composizione = this.getComposizione(idComposizione);
-                casa = new Immobile(id, prezzo, composizione,indirizzo, tipoAnnuncio, tipo,
-                        classe, descrizione, urls, agente);
+                immobileDettagli = new Immobile(classe, indirizzo, tipo, tipoAnnuncio);
+                casa = new Immobile(id, prezzo, composizione, descrizione, urls, agente, immobileDettagli);
                 immobili.add(casa);
                 //da capire come visualizzare le foto, però immagino sarà a parte dalla gui
             }
@@ -332,6 +333,7 @@ public class ClientModel {
     public boolean uploadNewHouseModel(Immobile immobile, List<String> foto) {
     	ComposizioneImmobile composizione = immobile.getComposizione();
     	ComposizioneImmobile composizioneBoolean = composizione.getComposizione();
+    	Immobile immobileDettagli = immobile.getImmobileDettagli();
         JSONObject request = new JSONObject();
         request.put(ACTION, "uploadNewHouse");
         request.put("quadratura", composizione.getQuadratura());
@@ -342,10 +344,10 @@ public class ClientModel {
         request.put("ascensore", composizioneBoolean.isAscensore());
         request.put("terrazzo", composizioneBoolean.isTerrazzo());
         request.put("prezzo", immobile.getPrezzo());
-        request.put(INDIRIZZOSTRING, immobile.getIndirizzo());
-        request.put("annuncio", immobile.getAnnuncio());
-        request.put("tipo", immobile.getTipo());
-        request.put("classeEnergetica", immobile.getClasseEnergetica());
+        request.put(INDIRIZZOSTRING, immobileDettagli.getIndirizzo());
+        request.put("annuncio", immobileDettagli.getAnnuncio());
+        request.put("tipo", immobileDettagli.getTipo());
+        request.put("classeEnergetica", immobileDettagli.getClasseEnergetica());
         request.put("descrizione", immobile.getDescrizione());
         
         request.put("agente", immobile.getAgente().getMail());

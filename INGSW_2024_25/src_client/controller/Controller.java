@@ -330,7 +330,7 @@ public class Controller {
 	    		String apiKey = APIKEYSTRING;
 	    		
 	    		for (Immobile immobile : immobili) {
-	    			String immobileAddress = URLEncoder.encode(immobile.getIndirizzo(), "UTF-8");
+	    			String immobileAddress = URLEncoder.encode(immobile.getImmobileDettagli().getIndirizzo(), "UTF-8");
 	    			String immobileUrl = "https://api.geoapify.com/v1/geocode/search?text=" + immobileAddress + "&apiKey=" + apiKey;
 	    			URI uri = new URI(immobileUrl);
 	    			HttpURLConnection immobileConn = (HttpURLConnection) uri.toURL().openConnection();
@@ -633,9 +633,9 @@ public class Controller {
 	    }
 	    
 	    if (confirmed) {
-	        messaggioNotifica = "Prenotazione per l'immobile in "+prenotazione.getImmobile().getIndirizzo()+" confermata!";
+	        messaggioNotifica = "Prenotazione per l'immobile in "+prenotazione.getImmobile().getImmobileDettagli().getIndirizzo()+" confermata!";
 	    } else {
-	        messaggioNotifica = "La tua prenotazione per l'immobile in "+prenotazione.getImmobile().getIndirizzo()+" è stata rifiutata... ";
+	        messaggioNotifica = "La tua prenotazione per l'immobile in "+prenotazione.getImmobile().getImmobileDettagli().getIndirizzo()+" è stata rifiutata... \n prova con una nuova ricerca ";
 	    }
 	    
 	    // Chiamata che invia la notifica al client

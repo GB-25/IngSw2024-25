@@ -270,7 +270,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	           jsonPrenotazione.put("Cliente", p.getUser().getNome()+" "+p.getUser().getCognome());
 	           jsonPrenotazione.put("mailCliente", p.getUser().getMail());
 	
-	           jsonPrenotazione.put(INDIRIZZO, p.getImmobile().getIndirizzo());
+	           jsonPrenotazione.put(INDIRIZZO, p.getImmobile().getImmobileDettagli().getIndirizzo());
 	           jsonPrenotazione.put(IMMOBILEID, p.getImmobile().getId());
 
 	           jsonPrenotazione.put("Agente", p.getAgente().getNome()+" "+p.getAgente().getCognome());
@@ -301,14 +301,14 @@ public class ClientHandler extends Thread { //implements Runnable???
 		   for(Immobile i : lista) {
 			   JSONObject jsonImmobile = new JSONObject();
 			   jsonImmobile.put("id", i.getId());
-			   jsonImmobile.put(INDIRIZZO, i.getIndirizzo());
+			   jsonImmobile.put(INDIRIZZO, i.getImmobileDettagli().getIndirizzo());
 			   jsonImmobile.put("composizione", i.getComposizione().getId());
 			   jsonImmobile.put("agente", i.getAgente().getMail());
 			   jsonImmobile.put("prezzo", i.getPrezzo());
-			   jsonImmobile.put("annuncio", i.getAnnuncio());
-			   jsonImmobile.put("tipo", i.getTipo());
+			   jsonImmobile.put("annuncio", i.getImmobileDettagli().getAnnuncio());
+			   jsonImmobile.put("tipo", i.getImmobileDettagli().getTipo());
 			   jsonImmobile.put("descrizione", i.getDescrizione());
-			   jsonImmobile.put("classe", i.getClasseEnergetica());
+			   jsonImmobile.put("classe", i.getImmobileDettagli().getClasseEnergetica());
 			   jsonImmobile.put("urls", i.getUrls());
 			   jsonArray.put(jsonImmobile);
 		   }
@@ -385,7 +385,8 @@ public class ClientHandler extends Thread { //implements Runnable???
        String agente = request.getString("agente");
        ComposizioneImmobile composizioneBoolean = new ComposizioneImmobile(terrazzo, giardino, ascensore, condominio);
        ComposizioneImmobile composizione = new ComposizioneImmobile(0,quadratura, piani, stanze, composizioneBoolean);
-       Immobile immobile = new Immobile (0, prezzo, composizione, indirizzo, annuncio, tipo, classeEnergetica, descrizione, "", null);
+       Immobile immobileDettagli = new Immobile(classeEnergetica, indirizzo, tipo, annuncio);
+       Immobile immobile = new Immobile (0, prezzo, composizione, descrizione, "", null, immobileDettagli);
        houseService = new HouseService(houseRepository);
        int id = houseService.uploadHouse(immobile, agente);
        if(id!=0) {

@@ -33,8 +33,8 @@ public class HouseService {
 	public int uploadHouse(Immobile immobile, String agente) {
 		ComposizioneImmobile composizione = immobile.getComposizione();
 		ComposizioneImmobile composizioneBoolean = composizione.getComposizione();
-		String indirizzo = immobile.getIndirizzo();
-		Immobile casa = houseRepository.getHouseByAddress(indirizzo);
+		Immobile immobileDettagli = immobile.getImmobileDettagli();
+		Immobile casa = houseRepository.getHouseByAddress(immobileDettagli.getIndirizzo());
 		if ((casa == null) || (composizioneBoolean.isCondominio())) {
 			int quadratura = composizione.getQuadratura();
 			int stanze = composizione.getNumeroStanze();
@@ -45,13 +45,9 @@ public class HouseService {
 			boolean terrazzo = composizioneBoolean.isTerrazzo();
 			int id = houseRepository.uploadComposizione(quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo);
 			double prezzo = immobile.getPrezzo();
-			String annuncio = immobile.getAnnuncio();
-			String tipo = immobile.getTipo();
-			String classeEnergetica = immobile.getClasseEnergetica();
 			String descrizione = immobile.getDescrizione();
 			String urls = immobile.getUrls();
-			return houseRepository.uploadHouse(prezzo, id, indirizzo, annuncio, tipo, classeEnergetica, 
-					descrizione, urls, agente);
+			return houseRepository.uploadHouse(prezzo, id, immobileDettagli, descrizione, urls, agente);
 		}
 		return 0;
 		

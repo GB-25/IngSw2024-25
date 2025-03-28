@@ -13,8 +13,7 @@ public interface HouseRepositoryInterface {
 	
 	Immobile getHouseByAddress(String indirizzo);
 	
-	int uploadHouse(double prezzo,int idComposizioneImmobile, String indirizzo, String annuncio, String tipo, String classeEnergetica, 
-			String descrizione, String urls, String agente);
+	int uploadHouse(double prezzo,int idComposizioneImmobile, Immobile immobileDettagli, String descrizione, String urls, String agente);
 	
 	ArrayList<Immobile> findHouses(String query);
 	
