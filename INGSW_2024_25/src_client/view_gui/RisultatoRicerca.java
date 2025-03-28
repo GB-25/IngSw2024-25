@@ -1,6 +1,7 @@
 package view_gui;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.net.URISyntaxException;
 
 import com.formdev.flatlaf.FlatLaf;
@@ -62,7 +63,18 @@ public class RisultatoRicerca extends JFrame {
         // Ottieni le coordinate e visualizza la mappa
         
       
-        c.getCoordinates(c, indirizzo , mapPanel, mapViewer, true, ricerca, user, finestraCorrente);
+        c.getCoordinates(c, indirizzo , mapPanel, mapViewer, true, ricerca, user);
+        
+        finestraCorrente.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                finestraCorrente.dispose();
+            }
+
+			@Override
+			public void windowGainedFocus(WindowEvent e) {
+				finestraCorrente.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}});
         
         // Mostra la finestra
         setVisible(true);
