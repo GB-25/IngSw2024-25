@@ -225,7 +225,7 @@ public class Controller {
 	}
 	
 	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
-	        boolean isSearchMode, List<Immobile> immobili, User user, JFrame finestra) throws GeocodingException, URISyntaxException  {
+	        boolean isSearchMode, List<Immobile> immobili, User user) throws GeocodingException, URISyntaxException  {
 	    try {
 	        double[] coordinates = getCoordinatesFromAPI(address);
 	        //era == null ma boh
@@ -248,7 +248,7 @@ public class Controller {
 	        configureWaypoints(mapViewer, waypoints);
 
 	        if (isSearchMode) {
-	            addWaypointClickListener(c, mapViewer, waypointMap, user, finestra);
+	            addWaypointClickListener(c, mapViewer, waypointMap, user);
 	        }
 
 	        addMapInteractionListeners(mapViewer);
@@ -368,7 +368,7 @@ public class Controller {
 	    mapViewer.setOverlayPainter(waypointPainter);
 	}
 
-	private void addWaypointClickListener(Controller c, JXMapViewer mapViewer, Map<DefaultWaypoint, Immobile> waypointMap, User user, JFrame finestra) {
+	private void addWaypointClickListener(Controller c, JXMapViewer mapViewer, Map<DefaultWaypoint, Immobile> waypointMap, User user) {
 	    mapViewer.addMouseListener(new MouseAdapter() {
 	        @Override
 	        public void mouseClicked(MouseEvent e) {
@@ -391,7 +391,7 @@ public class Controller {
 	                    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 	                        @Override
 	                        protected Void doInBackground() throws Exception {
-	                            new VisioneImmobile(c, immobile, user, finestra);
+	                            new VisioneImmobile(c, immobile, user);
 	                            return null;
 	                        }
 
@@ -733,8 +733,8 @@ public class Controller {
     	prenota.setVisible(true);
     }
     
-    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user, JFrame finestra) throws GeocodingException, URISyntaxException  {
-    	visioneImmobile = new VisioneImmobile(this, immobile, user, finestra);
+    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user) throws GeocodingException, URISyntaxException  {
+    	visioneImmobile = new VisioneImmobile(this, immobile, user);
     	finestraCorrente.setVisible(false);
     	visioneImmobile.setVisible(true);
     }
