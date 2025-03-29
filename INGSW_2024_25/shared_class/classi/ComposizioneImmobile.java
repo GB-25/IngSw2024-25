@@ -12,17 +12,6 @@ public class ComposizioneImmobile {
 	private boolean condominio;
 	private ComposizioneImmobile composizione;
 	
-//	public ComposizioneImmobile(int id, int quadratura, int piani, int numeroStanze, boolean terrazzo,
-//			boolean giardino, boolean ascensore, boolean condominio) {
-//		this.id = id;
-//		this.quadratura = quadratura;
-//		this.piani = piani;
-//		this.numeroStanze = numeroStanze;
-//		this.terrazzo = terrazzo;
-//		this.giardino = giardino;
-//		this.ascensore = ascensore;
-//		this.condominio = condominio;
-//	}
 	
 	public ComposizioneImmobile(boolean terrazzo, boolean giardino, boolean ascensore, boolean condominio) {
 		this.terrazzo = terrazzo;

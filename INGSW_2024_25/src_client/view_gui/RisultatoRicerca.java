@@ -28,7 +28,7 @@ public class RisultatoRicerca extends JFrame {
     private JFrame finestraCorrente;
 
 
-    public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException, URISyntaxException {
+    public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException  {
         FlatLaf.setup(new FlatLightLaf());
 
         // Configura il JFrame
@@ -62,9 +62,11 @@ public class RisultatoRicerca extends JFrame {
 
         // Ottieni le coordinate e visualizza la mappa
         
-      
+      try {
         c.getCoordinates(c, indirizzo , mapPanel, mapViewer, true, ricerca, user);
-        
+      } catch (URISyntaxException exception) {
+    	  JOptionPane.showMessageDialog(null, "Errore nel sistema! Ci scusiamo per il disagio","Errore", JOptionPane.ERROR_MESSAGE);
+      }
         finestraCorrente.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowLostFocus(WindowEvent e) {

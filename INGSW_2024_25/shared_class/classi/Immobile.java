@@ -15,19 +15,6 @@ public class Immobile {
 	private Immobile immobileDettagli;
 	
 
-//	public Immobile(int id, double prezzo, ComposizioneImmobile composizione, String indirizzo, String annuncio, String tipo, String classeEnergetica, String descrizione, String urls, User agente) {
-//		
-//		this.id = id;
-//		this.prezzo = prezzo;
-//		this.composizione = composizione;
-//		this.classeEnergetica = classeEnergetica;
-//		this.indirizzo = indirizzo;
-//		this.tipo = tipo;
-//		this.annuncio = annuncio;
-//		this.descrizione = descrizione;
-//		this.urls = urls;
-//		this.agente = agente;
-//	}
 
 	public Immobile(String classeEnergetica, String posizione, String tipoImmobile, String annuncio) {
 		this.classeEnergetica = classeEnergetica;

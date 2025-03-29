@@ -60,7 +60,7 @@ public class Controller {
 	private static final String ERRORE = "Errore";
 	private static final String FEATURES = "features";
 	private static final String COORDINATESSTRING = "coordinates";
-	//frame
+	
 	JFrame finestraCorrente;
 	JFrame finestraPrincipale;
 	ClientModel model;
@@ -87,7 +87,9 @@ public class Controller {
 	private static final double MAX = 1000000;
 
 	
-	//costruttore
+	/**
+	 * Costruttore
+	 */
 	public Controller() {
 
 		finestraPrincipale = new ProvaLogin(this);
@@ -125,7 +127,11 @@ public class Controller {
 			homeUtente.setVisible(true);
 		}
 	}
-	
+	/**
+	 * 
+	 * @param email
+	 * @return true se l'email è valida (con mail valida si intende del tipo "xxxx@yyy.zz")
+	 */
 	public boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         return ((email != null) && (email.matches(emailRegex)));
@@ -134,7 +140,15 @@ public class Controller {
 	public boolean isValidNome(String nome) {
 		return (nome.length()>2); 
 	}
-	
+	/**
+	 * 
+	 * @param pass
+	 * @param valori, gli elementi della cella sono inizalizzati per verificare che la password sia:
+	 *              - lunga almeno 6 caratteri
+	 *              - contenga almeno 1 cifra
+	 *              - contenga almeno 1 lettera minuscola
+	 *              - contenga almeno 1 lettera maiuscola
+	 */
 	public void isValidPassword(char[] pass, boolean[] valori) {
 		
 		String password = new String(pass);
@@ -160,7 +174,24 @@ public class Controller {
 			valori[3] = false;
 		}
 	}
-	
+	/**
+	 * 
+	 * @param controllo
+	 * @return true se tutti i valori dentro controllo sono true (a seguito del metodo precedente)
+	 */
+	public boolean checkFields(boolean[] controllo) {
+		for (boolean value : controllo) {
+	        if (!value) { 
+	            return false;
+	        }
+	    }
+	    return true;
+	}
+	/**
+	 * 
+	 * @param numero
+	 * @return true se la stringa è composta da sole cifre con una lunghezza compresa tra 9 e 10
+	 */
 	public boolean isValidNumero(String numero) {
 		return (numero.matches("^\\d{9,10}$"));
 	}
@@ -169,15 +200,13 @@ public class Controller {
 		return Arrays.equals(password1, password2);
 	}
 	
-	public boolean checkFields(boolean[] controllo) {
-		for (boolean value : controllo) {
-	        if (!value) { // Se almeno uno è false, restituisci false
-	            return false;
-	        }
-	    }
-	    return true;
-	}
 	
+	/**
+	 * 
+	 * @param vecchiaFinestra
+	 * @param nuovaFinestra
+	 * permette l'aggiornamento della View
+	 */
 	
 	public void cambiaFinestra(JFrame vecchiaFinestra, JFrame nuovaFinestra) {
 		vecchiaFinestra.setVisible(false);
@@ -197,16 +226,21 @@ public class Controller {
 	}
 	
 	
-	
 	public String fileDownload(String fileName) {
 		String fileData = model.downloadFileModel(fileName);
         if (!fileData.isEmpty()) {
-            return fileData;  // Questa stringa Base64 potrà essere decodificata dal client per visualizzare l'immagine
+            return fileData; 
         } else {
             return null;
         }
     }
-	
+	/**
+	 * 
+	 * @param grandezza
+	 * @param piani
+	 * @param stanze
+	 * @return true se i parametri inseriti sono validi (cifre maggiori di 0)
+	 */
 	public boolean checkDettagliInserzione(String grandezza, String piani, String stanze) {
  		boolean primoCheck = isNumeric(grandezza) && !grandezza.equals("0");
  		boolean secondoCheck = isNumeric(piani) && !piani.equals("0");
@@ -223,12 +257,25 @@ public class Controller {
 	public static boolean isNumeric(String prezzo) {
 	    return prezzo != null && prezzo.matches("\\d+");
 	}
-	
+	/**
+	 * 
+	 * @param c
+	 * @param address
+	 * @param mapPanel
+	 * @param mapViewer
+	 * @param isSearchMode
+	 * @param immobili
+	 * @param user
+	 * @throws GeocodingException
+	 * @throws URISyntaxException
+	 * 
+	 * permette di visualizzare l'indirizzo inserito sulla mappa 
+	 */
 	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
 	        boolean isSearchMode, List<Immobile> immobili, User user) throws GeocodingException, URISyntaxException  {
 	    try {
 	        double[] coordinates = getCoordinatesFromAPI(address);
-	        //era == null ma boh
+	
 	        if (coordinates.length==0) {
 	            JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", ERRORE, JOptionPane.ERROR_MESSAGE);
 	            return;
@@ -262,6 +309,14 @@ public class Controller {
 	        JOptionPane.showMessageDialog(null, e.getMessage(), ERRORE, JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+	/**
+	 * 
+	 * @param address
+	 * @return
+	 * @throws GeocodingException
+	 * @throws URISyntaxException
+	 * comunicazione con l'API responsabile della mappa interattiva
+	 */
 
 	private double[] getCoordinatesFromAPI(String address) throws GeocodingException, URISyntaxException {
 	    String apiKey = APIKEYSTRING;
@@ -315,6 +370,14 @@ public class Controller {
 	    }
 	}
 
+	/**
+	 * 
+	 * @param mapPanel
+	 * @param mapViewer
+	 * @param lat
+	 * @param lon
+	 * configurazione della mappa riferita nel metodo precedente
+	 */
 	private void configureMap(JPanel mapPanel, JXMapViewer mapViewer, double lat, double lon) {
 	    mapPanel.removeAll();
 	    TileFactoryInfo info = new OSMTileFactoryInfo();
@@ -325,6 +388,13 @@ public class Controller {
 	    mapViewer.setZoom(14);
 	}
 
+	/**
+	 * 
+	 * @param immobili
+	 * @param waypointMap
+	 * @param waypoints
+	 * questo e i metodi successivi permettono di poter "piazzare" sulla mappa dei waypoint cliccabili legati all'immobile corrispondente
+	 */
 	private void addImmobileWaypoints(List<Immobile> immobili, Map<DefaultWaypoint, Immobile> waypointMap, Set<DefaultWaypoint> waypoints) {
 	    try {
 	    		String apiKey = APIKEYSTRING;
@@ -377,7 +447,7 @@ public class Controller {
 	            int currentZoom = mapViewer.getZoom();
 	            Rectangle viewportBounds = mapViewer.getViewportBounds();
 
-	            // Iterate over the entrySet instead of the keySet
+	            
 	            for (Map.Entry<DefaultWaypoint, Immobile> entry : waypointMap.entrySet()) {
 	                DefaultWaypoint waypoint = entry.getKey();
 	                Immobile immobile = entry.getValue();
@@ -450,15 +520,20 @@ public class Controller {
 	        }
 	    });
 	}
-
+	/**
+	 * 
+	 * @param query
+	 * @param listModel
+	 * permette di visualizzare una lista di indirizzi per selezionare quello giusto
+	 */
 	public void fetchAddressSuggestions(String query, DefaultListModel<String> listModel) {
     	String apiKey = APIKEYSTRING;
     	String apiUrl = "https://api.geoapify.com/v1/geocode/autocomplete?apiKey=" + apiKey;
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(apiUrl).newBuilder();
         urlBuilder.addQueryParameter("text", query);
-        urlBuilder.addQueryParameter("lang", "it"); // Lingua italiana
-        urlBuilder.addQueryParameter("limit", "5"); // Massimo 5 suggerimenti
+        urlBuilder.addQueryParameter("lang", "it"); 
+        urlBuilder.addQueryParameter("limit", "5"); 
 
         Request request = new Request.Builder().url(urlBuilder.build().toString()).build();
 
@@ -521,7 +596,6 @@ public class Controller {
 		if (id == 0) {
 			 JOptionPane.showMessageDialog(null, "Prenotazione già effettuata per l'immobile o sei già impegnato quel giorno", ERRORE, JOptionPane.ERROR_MESSAGE);
 		} else {
-			//metodo per mostrare "bravo hai prenotato"
 			Prenotazione prenotazione = new Prenotazione(id, data, ora, user, immobile, agente, false);
 			this.notifyAgente(prenotazione);
 			
@@ -563,13 +637,17 @@ public class Controller {
 			JOptionPane.showMessageDialog(null, "Prenotazione rifiutata! Avviseremo il cliente per te ;)", "Rifiutato", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-	
-	public String[] getUrls(Immobile immobile) {// o passiamo direttamente le stringhe
+	/**
+	 * 
+	 * @param immobile
+	 * @return un array di stringhe contenente gli url delle immagini su google cloud storage
+	 */
+	public String[] getUrls(Immobile immobile) {
 		
 		String urls = immobile.getUrls();
 		return urls.split(",");
 	}
-	//boh cosa gli deve tornare, le istanze singole, una lista?
+
 	public List<Immobile> ricercaImmobili(double prezzoMin, double prezzoMax, Immobile immobile, ComposizioneImmobile composizione ){
 		StringBuilder sql = new StringBuilder("SELECT * FROM immobili WHERE 1=1");
 		if(!checkPrezzi(prezzoMin, prezzoMax)) {
@@ -601,24 +679,21 @@ public class Controller {
 
 	    String messaggioNotifica = "Nuova prenotazione per il giorno " + prenotazione.getDataPrenotazione()+ ". Controlla il calendario";
 
-	    // (In precedenza veniva definito un Runnable per l'azione,
-	    // ora la logica d'azione potrebbe essere gestita in altro modo o via interfaccia utente.)
-	    
-	    // Qui viene chiamato il metodo che crea e invia la notifica
 	    aggiungiNotifica(agente.getMail(), messaggioNotifica);
 	}
 
 	
 	private void aggiungiNotifica(String mail, String messaggio) {
 	    Notifica nuovaNotifica = new Notifica(mail, messaggio);
-	    // Invia la richiesta al ClientModel per salvare la notifica nel DB
+
 	    boolean success = model.inviaRichiestaNotifica(nuovaNotifica);
 	    if (!success) {
-	        // Gestisci l'errore (ad es. log o messaggio di errore)
+	  
+	    	logger.info("Errore nell'invio di notifica");
 	    }
 	}
 
-    // Metodo per recuperare le notifiche di un utente
+  
 	public List<Notifica> getNotificheUtente(String mail) {
 	    return model.richiestaNotificheUtente(mail);
 	}
@@ -626,7 +701,7 @@ public class Controller {
 	public void notifyCliente(Prenotazione prenotazione, boolean confirmed) {
 	    User cliente = prenotazione.getUser();
 	    String messaggioNotifica;
-	    // Anche qui si verificano i dati
+	
 	    if (cliente == null ) {
 	        JOptionPane.showMessageDialog(null, "Errore: dati della prenotazione non validi.", ERRORE, JOptionPane.ERROR_MESSAGE);
 	        return;
@@ -638,7 +713,7 @@ public class Controller {
 	        messaggioNotifica = "La tua prenotazione per l'immobile in "+prenotazione.getImmobile().getImmobileDettagli().getIndirizzo()+" è stata rifiutata... \n prova con una nuova ricerca ";
 	    }
 	    
-	    // Chiamata che invia la notifica al client
+	
 	    aggiungiNotifica(cliente.getMail(), messaggioNotifica);
 	}
 	
@@ -721,7 +796,7 @@ public class Controller {
     	finestraRegistrazione.setVisible(true);
     }
     
-    public void showResultImmobili(JFrame finestraCorrente, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException, URISyntaxException {
+    public void showResultImmobili(JFrame finestraCorrente, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException {
     	risultato = new RisultatoRicerca(this, user, ricerca, indirizzo);
     	finestraCorrente.setVisible(false);
     	risultato.setVisible(true);
@@ -765,7 +840,14 @@ public class Controller {
 	public boolean checkPrezzi(double prezzoMin, double prezzoMax) {
 		 return (prezzoMin >= MIN && prezzoMin <= MAX) && (prezzoMax >= MIN && prezzoMax <= MAX) && (prezzoMax >= prezzoMin);
 	}
-	
+	/**
+	 * 
+	 * @param ascensore
+	 * @param condominio
+	 * @param terrazzo
+	 * @param giardino
+	 * @return stringa da aggiungere per la query di ricerca di immobili
+	 */
 	public String checkDettagliComposizione(boolean ascensore, boolean condominio, boolean terrazzo, boolean giardino) {
 		
 		StringBuilder string = new StringBuilder();
@@ -784,7 +866,13 @@ public class Controller {
 		
 		return string.toString();
 	}
-	
+	/**
+	 * 
+	 * @param classe
+	 * @param tipo
+	 * @param annuncio
+	 * @return stringa da aggiungere per la query di ricerca di immobili
+	 */
 	public String checkDettagliImmobile(String classe, String tipo, String annuncio) {
 		StringBuilder string = new StringBuilder();
 		
@@ -799,7 +887,7 @@ public class Controller {
 		}
 		return string.toString();
 	}
-	
+
 	public static void main(String[] args)
 	{
 		new Controller();
