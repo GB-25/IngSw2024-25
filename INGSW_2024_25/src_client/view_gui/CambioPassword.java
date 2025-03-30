@@ -121,8 +121,7 @@ public class CambioPassword extends JFrame {
                 JOptionPane.QUESTION_MESSAGE);
 
         if (response == JOptionPane.YES_OPTION) {
-        	c.updatePassword(user,txtNuovaPassword.getPassword() );
-        	JOptionPane.showMessageDialog(this, "Password cambiata con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        	c.updatePassword(user,txtNuovaPassword.getPassword());
             c.createHomeAgente(finestraCorrente, user);
         }
     }

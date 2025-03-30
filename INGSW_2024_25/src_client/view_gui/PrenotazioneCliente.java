@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatLaf;
@@ -14,6 +16,7 @@ import com.toedter.calendar.JDateChooser;
 import classi.Immobile;
 import classi.User;
 import controller.Controller;
+import eccezioni.GeocodingException;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +32,7 @@ public class PrenotazioneCliente extends JFrame {
     private String orario;
     private JFrame finestraCorrente;
     private SchermataCaricamento schermataCaricamento;
+    private static final String SELEZIONA = "Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).";
 
     public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
     	FlatLaf.setup(new FlatLightLaf());
@@ -73,7 +77,21 @@ public class PrenotazioneCliente extends JFrame {
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25));
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
-        indietroButton.addActionListener(e -> dispose());
+        indietroButton.addActionListener(e -> {
+        	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+   		 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {			 
+   			 @Override
+   			 protected Void doInBackground () throws Exception {
+        	dispose();
+        	try {
+				c.showImmobile(finestraCorrente, immobile, user);
+			} catch (GeocodingException | URISyntaxException e1) {
+				e1.printStackTrace();
+			} return null;}
+   			 @Override
+   			 protected void done() {
+   				 schermataCaricamento.close();}};
+   				 worker.execute();});
         indietroPanel.add(indietroButton);
 
         JLabel phraseLabel = new JLabel("      Specifica la data e l'orario di prenotazione.");
@@ -124,7 +142,7 @@ public class PrenotazioneCliente extends JFrame {
         gbc4.anchor = GridBagConstraints.CENTER;
         middlePanel.add(confirmButton, gbc4);
 
-        JLabel outputLabel = new JLabel(" ");
+        JLabel outputLabel = new JLabel(SELEZIONA);
         gbc5.gridx = 0;
         gbc5.gridy = 3;
         middlePanel.add(outputLabel, gbc5);
@@ -216,7 +234,7 @@ public class PrenotazioneCliente extends JFrame {
         Date selectedTime = (Date) timeSpinner.getValue();
         Date selectedDate = dateChooser.getDate();
         if (selectedDate == null ) {
-            outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
+            outputLabel.setText("⚠️ " + SELEZIONA);
             return null;
         }
         
@@ -236,7 +254,7 @@ public class PrenotazioneCliente extends JFrame {
             c.createReservation(user, immobile, data, orario);
             c.reservationConfirmed(finestraCorrente, user);
         } else {
-            outputLabel.setText("⚠️ Orario fuori range! (10:00 - 18:00)");
+            outputLabel.setText("⚠️ " + SELEZIONA);
         } return null;}
 			 
 			 @Override
@@ -255,7 +273,7 @@ public class PrenotazioneCliente extends JFrame {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         if (selectedDate == null || !( hour >= 10 && hour < 18 && minute == 00 || hour >= 10 && hour < 18 && minute == 30 || hour == 18 && minute == 0)) {
-            outputLabel.setText("⚠️ Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).");
+            outputLabel.setText("⚠️ " + SELEZIONA);
             return;
             }
         

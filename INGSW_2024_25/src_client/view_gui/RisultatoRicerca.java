@@ -31,36 +31,41 @@ public class RisultatoRicerca extends JFrame {
     public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException  {
         FlatLaf.setup(new FlatLightLaf());
 
-        // Configura il JFrame
         finestraCorrente = this;
         setTitle("Risultato Ricerca - DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 600);
-        setLocationRelativeTo(null); // Centra la finestra
+        setLocationRelativeTo(null); 
 
-        // Crea il pannello principale
-        mainPanel = new JPanel(new BorderLayout()); // Usa BorderLayout
+        JPanel indietroPanel = new JPanel(new BorderLayout());
+        JButton indietroButton = new JButton("←");
+        indietroButton.setBackground(Color.WHITE);
+        indietroButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        indietroButton.setFocusPainted(false);
+        indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        indietroButton.addActionListener(e -> {
+        	dispose();
+            c.findImmobili(finestraCorrente, user);
+        });
+        indietroPanel.add(indietroButton);
+
+        mainPanel = new JPanel(new BorderLayout()); 
         mainPanel.setPreferredSize(new Dimension(600, 600));
         mainPanel.setBackground(Color.WHITE);
 
-        // Crea il pannello per la mappa
-        mapPanel = new JPanel(new BorderLayout()); // Usa BorderLayout
+        mapPanel = new JPanel(new BorderLayout()); 
         mapPanel.setPreferredSize(new Dimension(600, 500));
 
-        // Crea il JXMapViewer
         mapViewer = new JXMapViewer();
-        mapViewer.setPreferredSize(new Dimension(600, 500)); // Imposta le dimensioni
+        mapViewer.setPreferredSize(new Dimension(600, 500)); 
 
-        // Aggiungi il JXMapViewer al mapPanel
         mapPanel.add(mapViewer, BorderLayout.CENTER);
 
-        // Aggiungi il mapPanel al mainPanel
+        mainPanel.add(indietroPanel, BorderLayout.NORTH);
         mainPanel.add(mapPanel, BorderLayout.CENTER);
 
-        // Imposta il contenuto del JFrame
         setContentPane(mainPanel);
 
-        // Ottieni le coordinate e visualizza la mappa
         
       try {
         c.getCoordinates(c, indirizzo , mapPanel, mapViewer, true, ricerca, user);
@@ -78,7 +83,6 @@ public class RisultatoRicerca extends JFrame {
 				finestraCorrente.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}});
         
-        // Mostra la finestra
         setVisible(true);
     }
 }
