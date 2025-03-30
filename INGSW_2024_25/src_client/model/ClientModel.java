@@ -110,7 +110,7 @@ public class ClientModel {
         request.put("mail", mail);
         request.put("newPassword", nuovaPassword);
         JSONObject response = sendRequest(request);
-     	return (response.getString(STATUS).equals(STATUS));
+     	return (response.getString(STATUS).equals(SUCCESS));
     }
 
     public String uploadFileModel(String filePath, int id) {
