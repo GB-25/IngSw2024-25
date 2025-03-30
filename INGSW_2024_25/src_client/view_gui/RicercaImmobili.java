@@ -17,12 +17,13 @@ public class RicercaImmobili extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JFrame finestraCorrente;
 	private SchermataCaricamento schermataCaricamento;
+	private static final String ERRORE = "Errore";
 	
     public RicercaImmobili(Controller c, User user) {
     	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Ricerca immobili - DietiEstates25");
-        setSize(500, 500);
+        setSize(600, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         JPanel mainPanel = new JPanel();
@@ -48,6 +49,7 @@ public class RicercaImmobili extends JFrame {
         mainPanel.add(indietroButton, gbcIndietroButton);
         
         JLabel lblParametri = new JLabel("Scegli i parametri della ricerca");
+        lblParametri.setHorizontalAlignment(SwingConstants.CENTER);
         lblParametri.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 13));
         GridBagConstraints gbcLblParametri = new GridBagConstraints();
         gbcLblParametri.fill = GridBagConstraints.HORIZONTAL;
@@ -158,7 +160,7 @@ public class RicercaImmobili extends JFrame {
         gbcLblAscensore.insets = new Insets(0, 0, 5, 5);
         gbcLblAscensore.gridx = 1;
         gbcLblAscensore.gridy = 9;
-        JLabel lblAscensore = new JLabel("AscmbTypecensore");
+        JLabel lblAscensore = new JLabel("Ascensore");
         mainPanel.add(lblAscensore, gbcLblAscensore);
         
         GridBagConstraints gbcLblGiardino = new GridBagConstraints();
@@ -208,6 +210,13 @@ public class RicercaImmobili extends JFrame {
 		gbcTerrazzoCheckBox.gridx = 1;
 		gbcTerrazzoCheckBox.gridy = 13;
 		mainPanel.add(terrazzoCheckBox, gbcTerrazzoCheckBox);
+		
+		JLabel lblMinimo = new JLabel("Si prega di inserire un prezzo minimo che parta ");
+		GridBagConstraints gbcLblMinimo = new GridBagConstraints();
+		gbcLblMinimo.insets = new Insets(0, 0, 5, 5);
+		gbcLblMinimo.gridx = 4;
+		gbcLblMinimo.gridy = 13;
+		mainPanel.add(lblMinimo, gbcLblMinimo);
 		JCheckBox condominioCheckBox = new JCheckBox();
 		condominioCheckBox.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbcCondominioCheckBox = new GridBagConstraints();
@@ -226,7 +235,7 @@ public class RicercaImmobili extends JFrame {
                 protected Void doInBackground() throws Exception {
 				String indirizzo = posizioneField.getText();
 				if (indirizzo.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Devi inserire almeno una città dove cercare", "Errore", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Devi inserire almeno una città dove cercare", ERRORE, JOptionPane.ERROR_MESSAGE);
 				} else {
 					double prezzoMin = Double.parseDouble(prezzoMinField.getText());
 					double prezzoMax = Double.parseDouble(prezzoMaxField.getText());
@@ -240,11 +249,14 @@ public class RicercaImmobili extends JFrame {
 					ComposizioneImmobile composizione = new ComposizioneImmobile(terrazzo, giardino, ascensore, condominio);
 					Immobile immobile = new Immobile(classe, indirizzo, tipo, annuncio);
 					ArrayList<Immobile> ricerca = (ArrayList<Immobile>) c.ricercaImmobili(prezzoMin, prezzoMax, immobile, composizione);
+					if (!c.checkPrezzi(prezzoMin, prezzoMax)) {		
+						JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", ERRORE , JOptionPane.ERROR_MESSAGE);
+					}
 					if (!ricerca.isEmpty()) {
 						c.showResultImmobili(finestraCorrente, user, ricerca, indirizzo);
-					} else if (c.checkPrezzi(prezzoMin, prezzoMax)) {
-						
-						JOptionPane.showMessageDialog(null, "Errore durante la ricerca. Prova con altri parametri", "Errore" , JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Non sono stati trovati immobili che rispettano questi criteri. Prova con altri parametri", ERRORE , JOptionPane.ERROR_MESSAGE);
 					}
 				}
 					return null;}
@@ -254,6 +266,13 @@ public class RicercaImmobili extends JFrame {
                  }
 			};
 			worker.execute();});
+		
+		JLabel lblMassimo = new JLabel("da 500 ed un prezzo massimo non oltre i 1000000.");
+		GridBagConstraints gbcLblMassimo = new GridBagConstraints();
+		gbcLblMassimo.insets = new Insets(0, 0, 5, 5);
+		gbcLblMassimo.gridx = 4;
+		gbcLblMassimo.gridy = 14;
+		mainPanel.add(lblMassimo, gbcLblMassimo);
 		
 		cercaButton.setForeground(new Color(255, 255, 255));
 		cercaButton.setBackground(new Color(40, 132, 212));

@@ -151,7 +151,8 @@ public class VisioneImmobile extends JFrame {
         JLabel condoLabel = new JLabel(immobile.getImmobileDettagli().getTipo());
         JLabel elevatorLabel = new JLabel("Ascensore: "+(composizioneBoolean.isAscensore() ? "✓" : "✗"));
         JLabel gardenLabel = new JLabel("Giardino: "+(composizioneBoolean.isGiardino() ? "✓" : "✗"));
-        //GENNO QUA AGGIUNGI TERRAZZO E CONDOMINIO UTILIZZANDO COMPOSIZIONEBOOLEAN
+        JLabel balconyLabel = new JLabel("Terrazzo: "+(composizioneBoolean.isTerrazzo() ? "✓" : "✗"));
+        JLabel complexLabel = new JLabel("Condominio: "+(composizioneBoolean.isCondominio() ? "✓" : "✗"));
         JLabel descriptionLabel = new JLabel("Descrizione: ");
 
         JTextArea descriptionArea = new JTextArea(immobile.getDescrizione());
@@ -174,6 +175,8 @@ public class VisioneImmobile extends JFrame {
         detailsPanel.add(condoLabel);
         detailsPanel.add(elevatorLabel);
         detailsPanel.add(gardenLabel);
+        detailsPanel.add(balconyLabel);
+        detailsPanel.add(complexLabel);
         detailsPanel.add(Box.createVerticalStrut(20));
         detailsPanel.add(descriptionLabel);
         detailsPanel.add(descriptionScroll);
@@ -199,7 +202,10 @@ public class VisioneImmobile extends JFrame {
         indietroButton.setFont(new Font(fontScritte, Font.BOLD, 13));
         indietroButton.setFocusPainted(false);
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        indietroButton.addActionListener(e -> dispose());
+        indietroButton.addActionListener(e -> {
+        	dispose();
+            c.findImmobili(finestraCorrente, user);
+        });
 
         buttonPanel.add(indietroButton);
         buttonPanel.add(prenotaButton);

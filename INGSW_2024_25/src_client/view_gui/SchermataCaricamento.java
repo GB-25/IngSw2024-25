@@ -29,7 +29,6 @@ public class SchermataCaricamento extends JFrame{
 
         loadingFrame.add(loadingLabel, BorderLayout.NORTH);
         loadingFrame.add(gifLabel, BorderLayout.CENTER);
-        loadingFrame.setAlwaysOnTop(true);
         loadingFrame.setVisible(true);
     }
     
