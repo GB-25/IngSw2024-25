@@ -99,6 +99,11 @@ public class Controller {
 		
 	}
 	
+	public SchermataCaricamento createSchermataCaricamento(JFrame finestraCorrente, String message) {
+    	schermataCaricamento = new SchermataCaricamento(finestraCorrente, message);
+    	return schermataCaricamento;
+    }
+	
 	
 	public void handleLogin (String mail, char[] pass) {
 		String password = new String(pass);
@@ -113,7 +118,6 @@ public class Controller {
 				homeUtente = new HomeGenerale(this, user);
 				homeUtente.setVisible(true);
 		}
-		
 	}
 	
 	public void handleRegistration (String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
@@ -830,11 +834,6 @@ public class Controller {
 		if (user == null) {
 			 JOptionPane.showMessageDialog(null, "Utente già registrato", ERRORE, JOptionPane.ERROR_MESSAGE);
 		} 
-    }
-
-	public SchermataCaricamento createSchermataCaricamento(JFrame finestraCorrente, String message) {
-    	schermataCaricamento = new SchermataCaricamento(finestraCorrente, message);
-    	return schermataCaricamento;
     }
 
 	public boolean checkPrezzi(double prezzoMin, double prezzoMax) {
