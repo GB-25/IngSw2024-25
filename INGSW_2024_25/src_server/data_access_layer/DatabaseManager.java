@@ -9,11 +9,9 @@ import classi.*;
 import data_access_layer.interfaces.*;
 
 public class DatabaseManager implements UserRepositoryInterface, HouseRepositoryInterface, ReservationRepositoryInterface{
-    private static final String URL = "jdbc:postgresql://35.241.167.132:5432/app-db";
+    private static final String URL = System.getenv("URL_DB"); //"jdbc:postgresql://35.241.167.132:5432/app-db"
     private static final String USER = "postgres";
     private static final String PASSWORD = System.getenv("DB_PASSWORD");
-    private static final String SELECTUSERSTRING = "SELECT * FROM prenotazioni WHERE user_id = '";
-    private static final String ANDORASTRING = "' AND ora_prenotazione = '";
     private static final String VALUES = "VALUES";
     private static final String AGENTEIDSTRING = "agente_id";
     private static final String PREZZOSTRING = "prezzo";
@@ -21,7 +19,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     private static final String ANNUNCIOSTRING = "annuncio";
     private static final String CLASSEENERGITICASTRING = "classe_energetica";
     private static final String DESCRIZIONESTRING = "descrizione";
-    Logger logger = Logger.getLogger(getClass().getName());
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     private Connection conn;
 
@@ -32,56 +30,68 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             
         } catch (SQLException e) {
             logger.info("❌ Errore nella connessione a Cloud SQL!");
-            e.printStackTrace();
+            logger.severe("");
         }
     }
     
     @Override
     public User getUserByMail(String mail) {
         User user = null;
+        String query = "SELECT mail, password, nome, cognome, numeroTelefono, dataNascita, isAgente FROM users WHERE mail = ?"; 
 
-        String query = "SELECT * FROM users WHERE mail = '"+mail+"';";
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            
+
+            stmt.setString(1, mail); 
+
             ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                user = new User(rs.getString("mail"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), rs.getString("numeroTelefono"), rs.getString("dataNascita"), rs.getBoolean("isAgente"));
-            }
+             if (rs.next()) {
+                    user = new User(rs.getString("mail"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"),
+                        rs.getString("numeroTelefono"), rs.getString("dataNascita"), rs.getBoolean("isAgente") );
+                }
+            
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore nel recupero delle credenziali utente");
         }
-
         return user;
     }
+
     
     @Override
     public void register(String nome, String cognome, String data, String mail, String telefono, String password, boolean isAgente) {
-    	String query = "INSERT INTO users(mail, password, nome, cognome, numerotelefono, datanascita, isagente)"
-    			+ VALUES + "('"+ mail +"','"+password+"','"+nome+"','"+cognome+"','"+telefono+"','"+data+"','"+isAgente+"');";
-    	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement stmt = connection.prepareStatement(query)) {
-               //si deve vedere la compatibilià nel db perché data la passiamo come tipo stringa
-    			//nel db è salvato ovviamente come date
-               stmt.executeUpdate();
-    		
-           } catch (SQLException e) {
-               e.printStackTrace();
-           }
+        String query = "INSERT INTO users (mail, password, nome, cognome, numerotelefono, datanascita, isagente) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+        	
+        	stmt.setString(1, mail);
+            stmt.setString(2, password);
+            stmt.setString(3, nome);
+            stmt.setString(4, cognome);
+            stmt.setString(5, telefono);
+            stmt.setString(6, data);
+            stmt.setBoolean(7, isAgente);
+
+            stmt.executeUpdate();
+           
+        } catch (SQLException e) {
+            logger.severe("Errore registrazione utente");
+        }
     }
     
     
     @Override
     public boolean updatePassword(String mail, String nuovaPassword) {
-    	String query = "UPDATE users SET password = '"+nuovaPassword+"' WHERE mail = '"+mail+"';";
+    	String query = "UPDATE users SET password = ? WHERE mail = ?;";
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
                
+    		   stmt.setString(1, nuovaPassword);
+    		   stmt.setString(2, mail);
                stmt.executeUpdate();
                return true;
            } catch (SQLException e) {
-               e.printStackTrace();
+               logger.severe("Errore caricamento nuova password");
                return false;
            }
     }
@@ -90,18 +100,25 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     @Override
     public int uploadComposizione(int quadratura, int stanze, int piani, boolean giardino, boolean condominio, boolean ascensore, boolean terrazzo) {
     	String query = "INSERT INTO composizione_immobile (quadratura, stanze, piani, giardino, condominio, ascensore, terrazzo) "
-    			+ VALUES + " ('"+quadratura+"','"+stanze+"','"+piani+"','"+giardino+"','"+condominio+"','"+ascensore+"','"+terrazzo+"') RETURNING id;";
+    			+ VALUES + " (?, ?, ?, ?, ?, ?, ?) RETURNING id;";
     	int id=0;
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
     			
-    		
+
+    		stmt.setInt(1, quadratura);
+    		stmt.setInt(2, stanze);
+    		stmt.setInt(3, piani);
+    		stmt.setBoolean(4, giardino);
+    		stmt.setBoolean(5, condominio);
+    		stmt.setBoolean(6, ascensore);
+    		stmt.setBoolean(7, terrazzo);
     		ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getInt("id");
             }
     	} catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore caricamento composizione Immobile");
         }
     	return id;
     }
@@ -112,11 +129,11 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     public ComposizioneImmobile getComposizioneById(int id) {
     	ComposizioneImmobile composizione = null;
     	ComposizioneImmobile composizioneBoolean = null;
-    	String query = "SELECT * FROM composizione_immobile WHERE id ="+id+";";
+    	String query = "SELECT id, quadratura, piani, stanze, terrazzo, giardino, ascensore, condominio FROM composizione_immobile WHERE id = ?;";
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
     			
-    		
+    		stmt.setInt(1, id);
     		ResultSet rs = stmt.executeQuery();
     		
     		if (rs.next()) {
@@ -124,7 +141,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     			composizione = new ComposizioneImmobile(rs.getInt("id"), rs.getInt("quadratura"), rs.getInt("piani"), rs.getInt("stanze"), composizioneBoolean);
     		}
     	}catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore recupero composizione Immobile");
     	}
     	
     	return composizione;
@@ -135,11 +152,12 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     public Immobile getHouseByAddress(String indirizzo) {
     	Immobile immobile = null;
     	Immobile immobileDettagli = null;
-    	String query = "SELECT * FROM immobili WHERE indirizzo = '"+indirizzo+"';";
+    	String query = "SELECT id, prezzo, idComposizioneImmobile, indirizzo, annuncio, tipo, classe_energetica, descrizione, urls, agente_id FROM immobili WHERE indirizzo = ?;";
     	
+    
     	 try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                  PreparedStatement stmt = connection.prepareStatement(query)) {
-                
+                stmt.setString(1, indirizzo);
                 ResultSet rs = stmt.executeQuery();
 
                 if (rs.next()) {
@@ -149,7 +167,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 	immobile = new Immobile(rs.getInt("id"), rs.getDouble(PREZZOSTRING), composizione, rs.getString(DESCRIZIONESTRING), rs.getString("urls"), agente, immobileDettagli);
                 	}
                 }catch (SQLException e) {
-                    e.printStackTrace();
+                    logger.severe("Errore recupero Immobile");
                 }
     	 return immobile;
     	 
@@ -163,134 +181,171 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     	String tipo = immobileDettagli.getTipo();
     	String classeEnergetica = immobileDettagli.getClasseEnergetica();
     	String query = "INSERT INTO immobili ("+ PREZZOSTRING + ", idComposizioneImmobile, "+ INDIRIZZOSTRING +", "+ ANNUNCIOSTRING + ", tipo, "+ CLASSEENERGITICASTRING +", "+ DESCRIZIONESTRING +", urls, " + AGENTEIDSTRING + ")"
-    			+ VALUES + " ('"+prezzo+"','"+idComposizioneImmobile+"','"+indirizzo+"','"+annuncio+"','"+tipo+"','" +classeEnergetica+"','"+descrizione+"','"+urls+"','" +agente+"') RETURNING id;";
+    			+ VALUES + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;";
+
     	int id=0;
+    	
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
                
+    		stmt.setDouble(1, prezzo);
+    		stmt.setInt(2, idComposizioneImmobile);
+    		stmt.setString(3, indirizzo);
+    		stmt.setString(4, annuncio);
+    		stmt.setString(5, tipo);
+    		stmt.setString(6, classeEnergetica);
+    		stmt.setString(7, descrizione);
+    		stmt.setString(8, urls);
+    		stmt.setString(9, agente);
                ResultSet rs = stmt.executeQuery();
                if (rs.next()) {
                    id = rs.getInt("id");
          
                    }
            } catch (SQLException e) {
-               e.printStackTrace();
+               logger.severe("Errore caricamento Immobile");
            }
     	return id;
     }
     
     @Override
     public boolean alreadyGotAppointment(String mail, boolean isAgente, String data, String ora) {
-    	
-    	String query;
-    	if(isAgente) {
-    		query = "SELECT * FROM prenotazioni WHERE agente_id = '"+mail+"' AND data_prenotazione = '"+data+ ANDORASTRING +ora+"';";
-    	} else {
-    		query = SELECTUSERSTRING +mail+"' AND data_prenotazione = '"+data+ANDORASTRING+ora+"';";
-    	}
-    	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement stmt = connection.prepareStatement(query)) {
-               
-               ResultSet rs = stmt.executeQuery();
-
-               if (rs.next()) {
-            	   return true;
-               }
-    	} catch (SQLException e) {
-            e.printStackTrace();
+        String query;
+     
+        if (isAgente) {
+            query = "SELECT * FROM prenotazioni WHERE agente_id = ? AND data_prenotazione = ? AND ora_prenotazione = ?";
+        } else {
+            query = "SELECT * FROM prenotazioni WHERE user_mail = ? AND data_prenotazione = ? AND ora_prenotazione = ?";
         }
 
-        return false;
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+        	stmt.setString(1, mail);
+            stmt.setString(2, data);
+            stmt.setString(3, ora);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return true; 
+            }
+        } catch (SQLException e) {
+            logger.severe("Errore controllo dati prenotazione");
+        }
+
+        return false; 
     }
-    
     
     @Override
     public Prenotazione checkReservation(String mailCliente, int idImmobile) {
-    	Prenotazione prenotazione = null;
-    	String query = SELECTUSERSTRING +mailCliente+"' AND immobile_id = '"+idImmobile+"' and is_Confirmed = TRUE;";
-    	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement stmt = connection.prepareStatement(query)) {
-               
-               ResultSet rs = stmt.executeQuery();
+        Prenotazione prenotazione = null;
+        String query = "SELECT id, data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_Confirmed FROM prenotazioni WHERE user_mail = ? AND immobile_id = ? AND is_Confirmed = TRUE";
+       
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(query)) {
 
+
+            stmt.setString(1, mailCliente);
+            stmt.setInt(2, idImmobile);
+
+            ResultSet rs = stmt.executeQuery();
                if (rs.next()) {
-            	   User user = this.getUserByMail(rs.getString("user_id"));
-            	   Immobile immobile = this.getHouseByAddress(rs.getString("immobile_id"));
-            	   User agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
-                   prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), user, immobile , agente, rs.getBoolean("is_Confirmed"));
-               	}
-           } catch (SQLException e) {
-               e.printStackTrace();
-           }
+                   
+                   User user = this.getUserByMail(rs.getString("user_id"));
+                   Immobile immobile = this.getHouseByAddress(rs.getString("immobile_id"));
+                   User agente = this.getUserByMail(rs.getString("agente_id"));
+                   prenotazione = new Prenotazione( rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), user,
+                       immobile, agente, rs.getBoolean("is_Confirmed")
+                   );
+               }
+            
+        } catch (SQLException e) {
+            logger.severe("Errore controllo prenotazione");
+        }
 
-           return prenotazione;
-       }
+        return prenotazione;
+    }
+
 
     
     
     @Override
-    public void createReservation(String data, String ora,  String cliente, int idImmobile, String agente) {
-    	String query = "INSERT INTO prenotazioni (data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed)"
-    			+ VALUES + " ('"+data+"','"+ ora+"','"+cliente+"','"+ idImmobile+"','"+agente+"', FALSE);";
-    	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement stmt = connection.prepareStatement(query)) {
-               
-               stmt.executeUpdate();
-    		
-           } catch (SQLException e) {
-               e.printStackTrace();
-           }
+    public void createReservation(String data, String ora, String cliente, int idImmobile, String agente) {
+        String query = "INSERT INTO prenotazioni (data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed) "
+                     + "VALUES (?, ?, ?, ?, ?, FALSE)";  
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, data);
+            stmt.setString(2, ora);
+            stmt.setString(3, cliente);
+            stmt.setInt(4, idImmobile);
+            stmt.setString(5, agente);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            logger.severe("Errore creazione prenotazione"); 
+        }
     }
+
     
     
     @Override
     public ArrayList<Prenotazione> getReservationByMail(String mail, boolean isConfirmed, String data, boolean isAgente) {
-    	User agente;
-    	Immobile immobile;
-    	User cliente;
-    	String query;
-    	ArrayList<Prenotazione> lista = new ArrayList<>();
-    	
-    	if(isAgente) {
-    		query = "SELECT * FROM prenotazioni WHERE agente_id = '"+mail+"' AND is_confirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
-    	} else {
-    		query = SELECTUSERSTRING+mail+"' AND is_confirmed = "+isConfirmed+" AND data_prenotazione = '"+data+"';";
-    	}
-    	 try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement stmt = connection.prepareStatement(query)) {
-                
-                ResultSet rs = stmt.executeQuery();
-                
-                while (rs.next()) {
-                	agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
-                	immobile = this.getHouseById(rs.getInt("immobile_id"));
-                	cliente = this.getUserByMail(rs.getString("user_id"));
-                	
-                	Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), 
-                			cliente, immobile, agente, isConfirmed);
-                	lista.add(prenotazione);
-                }
-                
-                
-            }catch (SQLException e) {
-            
-                e.printStackTrace();
+        User agente;
+        Immobile immobile;
+        User cliente;
+        String query;
+        ArrayList<Prenotazione> lista = new ArrayList<>();
+
+        if (isAgente) {
+            query = "SELECT * FROM prenotazioni WHERE agente_id = ? AND is_confirmed = ? AND data_prenotazione = ?";
+        } else {
+            query = "SELECT * FROM prenotazioni WHERE user_mail = ? AND is_confirmed = ? AND data_prenotazione = ?";
+        }
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, mail);
+            stmt.setBoolean(2, isConfirmed);
+            stmt.setString(3, data);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                agente = this.getUserByMail(rs.getString("agente_id"));
+                immobile = this.getHouseById(rs.getInt("immobile_id"));
+                cliente = this.getUserByMail(rs.getString("user_id"));
+
+                Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"),  rs.getString("ora_prenotazione"), cliente,
+                    immobile, agente, isConfirmed);
+                lista.add(prenotazione);
             }
-    	
-    	 return lista;
+
+        } catch (SQLException e) {
+            logger.severe("Errore recupero prenotazioni");
+        }
+
+        return lista;
     }
+
     
     
     @Override
     public void deleteReservation(int id) {
-    	String query = "DELETE FROM prenotazioni WHERE id = "+id+";";
+    	String query = "DELETE FROM prenotazioni WHERE id = ?;";
     	
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
+    		stmt.setInt(1, id);
     		stmt.executeUpdate();
     		
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore cancellazione prenotazione");
         }
     	
     }
@@ -298,13 +353,14 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     @Override
     public void confirmReservation(int id) {
-    	String query = "UPDATE prenotazioni SET isConfirmed = TRUE WHERE id = '"+id+"';";
+    	String query = "UPDATE prenotazioni SET isConfirmed = TRUE WHERE id = ?;";
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
+    		stmt.setInt(1, id);
     		stmt.executeUpdate();
     		
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore conferma prenotazione");
         }
     }
     
@@ -328,7 +384,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             	   lista.add(immobile);
                }
     	} catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore ricerca degli immobili");
         }
     	return lista;
     }
@@ -336,21 +392,32 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     @Override
     public int getReservationId(String mailCliente, String mailAgente, String data, String ora, int idImmobile, boolean confirmed) {
-    	String query = "SELECT * FROM prenotazioni WHERE data_prenotazione = '"+data+"' AND user_id = '"+mailCliente+ANDORASTRING+ora+"' AND immobile_id ='"+idImmobile+"' AND agente_id = '"+mailAgente+"' AND is_Confirmed = '"+confirmed+"';";
-    	int id=0;
-    	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement stmt = connection.prepareStatement(query)) {
-                
-                ResultSet rs = stmt.executeQuery();
-                
-                while (rs.next()) {
-                	id=rs.getInt("id");
-                	}
-    		}catch (SQLException e) {
-                e.printStackTrace();
+        String query = "SELECT id FROM prenotazioni WHERE data_prenotazione = ? AND user_mail = ? AND ora_prenotazione = ? AND immobile_id = ? AND agente_id = ? AND is_Confirmed = ?;";
+        int id = 0;
+
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, data);
+            stmt.setString(2, mailCliente);
+            stmt.setString(3, ora);
+            stmt.setInt(4, idImmobile);
+            stmt.setString(5, mailAgente);
+            stmt.setBoolean(6, confirmed);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("id");
             }
-    	   return id;
+
+        } catch (SQLException e) {
+            logger.severe("Errore recupero dati prenotazioni"); 
+        }
+
+        return id;
     }
+
     
     public boolean salvaNotifica(Notifica notifica) {
         String sql = "INSERT INTO notifiche (destinatario_email, messaggio, letta) VALUES (?, ?, false)";
@@ -361,7 +428,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore creazione notifica");
             return false;
         }
     }
@@ -369,10 +436,10 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     public List<Notifica> getNotificheUtente(String mail) {
         List<Notifica> notifiche = new ArrayList<>();
-        String query = "SELECT id, messaggio, letta FROM notifiche WHERE destinatario_email = '"+mail+"' and letta = false;";
+        String query = "SELECT id, messaggio, letta FROM notifiche WHERE destinatario_email = ? and letta = false;";
         try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(query)) {
-           
+            stmt.setString(1, mail);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -381,7 +448,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 notifiche.add(new Notifica(id, mail, messaggio, letta));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore recupero notifiche");
         }
         return notifiche;
     }
@@ -389,13 +456,14 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 
 	@Override
 	public boolean setNotifica(int id) {
-		String query = "UPDATE notifiche SET letta = TRUE WHERE id ='"+id+"';";
+		String query = "UPDATE notifiche SET letta = TRUE WHERE id = ?;";
 		try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
+			stmt.setInt(1, id);
 			stmt.executeUpdate();
 			return true;
 		}catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore aggiornamento notifiche");
             return false;
 		}
 	}
@@ -405,9 +473,11 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 		ComposizioneImmobile composizione;
     	User agente;
     	Immobile immobileDettagli;
-		String query = "SELECT * FROM immobili WHERE id ='"+id+"';";
+		String query = "SELECT id, prezzo, idcomposizioneimmobile, indirizzo, annuncio, tipo, classe_energetica, descrizione, urls, agente_id FROM immobili WHERE id = ?;";
+	
 		try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
+			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
 			agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
@@ -416,20 +486,22 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
          	   return new Immobile(id, rs.getDouble(PREZZOSTRING), composizione, rs.getString(DESCRIZIONESTRING),rs.getString("urls"), agente, immobileDettagli);
 			}
 		} catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errorr recupero immobile");
 		}
 		return null;
 	}
 	
     @Override
 	public boolean updateUrls(String urls, int id) {
-		String query = "UPDATE immobili SET urls ='"+urls+"' WHERE id='"+id+"';";
+		String query = "UPDATE immobili SET urls = ? WHERE id= ?;";
 		try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement stmt = connection.prepareStatement(query)) {
+			stmt.setString(1, urls);
+			stmt.setInt(2, id);
 			stmt.executeUpdate();
 			return true;
 		}catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore aggiornamento foto");
             return false;
 		}
 	}
@@ -438,7 +510,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
         try {
             if (conn != null) conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Errore chiusura DB");
         }
     }	
 }

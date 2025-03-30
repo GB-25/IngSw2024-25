@@ -17,7 +17,7 @@ import classi.Immobile;
 import classi.User;
 import controller.Controller;
 import eccezioni.GeocodingException;
-
+import java.util.logging.Logger;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,6 +32,7 @@ public class PrenotazioneCliente extends JFrame {
     private String orario;
     private JFrame finestraCorrente;
     private SchermataCaricamento schermataCaricamento;
+    private transient Logger logger = Logger.getLogger(getClass().getName());
     private static final String SELEZIONA = "Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).";
 
     public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
@@ -86,7 +87,7 @@ public class PrenotazioneCliente extends JFrame {
         	try {
 				c.showImmobile(finestraCorrente, immobile, user);
 			} catch (GeocodingException | URISyntaxException e1) {
-				e1.printStackTrace();
+				logger.severe("Errore nel caricamento della finestra");
 			} return null;}
    			 @Override
    			 protected void done() {
@@ -221,7 +222,7 @@ public class PrenotazioneCliente extends JFrame {
             return String.format("🌡️ %.1f°C | ☁️ %s", temperature, getWeatherDescription(weatherCode)); // va là che belline le iconcine
 
         } catch (Exception e) {
-            e.printStackTrace();
+        	logger.severe("Errore comunicazine API meteo");
             return "❌ Errore nel recupero meteo: " + e.getMessage();
         }
     }

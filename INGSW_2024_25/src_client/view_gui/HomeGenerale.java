@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class HomeGenerale extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +24,7 @@ public class HomeGenerale extends JFrame {
 	private SchermataCaricamento schermataCaricamento;
 	private String fontScritte = "Microsoft YaHei UI Light";
 	ImageIcon bellIcon;
-	
+	private transient Logger logger = Logger.getLogger(getClass().getName());
 	public HomeGenerale(Controller c, User user) {
 		
 		finestraCorrente = this;
@@ -297,7 +298,7 @@ public class HomeGenerale extends JFrame {
 		            popupMenu.setVisible(false);
 		        }
 		    } catch (Exception ex) {
-		        ex.printStackTrace();
+		    	logger.severe("Errore nella ricezione di notifiche");
 		    }
 		}
 

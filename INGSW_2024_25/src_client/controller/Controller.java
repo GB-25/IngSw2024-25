@@ -162,17 +162,17 @@ public class Controller {
 		} else {
 			valori[0] = true;
 		}
-		if (password.matches("^.*[A-Z].*")) {
+		if (password.matches(".*[A-Z].*")) {
 			valori[1] = true;
 		} else {
 			valori[1] = false;
 		}
-		if (password.matches("^.*[a-z].*")) {
+		if (password.matches(".*[a-z].*")) {
 			valori[2] = true;
 		} else {
 			valori[2] = false;
 		}
-		if (password.matches("^.*\\d.*")) {
+		if (password.matches(".*\\d.*")) {
 			valori[3] = true;
 		} else {
 			valori[3] = false;
@@ -309,7 +309,7 @@ public class Controller {
 	        mapViewer.revalidate();
 	        mapViewer.repaint();
 	    } catch (GeocodingException e) {
-	        e.printStackTrace();
+	        logger.severe("Errore nel recupero delle coordinate");
 	        JOptionPane.showMessageDialog(null, e.getMessage(), ERRORE, JOptionPane.ERROR_MESSAGE);
 	    }
 	}
@@ -431,7 +431,7 @@ public class Controller {
 	    			}
 	    		}
 	    } catch (Exception e) {
-	        e.printStackTrace();
+	    	logger.severe("Errore nel caricamento della mappa");
 	        JOptionPane.showMessageDialog(null, e.getMessage(), ERRORE, JOptionPane.ERROR_MESSAGE);
 	    	}
 	    }
@@ -544,13 +544,13 @@ public class Controller {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-            	logger.info("Errore nella richiesta: " + e.getMessage());
+            	logger.severe("Errore nella richiesta: " + e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                	logger.info("Errore nella risposta: " + response.code());
+                	logger.severe("Errore nella risposta: " + response.code());
                     return;
                 }
 
@@ -572,7 +572,7 @@ public class Controller {
                     });
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                	logger.severe("Errore nel recupero degli indirizzi");
                 }
             }
         });
@@ -693,7 +693,7 @@ public class Controller {
 	    boolean success = model.inviaRichiestaNotifica(nuovaNotifica);
 	    if (!success) {
 	  
-	    	logger.info("Errore nell'invio di notifica");
+	    	logger.severe("Errore nell'invio di notifica");
 	    }
 	}
 

@@ -207,7 +207,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 		  
 	  } else {
 		  response.put(STATUS, ERROR);
-		  response.put(MESSAGE, "Prenotazione già effettuata o già impegnato");
+		  response.put(MESSAGE, "Risulta precedente prenotazione");
 	  }
 	  
 	  return response;
@@ -223,7 +223,7 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   reservationService = new ReservationService(reservationRepository);
 	   boolean noProbelmInReservation = reservationService.acceptReservation(id, mail, data, ora);
 	   response.put(STATUS, noProbelmInReservation ? SUCCESS : ERROR);
-	   response.put(MESSAGE, noProbelmInReservation ? "Prenotazione Confermata" : "Sei già impegnato");
+	   response.put(MESSAGE, noProbelmInReservation ? "Prenotazione Confermata" : "Presente una precedente Prenotazione");
 	   return response;
 	  
    }
@@ -394,7 +394,7 @@ public class ClientHandler extends Thread { //implements Runnable???
     	   response.put(IMMOBILEID, id);
        } else {
     	   response.put(STATUS, ERROR);
-    	   response.put(MESSAGE, "Già presente nel db");
+    	   response.put(MESSAGE, "Risulta presente nel db");
        }
       
 	   return response;

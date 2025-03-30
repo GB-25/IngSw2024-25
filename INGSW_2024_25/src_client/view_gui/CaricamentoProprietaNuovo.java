@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.List;
-
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.jxmapviewer.JXMapViewer;
@@ -29,7 +29,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final String ERRORE = "Errore";
-
+	private transient Logger logger = Logger.getLogger(getClass().getName());
 	// Dichiarazione dei campi da controllare
 	private List<File> files = new ArrayList<>();
 	private JXMapViewer mapViewer;
@@ -168,7 +168,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
             	mapViewer = new JXMapViewer();
                 c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false, null, user);
             } catch (Exception e1) {
-                e1.printStackTrace();
+            	logger.severe("Errore nel recupero delle coordinate");
             }
         });
 

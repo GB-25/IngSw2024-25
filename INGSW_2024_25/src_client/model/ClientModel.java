@@ -55,7 +55,7 @@ public class ClientModel {
             return new JSONObject(response);
 
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.info("Errore nella comunicazione col Server");
             JSONObject errorResponse = new JSONObject();
             errorResponse.put(STATUS, ERROR);
             errorResponse.put(MESSAGE, "Connessione al server fallita");
@@ -133,7 +133,7 @@ public class ClientModel {
                 logger.log(Level.INFO, () -> "Errore durante l'upload: " + response.getString(MESSAGE)); 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.info("Errore nel caricamento delle immagini");
             // Puoi decidere come gestire l'errore (ad es. inserendo un campo "error" nel JSON)
         }
         return fileUrl;
@@ -383,7 +383,7 @@ public class ClientModel {
             JSONObject response = sendRequest(request);
             return response.getString(STATUS).equalsIgnoreCase(SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
+        	logger.info("Errore nell'invio di notifiche");
             return false;
         }
     }
@@ -413,7 +413,7 @@ public class ClientModel {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+        	logger.info("Errore nella ricevuta di notifiche");
         }
         return notifiche;
     }
