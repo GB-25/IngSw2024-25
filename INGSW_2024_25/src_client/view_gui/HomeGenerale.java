@@ -23,6 +23,7 @@ public class HomeGenerale extends JFrame {
 	private JFrame finestraCorrente;
 	private SchermataCaricamento schermataCaricamento;
 	private String fontScritte = "Microsoft YaHei UI Light";
+	private static final String CARICAMENTO = "Caricamento";
 	ImageIcon bellIcon;
 	private transient Logger logger = Logger.getLogger(getClass().getName());
 	/**
@@ -51,7 +52,7 @@ public class HomeGenerale extends JFrame {
         if (!user.getIsAgente()) {
             searchButton = new JButton("Ricerca immobile");
             searchButton.addActionListener(e -> {
-        		schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        		schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, CARICAMENTO);
         	    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
         	        @Override
         	        protected Void doInBackground() throws Exception {
@@ -65,7 +66,7 @@ public class HomeGenerale extends JFrame {
         else {
         	searchButton = new JButton("Inserisci un nuovo immobile sulla piattaforma");
         	searchButton.addActionListener(e -> {
-        		schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+        		schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, CARICAMENTO);
         	    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
         	        @Override
         	        protected Void doInBackground() throws Exception {
@@ -292,7 +293,18 @@ public class HomeGenerale extends JFrame {
 
 		private void nuovaNotifica(Controller c, JPopupMenu popupMenu, User user, JButton bellButton, Notifica notifica) {
 		    JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-		    menuItem.addActionListener(ae -> handleNotificationClick(c, popupMenu, user, bellButton, menuItem, notifica));
+		    menuItem.addActionListener(ae -> {
+		    	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, CARICAMENTO);
+				 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+		    	handleNotificationClick(c, popupMenu, user, bellButton, menuItem, notifica);
+		    	return null;}
+                    
+                    @Override
+                    protected void done() {
+                    	schermataCaricamento.close();
+                    }}; worker.execute();});
 		    popupMenu.add(menuItem);
 		}
 		/**
