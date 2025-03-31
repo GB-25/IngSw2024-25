@@ -401,6 +401,7 @@ public class Controller {
 	 */
 	private void addImmobileWaypoints(List<Immobile> immobili, Map<DefaultWaypoint, Immobile> waypointMap, Set<DefaultWaypoint> waypoints) {
 	    try {
+	    	    List<GeoPosition> positions = new ArrayList<>();
 	    		String apiKey = APIKEYSTRING;
 	    		
 	    		for (Immobile immobile : immobili) {
@@ -423,8 +424,17 @@ public class Controller {
 	    				JSONObject immobileLocation = immobileJsonResponse.getJSONArray(FEATURES).getJSONObject(0).getJSONObject("geometry");
 	    				double immobileLat = immobileLocation.getJSONArray(COORDINATESSTRING).getDouble(1);
 	    				double immobileLon = immobileLocation.getJSONArray(COORDINATESSTRING).getDouble(0);
-
+	
+	    				for (int i = 0; i < positions.size(); i++) {
+	    					if (immobileLat == positions.get(i).getLatitude() &&
+	    							immobileLon == positions.get(i).getLongitude()) {
+	    						immobileLat += 0.000090;
+	    						immobileLon += 0.000090;
+	    					}
+	    				}
+	    				
 	    				GeoPosition immobilePosition = new GeoPosition(immobileLat, immobileLon);
+	    				positions.add(immobilePosition);
 	    				DefaultWaypoint waypoint = new DefaultWaypoint(immobilePosition);
 	    				waypoints.add(waypoint);
 	    				waypointMap.put(waypoint, immobile);
@@ -661,7 +671,7 @@ public class Controller {
 
 		}else {
 			sql.append(" AND prezzo >= "+prezzoMin+" AND prezzo <= "+prezzoMax);
-			sql.append(" AND TRIM(SPLIT_PART(indirizzo, ',', 2)) ILIKE '%"+immobile.getIndirizzo()+"%'");
+			sql.append(" AND indirizzo ILIKE '%" + immobile.getIndirizzo() + "%'");
 			sql.append(checkDettagliImmobile(immobile.getClasseEnergetica(), immobile.getTipo(), immobile.getAnnuncio()));
 			sql.append(checkDettagliComposizione(composizione.isAscensore(), composizione.isCondominio(), composizione.isTerrazzo(), composizione.isGiardino()));
 			sql.append(";");
