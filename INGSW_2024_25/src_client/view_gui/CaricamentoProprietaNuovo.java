@@ -365,7 +365,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                     "Sono presenti caratteri all'interno del campo del prezzi. Inserire un prezzo valido.",
                     ERRORE,
                     JOptionPane.ERROR_MESSAGE);
-        } else if (!Pattern.matches("^[A-Za-z ]+ \\d+, \\d+ [A-Za-z ]+, [A-Za-z ]+$", checkAddress)) {
+        } else if (!Pattern.matches("^[A-Za-zÀ-ÿ]+(?:[\\s-][A-Za-zÀ-ÿ]+)*,\\s*\\d+,\\s*\\d{5}\\s+[A-Za-zÀ-ÿ]+(?:\\s+[A-Za-zÀ-ÿ]+)*(?:\\s+[A-Z]{2})?,\\s*[A-Za-zÀ-ÿ]+$"
+        		, checkAddress)) {
         	JOptionPane.showMessageDialog(null,
                     "Indirizzo non valido. È necessario inserire l'indirizzo suggerito dal sistema.",
                     ERRORE,

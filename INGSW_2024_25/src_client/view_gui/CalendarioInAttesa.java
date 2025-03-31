@@ -34,8 +34,8 @@ public class CalendarioInAttesa extends JFrame{
 		setLocationRelativeTo(null);
 		setSize(new Dimension(400, 400));
 		setContentPane(frame);
-		JPanel reservationsPanel = new JPanel (new BorderLayout());
-		//hello i am john funzionante, please fix finestra, nun s ver nient
+		
+		JPanel reservationsPanel = new JPanel (new BorderLayout());		
 		prenotazioni = (ArrayList<Prenotazione>) c.getPrenotazione(user, selectedDateGlobal);
 		if (prenotazioni.isEmpty())
 			JOptionPane.showMessageDialog(null, "Nessuna prenotazione trovata per questa data.");
@@ -45,14 +45,16 @@ public class CalendarioInAttesa extends JFrame{
 			indirizzo = immobile.getImmobileDettagli().getIndirizzo();
 			reservations.add(i, "Sig.\ra " + prenotazione.getUser().getNome() + " " + prenotazione.getUser().getCognome() + " a " + indirizzo + " alle ore " + prenotazione.getOraPrenotazione());
             }
+		
 		JList<String> reservationsList = new JList<>(reservations.toArray(new String[0]));
 		reservationsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollPane = new JScrollPane(reservationsList);
 		reservationsPanel.add(new JLabel("Prenotazioni per il " + prenotazione.getDataPrenotazione()), BorderLayout.NORTH);
 		reservationsPanel.add(scrollPane, BorderLayout.CENTER);
+		
 		reservationsList.addMouseListener(new MouseAdapter() {
-		    @Override
 		    
+			@Override
 		    public void mouseClicked(MouseEvent e) {
 		        if (e.getClickCount() == 2) {
 		            int selectedPrenotazione = reservationsList.locationToIndex(e.getPoint());
