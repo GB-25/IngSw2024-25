@@ -681,7 +681,7 @@ public class Controller {
 	        return;
 	    }
 
-	    String messaggioNotifica = "Nuova prenotazione per il giorno " + prenotazione.getDataPrenotazione()+ ". Controlla il calendario";
+	    String messaggioNotifica = "Nuova prenotazione con id: "+prenotazione.getId();
 
 	    aggiungiNotifica(agente.getMail(), messaggioNotifica);
 	}
@@ -712,9 +712,9 @@ public class Controller {
 	    }
 	    
 	    if (confirmed) {
-	        messaggioNotifica = "Prenotazione per l'immobile in "+prenotazione.getImmobile().getImmobileDettagli().getIndirizzo()+" confermata!";
+	        messaggioNotifica = "Confermata la prenotazione con id: "+prenotazione.getId();
 	    } else {
-	        messaggioNotifica = "La tua prenotazione per l'immobile in "+prenotazione.getImmobile().getImmobileDettagli().getIndirizzo()+" è stata rifiutata... \n prova con una nuova ricerca ";
+	        messaggioNotifica = "Rifiutata la prenotazione con id: "+prenotazione.getId()+". Prova con una nuova ricerca ";
 	    }
 	    
 	
@@ -807,7 +807,7 @@ public class Controller {
     }
     
     public void makeReservationClient(JFrame finestraCorrente, Immobile immobile, User user) {
-    	prenota = new PrenotazioneCliente(this, immobile, user);
+    	prenota = new PrenotazioneCliente(this, immobile, user, finestraCorrente);
     	finestraCorrente.setVisible(false);
     	prenota.setVisible(true);
     }
@@ -887,6 +887,27 @@ public class Controller {
 		return string.toString();
 	}
 
+	public void checkPrenotazione(JFrame finestra, int id, User user) {
+		Prenotazione prenotazione = model.retrievePrenotazione(id);
+		if (prenotazione!=null) {
+			viewPrenotazione(user, prenotazione, finestra);
+		} else {
+			JOptionPane.showMessageDialog(null, "Errore nel recupero dell'istanza", ERRORE, JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void viewPrenotazione(User user, Prenotazione prenotazione, JFrame finestraCorrente) {
+		if(user.getIsAgente()) {
+			visionePrenotazione = new VisionePrenotazione (user, prenotazione, this);
+			finestraCorrente.setVisible(false);
+			visionePrenotazione.setVisible(true);
+		} else {
+			Immobile immobile = prenotazione.getImmobile();
+			makeReservationClient(finestraCorrente, immobile, user);
+		}
+
+	}
+	
 	public static void main(String[] args)
 	{
 		new Controller();

@@ -19,10 +19,18 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     private static final String ANNUNCIOSTRING = "annuncio";
     private static final String CLASSEENERGITICASTRING = "classe_energetica";
     private static final String DESCRIZIONESTRING = "descrizione";
+    private static final String IMMOBILEID = "immobile_id";
+    private static final String ORA ="ora_prenotazione";
+    private static final String DATA = "data_prenotazione";
+    private static final String USERID = "user_id";
     private Logger logger = Logger.getLogger(getClass().getName());
 
     private Connection conn;
 
+	/**
+     * 
+     * Costruttore
+     */
     public DatabaseManager() {
         try {
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -252,10 +260,10 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             ResultSet rs = stmt.executeQuery();
                if (rs.next()) {
                    
-                   User user = this.getUserByMail(rs.getString("user_id"));
-                   Immobile immobile = this.getHouseByAddress(rs.getString("immobile_id"));
-                   User agente = this.getUserByMail(rs.getString("agente_id"));
-                   prenotazione = new Prenotazione( rs.getInt("id"), rs.getString("data_prenotazione"), rs.getString("ora_prenotazione"), user,
+                   User user = this.getUserByMail(rs.getString(USERID));
+                   Immobile immobile = this.getHouseByAddress(rs.getString(IMMOBILEID));
+                   User agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
+                   prenotazione = new Prenotazione( rs.getInt("id"), rs.getString(DATA), rs.getString(ORA), user,
                        immobile, agente, rs.getBoolean("is_Confirmed")
                    );
                }
@@ -317,11 +325,11 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                agente = this.getUserByMail(rs.getString("agente_id"));
-                immobile = this.getHouseById(rs.getInt("immobile_id"));
-                cliente = this.getUserByMail(rs.getString("user_id"));
+                agente = this.getUserByMail(rs.getString(AGENTEIDSTRING));
+                immobile = this.getHouseById(rs.getInt(IMMOBILEID));
+                cliente = this.getUserByMail(rs.getString(USERID));
 
-                Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString("data_prenotazione"),  rs.getString("ora_prenotazione"), cliente,
+                Prenotazione prenotazione = new Prenotazione(rs.getInt("id"), rs.getString(DATA),  rs.getString(ORA), cliente,
                     immobile, agente, isConfirmed);
                 lista.add(prenotazione);
             }
@@ -506,6 +514,26 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 		}
 	}
 	
+    @Override 
+    public Prenotazione getReservationById(int id) {
+    	String query = "SELECT id, data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed FROM prenotazioni WHERE id = ?;";
+    	try (Connection connection =  DriverManager.getConnection(URL, USER, PASSWORD);
+	             PreparedStatement stmt = connection.prepareStatement(query)) {
+    		stmt.setInt(1, id);
+    		ResultSet rs = stmt.executeQuery();
+    		if (rs.next()) {
+    			User cliente = getUserByMail(rs.getString(USERID));
+    			User agente = getUserByMail(rs.getString(AGENTEIDSTRING));
+    			Immobile immobile = getHouseById(rs.getInt(IMMOBILEID));
+    			return new Prenotazione(id, rs.getString(DATA), rs.getString(ORA), cliente, immobile, agente, rs.getBoolean("is_confirmed")); 
+    		}
+    	}catch (SQLException e) {
+            logger.severe("Errore recupero Prenotazione");
+            
+    	}
+		return null;
+    }
+    
     public void closeConnection() {
         try {
             if (conn != null) conn.close();

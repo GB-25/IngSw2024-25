@@ -35,10 +35,13 @@ public class CreazioneAccountAdmin extends JFrame {
     private static final String ALL_CHARS = UPPERCASE + LOWERCASE + DIGITS;
     private static final int LENGTH = 10;
     private static final SecureRandom random = new SecureRandom();
-
+    /**
+     * 
+     * Costruttore
+     */
     public CreazioneAccountAdmin(Controller c, User user) {
     	FlatLaf.setup(new FlatLightLaf());
-        // Configurazione finestra
+      
     	finestraCorrente=this;
         setTitle("Creazione Account Admin - DietiEstates25");
 
@@ -47,17 +50,16 @@ public class CreazioneAccountAdmin extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         setSize(600, 640);
-        setLocationRelativeTo(null); // Centra la finestra
+        setLocationRelativeTo(null); 
 
-        // Pannello principale
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton indietroButton = new JButton("←");
-        indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
-        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
+        indietroButton.setPreferredSize(new Dimension(60, 25));
+        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
         indietroButton.addActionListener(e -> {dispose(); new HomeGenerale(c, user);});
         indietroPanel.add(indietroButton, BorderLayout.NORTH);
         mainPanel.add(indietroPanel);
@@ -79,12 +81,11 @@ public class CreazioneAccountAdmin extends JFrame {
         
         String password = generateRandomString(); 
 
-        // Campi per input
         txtNome = new JTextField(15);
         txtCognome = new JTextField(15);
         txtTelefono = new JTextField(15);
         txtEmail = new JTextField(15);
-        txtPassword = new JTextField(password, 15); // Campo password non editabile
+        txtPassword = new JTextField(password, 15); 
         mainPanel.add(createLabelFieldPanel("Nome:", txtNome));
         mainPanel.add(createLabelFieldPanel("Cognome:", txtCognome));
         mainPanel.add(createDateFieldPanel("Data di nascita:", dateChooser));
@@ -96,32 +97,31 @@ public class CreazioneAccountAdmin extends JFrame {
         label.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
         mainPanel.add(label);
         
-
-        // Pulsante per la creazione account
         JButton btnCreaAccount = new JButton("Crea Account");
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnCreaAccount.addActionListener(e -> creaAccount(c, user));
 
-     // Panel per  il pulsante
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(btnCreaAccount);
 
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Spazio tra i campi
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
         mainPanel.add(buttonPanel); 
 
-        // Aggiungi il pannello alla finestra
         getContentPane().add(mainPanel);
 
-        // Mostra la finestra
         setVisible(true);
     }
 
-    // Metodo per creare una riga con etichetta e campo di testo
-     
+    /**
+     * 
+     * @param labelText
+     * @param textField
+     * @return JPanel da aggiungere alla finestra, idem il metodo successivi
+     */
     private JPanel createLabelFieldPanel(String labelText, JTextField textField) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel label = new JLabel(labelText);
-        label.setPreferredSize(new Dimension(150, 25)); // Imposta larghezza fissa per allineare
+        label.setPreferredSize(new Dimension(150, 25)); 
         panel.add(label);
         panel.add(textField);
         return panel;
@@ -130,14 +130,18 @@ public class CreazioneAccountAdmin extends JFrame {
     private JPanel createDateFieldPanel(String labelText, JDateChooser dateChooser) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel label = new JLabel(labelText);
-        label.setPreferredSize(new Dimension(150, 25)); // Imposta larghezza fissa per allineare
+        label.setPreferredSize(new Dimension(150, 25)); 
         dateChooser.setPreferredSize(new Dimension(176, 20));
         panel.add(label);
         panel.add(dateChooser);
         return panel;
     }
-
-    // Metodo per creare l'account con verifica dei campi
+    /**
+     * 
+     * @param c
+     * @param agenteChiamante
+     * Metodo che permette la generazzione di un account di un'agente immobiliare
+     */
     private void creaAccount(Controller c, User agenteChiamante) {
         String nome = txtNome.getText().trim();
         String cognome = txtCognome.getText().trim();
@@ -145,7 +149,7 @@ public class CreazioneAccountAdmin extends JFrame {
         String telefono = txtTelefono.getText().trim();
         String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
         String password = txtPassword.getText().trim();
-        // Verifica che tutti i campi siano compilati
+       
         if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || telefono.isEmpty() || data.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori!", ERROR, JOptionPane.ERROR_MESSAGE);
             return;
@@ -154,13 +158,13 @@ public class CreazioneAccountAdmin extends JFrame {
         	JOptionPane.showMessageDialog(this, "Nome e cognome devono essere almeno di due lettere", ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        // Verifica formato email
+      
         if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             JOptionPane.showMessageDialog(this, "Inserisci un'email valida!", ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        // Verifica numero di telefono
+        
         if(!c.isValidNumero(telefono)){
         	JOptionPane.showMessageDialog(this, "Inserisci un numero di telefono valido!", ERROR, JOptionPane.ERROR_MESSAGE);
         	return;
@@ -176,33 +180,33 @@ public class CreazioneAccountAdmin extends JFrame {
         	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
-        	c.createAdmin(nome, cognome, data, email, telefono, password, true);
-        	return null;}
+                	c.createAdmin(nome, cognome, data, email, telefono, password, true);
+                	return null;}
                 
                 @Override
                 protected void done() {
-        	// Sono stato costretto a commentare questa sezione altrimenti non partiva, bisogna fare in modo che password venga poi restituita in versione JPasswordField
-            schermataCaricamento.close();
-            c.createHomeAgente(finestraCorrente, agenteChiamante);}};
-            worker.execute();
-            JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-    
+        	
+                	schermataCaricamento.close();
+                	c.createHomeAgente(finestraCorrente, agenteChiamante);}};
+                worker.execute();
+               	JOptionPane.showMessageDialog(this, "Account creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        	}
+    	}
+    /**
+     * 
+     * @return Stringa generata randomicamente per la password di default
+     */
     public static String generateRandomString() {
         StringBuilder sb = new StringBuilder(LENGTH);
 
-        // Inclusione di almeno un carattere di ogni tipo
         sb.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
         sb.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
         sb.append(DIGITS.charAt(random.nextInt(DIGITS.length())));
 
-        // Riempimento con caratteri casuali
         for (int i = 3; i < LENGTH; i++) {
             sb.append(ALL_CHARS.charAt(random.nextInt(ALL_CHARS.length())));
         }
 
-        // Mescolamento caratteri poi inseriti in un array
         char[] charArray = sb.toString().toCharArray();
         for (int i = 0; i < charArray.length; i++) {
             int randomIndex = random.nextInt(charArray.length);

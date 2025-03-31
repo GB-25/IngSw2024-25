@@ -25,6 +25,10 @@ public class CalendarioInAttesa extends JFrame{
 	private String indirizzo; 
 	private transient Immobile immobile;
 	private JFrame finestraCorrente;
+	/**
+	 * 
+	 * Costruttore
+	 */
 	public CalendarioInAttesa(Controller c, User user, LocalDate selectedDateGlobal) {
 		FlatLaf.setup(new FlatLightLaf());
 		frame = new JPanel(new BorderLayout());
@@ -35,7 +39,7 @@ public class CalendarioInAttesa extends JFrame{
 		setSize(new Dimension(400, 400));
 		setContentPane(frame);
 		JPanel reservationsPanel = new JPanel (new BorderLayout());
-		//hello i am john funzionante, please fix finestra, nun s ver nient
+
 		prenotazioni = (ArrayList<Prenotazione>) c.getPrenotazione(user, selectedDateGlobal);
 		if (prenotazioni.isEmpty())
 			JOptionPane.showMessageDialog(null, "Nessuna prenotazione trovata per questa data.");

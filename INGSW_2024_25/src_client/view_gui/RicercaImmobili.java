@@ -18,7 +18,9 @@ public class RicercaImmobili extends JFrame {
 	private JFrame finestraCorrente;
 	private SchermataCaricamento schermataCaricamento;
 	private static final String ERRORE = "Errore";
-	
+	/**
+	 * Costruttore
+	 */
     public RicercaImmobili(Controller c, User user) {
     	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
@@ -34,13 +36,12 @@ public class RicercaImmobili extends JFrame {
         gblMainPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         mainPanel.setLayout(gblMainPanel);
 
-        // Aggiungi il pannello principale al JFrame
         getContentPane().add(mainPanel);
                                                                         
-                                                                                // Pannello principale
+
         JButton indietroButton = new JButton("←");
-        indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
-        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
+        indietroButton.setPreferredSize(new Dimension(60, 25)); 
+        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
         indietroButton.addActionListener(e -> {dispose(); new HomeGenerale(c, user);});
         GridBagConstraints gbcIndietroButton = new GridBagConstraints();
         gbcIndietroButton.insets = new Insets(0, 0, 5, 5);
@@ -58,7 +59,7 @@ public class RicercaImmobili extends JFrame {
         gbcLblParametri.gridy = 0;
         mainPanel.add(lblParametri, gbcLblParametri);
         
-        // Posizione
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 0, 5, 5);
@@ -74,7 +75,7 @@ public class RicercaImmobili extends JFrame {
         gbcPosizioneField.gridy = 2;
         mainPanel.add(posizioneField, gbcPosizioneField);
         	
-        // Tipo di annuncio
+
         GridBagConstraints gbcLblAnnuncio = new GridBagConstraints();
         gbcLblAnnuncio.fill = GridBagConstraints.BOTH;
         gbcLblAnnuncio.insets = new Insets(0, 0, 5, 5);
@@ -89,9 +90,7 @@ public class RicercaImmobili extends JFrame {
         gbcTipoAnnuncio.gridx = 5;
         gbcTipoAnnuncio.gridy = 3;
         mainPanel.add(tipoAnnuncio, gbcTipoAnnuncio);
-        
-        
-        // Tipo di casa
+
         GridBagConstraints gbcLblCasa = new GridBagConstraints();
         gbcLblCasa.fill = GridBagConstraints.BOTH;
         gbcLblCasa.insets = new Insets(0, 0, 5, 5);
@@ -106,8 +105,7 @@ public class RicercaImmobili extends JFrame {
         gbcTipoCasa.gridx = 5;
         gbcTipoCasa.gridy = 4;
         mainPanel.add(tipoCasa, gbcTipoCasa);
-        
-        // Classe energetica
+
         GridBagConstraints gbcLblClasse = new GridBagConstraints();
         gbcLblClasse.fill = GridBagConstraints.BOTH;
         gbcLblClasse.insets = new Insets(0, 0, 5, 5);
@@ -122,8 +120,7 @@ public class RicercaImmobili extends JFrame {
         gbcTipoClasse.gridx = 5;
         gbcTipoClasse.gridy = 5;
         mainPanel.add(tipoClasse, gbcTipoClasse);
-        
-        // Prezzo minimo e massimo
+
         GridBagConstraints gbcPrezzoMinimo = new GridBagConstraints();
         gbcPrezzoMinimo.fill = GridBagConstraints.BOTH;
         gbcPrezzoMinimo.insets = new Insets(0, 0, 5, 5);
@@ -153,8 +150,7 @@ public class RicercaImmobili extends JFrame {
         gbcPrezzoMaxField.gridx = 5;
         gbcPrezzoMaxField.gridy = 7;
         mainPanel.add(prezzoMaxField, gbcPrezzoMaxField);
-        
-        // Ascensore, Giardino, Terrazzo, In condominio
+
         GridBagConstraints gbcLblAscensore = new GridBagConstraints();
         gbcLblAscensore.fill = GridBagConstraints.VERTICAL;
         gbcLblAscensore.insets = new Insets(0, 0, 5, 5);
@@ -226,7 +222,7 @@ public class RicercaImmobili extends JFrame {
 		mainPanel.add(condominioCheckBox, gbcCondominioCheckBox);
 		prezzoMinField.setText("0");
 		prezzoMaxField.setText("0");
-		// Bottone di ricerca
+
 		JButton cercaButton = new JButton("Cerca");
 		cercaButton.addActionListener(e -> {
 			schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
@@ -284,8 +280,7 @@ public class RicercaImmobili extends JFrame {
 		gbcCercaButton.gridx = 4;
 		gbcCercaButton.gridy = 15;
 		mainPanel.add(cercaButton, gbcCercaButton);
-		
-        // Mostra la finestra
+
         setVisible(true);
     }
 }

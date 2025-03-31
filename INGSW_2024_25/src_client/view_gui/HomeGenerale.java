@@ -25,6 +25,10 @@ public class HomeGenerale extends JFrame {
 	private String fontScritte = "Microsoft YaHei UI Light";
 	ImageIcon bellIcon;
 	private transient Logger logger = Logger.getLogger(getClass().getName());
+	/**
+	 * 
+	 * Costruttore
+	 */
 	public HomeGenerale(Controller c, User user) {
 		
 		finestraCorrente = this;
@@ -32,7 +36,7 @@ public class HomeGenerale extends JFrame {
 		setTitle("Home Cliente - DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 640);
-        setLocationRelativeTo(null); // Centra la finestra
+        setLocationRelativeTo(null); 
         
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
@@ -138,10 +142,14 @@ public class HomeGenerale extends JFrame {
 
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
-        // Imposta la finestra visibile
         setVisible(true);
 	}
-	
+	/**
+	 * 
+	 * @param c
+	 * @param user
+	 * @return JPanel da caricare sulla finestra
+	 */
 	 private JPanel createTopPanel(Controller c, User user) {
 		 	
 	        topPanel = new JPanel(new BorderLayout());
@@ -249,7 +257,14 @@ public class HomeGenerale extends JFrame {
 
 	        return topPanel;
 	    }
-	 
+	 /**
+	  * 
+	  * @param c
+	  * @param popupMenu
+	  * @param user
+	  * @param bellButton
+	  * Metodo per il recupero delle notifiche
+	  */ 
 	 private void bellButtonVisible(Controller c, JPopupMenu popupMenu, User user, JButton bellButton) {
 		    popupMenu.removeAll();
 		    popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
@@ -280,14 +295,33 @@ public class HomeGenerale extends JFrame {
 		    menuItem.addActionListener(ae -> handleNotificationClick(c, popupMenu, user, bellButton, menuItem, notifica));
 		    popupMenu.add(menuItem);
 		}
-
+		/**
+		 * metodo aggiornamento status notifiche
+		 * @param c
+		 * @param popupMenu
+		 * @param user
+		 * @param bellButton
+		 * @param menuItem
+		 * @param notifica
+		 */
 		private void handleNotificationClick(Controller c, JPopupMenu popupMenu, User user, JButton bellButton, JMenuItem menuItem, Notifica notifica) {
 		    try {
 		        c.setNotificaLetta(notifica);
 		        popupMenu.remove(menuItem);
-
-		        if (notifica.getMessaggio().startsWith("La tua prenotazione per l'immobile in ")) {
-		            c.createCaricamentoImmobile(finestraCorrente, user);
+		        String[] parts;
+		        int numero;
+		        String numeroStringa;
+		        if (notifica.getMessaggio().startsWith("Rifiutata la prenotazione con id:")) {
+		        	 parts = notifica.getMessaggio().split(":"); 
+		        	 numeroStringa = parts[1].trim().split("\\s+")[0]; 
+		             numero = Integer.parseInt(numeroStringa);
+		             c.checkPrenotazione(finestraCorrente, numero, user);
+		        }else if(notifica.getMessaggio().startsWith("Nuova prenotazione con id:")) {
+		        	 parts = notifica.getMessaggio().split(":"); 
+		             numeroStringa = parts[parts.length - 1].trim(); 
+		             numero = Integer.parseInt(numeroStringa);
+		             c.checkPrenotazione(finestraCorrente, numero, user);
+		        
 		        } else {
 		            c.viewCalendar(finestraCorrente, user);
 		        }
@@ -301,11 +335,13 @@ public class HomeGenerale extends JFrame {
 		    	logger.severe("Errore nella ricezione di notifiche");
 		    }
 		}
-
-
-
-
-
+		/**
+		 * aggiornamento icona notifiche
+		 * 
+		 * @param c
+		 * @param user
+		 * @param bellButton
+		 */
 	    private void updateBellIcon(Controller c, User user, JButton bellButton) {
 	        List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
 	        String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitebellnotifiche.png";

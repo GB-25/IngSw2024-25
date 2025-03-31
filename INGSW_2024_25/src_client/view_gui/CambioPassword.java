@@ -13,7 +13,7 @@ import java.awt.*;
 public class CambioPassword extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	// Campi per inserire la password
+	
 	private JFrame finestraCorrente;
     private JPasswordField txtPasswordAttuale;
     private JPasswordField txtNuovaPassword;
@@ -21,8 +21,12 @@ public class CambioPassword extends JFrame {
     private static final String ERRORE = "Errore";
     private boolean[] valori = {false, false, false, false};
     
+    /**
+     * 
+     * Costruttore
+     */
     public CambioPassword(Controller c, User user) {
-        // Configurazione finestra
+        
     	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Cambio Password - Admin");
@@ -30,22 +34,22 @@ public class CambioPassword extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setSize(600, 640);
-        setLocationRelativeTo(null); // Centra la finestra
+        setLocationRelativeTo(null); 
         
-     // **Pannello principale con BoxLayout**
+     
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton indietroButton = new JButton("←");
-        indietroButton.setPreferredSize(new Dimension(60, 25)); // Dimensioni ridotte
-        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12)); // Imposta un font più piccolo
+        indietroButton.setPreferredSize(new Dimension(60, 25)); 
+        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
         indietroButton.addActionListener(e -> {dispose(); new HomeGenerale(c, user);});
         indietroPanel.add(indietroButton);
         mainPanel.add(indietroPanel);
 
-        // **Aggiunta dei campi**
+        
         txtPasswordAttuale = new JPasswordField(15);
         txtNuovaPassword = new JPasswordField(15);
         txtConfermaPassword = new JPasswordField(15);
@@ -53,49 +57,55 @@ public class CambioPassword extends JFrame {
         mainPanel.add(createLabelFieldPanel("Nuova Password:", txtNuovaPassword));
         mainPanel.add(createLabelFieldPanel("Conferma Password:", txtConfermaPassword));
 
-        // **Bottone di cambio password**
+    
         JButton btnCambiaPassword = new JButton("Cambia Password");
         btnCambiaPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnCambiaPassword.addActionListener(e -> cambiaPassword(c, user));
 
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Spazio
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
         mainPanel.add(btnCambiaPassword);
 
-        // Aggiungi il pannello alla finestra
+      
         add(mainPanel);
 
-        // Mostra la finestra
+        
         setVisible(true);
     }
 
     /**
-     * Metodo per creare una riga con etichetta e campo di testo
+     * 
+     * @param labelText
+     * @param textField
+     * @return Panel per poter inserire la password
      */
     private JPanel createLabelFieldPanel(String labelText, JPasswordField textField) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel label = new JLabel(labelText);
-        label.setPreferredSize(new Dimension(150, 150)); // Imposta larghezza fissa per allineare
+        label.setPreferredSize(new Dimension(150, 150)); 
         panel.add(label);
         panel.add(textField);
         return panel;
     }
 
     /**
-     * Metodo per cambiare la password con verifica
+     * 
+     * @param c
+     * @param user
+     *  aggiorna la password, eventuali errori sono gestiti tramite creazione di specifiche JOptionPane
      */
     private void cambiaPassword(Controller c, User user) {
         String passwordAttuale = new String(txtPasswordAttuale.getPassword());
 
 
-        // Simuliamo la password attuale (da sostituire con query al database)
+        
         String passwordSalvata = user.getPassword();
-        // **Verifica password attuale**
+     
         if (!passwordAttuale.equals(passwordSalvata)) {
             JOptionPane.showMessageDialog(this, "La password attuale non è corretta!", ERRORE, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // **Verifica nuova password**
+       
         c.isValidPassword(txtNuovaPassword.getPassword(), valori);
         if (!c.checkFields(valori)){
         	
@@ -113,7 +123,7 @@ public class CambioPassword extends JFrame {
             return;
         }
 
-        // Simulazione salvataggio nel database
+        
         int response = JOptionPane.showConfirmDialog(null,
                 "I campi sono stati riempiti ed è possibile cambiare la password. Procedere?",
                 "Conferma cambio password",

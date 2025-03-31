@@ -24,17 +24,15 @@ import org.jxmapviewer.viewer.GeoPosition;
 public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, MouseMotionListener{
 
 
-    /**
-	 * 
-	 */
+    
 	private static final long serialVersionUID = 1L;
 	private static final String ERRORE = "Errore";
 	private transient Logger logger = Logger.getLogger(getClass().getName());
-	// Dichiarazione dei campi da controllare
+
 	private List<File> files = new ArrayList<>();
 	private JXMapViewer mapViewer;
 	private Point lastPoint;
-    private JPanel photoPanel; // Pannello per le foto
+    private JPanel photoPanel; 
     private JPanel mapPanel;
     private SchermataCaricamento schermataCaricamento;
     private JFrame finestraCorrente;
@@ -57,10 +55,13 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     JTextField searchField;
     int minFoto = 5;
 	int maxFoto = 10;
-    // Lista per memorizzare le immagini caricate
+    
     private List<ImageIcon> immaginiCaricate = new ArrayList<>();
     private JPanel leftPanel;
-
+    /**
+     * 
+     * Costruttore
+     */
     public CaricamentoProprietaNuovo(Controller c, User user) {
         finestraCorrente = this;
         FlatLaf.setup(new FlatLightLaf());
@@ -74,6 +75,9 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         mainPanel.add(rightPanel, BorderLayout.EAST);
         setVisible(true);
     }
+    /**
+     * Metodi che permettono la creazione della finestra e dei suoi componenti
+     */
     private void setupWindow() {
         setTitle("Caricamento Immobile - DietiEstates25");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -302,29 +306,23 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     }
 
     private JPanel createRightPanel() {
-        JPanel rightPanel = new JPanel(new BorderLayout()); // Use BorderLayout for better organization
+        JPanel rightPanel = new JPanel(new BorderLayout()); 
         rightPanel.setPreferredSize(new Dimension(400, 800));
 
-        // Initialize photoPanel
         photoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         photoPanel.setPreferredSize(new Dimension(380, 480));
         photoPanel.setBorder(BorderFactory.createTitledBorder("Foto caricate:"));
-
-        // Initialize btnCaricaFoto
+        
         JButton btnCaricaFoto = new JButton("Carica Foto");
         btnCaricaFoto.addActionListener(e -> caricaFoto());
 
-        // Add btnCaricaFoto to a panel
         JPanel photoButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         photoButtonPanel.add(btnCaricaFoto);
 
-        // Add photoButtonPanel to photoPanel
         photoPanel.add(photoButtonPanel);
 
-        // Add photoPanel to rightPanel
         rightPanel.add(photoPanel, BorderLayout.NORTH);
 
-        // Initialize mapPanel if it's null
         if (mapPanel == null) {
             mapPanel = new JPanel(new BorderLayout());
             mapPanel.setBackground(Color.LIGHT_GRAY);
@@ -332,8 +330,6 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
             mapPanel.setBorder(BorderFactory.createTitledBorder("Posizione:"));
         }
 
-
-        // Add mapPanel to rightPanel
         rightPanel.add(mapPanel, BorderLayout.CENTER);
 
         return rightPanel;
@@ -343,7 +339,12 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         JButton btnUpload = (JButton) ((JPanel) leftPanel.getComponent(leftPanel.getComponentCount() - 1)).getComponent(0);
         btnUpload.addActionListener(e -> handleUpload(c, user));
     }
-
+    /**
+     * 
+     * @param c
+     * @param user
+     * Metodo che controlla che i valori nei campi siano giusti
+     */
     private void handleUpload(Controller c, User user) {
     	String checkPrice = txtPrice.getText().trim();
     	String checkAddress = searchField.getText().trim();
@@ -401,7 +402,10 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         }
     }}
 
-
+    /**
+     * 
+     * @return true se i campi sono riempiti
+     */
     private boolean areAllFieldsFilled() {
         return cmbType.getSelectedIndex() != 0 &&
                 cmbAdType.getSelectedIndex() != 0 &&
@@ -412,10 +416,14 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                 !txtRooms.getText().trim().isEmpty() &&
                 !searchField.getText().trim().isEmpty();
     }
-
+    /**
+     * 
+     * @param c
+     * @param user
+     * Metodo per caricare un immobile sul DataBase
+     */
     private void uploadProperty(Controller c, User user) {
     	
-        
         int grandezza = Integer.parseInt(txtWidth.getText());
         int stanze = Integer.parseInt(txtRooms.getText());
         int piani = Integer.parseInt(txtFloors.getText());
@@ -441,13 +449,14 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         dispose();
     }
 
-
+    /**
+     * Metodo per gestire il caricamento delle foto e farle visualizzare nella finestra
+     */
     public void caricaFoto() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Seleziona un'immagine");
-        fileChooser.setMultiSelectionEnabled(true); // Abilita selezione multipla
-
-        // Filtro per file di tipo immagine
+        fileChooser.setMultiSelectionEnabled(true); 
+        
         fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
             @Override
             public boolean accept(File file) {
@@ -464,11 +473,10 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         int result = fileChooser.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-        	if (files == null) {  // Se è null inizializzalo
+        	if (files == null) { 
                 files = new ArrayList<>();
             }
             
-            // Aggiungi i nuovi file selezionati senza sovrascrivere quelli precedenti
             files.addAll(Arrays.asList(fileChooser.getSelectedFiles()));
 
             for (File file : fileChooser.getSelectedFiles()) {
@@ -476,13 +484,10 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                     ImageIcon imageIcon = new ImageIcon(file.getAbsolutePath());
                     Image image = imageIcon.getImage();
 
-                    // Ridimensiona l'immagine
                     Image scaledImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
-                    // Aggiungi l'immagine alla lista
                     immaginiCaricate.add(new ImageIcon(scaledImage));
 
-                    // Aggiungi l'immagine al pannello
                     JLabel lblFoto = new JLabel(new ImageIcon(scaledImage));
                     photoPanel.add(lblFoto);
                 } catch (Exception e) {
@@ -490,7 +495,6 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
                 }
             }
 
-            // Aggiorna il pannello
             photoPanel.revalidate();
             photoPanel.repaint();
         }}
@@ -507,20 +511,18 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         if (lastPoint != null) {
             Point newPoint = e.getPoint();
 
-            // Calcola la differenza in pixel tra la posizione corrente e quella precedente
             int dx = newPoint.x - lastPoint.x;
             int dy = newPoint.y - lastPoint.y;
 
-            // Converti il movimento del mouse in un cambiamento di posizione geografica
             GeoPosition newCenter = mapViewer.convertPointToGeoPosition(new Point(
-                mapViewer.getWidth() / 2 - dx,  // Calcola la nuova posizione X
-                mapViewer.getHeight() / 2 - dy  // Calcola la nuova posizione Y
+                mapViewer.getWidth() / 2 - dx,  
+                mapViewer.getHeight() / 2 - dy  
             ));
 
-            // Aggiorna il centro della mappa
+            
             mapViewer.setCenterPosition(newCenter);
 
-            // Aggiorna lastPoint per il prossimo evento di trascinamento
+   
             lastPoint = newPoint;
         }
     }
@@ -535,7 +537,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {
-            mapViewer.setZoom(mapViewer.getZoom() - 1); // Doppio clic per zoom in
+            mapViewer.setZoom(mapViewer.getZoom() - 1); 
         }
     }
 

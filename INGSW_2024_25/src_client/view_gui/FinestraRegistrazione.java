@@ -50,14 +50,16 @@ public class FinestraRegistrazione extends JFrame {
 	
 
 	/**
-	 * Create the frame.
+	 * Controllore
 	 */
 	public FinestraRegistrazione(Controller c) {
 	    finestraCorrente = this;
 	    initializeUI();
 	    initializeComponents(c);
 	}
-
+	/**
+	 * Metodi per la costruzione della finestra
+	 */
 	private void initializeUI() {
 		FlatLaf.setup(new FlatLightLaf());
 	    setBackground(new Color(0, 153, 255));
@@ -113,7 +115,7 @@ public class FinestraRegistrazione extends JFrame {
 
 	    labelVerifyNome = new JLabel("");
 	    labelVerifyNome.setBounds(77, 96, 114, 25);
-	    contentPane.add(labelVerifyNome); // Add label to contentPane
+	    contentPane.add(labelVerifyNome); 
 
 	    textFieldNome.addKeyListener(createNameKeyListener(c));
 	}
@@ -126,7 +128,11 @@ public class FinestraRegistrazione extends JFrame {
 	        }
 	    };
 	}
-
+	/**
+	 * 
+	 * @param c
+	 * Controllo che il nome sia realistico, lo stesso fa il metodo dopo con il cognome
+	 */
 	private void validateName(Controller c) {
 	    String text = textFieldNome.getText();
 	    if (c.isValidNome(text)) {
@@ -153,7 +159,7 @@ public class FinestraRegistrazione extends JFrame {
 
 	    labelVerifyCognome = new JLabel("");
 	    labelVerifyCognome.setBounds(295, 96, 114, 25);
-	    contentPane.add(labelVerifyCognome); // Add label to contentPane
+	    contentPane.add(labelVerifyCognome);
 
 	    textFieldCognome.addKeyListener(createSurnameKeyListener(c));
 	}
@@ -192,11 +198,11 @@ public class FinestraRegistrazione extends JFrame {
 	    dateChooser.setBounds(152, 128, 200, 30);
 
 	    Calendar cal = Calendar.getInstance();
-	    cal.add(Calendar.YEAR, -18); // Maximum date (18 years ago)
+	    cal.add(Calendar.YEAR, -18); 
 	    Date dataMassima = cal.getTime();
 
 	    cal = Calendar.getInstance();
-	    cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 82); // Minimum date (82 years ago)
+	    cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 82); 
 	    Date dataMinima = cal.getTime();
 
 	    dateChooser.setSelectableDateRange(dataMinima, dataMassima);
@@ -215,7 +221,7 @@ public class FinestraRegistrazione extends JFrame {
 
 	    validationLabel = new JLabel("");
 	    validationLabel.setBounds(135, 225, 161, 14);
-	    contentPane.add(validationLabel); // Add label to contentPane
+	    contentPane.add(validationLabel); 
 
 	    textFieldMail.addKeyListener(createEmailKeyListener(c));
 	}
@@ -228,7 +234,11 @@ public class FinestraRegistrazione extends JFrame {
 	        }
 	    };
 	}
-
+	/**
+	 * 
+	 * @param c
+	 * Controllo che la mail sia di un formato giusto
+	 */
 	private void validateEmail(Controller c) {
 	    String text = textFieldMail.getText();
 	    if (c.isValidEmail(text)) {
@@ -255,7 +265,7 @@ public class FinestraRegistrazione extends JFrame {
 
 	    labelConfermaTelefono = new JLabel("");
 	    labelConfermaTelefono.setBounds(391, 224, 104, 19);
-	    contentPane.add(labelConfermaTelefono); // Add label to contentPane
+	    contentPane.add(labelConfermaTelefono); 
 
 	    textFieldTelefono.addKeyListener(createPhoneKeyListener(c));
 	}
@@ -268,7 +278,10 @@ public class FinestraRegistrazione extends JFrame {
 	        }
 	    };
 	}
-
+	/**
+	 * Controllo che il numero di telefono sia realistico
+	 * @param c
+	 */
 	private void validatePhone(Controller c) {
 	    String text = textFieldTelefono.getText();
 	    if (c.isValidNumero(text)) {
@@ -298,19 +311,19 @@ public class FinestraRegistrazione extends JFrame {
 
 	    lblLunghezza = new JLabel("· essere lunga almeno 6 caratteri");
 	    lblLunghezza.setBounds(135, 311, 258, 15);
-	    contentPane.add(lblLunghezza); // Add label to contentPane
+	    contentPane.add(lblLunghezza); 
 
 	    lblMaiuscola = new JLabel("· contenere almeno una lettera maiuscola");
 	    lblMaiuscola.setBounds(118, 338, 329, 15);
-	    contentPane.add(lblMaiuscola); // Add label to contentPane
+	    contentPane.add(lblMaiuscola); 
 
 	    lblMinuscola = new JLabel("· contenere almeno una lettera minuscola");
 	    lblMinuscola.setBounds(118, 366, 319, 15);
-	    contentPane.add(lblMinuscola); // Add label to contentPane
+	    contentPane.add(lblMinuscola); 
 
 	    lblNumero = new JLabel("· contenere almeno un numero");
 	    lblNumero.setBounds(143, 394, 257, 15);
-	    contentPane.add(lblNumero); // Add label to contentPane
+	    contentPane.add(lblNumero); 
 
 	    JLabel lblConferma = new JLabel("Ripeti Password");
 	    lblConferma.setBounds(32, 439, 169, 15);
@@ -322,7 +335,7 @@ public class FinestraRegistrazione extends JFrame {
 
 	    lblCheckPassword = new JLabel("");
 	    lblCheckPassword.setBounds(135, 464, 229, 15);
-	    contentPane.add(lblCheckPassword); // Add label to contentPane
+	    contentPane.add(lblCheckPassword);
 
 	    passwordField.addKeyListener(createPasswordKeyListener(c));
 	    passwordFieldConferma.addKeyListener(createConfirmPasswordKeyListener(c));
@@ -336,7 +349,10 @@ public class FinestraRegistrazione extends JFrame {
 	        }
 	    };
 	}
-
+	/**
+	 * Controllo sulla password
+	 * @param c
+	 */
 	private void validatePassword(Controller c) {
 	    char[] text = passwordField.getPassword();
 	    c.isValidPassword(text, valori);
@@ -380,7 +396,10 @@ public class FinestraRegistrazione extends JFrame {
 	    btnConferma.setBounds(391, 561, 117, 25);
 	    contentPane.add(btnConferma);
 	}
-
+	/**
+	 * creazione di un utente
+	 * @param c
+	 */
 	private void handleConfirmation(Controller c) {
 	    schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
 	    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -420,7 +439,10 @@ public class FinestraRegistrazione extends JFrame {
 	        c.returnLogin(finestraCorrente);
 	    }
 	}
-
+	/**
+	 * se i campi sono riempiti di valori realistici e giusti, si attiva il pulsante
+	 * @param c
+	 */
 	private void updateConfirmButtonState(Controller c) {
 	    boolean enable = (c.checkFields(controllo)) && (combacia) && (c.checkFields(valori)) && (dateChooser.getDate() != null);
 	    btnConferma.setEnabled(enable);

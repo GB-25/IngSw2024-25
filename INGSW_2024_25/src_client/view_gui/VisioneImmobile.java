@@ -21,9 +21,9 @@ import eccezioni.GeocodingException;
 public class VisioneImmobile extends JFrame {
 
     private static final long serialVersionUID = 1L;
-	private JPanel imagePanel; // Pannello per l'immagine
-    private CardLayout cardLayout; // Layout per il carosello
-    private JButton prevButton; // Navigation buttons
+	private JPanel imagePanel; 
+    private CardLayout cardLayout; 
+    private JButton prevButton; 
     private JButton nextButton;
     private JFrame finestraCorrente;
     private String fontScritte = "Helvetica";
@@ -31,39 +31,35 @@ public class VisioneImmobile extends JFrame {
 
     public VisioneImmobile(Controller c, Immobile immobile, User user) throws GeocodingException, URISyntaxException {
     	finestraCorrente=this;
-        // Configurazione della finestra
+
     	FlatLaf.setup(new FlatLightLaf());
         setTitle("Visualizzazione Immobile - DietiEstates25");
         setSize(600, 640);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);  // Centrare la finestra
+        setLocationRelativeTo(null);  
         setAlwaysOnTop(true);
 
-        // **Pannello principale**
+ 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
         setContentPane(mainPanel);
 
-        // **Pannello superiore con titolo e pulsante "Indietro"**
         JPanel topPanel = createTopPanel(c, user);
         mainPanel.add(topPanel, BorderLayout.NORTH);
-
-        // **Pannello centrale con immagini e dettagli**
+ 
         JPanel centerPanel = new JPanel(new GridLayout(1, 2));
         centerPanel.setBackground(Color.WHITE);
 
-        // ---- PANNELLO SINISTRO: Immagine dell'immobile ----
         imagePanel = new JPanel();
         cardLayout = new CardLayout();
         imagePanel.setLayout(cardLayout);
         imagePanel.setBackground(Color.WHITE);
 
-        // Immagini per il carosello
         String[] urlArray = c.getUrls(immobile);
         for(String url : urlArray) {
         	addImageToCarousel(c.fileDownload(url));
         }
-        // Tasti per navigare tra le foto
+
         JPanel carouselControlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         prevButton = new JButton("←");
         nextButton = new JButton("→");
@@ -79,15 +75,15 @@ public class VisioneImmobile extends JFrame {
         carouselPanel.add(imagePanel, BorderLayout.NORTH);
         carouselPanel.add(carouselControlPanel, BorderLayout.CENTER);
 
-        // ---- PANNELLO DESTRO: Dettagli dell'immobile ----
+
         JPanel detailsPanel = createDetailsPanel(immobile);
 
-        // **Aggiunta dei pannelli principali**
+
         centerPanel.add(detailsPanel, BorderLayout.WEST);
         centerPanel.add(carouselPanel, BorderLayout.EAST);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
-        // **Pulsanti Prenota Visita e Indietro**
+
         JPanel buttonPanel = createButtonPanel(c, immobile, user);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         
@@ -107,6 +103,12 @@ public class VisioneImmobile extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Creazione del JPanel, così come i metodi successivi
+     * @param c
+     * @param user
+     * @return JPanel
+     */
     private JPanel createTopPanel(Controller c, User user) {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(40, 132, 212));
@@ -212,23 +214,21 @@ public class VisioneImmobile extends JFrame {
 
         return buttonPanel;
     }
-
+    /**
+     * Metodo per aggiungere le immaggini al carosello
+     * @param imagePath
+     */
     private void addImageToCarousel(String imagePath) {
     	 try {
-    	        // Decodifica la stringa Base64 in un array di byte
     	        byte[] imageBytes = Base64.getDecoder().decode(imagePath);
 
-    	        // Crea un'icona direttamente dai byte
     	        ImageIcon icon = new ImageIcon(imageBytes);
 
-    	        // Scala l'immagine per adattarla alle dimensioni desiderate
     	        Image image = icon.getImage().getScaledInstance(290, 200, Image.SCALE_SMOOTH);
 
-    	        // Crea un JLabel con l'immagine e aggiungilo al pannello
     	        JLabel imageLabel = new JLabel(new ImageIcon(image));
     	        imagePanel.add(imageLabel);
 
-    	        // Aggiorna la GUI per mostrare la nuova immagine
     	        imagePanel.revalidate();
     	        imagePanel.repaint();
     	    } catch (IllegalArgumentException e) {

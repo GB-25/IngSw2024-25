@@ -27,4 +27,6 @@ public interface ReservationRepositoryInterface {
 	boolean salvaNotifica(Notifica nuovaNotifica);
 
 	boolean setNotifica(int id);
+	
+	Prenotazione getReservationById(int id);
 }

@@ -12,6 +12,7 @@ import controller.Controller;
 
 import java.awt.*;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class VisionePrenotazione extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -28,7 +29,11 @@ public class VisionePrenotazione extends JFrame {
     private JFrame finestraLogin;
 	private JFrame finestraCorrente = this;
 	private String fontScritte = "Microsoft YaHei UI Light";
-    
+	private transient Logger logger = Logger.getLogger(getClass().getName());
+	/**
+	 * 
+	 * Costruttore
+	 */
     public VisionePrenotazione(User user, Prenotazione prenotazione, Controller c) {
         FlatLaf.setup(new FlatLightLaf());
         setTitle("Visione Prenotazione");
@@ -37,11 +42,10 @@ public class VisionePrenotazione extends JFrame {
         setLayout(new BorderLayout());
         
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout()); // Usa BorderLayout per il pannello principale
+        mainPanel.setLayout(new BorderLayout());
         setContentPane(mainPanel);
         mainPanel.setBackground(Color.WHITE);
 
-        // Creazione dei componenti per i dettagli della prenotazione
         titoloLabel = new JLabel("Dettagli Prenotazione", SwingConstants.CENTER);
         titoloLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
         clienteLabel = new JLabel("Cliente: " + prenotazione.getUser().getNome()+prenotazione.getUser().getCognome(), SwingConstants.CENTER);
@@ -57,11 +61,10 @@ public class VisionePrenotazione extends JFrame {
         
         topPanel = createTopPanel(user, c);
 
-        // Pannello per i dettagli dell'immobile
         JPanel detailsPanel = new JPanel();
         detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
         detailsPanel.setBackground(Color.WHITE);
-        detailsPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centra i componenti
+        detailsPanel.setAlignmentX(Component.CENTER_ALIGNMENT); 
         
         indietroButton = new JButton("←");
         detailsPanel.add(indietroButton);
@@ -75,7 +78,6 @@ public class VisionePrenotazione extends JFrame {
         detailsPanel.add(oraLabel);
         detailsPanel.add(posizioneLabel);
 
-        // Pannello per i pulsanti "Conferma" e "Annulla"
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setBackground(Color.WHITE);
         rifiutaButton = new JButton("Rifiuta");
@@ -128,12 +130,17 @@ public class VisionePrenotazione extends JFrame {
         buttonPanel.add(rifiutaButton);
         buttonPanel.add(confermaButton);
 
-        // Aggiungi tutto al frame
         mainPanel.add(topPanel, BorderLayout.NORTH);
         mainPanel.add(detailsPanel, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
     
+    /**
+     * Creazione top Panel finestra
+     * @param user
+     * @param c
+     * @return JPanel
+     */
     private JPanel createTopPanel(User user, Controller c) {
         topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(40, 132, 212));
@@ -202,45 +209,96 @@ public class VisionePrenotazione extends JFrame {
         return topPanel;
     }
     
-    private void updateBellIcon(Controller c, User user, JButton bellButton) {
+    private void bellButtonVisible(Controller c, JPopupMenu popupMenu, User user, JButton bellButton) {
+	    popupMenu.removeAll();
+	    popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
+
 	    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-	    String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitenotifiche.png";
+	    
+	    if (notifiche.isEmpty()) {
+	        nessunaNotifica(popupMenu);
+	    } else {
+	        notifiche.forEach(notifica -> nuovaNotifica(c, popupMenu, user, bellButton, notifica));
+	    }
 
-	    ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
-	    Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-	    bellButton.setIcon(new ImageIcon(img));
+	    popupMenu.pack();
+	    popupMenu.revalidate();
+	    popupMenu.repaint();
+
+	    SwingUtilities.invokeLater(() -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
 	}
-    
-    private void bellButtonVisible (Controller c, JPopupMenu popupMenu, User user, JButton bellButton){
-		 if (popupMenu.isVisible()) {
-            // 🔹 Se il popup è già visibile, chiudilo e aggiorna lo stato delle notifiche
-            popupMenu.setVisible(false);
-        } else {
-            // 🔹 Se il popup non è visibile, aggiornalo e mostralo
-            popupMenu.removeAll();
-            popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
 
-            List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+	private void nessunaNotifica(JPopupMenu popupMenu) {
+	    JMenuItem dummy = new JMenuItem("Nessuna notifica");
+	    dummy.setEnabled(false);
+	    popupMenu.add(dummy);
+	}
 
-            if (notifiche.isEmpty()) {
-                JMenuItem dummy = new JMenuItem("Nessuna notifica");
-                popupMenu.add(dummy);
-            } else {
-                for (Notifica notifica : notifiche) {
-                    JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-                    menuItem.addActionListener(ae -> {
-                        try {
-                            c.setNotificaLetta(notifica);
-                            popupMenu.remove(menuItem);
-                            updateBellIcon(c, user, bellButton);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    });
-                    popupMenu.add(menuItem);
-                }
-            }
-            popupMenu.show(bellButton, 0, bellButton.getHeight());
+	private void nuovaNotifica(Controller c, JPopupMenu popupMenu, User user, JButton bellButton, Notifica notifica) {
+	    JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
+	    menuItem.addActionListener(ae -> handleNotificationClick(c, popupMenu, user, bellButton, menuItem, notifica));
+	    popupMenu.add(menuItem);
+	}
+	/**
+	 * metodo aggiornamento status notifiche
+	 * @param c
+	 * @param popupMenu
+	 * @param user
+	 * @param bellButton
+	 * @param menuItem
+	 * @param notifica
+	 */
+	private void handleNotificationClick(Controller c, JPopupMenu popupMenu, User user, JButton bellButton, JMenuItem menuItem, Notifica notifica) {
+	    try {
+	        c.setNotificaLetta(notifica);
+	        popupMenu.remove(menuItem);
+	        String[] parts;
+	        int numero;
+	        String numeroStringa;
+	        if (notifica.getMessaggio().startsWith("Rifiutata la prenotazione con id:")) {
+	        	 parts = notifica.getMessaggio().split(":"); 
+	        	 numeroStringa = parts[1].trim().split("\\s+")[0]; 
+	             numero = Integer.parseInt(numeroStringa);
+	             c.checkPrenotazione(finestraCorrente, numero, user);
+	        }else if(notifica.getMessaggio().startsWith("Nuova prenotazione con id:")) {
+	        	 parts = notifica.getMessaggio().split(":"); 
+	             numeroStringa = parts[parts.length - 1].trim(); 
+	             numero = Integer.parseInt(numeroStringa);
+	             c.checkPrenotazione(finestraCorrente, numero, user);
+	        
+	        } else {
+	            c.viewCalendar(finestraCorrente, user);
+	        }
+
+	        updateBellIcon(c, user, bellButton);
+
+	        if (popupMenu.getComponentCount() == 0) {
+	            popupMenu.setVisible(false);
+	        }
+	    } catch (Exception ex) {
+	    	logger.severe("Errore nella ricezione di notifiche");
+	    }
+	}
+	/**
+	 * aggiornamento icona notifiche
+	 * 
+	 * @param c
+	 * @param user
+	 * @param bellButton
+	 */
+    private void updateBellIcon(Controller c, User user, JButton bellButton) {
+        List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
+        String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitebellnotifiche.png";
+
+        ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
+        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+          
+            return;
         }
-	 }
+
+        Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        bellButton.setIcon(new ImageIcon(img));
+        bellButton.revalidate();
+        bellButton.repaint();
+    }
 }

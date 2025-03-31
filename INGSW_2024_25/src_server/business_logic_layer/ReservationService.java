@@ -11,6 +11,10 @@ import data_access_layer.interfaces.ReservationRepositoryInterface;
 public class ReservationService {
 
 	private ReservationRepositoryInterface reservationRepository;
+	/**
+     * 
+     * Costruttore
+     */
 	public ReservationService(ReservationRepositoryInterface reservationRepository) {
 		
 		this.reservationRepository = reservationRepository;
@@ -64,5 +68,9 @@ public class ReservationService {
 	
 	public boolean setLetta( int id) {
 		return reservationRepository.setNotifica(id);
+	}
+	
+	public Prenotazione getPrenotazione(int id) {
+		return reservationRepository.getReservationById(id);
 	}
 }

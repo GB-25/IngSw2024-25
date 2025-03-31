@@ -11,9 +11,11 @@ import classi.*;
 
 public class HouseService {
 
-	
 	private HouseRepositoryInterface houseRepository;
-	
+	/**
+     * 
+     * Costruttore
+     */
 	public HouseService(HouseRepositoryInterface houseRepository) {
 		this.houseRepository = houseRepository;
 	}

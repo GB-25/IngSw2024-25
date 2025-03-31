@@ -34,8 +34,11 @@ public class PrenotazioneCliente extends JFrame {
     private SchermataCaricamento schermataCaricamento;
     private transient Logger logger = Logger.getLogger(getClass().getName());
     private static final String SELEZIONA = "Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).";
-
-    public PrenotazioneCliente(Controller c, Immobile immobile, User user) {
+    /**
+     * 
+     * Costruttore
+     */
+    public PrenotazioneCliente(Controller c, Immobile immobile, User user, JFrame finestraPrecedente) {
     	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Prenotazione Cliente - DietiEstates25");
@@ -73,7 +76,6 @@ public class PrenotazioneCliente extends JFrame {
         gbc7.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Panel per il tasto indietro ed il titolo
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton indietroButton = new JButton("←");
         indietroButton.setPreferredSize(new Dimension(60, 25));
@@ -85,7 +87,12 @@ public class PrenotazioneCliente extends JFrame {
    			 protected Void doInBackground () throws Exception {
         	dispose();
         	try {
-				c.showImmobile(finestraCorrente, immobile, user);
+        		if (finestraPrecedente instanceof VisioneImmobile) {
+        			c.showImmobile(finestraCorrente, immobile, user);
+        		}
+        		else {
+        			c.createHomeUtente(finestraCorrente, user)  ;
+        			}
 			} catch (GeocodingException | URISyntaxException e1) {
 				logger.severe("Errore nel caricamento della finestra");
 			} return null;}
@@ -101,7 +108,6 @@ public class PrenotazioneCliente extends JFrame {
         indietroPanel.add(phraseLabel);
         mainPanel.add(indietroPanel, BorderLayout.NORTH);
 
-        // Selezione della data
         dateChooser = new JDateChooser();
         dateChooser.setDateFormatString("yyyy-MM-dd");
         ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
@@ -122,7 +128,6 @@ public class PrenotazioneCliente extends JFrame {
         gbc1.gridx = 1; gbc1.gridy = 0;
         middlePanel.add(dateChooser, gbc1);
 
-        // Selezione dell'orario
         SpinnerDateModel model = new SpinnerDateModel();
         JSpinner timeSpinner = new JSpinner(model);
         JSpinner.DateEditor editor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
@@ -157,19 +162,24 @@ public class PrenotazioneCliente extends JFrame {
         gbc7.gridx = 0;
         gbc7.gridy = 5;
         middlePanel.add(weatherButton, gbc7);
-        
-        // Tasto per sapere il meteo della data inserita nell'orario inserito
+
         weatherButton.addActionListener(e -> getWeather (outputLabel, timeSpinner, weatherLabel));
 
-        // Tasto per confermare la prenotazione. Da aggiustare ovviamente la conferma e tutto il resto, ma per il momento la base è questa
         confirmButton.addActionListener(e -> postReservation(c, timeSpinner, outputLabel, user, immobile));
 
         mainPanel.add(middlePanel, BorderLayout.CENTER);
     }
-
+    /**
+     * Metodo per ottenere i dati meteo
+     * @param latitude
+     * @param longitude
+     * @param date
+     * @param hour
+     * @return String che rappresenta meteo e temperatura
+     */
     private String getWeather(double latitude, double longitude, String date, int hour) {
         try {
-            // Costruzione URL per ottenere il meteo per l'intera giornata
+          
             String urlString = String.format(
                 "https://api.open-meteo.com/v1/forecast?latitude=%.2f&longitude=%.2f&hourly=temperature_2m,weathercode&start_date=%s&end_date=%s&timezone=auto",
                 latitude, longitude, date, date
@@ -179,7 +189,6 @@ public class PrenotazioneCliente extends JFrame {
             HttpURLConnection conn = (HttpURLConnection) uri.toURL().openConnection();
             conn.setRequestMethod("GET");
 
-            // Verifica il codice di risposta HTTP (fatto solo perché stavo impazzendo con l'API e non riuscivo a capire il problema)
             int responseCode = conn.getResponseCode();
             if (responseCode != 200) {
                 return "Errore HTTP: " + responseCode;
@@ -193,17 +202,14 @@ public class PrenotazioneCliente extends JFrame {
             }
             reader.close();
 
-            // JSONArray perché la risposta URL arriva come JSONArray e non come JSONObject
             JSONArray jsonArray = new JSONArray(response.toString());
 
-            // Se la risposta è un array, prendi il primo elemento (ovvero un JSONObject)
             if (jsonArray.length() == 0) {
                 return "⚠️ Nessun dato meteo disponibile!";
             }
 
-            JSONObject jsonResponse = jsonArray.getJSONObject(0); // Prendi il primo oggetto nell'array
+            JSONObject jsonResponse = jsonArray.getJSONObject(0); 
 
-            // Controlla se il JSON contiene i dati richiesti
             if (!jsonResponse.has("hourly")) {
                 return "⚠️ Dati meteo non disponibili!";
             }
@@ -214,8 +220,7 @@ public class PrenotazioneCliente extends JFrame {
                 return "⚠️ Dati meteo incompleti!";
             }
 
-            // Estrai la temperatura e il meteo per l'ora richiesta
-            int index = hour; // L'ora è l'indice dell'array hourly
+            int index = hour;
             double temperature = hourlyData.getJSONArray("temperature_2m").getDouble(index);
             int weatherCode = hourlyData.getJSONArray("weathercode").getInt(index);
 
@@ -226,7 +231,14 @@ public class PrenotazioneCliente extends JFrame {
             return "❌ Errore nel recupero meteo: " + e.getMessage();
         }
     }
-    
+    /**
+     * Creazione prenotazione
+     * @param c
+     * @param timeSpinner
+     * @param outputLabel
+     * @param user
+     * @param immobile
+     */
     private void postReservation(Controller c, JSpinner timeSpinner, JLabel outputLabel, User user, Immobile immobile) {
     	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
 		 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {			 
@@ -277,11 +289,10 @@ public class PrenotazioneCliente extends JFrame {
             outputLabel.setText("⚠️ " + SELEZIONA);
             return;
             }
-        
-     // Ottieni meteo
+ 
         String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(selectedDate);
         new Thread(() -> {
-            String weatherInfo = getWeather(45.4642, 9.1900, formattedDate, hour); // latitudine e longitudine placeholder
+            String weatherInfo = getWeather(45.4642, 9.1900, formattedDate, hour);
             SwingUtilities.invokeLater(() -> weatherLabel.setText(weatherInfo));
         }).start();
     }

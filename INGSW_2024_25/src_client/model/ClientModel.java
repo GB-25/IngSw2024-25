@@ -23,7 +23,7 @@ import classi.Prenotazione;
 import classi.User;
 
 public class ClientModel {
-    private String serverIP; //34.78.163.251
+    private String serverIP;
     private int port;
     Logger logger = Logger.getLogger(getClass().getName());
     private static final String STATUS = "status";
@@ -35,22 +35,29 @@ public class ClientModel {
     private static final String ISAGENTESTRING = "isAgente";
     private static final String INDIRIZZOSTRING = "indirizzo";
     private static final String IMMOBILESTRING = "idImmobile";
-    
+    /**
+     * 
+     * Costruttore
+     * 
+     */
     public ClientModel(String serverIP, int port) {
         this.serverIP = serverIP;
         this.port = port;
     }
 
-    
+    /**
+     * 
+     * @param request
+     * @return JSONObject che i vari metodi che chiamano sendRequest provvedono a "spacchettare"
+     * permette la comunicazione col Server
+     */
     public JSONObject sendRequest(JSONObject request) {
         try (Socket socket = new Socket(serverIP, port);
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            // Invia richiesta al server
             out.println(request.toString());
 
-            // Riceve la risposta dal server
             String response = in.readLine();
             return new JSONObject(response);
 
@@ -112,7 +119,12 @@ public class ClientModel {
         JSONObject response = sendRequest(request);
      	return (response.getString(STATUS).equals(SUCCESS));
     }
-
+    /**
+     * 
+     * @param filePath
+     * @param id
+     * @return Stringa dell'url per recuperare la foto dell'immobile
+     */
     public String uploadFileModel(String filePath, int id) {
         JSONObject request = new JSONObject();
         request.put(ACTION, "uploadFile");
@@ -122,7 +134,6 @@ public class ClientModel {
             byte[] fileBytes = Files.readAllBytes(path);
             String base64Data = Base64.getEncoder().encodeToString(fileBytes);
 
-            // Inviamo sia il nome del file che i dati in Base64
             request.put("fileName", path.getFileName().toString());
             request.put("fileData", base64Data);
             request.put("id", id);
@@ -134,11 +145,15 @@ public class ClientModel {
             }
         } catch (IOException e) {
         	logger.info("Errore nel caricamento delle immagini");
-            // Puoi decidere come gestire l'errore (ad es. inserendo un campo "error" nel JSON)
+            
         }
         return fileUrl;
     }
-
+    /**
+     * 
+     * @param fileName
+     * @return stringa in base 64 dell'immagine
+     */
     public String downloadFileModel(String fileName) {
         JSONObject request = new JSONObject();
         request.put(ACTION, "downloadFile");
@@ -285,7 +300,7 @@ public class ClientModel {
                 immobileDettagli = new Immobile(classe, indirizzo, tipo, tipoAnnuncio);
                 casa = new Immobile(id, prezzo, composizione, descrizione, urls, agente, immobileDettagli);
                 immobili.add(casa);
-                //da capire come visualizzare le foto, però immagino sarà a parte dalla gui
+                
             }
         } else {
             immobili = null;
@@ -379,7 +394,6 @@ public class ClientModel {
             request.put("destinatario", notifica.getDestinatarioEmail());
             request.put("messaggio", notifica.getMessaggio());
 
-            // Invia la richiesta e attende la risposta
             JSONObject response = sendRequest(request);
             return response.getString(STATUS).equalsIgnoreCase(SUCCESS);
         } catch (Exception e) {
@@ -395,7 +409,6 @@ public class ClientModel {
             richiesta.put(ACTION, "getNotifiche");
             richiesta.put("mail", mail);
 
-            // Invia la richiesta e riceve la risposta (assumi che sendRequest restituisca un JSONObject)
             JSONObject risposta = sendRequest(richiesta);
 
             if (risposta.getString(STATUS).equalsIgnoreCase(SUCCESS)) {
@@ -425,7 +438,12 @@ public class ClientModel {
         JSONObject response = sendRequest(request);
         return !(response.getString(STATUS).equals(ERROR)); 
     }
-    
+    /**
+     * 
+     * @param urls
+     * @param id
+     * @return true se l'aggiornamento degli urls è andato a buon fine
+     */
     public boolean updateUrls(String urls, int id) {
     	JSONObject request = new JSONObject();
     	request.put(ACTION, "updateUrls");
@@ -433,5 +451,26 @@ public class ClientModel {
     	request.put("id", id);
     	JSONObject response = sendRequest(request);
         return (response.getString(STATUS).equals(SUCCESS)); 
+    }
+    
+    public Prenotazione retrievePrenotazione(int id) {
+    	JSONObject request = new JSONObject();
+    	request.put(ACTION, "retrievePrenotazione");
+    	request.put("id", id);
+    	JSONObject response = sendRequest(request);
+    	if (response.getString(STATUS).equals(SUCCESS)) {
+    		String dataPrenotazione = response.getString("data");
+    		String oraPrenotazione = response.getString("ora");
+    		User user = getAgente(response.getString("mailUtente"));
+    		int idImmobile = response.getInt("immobileId");
+    		String query = "SELECT * FROM immobili WHERE id = '"+idImmobile+"';";
+    		List <Immobile> immobili = searchHouse(query);
+    		Immobile immobile = immobili.get(0);
+    		User agente = getAgente(response.getString("mailAgente"));
+    		boolean isConfirmed = response.getBoolean("confermata");
+    		return new Prenotazione(id, dataPrenotazione, oraPrenotazione, user, immobile, agente, isConfirmed);
+    	} else {
+    		return null;
+    	}
     }
    }

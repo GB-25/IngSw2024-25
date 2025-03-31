@@ -39,6 +39,10 @@ public class ProvaLogin extends JFrame {
 	private SchermataCaricamento schermataCaricamento;
 	private String fontScritte = "Microsoft YaHei UI Light";
 
+	/**
+	 * 
+	 * Costruttore
+	 */
 	public ProvaLogin(Controller c) {
         FlatLaf.setup(new FlatLightLaf());
 		finestraCorrente= this;

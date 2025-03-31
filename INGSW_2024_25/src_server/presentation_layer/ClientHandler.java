@@ -19,7 +19,7 @@ import data_access_layer.interfaces.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ClientHandler extends Thread { //implements Runnable???
+public class ClientHandler extends Thread { 
     private Socket socket;
     
     
@@ -40,6 +40,11 @@ public class ClientHandler extends Thread { //implements Runnable???
     private static final String PASSWORD = "password";
     private static final String INDIRIZZO = "indirizzo";
     private static final String IMMOBILEID = "idImmobile";
+    /**
+     * 
+     * Costruttore
+     * @throws IOException
+     */
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         this.userRepository = new DatabaseManager();
@@ -63,7 +68,12 @@ public class ClientHandler extends Thread { //implements Runnable???
             logger.log(Level.SEVERE, "Errore durante la comunicazione con il client: ", e);
         }
     }
-
+	/**
+	 * Metodo per gestire le richieste del client, chiama dei metodi specializzati in un
+	 * tipo di richiesta
+	 * @param message
+	 * @return JSONObject da mandare al client
+	 */
     private JSONObject handleRequest(String message) {
         JSONObject request = new JSONObject(message);
         String action = request.getString("action");
@@ -87,6 +97,7 @@ public class ClientHandler extends Thread { //implements Runnable???
         actionHandlers.put("getNotifiche", this::getNotifiche);
         actionHandlers.put("notificaLetta", this::setNotifiche);
         actionHandlers.put("updateUrls", this:: setUrls);
+        actionHandlers.put("retrievePrenotazione", this::getPrenotazione);
 
     
         UnaryOperator<JSONObject> handler = actionHandlers.getOrDefault(action, req -> {
@@ -152,12 +163,10 @@ public class ClientHandler extends Thread { //implements Runnable???
    private JSONObject handleUploadRequest(JSONObject request) {
 	    JSONObject response = new JSONObject();
 	    try {
-	        // Estrai dal JSON il nome del file e i dati in Base64
 	        String fileName = request.getString("fileName");
 	        String base64Data = request.getString("fileData");
 	        int idCartella = request.getInt("id");
 	        storageService = new GoogleCloudStorageService(storageManager);
-	        // Carica l'immagine su Cloud Storage tramite il service
 	        String fileUrl = storageService.uploadHouseImage(fileName, base64Data, idCartella);
 	        
 	        response.put(STATUS, SUCCESS);
@@ -172,10 +181,10 @@ public class ClientHandler extends Thread { //implements Runnable???
    private JSONObject handleDownloadRequest(JSONObject request) {
        JSONObject response = new JSONObject();
        try {
-           // Estrai il nome del file dal JSON
+
            String fileName = request.getString("fileName");
            storageService = new GoogleCloudStorageService(storageManager);
-           // Richiama il service per scaricare l'immagine in Base64
+
            String base64Image = storageService.downloadHouseImage(fileName);
            response.put(STATUS, SUCCESS);
            response.put("fileData", base64Image);
@@ -404,7 +413,6 @@ public class ClientHandler extends Thread { //implements Runnable???
    public JSONObject addNotifica(JSONObject request) {
 	   String destinatario = request.getString("destinatario");
 	   String messaggio = request.getString("messaggio");
-	    // Chiamata al servizio di Business Logic per salvare la notifica
 	   reservationService = new ReservationService(reservationRepository);
 	   boolean ok = reservationService.aggiungiNotifica(destinatario, messaggio);
 	   JSONObject response = new JSONObject();
@@ -452,6 +460,27 @@ public class ClientHandler extends Thread { //implements Runnable???
 	   JSONObject response = new JSONObject();
 	   response.put(STATUS, updated ? SUCCESS : ERROR);
 	   response.put(MESSAGE, updated ? "notifica cancellata" : "errore");
+	   return response;
+   }
+   
+   public JSONObject getPrenotazione(JSONObject request) {
+	   int id = request.getInt("id");
+	   reservationService = new ReservationService(reservationRepository);
+	   Prenotazione prenotazione = reservationService.getPrenotazione(id);
+	   JSONObject response = new JSONObject();
+	   if(prenotazione!=null) {
+		   response.put(STATUS, SUCCESS );
+		   response.put("data", prenotazione.getDataPrenotazione());
+		   response.put("ora", prenotazione.getOraPrenotazione());
+		   response.put("mailUtente", prenotazione.getUser().getMail());
+		   response.put("immobileId", prenotazione.getImmobile().getId());
+		   response.put("mailAgente", prenotazione.getAgente().getMail());
+		   response.put("confermata", prenotazione.isConfirmed());
+	
+	   } else {
+		   response.put(STATUS,ERROR);
+		   response.put(MESSAGE, "Prenotazione non trovata");
+	   }
 	   return response;
    }
 }

@@ -29,7 +29,10 @@ public class VisioneCalendario extends JFrame {
     private LocalDate startDate;
     private Map<LocalDate, List<String>> confirmedAppointments = new HashMap<>();
     private ArrayList<String> prenotazioni;
-    
+    /**
+     * Costruttore
+     * 
+     */
     public VisioneCalendario(Controller c, User user) {
     	FlatLaf.setup(new FlatLightLaf());
     	frame = this;
@@ -51,8 +54,7 @@ public class VisioneCalendario extends JFrame {
         today = LocalDate.now();
         startDate = today;
         
-        // Modello della tabella con 7 colonne (una per ogni giorno della settimana)
-        DayOfWeek dayOfWeek = today.getDayOfWeek(); // Prende il giorno della settimana, dogshit code goes crazy 🔥🔥🔥
+        DayOfWeek dayOfWeek = today.getDayOfWeek(); 
         switch(dayOfWeek.toString()) {
         case "MONDAY":
         	tableModel = new DefaultTableModel(new Object[]{"Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"}, 2);
@@ -79,23 +81,19 @@ public class VisioneCalendario extends JFrame {
         calendarTable = new JTable(tableModel);
         calendarTable.setRowHeight(50);
 
-	calendarTable.setShowGrid(true); // Griglia aggiunta perché FlatLightLaf la faceva sparire prima
+	calendarTable.setShowGrid(true); 
         calendarTable.setGridColor(new Color(200, 200, 200));
         
-        // Riempie la tabella con le date delle prossime due settimane
         fillCalendarTable();
 
-        // Pulsanti per mostrare le prenotazioni confermate o in attesa
         JButton showConfirmedBtn = new JButton("Prenotazioni Confermate");
         JButton showPendingBtn = new JButton("Prenotazioni in Attesa");
-        
-        // Pannello per i pulsanti
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(showConfirmedBtn);
         if(user.getIsAgente()) {
         buttonPanel.add(showPendingBtn);}
-        
-     // Aggiunta di un ListSelectionListener per ottenere il click sulle date
+  
         calendarTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (!event.getValueIsAdjusting() && calendarTable.getSelectedRow() != -1 && calendarTable.getSelectedColumn() != -1) {
                 Object selectedDate = tableModel.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
@@ -106,7 +104,6 @@ public class VisioneCalendario extends JFrame {
         });
 
 
-        // Pulsanti che mostrano gli appuntamenti della data selezionata (in attesa o confermati)
         showConfirmedBtn.addActionListener((ActionEvent e) -> {
             if (selectedDateGlobal != null) {
             	prenotazioni = (ArrayList<String>) c.showReservation(user, true, selectedDateGlobal.toString());
@@ -131,15 +128,15 @@ public class VisioneCalendario extends JFrame {
                 }}; worker.execute();
 			 });
 
-        // Aggiunta dei componenti alla finestra
         frame.getContentPane().add(indietroPanel, BorderLayout.NORTH);
         frame.getContentPane().add(new JScrollPane(calendarTable), BorderLayout.CENTER);
         frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         
         frame.setVisible(true);
     }
-
-    // Metodo per riempire il calendario con le date delle prossime due settimane
+    /**
+     * Metodo per generazione calendario per le prossime due settimane
+     */
     private void fillCalendarTable() {
         for (int row = 0; row < 2; row++) {
             Object[] weekRow = new Object[7];
@@ -150,7 +147,12 @@ public class VisioneCalendario extends JFrame {
         }
     }
     
- // Nuovo metodo per mostrare gli appuntamenti di una data specifica
+    /**
+     * Visualizzazione appuntamenti per la data selezionata
+     * @param appointments
+     * @param date
+     * @param title
+     */
     private void showAppointmentsForDate(Map<LocalDate, List<String>> appointments, LocalDate date, String title) {
         
     	

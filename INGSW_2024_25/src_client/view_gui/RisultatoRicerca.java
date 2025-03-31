@@ -27,7 +27,11 @@ public class RisultatoRicerca extends JFrame {
     private JPanel mapPanel;
     private JFrame finestraCorrente;
 
-
+    /**
+     * Costruttore
+     * 
+     * @throws GeocodingException
+     */
     public RisultatoRicerca(Controller c, User user, List<Immobile> ricerca, String indirizzo) throws GeocodingException  {
         FlatLaf.setup(new FlatLightLaf());
 

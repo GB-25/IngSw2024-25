@@ -10,7 +10,10 @@ public class SchermataCaricamento extends JFrame{
 	private JFrame loadingFrame;
     private JLabel gifLabel;
     private JLabel loadingLabel;
-
+    /**
+     * Costruttore
+     * 
+     */
     public SchermataCaricamento (JFrame parent, String message) {
         FlatLaf.setup(new FlatLightLaf());
         loadingFrame = new JFrame("Caricamento");
@@ -19,12 +22,12 @@ public class SchermataCaricamento extends JFrame{
         loadingFrame.setLocationRelativeTo(parent);
         loadingFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
-        ImageIcon gifIcon = new ImageIcon(getClass().getResource("/immagini/loading.gif")); // Assicurati che sia nel classpath
+        ImageIcon gifIcon = new ImageIcon(getClass().getResource("/immagini/loading.gif")); 
         gifLabel = new JLabel(gifIcon);
 
         loadingFrame.add(gifLabel, BorderLayout.CENTER);
 
-        // Etichetta con il messaggio di caricamento
+     
         loadingLabel = new JLabel(message, SwingConstants.CENTER);
 
         loadingFrame.add(loadingLabel, BorderLayout.NORTH);
@@ -33,6 +36,6 @@ public class SchermataCaricamento extends JFrame{
     }
     
     public void close() {
-        loadingFrame.dispose(); // Chiude la finestra di caricamento
+        loadingFrame.dispose();
     }
 }
