@@ -264,8 +264,8 @@ public class PrenotazioneCliente extends JFrame {
         	else {
         		orario = (Integer.toString(hour)+":"+Integer.toString(minute));}
         	String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-            c.createReservation(user, immobile, data, orario);
-            c.reservationConfirmed(finestraCorrente, user);
+            c.createReservation(user, immobile, data, orario, finestraCorrente);
+            
         } else {
             outputLabel.setText("⚠️ " + SELEZIONA);
         } return null;}

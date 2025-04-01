@@ -221,9 +221,9 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
         String query;
      
         if (isAgente) {
-            query = "SELECT * FROM prenotazioni WHERE agente_id = ? AND data_prenotazione = ? AND ora_prenotazione = ?";
+            query = "SELECT * FROM prenotazioni WHERE agente_id = ? AND data_prenotazione = ? AND ora_prenotazione = ? AND is_confirmed = TRUE;";
         } else {
-            query = "SELECT * FROM prenotazioni WHERE user_mail = ? AND data_prenotazione = ? AND ora_prenotazione = ?";
+            query = "SELECT * FROM prenotazioni WHERE user_id = ? AND data_prenotazione = ? AND ora_prenotazione = ? AND is_confirmed = TRUE;";
         }
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -248,7 +248,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     @Override
     public Prenotazione checkReservation(String mailCliente, int idImmobile) {
         Prenotazione prenotazione = null;
-        String query = "SELECT id, data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_Confirmed FROM prenotazioni WHERE user_mail = ? AND immobile_id = ? AND is_Confirmed = TRUE";
+        String query = "SELECT id, data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_Confirmed FROM prenotazioni WHERE user_id = ? AND immobile_id = ? AND is_Confirmed = TRUE";
        
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -400,7 +400,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     @Override
     public int getReservationId(String mailCliente, String mailAgente, String data, String ora, int idImmobile, boolean confirmed) {
-        String query = "SELECT id FROM prenotazioni WHERE data_prenotazione = ? AND user_mail = ? AND ora_prenotazione = ? AND immobile_id = ? AND agente_id = ? AND is_Confirmed = ?;";
+        String query = "SELECT id FROM prenotazioni WHERE data_prenotazione = ? AND user_id = ? AND ora_prenotazione = ? AND immobile_id = ? AND agente_id = ? AND is_Confirmed = ?;";
         int id = 0;
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -525,11 +525,12 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     			User cliente = getUserByMail(rs.getString(USERID));
     			User agente = getUserByMail(rs.getString(AGENTEIDSTRING));
     			Immobile immobile = getHouseById(rs.getInt(IMMOBILEID));
+    			System.out.println("sono nell'if del db");
     			return new Prenotazione(id, rs.getString(DATA), rs.getString(ORA), cliente, immobile, agente, rs.getBoolean("is_confirmed")); 
     		}
     	}catch (SQLException e) {
             logger.severe("Errore recupero Prenotazione");
-            
+            System.out.println("sono nell'else del db");
     	}
 		return null;
     }

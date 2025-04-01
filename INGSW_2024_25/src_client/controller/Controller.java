@@ -599,7 +599,7 @@ public class Controller {
 		
 	}
 	
-	public void createReservation(User user, Immobile immobile, String data, String ora) {
+	public void createReservation(User user, Immobile immobile, String data, String ora, JFrame finestra) {
 		
 		String mailCliente=user.getMail();
 		
@@ -612,6 +612,7 @@ public class Controller {
 		} else {
 			Prenotazione prenotazione = new Prenotazione(id, data, ora, user, immobile, agente, false);
 			this.notifyAgente(prenotazione);
+			reservationConfirmed(finestra, user);
 			
 		}
 	}

@@ -333,7 +333,7 @@ public class HomeGenerale extends JFrame {
 		             numeroStringa = parts[parts.length - 1].trim(); 
 		             numero = Integer.parseInt(numeroStringa);
 		             c.checkPrenotazione(finestraCorrente, numero, user);
-		        
+		             
 		        } else {
 		            c.viewCalendar(finestraCorrente, user);
 		        }
