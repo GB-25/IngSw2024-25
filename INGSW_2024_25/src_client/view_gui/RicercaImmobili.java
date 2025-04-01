@@ -230,9 +230,14 @@ public class RicercaImmobili extends JFrame {
                 @Override
                 protected Void doInBackground() throws Exception {
 				String indirizzo = posizioneField.getText();
+				boolean prezzoMinimo = Controller.isNumeric(prezzoMinField.getText());
+				boolean prezzoMassimo = Controller.isNumeric(prezzoMaxField.getText());
+				
 				if (indirizzo.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Devi inserire almeno una città dove cercare", ERRORE, JOptionPane.ERROR_MESSAGE);
-				} else {
+				} else if (!prezzoMinimo || !prezzoMassimo) {
+					JOptionPane.showMessageDialog(null, "Occhio al prezzo! Ci sono dei caratteri non numerici", ERRORE, JOptionPane.ERROR_MESSAGE);
+				}else {
 					double prezzoMin = Double.parseDouble(prezzoMinField.getText());
 					double prezzoMax = Double.parseDouble(prezzoMaxField.getText());
 					String classe = (String) tipoClasse.getSelectedItem();

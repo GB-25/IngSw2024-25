@@ -64,7 +64,10 @@ public class PrenotazioneConfermata extends JFrame {
         JButton btnHome = new JButton("Home");
         btnHome.setFont(new Font("Arial", Font.PLAIN, 16));
         btnHome.setPreferredSize(new Dimension(100, 40));
-        btnHome.addActionListener(e -> c.createHomeUtente(finestraCorrente, user));
+        btnHome.addActionListener(e -> {c.createHomeUtente(finestraCorrente, user);
+        this.dispose();
+        	
+        });
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.WHITE);

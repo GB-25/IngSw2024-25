@@ -65,7 +65,7 @@ public class ClientHandler extends Thread {
                 out.println(response.toString());
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Errore durante la comunicazione con il client: ", e);
+            logger.log(Level.SEVERE, "Errore durante la run: ", e);
         }
     }
 	/**
@@ -469,7 +469,6 @@ public class ClientHandler extends Thread {
 	   Prenotazione prenotazione = reservationService.getPrenotazione(id);
 	   JSONObject response = new JSONObject();
 	   if(prenotazione!=null) {
-		   System.out.println("sono nell'if dell'handler");
 		   response.put(STATUS, SUCCESS );
 		   response.put("data", prenotazione.getDataPrenotazione());
 		   response.put("ora", prenotazione.getOraPrenotazione());
@@ -478,7 +477,6 @@ public class ClientHandler extends Thread {
 		   response.put("mailAgente", prenotazione.getAgente().getMail());
 		   response.put("confermata", prenotazione.isConfirmed());
 	   } else {
-		   System.out.println("sono nell'else dell'handler");
 		   response.put(STATUS,ERROR);
 		   response.put(MESSAGE, "Prenotazione non trovata");
 	   }

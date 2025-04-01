@@ -459,7 +459,7 @@ public class ClientModel {
     	request.put("id", id);
     	JSONObject response = sendRequest(request);
     	if (response.getString(STATUS).equals(SUCCESS)) {
-    		System.out.println("sono nell'if del model");
+
     		String dataPrenotazione = response.getString("data");
     		String oraPrenotazione = response.getString("ora");
     		User user = getAgente(response.getString("mailUtente"));
@@ -471,7 +471,7 @@ public class ClientModel {
     		boolean isConfirmed = response.getBoolean("confermata");
     		return new Prenotazione(id, dataPrenotazione, oraPrenotazione, user, immobile, agente, isConfirmed);
     	} else {
-    		System.out.println("sono nell'else del model");
+    	
     		return null;
     	}
     }

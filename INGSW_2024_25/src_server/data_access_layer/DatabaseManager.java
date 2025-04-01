@@ -59,7 +59,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 }
             
         } catch (SQLException e) {
-            logger.severe("Errore nel recupero delle credenziali utente");
+            logger.severe("Errore in getUserByMail, DB");
         }
         return user;
     }
@@ -83,7 +83,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             stmt.executeUpdate();
            
         } catch (SQLException e) {
-            logger.severe("Errore registrazione utente");
+            logger.severe("Errore in register, DB");
         }
     }
     
@@ -99,7 +99,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                stmt.executeUpdate();
                return true;
            } catch (SQLException e) {
-               logger.severe("Errore caricamento nuova password");
+               logger.severe("Errore updatePassword, DB");
                return false;
            }
     }
@@ -126,7 +126,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 id = rs.getInt("id");
             }
     	} catch (SQLException e) {
-            logger.severe("Errore caricamento composizione Immobile");
+            logger.severe("Errore uploadComposizione, DB");
         }
     	return id;
     }
@@ -149,7 +149,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     			composizione = new ComposizioneImmobile(rs.getInt("id"), rs.getInt("quadratura"), rs.getInt("piani"), rs.getInt("stanze"), composizioneBoolean);
     		}
     	}catch (SQLException e) {
-            logger.severe("Errore recupero composizione Immobile");
+            logger.severe("Errore getComposizioneById, DB");
     	}
     	
     	return composizione;
@@ -175,7 +175,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 	immobile = new Immobile(rs.getInt("id"), rs.getDouble(PREZZOSTRING), composizione, rs.getString(DESCRIZIONESTRING), rs.getString("urls"), agente, immobileDettagli);
                 	}
                 }catch (SQLException e) {
-                    logger.severe("Errore recupero Immobile");
+                    logger.severe("Errore getHouseByAddress, DB");
                 }
     	 return immobile;
     	 
@@ -211,7 +211,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
          
                    }
            } catch (SQLException e) {
-               logger.severe("Errore caricamento Immobile");
+               logger.severe("Errore uploadHouse, DB");
            }
     	return id;
     }
@@ -239,7 +239,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 return true; 
             }
         } catch (SQLException e) {
-            logger.severe("Errore controllo dati prenotazione");
+            logger.severe("Errore alreadyGotAppointment, DB");
         }
 
         return false; 
@@ -248,7 +248,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     @Override
     public Prenotazione checkReservation(String mailCliente, int idImmobile) {
         Prenotazione prenotazione = null;
-        String query = "SELECT id, data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_Confirmed FROM prenotazioni WHERE user_id = ? AND immobile_id = ? AND is_Confirmed = TRUE";
+        String query = "SELECT id, data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed FROM prenotazioni WHERE user_id = ? AND immobile_id = ? AND is_Confirmed = TRUE";
        
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -269,7 +269,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                }
             
         } catch (SQLException e) {
-            logger.severe("Errore controllo prenotazione");
+            logger.severe("Errore checkReservation, DB");
         }
 
         return prenotazione;
@@ -295,7 +295,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            logger.severe("Errore creazione prenotazione"); 
+            logger.severe("Errore createReservation, DB"); 
         }
     }
 
@@ -335,7 +335,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             }
 
         } catch (SQLException e) {
-            logger.severe("Errore recupero prenotazioni");
+            logger.severe("Errore getReservationByMail, DB");
         }
 
         return lista;
@@ -353,7 +353,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     		stmt.executeUpdate();
     		
         } catch (SQLException e) {
-            logger.severe("Errore cancellazione prenotazione");
+            logger.severe("Errore deleteReservation, DB");
         }
     	
     }
@@ -361,14 +361,14 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     @Override
     public void confirmReservation(int id) {
-    	String query = "UPDATE prenotazioni SET isConfirmed = TRUE WHERE id = ?;";
+    	String query = "UPDATE prenotazioni SET is_confirmed = TRUE WHERE id = ?;";
     	try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement stmt = connection.prepareStatement(query)) {
     		stmt.setInt(1, id);
     		stmt.executeUpdate();
     		
         } catch (SQLException e) {
-            logger.severe("Errore conferma prenotazione");
+            logger.severe("Errore confirmReservation, DB");
         }
     }
     
@@ -392,7 +392,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             	   lista.add(immobile);
                }
     	} catch (SQLException e) {
-            logger.severe("Errore ricerca degli immobili");
+            logger.severe("Errore findHouses, DB");
         }
     	return lista;
     }
@@ -400,7 +400,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     
     @Override
     public int getReservationId(String mailCliente, String mailAgente, String data, String ora, int idImmobile, boolean confirmed) {
-        String query = "SELECT id FROM prenotazioni WHERE data_prenotazione = ? AND user_id = ? AND ora_prenotazione = ? AND immobile_id = ? AND agente_id = ? AND is_Confirmed = ?;";
+        String query = "SELECT id FROM prenotazioni WHERE data_prenotazione = ? AND user_id = ? AND ora_prenotazione = ? AND immobile_id = ? AND agente_id = ? AND is_confirmed = ?;";
         int id = 0;
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -420,7 +420,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             }
 
         } catch (SQLException e) {
-            logger.severe("Errore recupero dati prenotazioni"); 
+            logger.severe("Errore getReservationId, DB"); 
         }
 
         return id;
@@ -436,7 +436,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            logger.severe("Errore creazione notifica");
+            logger.severe("Errore salvaNotifica, DB");
             return false;
         }
     }
@@ -456,7 +456,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
                 notifiche.add(new Notifica(id, mail, messaggio, letta));
             }
         } catch (SQLException e) {
-            logger.severe("Errore recupero notifiche");
+            logger.severe("Errore getNotificheUtente, DB");
         }
         return notifiche;
     }
@@ -471,7 +471,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 			stmt.executeUpdate();
 			return true;
 		}catch (SQLException e) {
-            logger.severe("Errore aggiornamento notifiche");
+            logger.severe("Errore setNotifica, DB");
             return false;
 		}
 	}
@@ -494,7 +494,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
          	   return new Immobile(id, rs.getDouble(PREZZOSTRING), composizione, rs.getString(DESCRIZIONESTRING),rs.getString("urls"), agente, immobileDettagli);
 			}
 		} catch (SQLException e) {
-            logger.severe("Errorr recupero immobile");
+            logger.severe("Errore getHouseById, DB");
 		}
 		return null;
 	}
@@ -509,7 +509,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
 			stmt.executeUpdate();
 			return true;
 		}catch (SQLException e) {
-            logger.severe("Errore aggiornamento foto");
+            logger.severe("Errore updateUrls, DB");
             return false;
 		}
 	}
@@ -525,12 +525,12 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
     			User cliente = getUserByMail(rs.getString(USERID));
     			User agente = getUserByMail(rs.getString(AGENTEIDSTRING));
     			Immobile immobile = getHouseById(rs.getInt(IMMOBILEID));
-    			System.out.println("sono nell'if del db");
+    		
     			return new Prenotazione(id, rs.getString(DATA), rs.getString(ORA), cliente, immobile, agente, rs.getBoolean("is_confirmed")); 
     		}
     	}catch (SQLException e) {
-            logger.severe("Errore recupero Prenotazione");
-            System.out.println("sono nell'else del db");
+            logger.severe("Errore getReservationById, DB");
+          
     	}
 		return null;
     }
