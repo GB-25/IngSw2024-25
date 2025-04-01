@@ -312,7 +312,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
         if (isAgente) {
             query = "SELECT * FROM prenotazioni WHERE agente_id = ? AND is_confirmed = ? AND data_prenotazione = ?";
         } else {
-            query = "SELECT * FROM prenotazioni WHERE user_mail = ? AND is_confirmed = ? AND data_prenotazione = ?";
+            query = "SELECT * FROM prenotazioni WHERE user_id = ? AND is_confirmed = ? AND data_prenotazione = ?";
         }
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);

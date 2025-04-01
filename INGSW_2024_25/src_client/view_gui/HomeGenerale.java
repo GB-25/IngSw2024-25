@@ -323,11 +323,12 @@ public class HomeGenerale extends JFrame {
 		        String[] parts;
 		        int numero;
 		        String numeroStringa;
-		        if (notifica.getMessaggio().startsWith("Rifiutata la prenotazione con id:")) {
+		        if (notifica.getMessaggio().startsWith("Rifiutata la prenotazione dell'immobile con id:")) {
 		        	 parts = notifica.getMessaggio().split(":"); 
-		        	 numeroStringa = parts[1].trim().split("\\s+")[0]; 
+		        	 numeroStringa = parts[1].trim().split("\\.")[0]; 
 		             numero = Integer.parseInt(numeroStringa);
-		             c.checkPrenotazione(finestraCorrente, numero, user);
+		             System.out.println(numero);
+		             c.recreatePrenotazione(user, numero, finestraCorrente);
 		        }else if(notifica.getMessaggio().startsWith("Nuova prenotazione con id:")) {
 		        	 parts = notifica.getMessaggio().split(":"); 
 		             numeroStringa = parts[parts.length - 1].trim(); 

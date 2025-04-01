@@ -725,7 +725,7 @@ public class Controller {
 	    if (confirmed) {
 	        messaggioNotifica = "Confermata la prenotazione con id: "+prenotazione.getId();
 	    } else {
-	        messaggioNotifica = "Rifiutata la prenotazione con id: "+prenotazione.getId()+". Prova con una nuova ricerca ";
+	        messaggioNotifica = "Rifiutata la prenotazione dell'immobile con id: "+prenotazione.getImmobile().getId()+ ". Prova con un nuovo orario";
 	    }
 	    
 	
@@ -917,6 +917,13 @@ public class Controller {
 			makeReservationClient(finestraCorrente, immobile, user);
 		}
 
+	}
+	
+	public void recreatePrenotazione(User user, int id, JFrame finestra) {
+		String query = "SELECT * FROM immobili WHERE id = "+id+";";
+		List<Immobile> immobili = model.searchHouse(query);
+		Immobile immobile = immobili.get(0);
+		makeReservationClient(finestra, immobile, user);
 	}
 	
 	public static void main(String[] args)
