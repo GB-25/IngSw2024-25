@@ -88,7 +88,7 @@ public class PrenotazioneCliente extends JFrame {
         	dispose();
         	try {
         		if (finestraPrecedente instanceof VisioneImmobile) {
-        			c.showImmobile(finestraCorrente, immobile, user);
+        			c.showImmobile(finestraCorrente, immobile, user, null);
         		}
         		else {
         			c.createHomeUtente(finestraCorrente, user)  ;
@@ -265,7 +265,7 @@ public class PrenotazioneCliente extends JFrame {
         		orario = (Integer.toString(hour)+":"+Integer.toString(minute));}
         	String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
             c.createReservation(user, immobile, data, orario, finestraCorrente);
-            
+            c.reservationConfirmed(finestraCorrente, user);
         } else {
             outputLabel.setText("⚠️ " + SELEZIONA);
         } return null;}

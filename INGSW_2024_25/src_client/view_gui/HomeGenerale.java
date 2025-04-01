@@ -327,7 +327,6 @@ public class HomeGenerale extends JFrame {
 		        	 parts = notifica.getMessaggio().split(":"); 
 		        	 numeroStringa = parts[1].trim().split("\\.")[0]; 
 		             numero = Integer.parseInt(numeroStringa);
-		             System.out.println(numero);
 		             c.recreatePrenotazione(user, numero, finestraCorrente);
 		        }else if(notifica.getMessaggio().startsWith("Nuova prenotazione con id:")) {
 		        	 parts = notifica.getMessaggio().split(":"); 

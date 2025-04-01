@@ -1,7 +1,6 @@
 package view_gui;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.net.URISyntaxException;
 
 import com.formdev.flatlaf.FlatLaf;
@@ -26,6 +25,7 @@ public class RisultatoRicerca extends JFrame {
     private JXMapViewer mapViewer;
     private JPanel mapPanel;
     private JFrame finestraCorrente;
+    private JLabel lblNewLabel;
 
     /**
      * Costruttore
@@ -43,6 +43,7 @@ public class RisultatoRicerca extends JFrame {
 
         JPanel indietroPanel = new JPanel(new BorderLayout());
         JButton indietroButton = new JButton("←");
+        indietroButton.setHorizontalTextPosition(SwingConstants.LEFT);
         indietroButton.setBackground(Color.WHITE);
         indietroButton.setFont(new Font("Helvetica", Font.BOLD, 13));
         indietroButton.setFocusPainted(false);
@@ -51,7 +52,7 @@ public class RisultatoRicerca extends JFrame {
         	dispose();
             c.findImmobili(finestraCorrente, user);
         });
-        indietroPanel.add(indietroButton);
+        indietroPanel.add(indietroButton, BorderLayout.WEST);
 
         mainPanel = new JPanel(new BorderLayout()); 
         mainPanel.setPreferredSize(new Dimension(600, 600));
@@ -66,26 +67,19 @@ public class RisultatoRicerca extends JFrame {
         mapPanel.add(mapViewer, BorderLayout.CENTER);
 
         mainPanel.add(indietroPanel, BorderLayout.NORTH);
+        
+        lblNewLabel = new JLabel("                         ");
+        indietroPanel.add(lblNewLabel, BorderLayout.EAST);
         mainPanel.add(mapPanel, BorderLayout.CENTER);
 
         setContentPane(mainPanel);
 
         
       try {
-        c.getCoordinates(c, indirizzo , mapPanel, mapViewer, true, ricerca, user);
+        c.getCoordinates(c, indirizzo , mapPanel, mapViewer, ricerca, user, finestraCorrente);
       } catch (URISyntaxException exception) {
     	  JOptionPane.showMessageDialog(null, "Errore nel sistema! Ci scusiamo per il disagio","Errore", JOptionPane.ERROR_MESSAGE);
       }
-        finestraCorrente.addWindowFocusListener(new WindowFocusListener() {
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-                finestraCorrente.dispose();
-            }
-
-			@Override
-			public void windowGainedFocus(WindowEvent e) {
-				finestraCorrente.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}});
         
         setVisible(true);
     }
