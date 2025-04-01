@@ -276,7 +276,7 @@ public class Controller {
 	 * permette di visualizzare l'indirizzo inserito sulla mappa 
 	 */
 	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
-	        boolean isSearchMode, List<Immobile> immobili, User user) throws GeocodingException, URISyntaxException  {
+       List<Immobile> immobili, User user, JFrame finestra) throws GeocodingException, URISyntaxException  {
 	    try {
 	        double[] coordinates = getCoordinatesFromAPI(address);
 	
@@ -290,7 +290,7 @@ public class Controller {
 	        Map<DefaultWaypoint, Immobile> waypointMap = new HashMap<>();
 	        Set<DefaultWaypoint> waypoints = new HashSet<>();
 
-	        if (isSearchMode) {
+	        if (!user.getIsAgente()) {
 	            addImmobileWaypoints(immobili, waypointMap, waypoints);
 	        } else {
 	            waypoints.add(new DefaultWaypoint(new GeoPosition(coordinates[0], coordinates[1])));
@@ -298,8 +298,8 @@ public class Controller {
 
 	        configureWaypoints(mapViewer, waypoints);
 
-	        if (isSearchMode) {
-	            addWaypointClickListener(c, mapViewer, waypointMap, user);
+	        if (!user.getIsAgente() && finestra != null) {
+	            addWaypointClickListener(c, mapViewer, waypointMap, user, finestra);
 	        }
 
 	        addMapInteractionListeners(mapViewer);
@@ -452,7 +452,7 @@ public class Controller {
 	    mapViewer.setOverlayPainter(waypointPainter);
 	}
 
-	private void addWaypointClickListener(Controller c, JXMapViewer mapViewer, Map<DefaultWaypoint, Immobile> waypointMap, User user) {
+	private void addWaypointClickListener(Controller c, JXMapViewer mapViewer, Map<DefaultWaypoint, Immobile> waypointMap, User user, JFrame finestra) {
 	    mapViewer.addMouseListener(new MouseAdapter() {
 	        @Override
 	        public void mouseClicked(MouseEvent e) {
@@ -475,12 +475,12 @@ public class Controller {
 	                    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 	                        @Override
 	                        protected Void doInBackground() throws Exception {
-	                            new VisioneImmobile(c, immobile, user);
+	                            new VisioneImmobile(c, immobile, user, finestra);
 	                            return null;
 	                        }
 
 	                        @Override
-	                        protected void done() {  
+	                        protected void done() {
 	                                schermataCaricamento.close();
 	                        }
 	                    };
@@ -613,7 +613,6 @@ public class Controller {
 			Prenotazione prenotazione = new Prenotazione(id, data, ora, user, immobile, agente, false);
 			this.notifyAgente(prenotazione);
 			reservationConfirmed(finestra, user);
-			
 		}
 	}
 	
@@ -627,8 +626,9 @@ public class Controller {
 		visionePrenotazione.setVisible(true);
 	}
 	
-	public void viewReservationsScreen(Controller c, User user, LocalDate selectedDateGlobal) {
+	public void viewReservationsScreen(Controller c, User user, LocalDate selectedDateGlobal, JFrame finestraCorrente) {
 		calendarioAttesa = new CalendarioInAttesa(c, user, selectedDateGlobal);
+		finestraCorrente.setVisible(false);
 		calendarioAttesa.setVisible(true);
 	}
 
@@ -823,8 +823,8 @@ public class Controller {
     	prenota.setVisible(true);
     }
     
-    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user) throws GeocodingException, URISyntaxException  {
-    	visioneImmobile = new VisioneImmobile(this, immobile, user);
+    public void showImmobile(JFrame finestraCorrente, Immobile immobile, User user, JFrame finestra) throws GeocodingException, URISyntaxException  {
+    	visioneImmobile = new VisioneImmobile(this, immobile, user, finestra);
     	finestraCorrente.setVisible(false);
     	visioneImmobile.setVisible(true);
     }
@@ -920,11 +920,11 @@ public class Controller {
 	}
 	
 	public void recreatePrenotazione(User user, int id, JFrame finestra) {
-		String query = "SELECT * FROM immobili WHERE id = "+id+";";
-		List<Immobile> immobili = model.searchHouse(query);
-		Immobile immobile = immobili.get(0);
-		makeReservationClient(finestra, immobile, user);
-	}
+ 		String query = "SELECT * FROM immobili WHERE id = "+id+";";
+ 		List<Immobile> immobili = model.searchHouse(query);
+ 		Immobile immobile = immobili.get(0);
+ 		makeReservationClient(finestra, immobile, user);
+ 	}
 	
 	public static void main(String[] args)
 	{
