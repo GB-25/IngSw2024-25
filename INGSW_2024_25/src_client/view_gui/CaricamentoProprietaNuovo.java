@@ -170,7 +170,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         buttonSearch.addActionListener(e -> {
             try {
             	mapViewer = new JXMapViewer();
-                c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, false, null, user);
+                c.getCoordinates(c, searchField.getText().trim(), mapPanel, mapViewer, null, user, finestraCorrente);
             } catch (Exception e1) {
             	logger.severe("Errore nel recupero delle coordinate");
             }
@@ -369,7 +369,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         } else if (!Pattern.matches("^[A-Za-zÀ-ÿ]+(?:[\\s-][A-Za-zÀ-ÿ]+)*,\\s*\\d+,\\s*\\d{5}\\s+[A-Za-zÀ-ÿ]+(?:\\s+[A-Za-zÀ-ÿ]+)*(?:\\s+[A-Z]{2})?,\\s*[A-Za-zÀ-ÿ]+$"
         		, checkAddress)) {
         	JOptionPane.showMessageDialog(null,
-                    "Indirizzo non valido. È necessario inserire l'indirizzo suggerito dal sistema.",
+                    "Indirizzo non valido. È necessario inserire l'indirizzo suggerito dal sistema, oltre a fare attenzione ad inserire il numero civico!",
                     ERRORE,
                     JOptionPane.ERROR_MESSAGE);
         }

@@ -38,6 +38,19 @@ public class CalendarioInAttesa extends JFrame{
 		setLocationRelativeTo(null);
 		setSize(new Dimension(400, 400));
 		setContentPane(frame);
+		
+		JPanel indietroPanel = new JPanel(new BorderLayout());
+        JButton indietroButton = new JButton("←");
+        indietroButton.setHorizontalTextPosition(SwingConstants.LEFT);
+        indietroButton.setBackground(Color.WHITE);
+        indietroButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        indietroButton.setFocusPainted(false);
+        indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        indietroButton.addActionListener(e -> {
+        	dispose();
+        	c.viewCalendar(finestraCorrente, user);
+        });
+        indietroPanel.add(indietroButton, BorderLayout.WEST);
 
 		JPanel reservationsPanel = new JPanel (new BorderLayout());
 		
@@ -73,7 +86,8 @@ public class CalendarioInAttesa extends JFrame{
 		        }
 		    }
 		});
-		frame.add(reservationsPanel);
+		frame.add(indietroPanel, BorderLayout.NORTH);
+		frame.add(reservationsPanel, BorderLayout.CENTER);
 		setVisible(true);
 	}
 }

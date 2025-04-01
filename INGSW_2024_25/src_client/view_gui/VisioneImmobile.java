@@ -29,7 +29,7 @@ public class VisioneImmobile extends JFrame {
     private String fontScritte = "Helvetica";
     transient Logger logger = Logger.getLogger(getClass().getName());
 
-    public VisioneImmobile(Controller c, Immobile immobile, User user) throws GeocodingException, URISyntaxException {
+    public VisioneImmobile(Controller c, Immobile immobile, User user, JFrame finestra) throws GeocodingException, URISyntaxException {
     	finestraCorrente=this;
 
     	FlatLaf.setup(new FlatLightLaf());
@@ -84,7 +84,7 @@ public class VisioneImmobile extends JFrame {
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
 
-        JPanel buttonPanel = createButtonPanel(c, immobile, user);
+        JPanel buttonPanel = createButtonPanel(c, immobile, user, finestra);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         
        JXMapViewer mapViewer = new JXMapViewer();
@@ -95,10 +95,11 @@ public class VisioneImmobile extends JFrame {
         mapPanel.setPreferredSize(new Dimension(200, 200));
         ArrayList<Immobile> immobileList = new ArrayList<>();
         immobileList.add(immobile);
-        c.getCoordinates(c, immobile.getImmobileDettagli().getIndirizzo(), mapPanel, mapViewer, false, immobileList, user);
+        c.getCoordinates(c, immobile.getImmobileDettagli().getIndirizzo(), mapPanel, mapViewer, immobileList, user, null);
+        mapPanel.setEnabled(false); 
         carouselPanel.add(mapPanel, BorderLayout.SOUTH);
-        
 
+        
 
         setVisible(true);
     }
@@ -186,7 +187,7 @@ public class VisioneImmobile extends JFrame {
         return detailsPanel;
     }
 
-    private JPanel createButtonPanel(Controller c, Immobile immobile, User user) {
+    private JPanel createButtonPanel(Controller c, Immobile immobile, User user, JFrame finestra) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.WHITE);
 
@@ -196,7 +197,10 @@ public class VisioneImmobile extends JFrame {
         prenotaButton.setFont(new Font(fontScritte, Font.BOLD, 13));
         prenotaButton.setFocusPainted(false);
         prenotaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        prenotaButton.addActionListener(e -> c.makeReservationClient(finestraCorrente, immobile, user));
+        prenotaButton.addActionListener(e -> {
+        	if (finestra != null) {
+        	finestra.dispose();}
+        	c.makeReservationClient(finestraCorrente, immobile, user);});
 
         JButton indietroButton = new JButton("Indietro");
         indietroButton.setBackground(Color.GRAY);
@@ -206,7 +210,8 @@ public class VisioneImmobile extends JFrame {
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(e -> {
         	dispose();
-            c.findImmobili(finestraCorrente, user);
+        	if (finestra == null) {
+            c.findImmobili(finestraCorrente, user);}
         });
 
         buttonPanel.add(indietroButton);
@@ -234,7 +239,5 @@ public class VisioneImmobile extends JFrame {
     	    } catch (IllegalArgumentException e) {
     	        logger.info("Errore nella decodifica dell'immagine Base64: " + e.getMessage());
     	    }
-    }
-    
-
+    }   
 }

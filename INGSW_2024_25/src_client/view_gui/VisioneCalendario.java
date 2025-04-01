@@ -1,6 +1,5 @@
 package view_gui;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.FlatLaf;
@@ -10,7 +9,7 @@ import classi.User;
 import controller.Controller;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -94,12 +93,18 @@ public class VisioneCalendario extends JFrame {
         if(user.getIsAgente()) {
         buttonPanel.add(showPendingBtn);}
   
-        calendarTable.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-            if (!event.getValueIsAdjusting() && calendarTable.getSelectedRow() != -1 && calendarTable.getSelectedColumn() != -1) {
-                Object selectedDate = tableModel.getValueAt(calendarTable.getSelectedRow(), calendarTable.getSelectedColumn());
-
-                if (selectedDate instanceof LocalDate localDate) 
-                    selectedDateGlobal = localDate;               
+        calendarTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = calendarTable.rowAtPoint(e.getPoint());
+                int col = calendarTable.columnAtPoint(e.getPoint());
+                
+                if (row >= 0 && col >= 0) {
+                    Object selectedDate = tableModel.getValueAt(row, col);
+                    if (selectedDate instanceof LocalDate localDate) {
+                        selectedDateGlobal = localDate;
+                    }
+                }
             }
         });
 
@@ -119,7 +124,7 @@ public class VisioneCalendario extends JFrame {
 			 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
-        	c.viewReservationsScreen(c, user, selectedDateGlobal);
+        	c.viewReservationsScreen(c, user, selectedDateGlobal, frame);
         	return null;}
                 
                 @Override
@@ -138,11 +143,15 @@ public class VisioneCalendario extends JFrame {
      * Metodo per generazione calendario per le prossime due settimane
      */
     private void fillCalendarTable() {
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < 3; row++) {
             Object[] weekRow = new Object[7];
+            if (row == 2) {
+            	weekRow[0] = startDate.plusDays(row * 7L);
+            }
+            else {
             for (int col = 0; col < 7; col++) {
                 weekRow[col] = startDate.plusDays(row * 7L + col);
-            }
+            }}
             tableModel.addRow(weekRow);
         }
     }
