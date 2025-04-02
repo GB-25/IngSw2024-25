@@ -56,33 +56,83 @@ public class VisioneCalendario extends JFrame {
         DayOfWeek dayOfWeek = today.getDayOfWeek(); 
         switch(dayOfWeek.toString()) {
         case "MONDAY":
-        	tableModel = new DefaultTableModel(new Object[]{"Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"}, 2);
+        	tableModel = new DefaultTableModel(new Object[]{"Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"}, 2) {
+        		private static final long serialVersionUID = 1L;
+
+				@Override
+        		public boolean isCellEditable(int row, int column) {
+        			return false;
+        		}
+        	};
           break;
         case "TUESDAY":
-        	tableModel = new DefaultTableModel(new Object[]{"Mar", "Mer", "Gio", "Ven", "Sab", "Dom", "Lun"}, 2);
+        	tableModel = new DefaultTableModel(new Object[]{"Mar", "Mer", "Gio", "Ven", "Sab", "Dom", "Lun"}, 2) {
+        		private static final long serialVersionUID = 1L;
+
+				@Override
+        		public boolean isCellEditable(int row, int column) {
+        			return false;
+        		}
+        	};
           break;
         case "WEDNESDAY":
-        	tableModel = new DefaultTableModel(new Object[]{"Mer", "Gio", "Ven", "Sab", "Dom", "Lun", "Mar"}, 2);
+        	tableModel = new DefaultTableModel(new Object[]{"Mer", "Gio", "Ven", "Sab", "Dom", "Lun", "Mar"}, 2) {
+        		private static final long serialVersionUID = 1L;
+
+				@Override
+        		public boolean isCellEditable(int row, int column) {
+        			return false;
+        		}
+        	};
             break;
         case "THURSDAY":
-        	tableModel = new DefaultTableModel(new Object[]{"Gio", "Ven", "Sab", "Dom", "Lun", "Mar", "Mer"}, 2);
+        	tableModel = new DefaultTableModel(new Object[]{"Gio", "Ven", "Sab", "Dom", "Lun", "Mar", "Mer"}, 2) {
+        		private static final long serialVersionUID = 1L;
+
+				@Override
+        		public boolean isCellEditable(int row, int column) {
+        			return false;
+        		}
+        	};
             break;
         case "FRIDAY":
-        	tableModel = new DefaultTableModel(new Object[]{"Ven", "Sab", "Dom","Lun", "Mar", "Mer", "Gio"}, 2);
+        	tableModel = new DefaultTableModel(new Object[]{"Ven", "Sab", "Dom","Lun", "Mar", "Mer", "Gio"}, 2) {
+        		private static final long serialVersionUID = 1L;
+
+				@Override
+        		public boolean isCellEditable(int row, int column) {
+        			return false;
+        		}
+        	};
         	break;
         case "SATURDAY":
-        	tableModel = new DefaultTableModel(new Object[]{"Sab", "Dom","Lun", "Mar", "Mer", "Gio", "Ven"}, 2);
+        	tableModel = new DefaultTableModel(new Object[]{"Sab", "Dom","Lun", "Mar", "Mer", "Gio", "Ven"}, 2) {
+        		private static final long serialVersionUID = 1L;
+
+				@Override
+        		public boolean isCellEditable(int row, int column) {
+        			return false;
+        		}
+        	};
         	break;
         default:
-        	tableModel = new DefaultTableModel(new Object[]{"Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"}, 2);
+        	tableModel = new DefaultTableModel(new Object[]{"Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"}, 2) {
+        		private static final long serialVersionUID = 1L;
+
+				@Override
+        		public boolean isCellEditable(int row, int column) {
+        			return false;
+        		}
+        	};
       }
 
         calendarTable = new JTable(tableModel);
         calendarTable.setRowHeight(50);
-
-	calendarTable.setShowGrid(true); 
+        calendarTable.setShowGrid(true); 
         calendarTable.setGridColor(new Color(200, 200, 200));
-        
+        calendarTable.setRowSelectionAllowed(false);
+        calendarTable.setColumnSelectionAllowed(false);
+        calendarTable.setCellSelectionEnabled(true);
         fillCalendarTable();
 
         JButton showConfirmedBtn = new JButton("Prenotazioni Confermate");

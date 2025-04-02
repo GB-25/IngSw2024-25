@@ -278,36 +278,39 @@ public class Controller {
 	public void getCoordinates(Controller c, String address, JPanel mapPanel, JXMapViewer mapViewer, 
        List<Immobile> immobili, User user, JFrame finestra) throws GeocodingException, URISyntaxException  {
 	    try {
+	    	
 	        double[] coordinates = getCoordinatesFromAPI(address);
-	
+	        
 	        if (coordinates.length==0) {
 	            JOptionPane.showMessageDialog(null, "Indirizzo non trovato!", ERRORE, JOptionPane.ERROR_MESSAGE);
 	            return;
 	        }
-
+	       
 	        configureMap(mapPanel, mapViewer, coordinates[0], coordinates[1]);
-
+	        
 	        Map<DefaultWaypoint, Immobile> waypointMap = new HashMap<>();
 	        Set<DefaultWaypoint> waypoints = new HashSet<>();
-
+	       
 	        if (!user.getIsAgente()) {
 	            addImmobileWaypoints(immobili, waypointMap, waypoints);
 	        } else {
+	        	
 	            waypoints.add(new DefaultWaypoint(new GeoPosition(coordinates[0], coordinates[1])));
 	        }
-
+	       
 	        configureWaypoints(mapViewer, waypoints);
-
+	        
 	        if (!user.getIsAgente() && finestra != null) {
 	            addWaypointClickListener(c, mapViewer, waypointMap, user, finestra);
 	        }
-
+	
 	        addMapInteractionListeners(mapViewer);
-
+	        
 	        mapViewer.setVisible(true);
 	        mapPanel.add(mapViewer);
 	        mapViewer.revalidate();
 	        mapViewer.repaint();
+
 	    } catch (GeocodingException e) {
 	        logger.severe("Errore nel recupero delle coordinate");
 	        JOptionPane.showMessageDialog(null, e.getMessage(), ERRORE, JOptionPane.ERROR_MESSAGE);
@@ -328,8 +331,9 @@ public class Controller {
 	    try {
 	        encodedAddress = URLEncoder.encode(address, "UTF-8");
 	    } catch (UnsupportedEncodingException e) {
+	    	logger.severe("Failed to encode address");
 	        throw new GeocodingException("Failed to encode address", e);
-	    }
+	        }
 
 	    String url = "https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + apiKey;
 	    HttpURLConnection conn;
@@ -338,6 +342,7 @@ public class Controller {
 	        conn = (HttpURLConnection) uri.toURL().openConnection();
 	        conn.setRequestMethod("GET");
 	    } catch (IOException e) {
+	    	logger.severe("Failed to establish connection to the API");
 	        throw new GeocodingException("Failed to establish connection to the API", e);
 	    }
 
@@ -350,6 +355,7 @@ public class Controller {
 	        }
 	        reader.close();
 	    } catch (IOException e) {
+	    	logger.severe("Failed to read API response");
 	        throw new GeocodingException("Failed to read API response", e);
 	    }
 
@@ -357,6 +363,7 @@ public class Controller {
 	    try {
 	        jsonResponse = new JSONObject(response.toString());
 	    } catch (JSONException e) {
+	    	logger.severe("Failed to parse API response");
 	        throw new GeocodingException("Failed to parse API response", e);
 	    }
 
@@ -367,9 +374,11 @@ public class Controller {
 	            double lon = location.getJSONArray(COORDINATESSTRING).getDouble(0);
 	            return new double[]{lat, lon};
 	        } catch (JSONException e) {
+	        	logger.severe("Failed to extract coordinates from API response");
 	            throw new GeocodingException("Failed to extract coordinates from API response", e);
 	        }
 	    } else {
+	    	logger.severe("No coordinates found for the given address");
 	        throw new GeocodingException("No coordinates found for the given address");
 	    }
 	}
@@ -621,7 +630,7 @@ public class Controller {
 	}
 	
 	public void viewPendingReservation(JFrame finestraCorrente, User user, Prenotazione prenotazione, Controller c) {
-		visionePrenotazione = new VisionePrenotazione (user, prenotazione, c);
+		visionePrenotazione = new VisionePrenotazione (user, prenotazione, c, finestraCorrente);
 		finestraCorrente.setVisible(false);
 		visionePrenotazione.setVisible(true);
 	}
@@ -909,7 +918,7 @@ public class Controller {
 	
 	public void viewPrenotazione(User user, Prenotazione prenotazione, JFrame finestraCorrente) {
 		if(user.getIsAgente()) {
-			visionePrenotazione = new VisionePrenotazione (user, prenotazione, this);
+			visionePrenotazione = new VisionePrenotazione (user, prenotazione, this, finestraCorrente);
 			finestraCorrente.setVisible(false);
 			visionePrenotazione.setVisible(true);
 		} else {

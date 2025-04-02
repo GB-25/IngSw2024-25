@@ -2,19 +2,26 @@ package view_gui;
 
 import javax.swing.*;
 
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.viewer.GeoPosition;
+
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
-import classi.Notifica;
+
 import classi.Prenotazione;
 import classi.User;
 import controller.Controller;
 
 import java.awt.*;
-import java.util.List;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
-public class VisionePrenotazione extends JFrame {
+
+public class VisionePrenotazione extends JFrame implements MouseListener, MouseMotionListener{
     private static final long serialVersionUID = 1L;
 	private JLabel titoloLabel;
     private JLabel clienteLabel;
@@ -26,114 +33,176 @@ public class VisionePrenotazione extends JFrame {
     private JButton rifiutaButton;
     private JButton indietroButton;
     private JPanel topPanel;
-    private JFrame finestraLogin;
+    private JXMapViewer mapViewer;
 	private JFrame finestraCorrente = this;
 	private String fontScritte = "Microsoft YaHei UI Light";
 	private transient Logger logger = Logger.getLogger(getClass().getName());
+	private JPanel panel;
+	private Point lastPoint;
+	private static final String HTMLFINE = "</html>";
+	/**
+	 * @wbp.nonvisual location=152,17
+	 */
+	
+
 	/**
 	 * 
 	 * Costruttore
 	 */
-    public VisionePrenotazione(User user, Prenotazione prenotazione, Controller c) {
-        FlatLaf.setup(new FlatLightLaf());
-        setTitle("Visione Prenotazione");
-        setSize(600, 450);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-        
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        setContentPane(mainPanel);
-        mainPanel.setBackground(Color.WHITE);
+	public VisionePrenotazione(User user, Prenotazione prenotazione, Controller c, JFrame finestraPrecedente) {
+	    FlatLaf.setup(new FlatLightLaf());
+	    setTitle("Visione Prenotazione");
+	    setSize(800, 500);
+	    setDefaultCloseOperation(EXIT_ON_CLOSE);
+	    getContentPane().setLayout(new BorderLayout());
+	    
+	    JPanel mainPanel = new JPanel(new BorderLayout());
+	    setContentPane(mainPanel);
+	    mainPanel.setBackground(Color.WHITE);
 
-        titoloLabel = new JLabel("Dettagli Prenotazione", SwingConstants.CENTER);
-        titoloLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
-        clienteLabel = new JLabel("Cliente: " + prenotazione.getUser().getNome()+prenotazione.getUser().getCognome(), SwingConstants.CENTER);
-        clienteLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
-        dataLabel = new JLabel("Data: " + prenotazione.getDataPrenotazione(), SwingConstants.CENTER);
-        dataLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
-        oraLabel = new JLabel("Ora: " + prenotazione.getOraPrenotazione(), SwingConstants.CENTER);
-        oraLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
-        posizioneLabel = new JLabel("Posizione: "+prenotazione.getImmobile().getImmobileDettagli().getIndirizzo());
-        posizioneLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
-        idCasaLabel = new JLabel("ID Prenotazione: "+prenotazione.getId());
-        idCasaLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
-        
-        topPanel = createTopPanel(user, c);
+	    // Componenti con i font originali
+	    titoloLabel = new JLabel("<html>Dettagli Prenotazione</html>");
+	    titoloLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
+	    clienteLabel = new JLabel("<html>Cliente: " + prenotazione.getUser().getNome() + " " + prenotazione.getUser().getCognome() + HTMLFINE);
+	    clienteLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
+	    dataLabel = new JLabel("<html>Data: " + prenotazione.getDataPrenotazione()+HTMLFINE);
+	    dataLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
+	    oraLabel = new JLabel("<html>Ora: " + prenotazione.getOraPrenotazione()+HTMLFINE);
+	    oraLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
+	    posizioneLabel = new JLabel("<html>Posizione: "+prenotazione.getImmobile().getImmobileDettagli().getIndirizzo()+HTMLFINE);
+	    posizioneLabel.setFont(new Font(fontScritte, Font.PLAIN, 20));
+	    idCasaLabel = new JLabel("<html>ID Prenotazione: "+prenotazione.getId()+HTMLFINE);
+	    idCasaLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
+	    
+	    topPanel = createTopPanel();
 
-        JPanel detailsPanel = new JPanel();
-        detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
-        detailsPanel.setBackground(Color.WHITE);
-        detailsPanel.setAlignmentX(Component.CENTER_ALIGNMENT); 
-        
-        indietroButton = new JButton("←");
-        detailsPanel.add(indietroButton);
-        detailsPanel.add(Box.createVerticalStrut(20));
-        detailsPanel.add(titoloLabel);
-        detailsPanel.add(Box.createVerticalStrut(10));
-        detailsPanel.add(idCasaLabel);
-        detailsPanel.add(Box.createVerticalStrut(10));
-        detailsPanel.add(clienteLabel);
-        detailsPanel.add(dataLabel);
-        detailsPanel.add(oraLabel);
-        detailsPanel.add(posizioneLabel);
+	    // Pannello centrale personalizzato
+	    JPanel centerPanel = new JPanel();
+	    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+	    centerPanel.setBackground(Color.WHITE);
+	    centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        buttonPanel.setBackground(Color.WHITE);
-        rifiutaButton = new JButton("Rifiuta");
-        rifiutaButton.setBackground(Color.RED);
-        rifiutaButton.setForeground(Color.WHITE);
-        confermaButton = new JButton("Conferma");
-        confermaButton.setBackground(new Color(0, 153, 51));
-        confermaButton.setForeground(Color.WHITE);
+	    // Pannello dettagli (sinistra)
+	    JPanel detailsPanel = new JPanel();
+	    detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
+	    detailsPanel.setBackground(Color.WHITE);
+	    detailsPanel.setPreferredSize(new Dimension(400, 400));
+	    
+	    indietroButton = new JButton("←");
+	    indietroButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    detailsPanel.add(indietroButton);
+	    detailsPanel.add(Box.createVerticalStrut(20));
+	    
+	    // Allineamento a sinistra per tutti i componenti
+	    titoloLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    idCasaLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    clienteLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    dataLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    oraLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    posizioneLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    
+	    detailsPanel.add(titoloLabel);
+	    detailsPanel.add(Box.createVerticalStrut(10));
+	    detailsPanel.add(idCasaLabel);
+	    detailsPanel.add(Box.createVerticalStrut(10));
+	    detailsPanel.add(clienteLabel);
+	    detailsPanel.add(Box.createVerticalStrut(10));
+	    detailsPanel.add(dataLabel);
+	    detailsPanel.add(Box.createVerticalStrut(10));
+	    detailsPanel.add(oraLabel);
+	    detailsPanel.add(Box.createVerticalStrut(10));
+	    detailsPanel.add(posizioneLabel);
+	    detailsPanel.add(Box.createVerticalGlue());
 
-        indietroButton.addActionListener(e -> dispose());
-        
-        confermaButton.addActionListener(e -> {
-        	int response = JOptionPane.showConfirmDialog(null,
-                    "Vuoi confermare la prenotazione?",
-                    "Conferma prenotazione",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
+	    // Pannello mappa (destra)
+	    panel = new JPanel(new BorderLayout());
+	    panel.setBackground(Color.WHITE);
+	    panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+	    panel.setPreferredSize(new Dimension(400, 400));
 
-            if (response == JOptionPane.YES_OPTION) {
-            	int id = prenotazione.getId();
-            	String mail = prenotazione.getAgente().getMail();
-            	String data = prenotazione.getDataPrenotazione();
-            	String ora= prenotazione.getOraPrenotazione();
-            	if(c.reservationConfirm(id, mail, data, ora)) {
-            		c.notifyCliente(prenotazione, true);
-            		JOptionPane.showMessageDialog(null,
-                            "La prenotazione è stata confermata ed il cliente è stato notificato.",
-                            "Prenotazione confermata", JOptionPane.INFORMATION_MESSAGE);
-            		c.createHomeAgente(finestraCorrente, user);
-            	}
-            }});
-        
-        
-        rifiutaButton.addActionListener(e -> {
-        	int response = JOptionPane.showConfirmDialog(null,
-                    "Vuoi rifiutare la prenotazione?",
-                    "Conferma prenotazione",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
+	    try {
+	        mapViewer = new JXMapViewer();
+	        c.getCoordinates(c, prenotazione.getImmobile().getImmobileDettagli().getIndirizzo(), panel, mapViewer, null, user, finestraCorrente);
+	        
+	        mapViewer.setPreferredSize(new Dimension(350, 350));
+	        mapViewer.setMinimumSize(new Dimension(350, 350));
+	        mapViewer.setMaximumSize(new Dimension(350, 350));
+	        
+	        panel.add(mapViewer, BorderLayout.CENTER);
+	    } catch (Exception e1) {
+	        logger.severe("Errore nel recupero delle coordinate");
+	    }
 
-            if (response == JOptionPane.YES_OPTION) {
-            	int id = prenotazione.getId();
-            	c.reservationDeny(id);
-            	c.notifyCliente(prenotazione, false);
-            	JOptionPane.showMessageDialog(null,
-                        "La prenotazione è stata rifiutata ed il cliente è stato notificato.",
-                        "Prenotazione rifiutata", JOptionPane.INFORMATION_MESSAGE);
-            	c.createHomeAgente(finestraCorrente, user);}});
+	    // Aggiungo i pannelli al centro
+	    centerPanel.add(detailsPanel);
+	    centerPanel.add(Box.createHorizontalStrut(20));
+	    centerPanel.add(panel);
 
-        buttonPanel.add(rifiutaButton);
-        buttonPanel.add(confermaButton);
+	    // Pulsanti esattamente come nell'originale
+	    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+	    buttonPanel.setBackground(Color.WHITE);
+	    
+	    rifiutaButton = new JButton("Rifiuta");
+	    rifiutaButton.setBackground(Color.RED);
+	    rifiutaButton.setForeground(Color.WHITE);
+	    
+	    confermaButton = new JButton("Conferma");
+	    confermaButton.setBackground(new Color(0, 153, 51));
+	    confermaButton.setForeground(Color.WHITE);
 
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(detailsPanel, BorderLayout.CENTER);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-    }
+	    // Action listener originali
+	    indietroButton.addActionListener(e -> {
+	    	if (finestraPrecedente instanceof CalendarioInAttesa) {
+	    		String data = prenotazione.getDataPrenotazione();
+	    		LocalDate date = LocalDate.parse(data);
+	    		c.viewReservationsScreen(c, user, date, finestraCorrente);
+	    	} else {
+	    		c.createHomeAgente(finestraCorrente, user);
+	    	}
+	    });
+	    
+	    confermaButton.addActionListener(e -> {
+	        int response = JOptionPane.showConfirmDialog(null,
+	                "Vuoi confermare la prenotazione?",
+	                "Conferma prenotazione",
+	                JOptionPane.YES_NO_OPTION,
+	                JOptionPane.QUESTION_MESSAGE);
+
+	        if (response == JOptionPane.YES_OPTION) {
+	            int id = prenotazione.getId();
+	            String mail = prenotazione.getAgente().getMail();
+	            String data = prenotazione.getDataPrenotazione();
+	            String ora= prenotazione.getOraPrenotazione();
+	            if(c.reservationConfirm(id, mail, data, ora)) {
+	                c.notifyCliente(prenotazione, true);
+	                c.createHomeAgente(finestraCorrente, user);
+	            }
+	        }
+	    });
+	    
+	    rifiutaButton.addActionListener(e -> {
+	        int response = JOptionPane.showConfirmDialog(null,
+	                "Vuoi rifiutare la prenotazione?",
+	                "Conferma prenotazione",
+	                JOptionPane.YES_NO_OPTION,
+	                JOptionPane.QUESTION_MESSAGE);
+
+	        if (response == JOptionPane.YES_OPTION) {
+	            int id = prenotazione.getId();
+	            c.reservationDeny(id);
+	            c.notifyCliente(prenotazione, false);
+	          	c.createHomeAgente(finestraCorrente, user);
+	        }
+	    });
+
+	    buttonPanel.add(rifiutaButton);
+	    buttonPanel.add(confermaButton);
+
+	    // Layout finale
+	    mainPanel.add(topPanel, BorderLayout.NORTH);
+	    mainPanel.add(centerPanel, BorderLayout.CENTER);
+	    mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+	}
     
     /**
      * Creazione top Panel finestra
@@ -141,7 +210,7 @@ public class VisionePrenotazione extends JFrame {
      * @param c
      * @return JPanel
      */
-    private JPanel createTopPanel(User user, Controller c) {
+    private JPanel createTopPanel() {
         topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(40, 132, 212));
         topPanel.setPreferredSize(new Dimension(600, 120));
@@ -158,147 +227,69 @@ public class VisionePrenotazione extends JFrame {
         logoButton.setFocusPainted(false);
         logoButton.setContentAreaFilled(false);
         logoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        logoButton.addActionListener(e -> dispose());
+       
 
-        JPopupMenu popupUser = new JPopupMenu();
-        popupUser.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-
-        JMenuItem userInfo = new JMenuItem(user.getNome()+" "+user.getCognome());
-        userInfo.setEnabled(false);
-        JMenuItem logout = new JMenuItem("Logout");
-        logout.addActionListener(e -> {
-            int response = JOptionPane.showConfirmDialog(this, "Sei sicuro di voler effettuare il logout?", "Conferma Logout", JOptionPane.YES_NO_OPTION);
-            if (response == JOptionPane.YES_OPTION) {
-            	c.cambiaFinestra(finestraCorrente, finestraLogin);
-            }
-        });
-
-        popupUser.add(userInfo);
-        popupUser.add(new JSeparator());
-        popupUser.add(logout);
-
-        ImageIcon userIcon = new ImageIcon(getClass().getResource("/immagini/userwhite.png"));
-        Image userImage = userIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        JButton userButton = new JButton(new ImageIcon(userImage));
-        userButton.addActionListener(e -> popupUser.show(userButton, 0, userButton.getHeight()));
-        userButton.setBackground(new Color(40, 132, 212));
-        userButton.setBorderPainted(false);
-        userButton.setFocusPainted(false);
-        userButton.setContentAreaFilled(false);
-        userButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JPopupMenu popupMenu = new JPopupMenu();
-        JButton bellButton = new JButton();
-        bellButton.addActionListener(e -> bellButtonVisible(c, popupMenu, user, bellButton));
-        updateBellIcon(c, user, bellButton);
-        bellButton.setBackground(new Color(40, 132, 212));
-        bellButton.setBorderPainted(false);
-        bellButton.setFocusPainted(false);
-        bellButton.setContentAreaFilled(false);
-        bellButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JPanel topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 30));
-        topRightPanel.setBackground(new Color(40, 132, 212));
-        topRightPanel.add(bellButton);
-        topRightPanel.add(userButton);
-
-        topPanel.add(logoButton, BorderLayout.WEST);
-        topPanel.add(topRightPanel, BorderLayout.EAST);
+        topPanel.add(logoButton, BorderLayout.CENTER);
         topPanel.add(separator, BorderLayout.SOUTH);
 
         return topPanel;
     }
     
-    private void bellButtonVisible(Controller c, JPopupMenu popupMenu, User user, JButton bellButton) {
-	    popupMenu.removeAll();
-	    popupMenu.setBorder(BorderFactory.createLineBorder(new Color(40, 132, 212)));
-
-	    List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-	    
-	    if (notifiche.isEmpty()) {
-	        nessunaNotifica(popupMenu);
-	    } else {
-	        notifiche.forEach(notifica -> nuovaNotifica(c, popupMenu, user, bellButton, notifica));
-	    }
-
-	    popupMenu.pack();
-	    popupMenu.revalidate();
-	    popupMenu.repaint();
-
-	    SwingUtilities.invokeLater(() -> popupMenu.show(bellButton, 0, bellButton.getHeight()));
-	}
-
-	private void nessunaNotifica(JPopupMenu popupMenu) {
-	    JMenuItem dummy = new JMenuItem("Nessuna notifica");
-	    dummy.setEnabled(false);
-	    popupMenu.add(dummy);
-	}
-
-	private void nuovaNotifica(Controller c, JPopupMenu popupMenu, User user, JButton bellButton, Notifica notifica) {
-	    JMenuItem menuItem = new JMenuItem(notifica.getMessaggio());
-	    menuItem.addActionListener(ae -> handleNotificationClick(c, popupMenu, user, bellButton, menuItem, notifica));
-	    popupMenu.add(menuItem);
-	}
-	/**
-	 * metodo aggiornamento status notifiche
-	 * @param c
-	 * @param popupMenu
-	 * @param user
-	 * @param bellButton
-	 * @param menuItem
-	 * @param notifica
-	 */
-	private void handleNotificationClick(Controller c, JPopupMenu popupMenu, User user, JButton bellButton, JMenuItem menuItem, Notifica notifica) {
-	    try {
-	        c.setNotificaLetta(notifica);
-	        popupMenu.remove(menuItem);
-	        String[] parts;
-	        int numero;
-	        String numeroStringa;
-	        if (notifica.getMessaggio().startsWith("Rifiutata la prenotazione con id:")) {
-	        	 parts = notifica.getMessaggio().split(":"); 
-	        	 numeroStringa = parts[1].trim().split("\\s+")[0]; 
-	             numero = Integer.parseInt(numeroStringa);
-	             c.checkPrenotazione(finestraCorrente, numero, user);
-	        }else if(notifica.getMessaggio().startsWith("Nuova prenotazione con id:")) {
-	        	 parts = notifica.getMessaggio().split(":"); 
-	             numeroStringa = parts[parts.length - 1].trim(); 
-	             numero = Integer.parseInt(numeroStringa);
-	             c.checkPrenotazione(finestraCorrente, numero, user);
-	        
-	        } else {
-	            c.viewCalendar(finestraCorrente, user);
-	        }
-
-	        updateBellIcon(c, user, bellButton);
-
-	        if (popupMenu.getComponentCount() == 0) {
-	            popupMenu.setVisible(false);
-	        }
-	    } catch (Exception ex) {
-	    	logger.severe("Errore nella ricezione di notifiche");
-	    }
-	}
-	/**
-	 * aggiornamento icona notifiche
-	 * 
-	 * @param c
-	 * @param user
-	 * @param bellButton
-	 */
-    private void updateBellIcon(Controller c, User user, JButton bellButton) {
-        List<Notifica> notifiche = c.getNotificheUtente(user.getMail());
-        String iconPath = notifiche.isEmpty() ? "/immagini/bellwhite.png" : "/immagini/whitebellnotifiche.png";
-
-        ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
-          
-            return;
-        }
-
-        Image img = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-        bellButton.setIcon(new ImageIcon(img));
-        bellButton.revalidate();
-        bellButton.repaint();
+    @Override
+    public void mousePressed(MouseEvent e) {
+        lastPoint = e.getPoint();
     }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (lastPoint != null) {
+            Point newPoint = e.getPoint();
+
+            int dx = newPoint.x - lastPoint.x;
+            int dy = newPoint.y - lastPoint.y;
+
+            GeoPosition newCenter = mapViewer.convertPointToGeoPosition(new Point(
+                mapViewer.getWidth() / 2 - dx,  
+                mapViewer.getHeight() / 2 - dy  
+            ));
+
+            
+            mapViewer.setCenterPosition(newCenter);
+
+   
+            lastPoint = newPoint;
+        }
+    }
+    
+    
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        lastPoint = null;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) {
+            mapViewer.setZoom(mapViewer.getZoom() - 1); 
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // gestione eventi di movimento del mouse 
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Metodo vuoto
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Metodo vuoto
+    }   
+     
+
+    
 }

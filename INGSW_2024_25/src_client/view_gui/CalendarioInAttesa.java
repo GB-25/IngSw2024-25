@@ -30,13 +30,14 @@ public class CalendarioInAttesa extends JFrame{
 	 * Costruttore
 	 */
 	public CalendarioInAttesa(Controller c, User user, LocalDate selectedDateGlobal) {
+		setResizable(false);
 		FlatLaf.setup(new FlatLightLaf());
 		frame = new JPanel(new BorderLayout());
 		finestraCorrente = this;
 		setTitle("Visualizza appuntamenti pendenti");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(new Dimension(400, 400));
+		setSize(new Dimension(500, 450));
 		setContentPane(frame);
 		
 		JPanel indietroPanel = new JPanel(new BorderLayout());
@@ -62,7 +63,7 @@ public class CalendarioInAttesa extends JFrame{
 			prenotazione = prenotazioni.get(i);
 			immobile = prenotazione.getImmobile();
 			indirizzo = immobile.getImmobileDettagli().getIndirizzo();
-			reservations.add(i, "Sig.\ra " + prenotazione.getUser().getNome() + " " + prenotazione.getUser().getCognome() + " a " + indirizzo + " alle ore " + prenotazione.getOraPrenotazione());
+			reservations.add(i, "Sig/ra " + prenotazione.getUser().getNome() + " " + prenotazione.getUser().getCognome() + " a " + indirizzo + " alle ore " + prenotazione.getOraPrenotazione());
             }
 		
 		JList<String> reservationsList = new JList<>(reservations.toArray(new String[0]));
