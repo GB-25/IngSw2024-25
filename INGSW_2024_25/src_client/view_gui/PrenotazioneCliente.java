@@ -48,36 +48,75 @@ public class PrenotazioneCliente extends JFrame {
         mainPanel = new JPanel(new BorderLayout());
         setContentPane(mainPanel);
 
-        JPanel middlePanel = new JPanel(new GridBagLayout());
+        JPanel middlePanel = new JPanel();
         middlePanel.setPreferredSize(new Dimension(600, 180));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        GridBagConstraints gbc1 = new GridBagConstraints();
-        gbc1.insets = new Insets(10, 10, 10, 10);
-        gbc1.anchor = GridBagConstraints.WEST;
-        GridBagConstraints gbc2 = new GridBagConstraints();
-        gbc2.insets = new Insets(10, 10, 10, 10);
-        gbc2.anchor = GridBagConstraints.WEST;
-        GridBagConstraints gbc3 = new GridBagConstraints();
-        gbc3.insets = new Insets(10, 10, 10, 10);
-        gbc3.anchor = GridBagConstraints.WEST;
-        GridBagConstraints gbc4 = new GridBagConstraints();
-        gbc4.insets = new Insets(10, 10, 10, 10);
-        gbc4.anchor = GridBagConstraints.WEST;
-        GridBagConstraints gbc5 = new GridBagConstraints();
-        gbc5.gridwidth = 2;
-        gbc5.insets = new Insets(10, 10, 10, 10);
-        GridBagConstraints gbc6 = new GridBagConstraints();
-        gbc6.insets = new Insets(10, 10, 10, 10);
-        gbc6.anchor = GridBagConstraints.WEST;
-        GridBagConstraints gbc7 = new GridBagConstraints();
-        gbc7.gridwidth = 2;
-        gbc7.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.WEST;
 
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        indietroPanel.setBackground(new Color(40, 132, 212));
+
+        JLabel phraseLabel = new JLabel("                       Specifica la data e l'orario di prenotazione.");
+        phraseLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
+        phraseLabel.setForeground(new Color(255, 255, 255));
+        indietroPanel.add(phraseLabel);
+        mainPanel.add(indietroPanel, BorderLayout.NORTH);
+
+        dateChooser = new JDateChooser();
+        dateChooser.setBounds(297, 54, 176, 25);
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+        ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 14);
+        Date dataMassima = cal.getTime();
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 0);
+        Date dataMinima = cal.getTime();
+        dateChooser.setSelectableDateRange(dataMinima, dataMassima);
+        dateChooser.setPreferredSize(new Dimension(176, 25));
+        middlePanel.setLayout(null);
+
+        JLabel dateLabel = new JLabel("Data:");
+        dateLabel.setBounds(127, 54, 150, 25);
+        dateLabel.setPreferredSize(new Dimension(150, 25));
+        middlePanel.add(dateLabel);
+        middlePanel.add(dateChooser);
+
+        SpinnerDateModel model = new SpinnerDateModel();
+        JSpinner timeSpinner = new JSpinner(model);
+        timeSpinner.setBounds(297, 99, 176, 25);
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
+        timeSpinner.setEditor(editor);
+        timeSpinner.setPreferredSize(new Dimension(176, 25));
+
+        JLabel timeLabel = new JLabel("Orario:");
+        timeLabel.setBounds(127, 99, 150, 25);
+        timeLabel.setPreferredSize(new Dimension(150, 25));
+        middlePanel.add(timeLabel);
+        middlePanel.add(timeSpinner);
+
+        JButton confirmButton = new JButton("Prenota");
+        confirmButton.setBounds(266, 144, 67, 21);
+        middlePanel.add(confirmButton);
+
+        JLabel outputLabel = new JLabel(SELEZIONA);
+        outputLabel.setBounds(132, 185, 336, 13);
+        middlePanel.add(outputLabel);
+
+        JLabel weatherLabel = new JLabel(" ");
+        weatherLabel.setBounds(127, 218, 3, 13);
+        middlePanel.add(weatherLabel);
+        
+        JButton weatherButton = new JButton("Controlla meteo");
+        weatherButton.setBounds(247, 251, 105, 21);
+        middlePanel.add(weatherButton);
+
+        weatherButton.addActionListener(e -> getWeather (outputLabel, timeSpinner, weatherLabel));
+
+        confirmButton.addActionListener(e -> postReservation(c, timeSpinner, outputLabel, user, immobile));
+
+        mainPanel.add(middlePanel, BorderLayout.CENTER);
         JButton indietroButton = new JButton("←");
+        indietroButton.setBounds(21, 10, 60, 25);
+        middlePanel.add(indietroButton);
         indietroButton.setPreferredSize(new Dimension(60, 25));
         indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
         indietroButton.addActionListener(e -> {
@@ -100,74 +139,6 @@ public class PrenotazioneCliente extends JFrame {
    			 protected void done() {
    				 schermataCaricamento.close();}};
    				 worker.execute();});
-        indietroPanel.add(indietroButton);
-
-        JLabel phraseLabel = new JLabel("      Specifica la data e l'orario di prenotazione.");
-        phraseLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 20));
-        phraseLabel.setForeground(Color.BLACK);
-        indietroPanel.add(phraseLabel);
-        mainPanel.add(indietroPanel, BorderLayout.NORTH);
-
-        dateChooser = new JDateChooser();
-        dateChooser.setDateFormatString("yyyy-MM-dd");
-        ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 14);
-        Date dataMassima = cal.getTime();
-        cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 0);
-        Date dataMinima = cal.getTime();
-        dateChooser.setSelectableDateRange(dataMinima, dataMassima);
-        dateChooser.setPreferredSize(new Dimension(176, 25));
-
-        JLabel dateLabel = new JLabel("Data:");
-        dateLabel.setPreferredSize(new Dimension(150, 25));
-
-        gbc.gridx = 0; gbc.gridy = 0;
-        middlePanel.add(dateLabel, gbc);
-        gbc1.gridx = 1; gbc1.gridy = 0;
-        middlePanel.add(dateChooser, gbc1);
-
-        SpinnerDateModel model = new SpinnerDateModel();
-        JSpinner timeSpinner = new JSpinner(model);
-        JSpinner.DateEditor editor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
-        timeSpinner.setEditor(editor);
-        timeSpinner.setPreferredSize(new Dimension(176, 25));
-
-        JLabel timeLabel = new JLabel("Orario:");
-        timeLabel.setPreferredSize(new Dimension(150, 25));
-
-        gbc2.gridx = 0; gbc2.gridy = 1;
-        middlePanel.add(timeLabel, gbc2);
-        gbc3.gridx = 1; gbc3.gridy = 1;
-        middlePanel.add(timeSpinner, gbc3);
-
-        JButton confirmButton = new JButton("Prenota");
-        gbc4.gridx = 0; gbc4.gridy = 2;
-        gbc4.gridwidth = 2;
-        gbc4.anchor = GridBagConstraints.CENTER;
-        middlePanel.add(confirmButton, gbc4);
-
-        JLabel outputLabel = new JLabel(SELEZIONA);
-        gbc5.gridx = 0;
-        gbc5.gridy = 3;
-        middlePanel.add(outputLabel, gbc5);
-
-        JLabel weatherLabel = new JLabel(" ");
-        gbc6.gridx = 0;
-        gbc6.gridy = 4;
-        middlePanel.add(weatherLabel, gbc6);
-        
-        JButton weatherButton = new JButton("Controlla meteo");
-        gbc7.gridx = 0;
-        gbc7.gridy = 5;
-        middlePanel.add(weatherButton, gbc7);
-
-        weatherButton.addActionListener(e -> getWeather (outputLabel, timeSpinner, weatherLabel));
-
-        confirmButton.addActionListener(e -> postReservation(c, timeSpinner, outputLabel, user, immobile));
-
-        mainPanel.add(middlePanel, BorderLayout.CENTER);
     }
     /**
      * Metodo per ottenere i dati meteo

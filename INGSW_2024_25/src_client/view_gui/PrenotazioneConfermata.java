@@ -29,11 +29,11 @@ public class PrenotazioneConfermata extends JFrame {
         mainPanel.setBackground(Color.WHITE);
         setContentPane(mainPanel);
 
-        JButton logoButton = createIconButton("/immagini/LOGO.png", 200, 100);
+        JButton logoButton = createIconButton("/immagini/logopngwhite.png", 200, 100);
 
         JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        logoPanel.setBackground(Color.WHITE);
-        logoPanel.add(logoButton);
+        logoPanel.setBackground(new Color(40, 132, 212));
+        logoPanel.add(logoButton, BorderLayout.CENTER);
         mainPanel.add(logoPanel, BorderLayout.NORTH);
 
         JPanel textPanel = new JPanel();
