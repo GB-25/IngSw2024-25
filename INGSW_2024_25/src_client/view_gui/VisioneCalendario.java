@@ -40,6 +40,7 @@ public class VisioneCalendario extends JFrame {
         frame.getContentPane().setLayout(new BorderLayout());
         
         JPanel indietroPanel = new JPanel(new BorderLayout());
+        indietroPanel.setBackground(new Color(40, 132, 212));
         JButton indietroButton = new JButton("←");
         indietroButton.setHorizontalAlignment(SwingConstants.LEFT);
         indietroButton.setPreferredSize(new Dimension(60, 25));
@@ -161,9 +162,19 @@ public class VisioneCalendario extends JFrame {
 
         showConfirmedBtn.addActionListener((ActionEvent e) -> {
             if (selectedDateGlobal != null) {
+            	schermataCaricamento = c.createSchermataCaricamento(frame, "Caricamento");
+   			 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                   @Override
+                   protected Void doInBackground() throws Exception {
             	prenotazioni = (ArrayList<String>) c.showReservation(user, true, selectedDateGlobal.toString());
             	confirmedAppointments.put(selectedDateGlobal, prenotazioni);
                 showAppointmentsForDate(confirmedAppointments, selectedDateGlobal, "Prenotazioni Confermate");
+                return null;}
+                   @Override
+                   protected void done() {
+                   	schermataCaricamento.close();
+                   }}; worker.execute();
+   			 
             } else {
                 JOptionPane.showMessageDialog(frame, "Seleziona prima una data!", "Errore", JOptionPane.ERROR_MESSAGE);
             }
@@ -216,11 +227,12 @@ public class VisioneCalendario extends JFrame {
         
     	
     	List<String> appointmentList = appointments.getOrDefault(date, new ArrayList<>());
-        
-        String message = appointmentList.isEmpty() ? "Nessun appuntamento per questa data." :
-                         String.join("\n", appointmentList);
+    	
+        	String message = appointmentList.isEmpty() ? "Nessun appuntamento per questa data." :
+        		String.join("\n", appointmentList);
 
-        JOptionPane.showMessageDialog(frame, message, title + " - " + date.toString(), JOptionPane.INFORMATION_MESSAGE);
+        	JOptionPane.showMessageDialog(frame, message, title + " - " + date.toString(), JOptionPane.INFORMATION_MESSAGE);
+        
     } 
 }
 

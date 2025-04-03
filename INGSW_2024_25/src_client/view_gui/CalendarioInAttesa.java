@@ -25,6 +25,7 @@ public class CalendarioInAttesa extends JFrame{
 	private String indirizzo; 
 	private transient Immobile immobile;
 	private JFrame finestraCorrente;
+	private SchermataCaricamento schermataCaricamento;
 	/**
 	 * 
 	 * Costruttore
@@ -77,13 +78,24 @@ public class CalendarioInAttesa extends JFrame{
 			@Override
 		    public void mouseClicked(MouseEvent e) {
 		        if (e.getClickCount() == 2) {
-		            int selectedPrenotazione = reservationsList.locationToIndex(e.getPoint());
-		            if (selectedPrenotazione >= 0 && selectedPrenotazione < prenotazioni.size()) {
-		                prenotazione = prenotazioni.get(selectedPrenotazione);
-		                c.viewPendingReservation(finestraCorrente, user, prenotazione, c);
-		            } else {
-		                JOptionPane.showMessageDialog(null, "Nessuna prenotazione selezionata.");
-		            }
+		        	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+		   			 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+		                   @Override
+		                   protected Void doInBackground() throws Exception {
+		                	   int selectedPrenotazione = reservationsList.locationToIndex(e.getPoint());
+		                	   if (selectedPrenotazione >= 0 && selectedPrenotazione < prenotazioni.size()) {
+				                prenotazione = prenotazioni.get(selectedPrenotazione);
+				                c.viewPendingReservation(finestraCorrente, user, prenotazione, c);
+		                	   } else {
+		   		                JOptionPane.showMessageDialog(null, "Nessuna prenotazione selezionata.");
+		   		            }
+		                return null;}
+		                   @Override
+		                   protected void done() {
+		                   	schermataCaricamento.close();
+		                   }}; worker.execute();
+		   			 
+		           
 		        }
 		    }
 		});
