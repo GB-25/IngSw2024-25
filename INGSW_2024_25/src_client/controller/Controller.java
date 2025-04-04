@@ -398,7 +398,7 @@ public class Controller {
 	    mapViewer.setTileFactory(tileFactory);
 	    GeoPosition centerPosition = new GeoPosition(lat, lon);
 	    mapViewer.setAddressLocation(centerPosition);
-	    mapViewer.setZoom(14);
+	    mapViewer.setZoom(9);
 	}
 
 	/**
