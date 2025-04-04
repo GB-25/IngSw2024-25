@@ -26,7 +26,7 @@ public class CambioPassword extends JFrame {
      * Costruttore
      */
     public CambioPassword(Controller c, User user) {
-        
+        setResizable(false);
     	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Cambio Password - Admin");

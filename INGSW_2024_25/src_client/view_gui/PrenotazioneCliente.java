@@ -43,11 +43,11 @@ public class PrenotazioneCliente extends JFrame {
     	finestraCorrente = this;
         setTitle("Prenotazione Cliente - DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(680, 400);
+        setSize(650, 400);
         setLocationRelativeTo(null);
         mainPanel = new JPanel(new BorderLayout());
         setContentPane(mainPanel);
-
+        setResizable(false);
         JPanel middlePanel = new JPanel();
         middlePanel.setPreferredSize(new Dimension(600, 180));
 
@@ -99,7 +99,7 @@ public class PrenotazioneCliente extends JFrame {
         middlePanel.add(confirmButton);
 
         JLabel outputLabel = new JLabel(SELEZIONA);
-        outputLabel.setBounds(142, 185, 387, 13);
+        outputLabel.setBounds(62, 186, 509, 13);
         middlePanel.add(outputLabel);
 
         JLabel weatherLabel = new JLabel(" ");
@@ -107,8 +107,8 @@ public class PrenotazioneCliente extends JFrame {
         weatherLabel.setBounds(175, 224, 264, 13);
         middlePanel.add(weatherLabel);
         
-        JButton weatherButton = new JButton("Controlla meteo");
-        weatherButton.setBounds(245, 251, 137, 21);
+        JButton weatherButton = new JButton("<html><center>Controlla<br>Meteo</center></html>");
+        weatherButton.setBounds(262, 259, 105, 31);
         middlePanel.add(weatherButton);
 
         weatherButton.addActionListener(e -> getWeather (outputLabel, timeSpinner, weatherLabel));
