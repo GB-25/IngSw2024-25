@@ -12,14 +12,14 @@ import controller.Controller;
 public class PrenotazioneConfermata extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JFrame homeAgente;
-	JFrame finestraCorrente = this;
+	JFrame finestraCorrente;
 	private String fontScritte = "Microsoft YaHei UI Light";
 	/**
 	 * Costruttore
 	 */
     public PrenotazioneConfermata(Controller c, User user) {
-        FlatLaf.setup(new FlatLightLaf());
-     
+        FlatLaf.setup(new FlatLightLaf());     
+        finestraCorrente = this;
         setTitle("DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 640);
@@ -64,10 +64,9 @@ public class PrenotazioneConfermata extends JFrame {
         JButton btnHome = new JButton("Home");
         btnHome.setFont(new Font("Arial", Font.PLAIN, 16));
         btnHome.setPreferredSize(new Dimension(100, 40));
-        btnHome.addActionListener(e -> {c.createHomeUtente(finestraCorrente, user);
-        this.dispose();
-        	
-        });
+        btnHome.addActionListener(e -> {       	
+        	c.createHomeUtente(finestraCorrente, user);
+        	finestraCorrente.dispose();});
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.WHITE);
