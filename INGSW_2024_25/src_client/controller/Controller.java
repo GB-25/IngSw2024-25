@@ -622,6 +622,7 @@ public class Controller {
 			Prenotazione prenotazione = new Prenotazione(id, data, ora, user, immobile, agente, false);
 			this.notifyAgente(prenotazione);
 			reservationConfirmed(finestra, user);
+			
 		}
 	}
 	

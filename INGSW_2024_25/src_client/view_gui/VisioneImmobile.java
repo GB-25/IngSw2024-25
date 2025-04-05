@@ -38,7 +38,7 @@ public class VisioneImmobile extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);  
         setAlwaysOnTop(true);
-
+        setResizable(false);
  
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);

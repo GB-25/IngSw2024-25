@@ -22,7 +22,7 @@ public class CaricamentoConfermato extends JFrame {
 	 */
     public CaricamentoConfermato(Controller c, User user) {
         FlatLaf.setup(new FlatLightLaf());
-   
+        setResizable(false);
         setTitle("DietiEstates25");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);

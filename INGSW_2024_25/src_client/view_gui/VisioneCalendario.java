@@ -38,7 +38,7 @@ public class VisioneCalendario extends JFrame {
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setSize(600, 400);
         frame.getContentPane().setLayout(new BorderLayout());
-        
+        setResizable(false);
         JPanel indietroPanel = new JPanel(new BorderLayout());
         indietroPanel.setBackground(new Color(40, 132, 212));
         JButton indietroButton = new JButton("←");

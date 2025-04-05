@@ -30,7 +30,7 @@ public class CambioPassword extends JFrame {
     	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Cambio Password - Admin");
-
+        setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setSize(600, 640);

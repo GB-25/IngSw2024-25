@@ -24,6 +24,7 @@ import java.awt.Font;
 import java.awt.Component;
 import javax.swing.SwingWorker;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -87,9 +88,10 @@ public class ProvaLogin extends JFrame {
 		gblPanel1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel1.setLayout(gblPanel1);
 		
-		JLabel lblSottoTitolo = new JLabel("                    La casa dei tuoi sogni a portata di mano!");
+		JLabel lblSottoTitolo = new JLabel("<html><div align='center'>La casa dei tuoi sogni a portata di mano!</div></html>");
 		lblSottoTitolo.setBackground(new Color(255, 255, 255));
 		lblSottoTitolo.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		lblSottoTitolo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSottoTitolo.setFont(new Font("Microsoft JhengHei UI Light", Font.ITALIC, 24));
 		GridBagConstraints gbcLblSottoTitolo = new GridBagConstraints();
 		gbcLblSottoTitolo.anchor = GridBagConstraints.NORTH;

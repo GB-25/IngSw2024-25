@@ -45,7 +45,7 @@ public class CreazioneAccountAdmin extends JFrame {
     	finestraCorrente=this;
         setTitle("Creazione Account Admin - DietiEstates25");
 
-
+        setResizable(false);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 

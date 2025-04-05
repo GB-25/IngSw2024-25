@@ -40,7 +40,7 @@ public class CalendarioInAttesa extends JFrame{
 		setLocationRelativeTo(null);
 		setSize(new Dimension(500, 450));
 		setContentPane(frame);
-		
+		setResizable(false);
 		JButton logoButton = createIconButton("/immagini/logopngwhite.png", 200, 100);
 
         JPanel logoPanel = new JPanel();
@@ -77,7 +77,7 @@ public class CalendarioInAttesa extends JFrame{
 			prenotazione = prenotazioni.get(i);
 			immobile = prenotazione.getImmobile();
 			indirizzo = immobile.getImmobileDettagli().getIndirizzo();
-			reservations.add(i, "<html>Sig/ra " + prenotazione.getUser().getNome() + " " + prenotazione.getUser().getCognome() + " a " + indirizzo + " alle ore " + prenotazione.getOraPrenotazione()+"</html>");
+			reservations.add(i, "<html><div align ='center'>Sig/ra " + prenotazione.getUser().getNome() + " " + prenotazione.getUser().getCognome() + " a " + indirizzo + " alle ore " + prenotazione.getOraPrenotazione()+"</div></html>");
             }
 		
 		JList<String> reservationsList = new JList<>(reservations.toArray(new String[0]));

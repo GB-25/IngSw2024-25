@@ -38,11 +38,11 @@ public class HomeGenerale extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 640);
         setLocationRelativeTo(null); 
-        
+        setResizable(false);
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
         setContentPane(mainPanel);
-        
+        setResizable(false);
         centerPanel = new JPanel(new GridBagLayout());
         centerPanel.setBackground(Color.WHITE);
         topPanel = createTopPanel(c, user);
@@ -185,7 +185,7 @@ public class HomeGenerale extends JFrame {
 
 	        popupUser.add(userInfo);
 	        if(user.getIsAgente()) {
-	        	JMenuItem creaAccount = new JMenuItem("Crea account da amministratore");
+	        	JMenuItem creaAccount = new JMenuItem("Crea account di un agente");
 	            creaAccount.addActionListener(e -> c.createAdmin(finestraCorrente, user));
 	            popupUser.add(creaAccount);
 	        }

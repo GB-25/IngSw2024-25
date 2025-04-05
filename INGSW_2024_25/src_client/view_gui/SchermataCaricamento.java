@@ -27,7 +27,7 @@ public class SchermataCaricamento extends JFrame{
 
         loadingFrame.add(gifLabel, BorderLayout.CENTER);
 
-     
+        setResizable(false);
         loadingLabel = new JLabel(message, SwingConstants.CENTER);
 
         loadingFrame.add(loadingLabel, BorderLayout.NORTH);

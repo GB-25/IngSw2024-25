@@ -51,11 +51,11 @@ public class PrenotazioneCliente extends JFrame {
         JPanel middlePanel = new JPanel();
         middlePanel.setPreferredSize(new Dimension(600, 180));
 
-        JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         indietroPanel.setBackground(new Color(40, 132, 212));
 
-        JLabel phraseLabel = new JLabel("                        Specifica la data e l'orario di prenotazione.");
-        phraseLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        JLabel phraseLabel = new JLabel("<html><div align='center'>Specifica la data e l'orario di prenotazione</div></html>");
+        phraseLabel.setHorizontalAlignment(SwingConstants.CENTER);
         phraseLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
         phraseLabel.setForeground(new Color(255, 255, 255));
         indietroPanel.add(phraseLabel);
@@ -98,8 +98,9 @@ public class PrenotazioneCliente extends JFrame {
         confirmButton.setBounds(262, 144, 105, 21);
         middlePanel.add(confirmButton);
 
-        JLabel outputLabel = new JLabel(SELEZIONA);
-        outputLabel.setBounds(62, 186, 509, 13);
+        JLabel outputLabel = new JLabel("Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00)");
+        outputLabel.setBounds(112, 186, 408, 13);
+        outputLabel.setHorizontalAlignment(SwingConstants.CENTER);
         middlePanel.add(outputLabel);
 
         JLabel weatherLabel = new JLabel(" ");
@@ -238,7 +239,7 @@ public class PrenotazioneCliente extends JFrame {
         		orario = (Integer.toString(hour)+":"+Integer.toString(minute));}
         	String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
             c.createReservation(user, immobile, data, orario, finestraCorrente);
-            c.reservationConfirmed(finestraCorrente, user);
+            
         } else {
             outputLabel.setText("⚠️ " + SELEZIONA);
         } return null;}

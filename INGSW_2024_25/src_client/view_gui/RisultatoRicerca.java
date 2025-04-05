@@ -40,7 +40,7 @@ public class RisultatoRicerca extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 600);
         setLocationRelativeTo(null); 
-
+        setResizable(false);
         JPanel indietroPanel = new JPanel(new BorderLayout());
         JButton indietroButton = new JButton("←");
         indietroButton.setHorizontalTextPosition(SwingConstants.LEFT);

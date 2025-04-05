@@ -24,7 +24,7 @@ public class PrenotazioneConfermata extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 640);
         setLocationRelativeTo(null);
-
+        setResizable(false);
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);
         setContentPane(mainPanel);
