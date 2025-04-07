@@ -29,6 +29,8 @@ import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ProvaLogin extends JFrame {
 
@@ -53,13 +55,13 @@ public class ProvaLogin extends JFrame {
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(null);
 
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(40, 132, 212));
-		panel.setPreferredSize(new Dimension(800, 150));
+		panel.setPreferredSize(new Dimension(800, 160));
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -68,6 +70,10 @@ public class ProvaLogin extends JFrame {
         Image imgLogoScaled = imgLogo.getScaledInstance(200, 120, Image.SCALE_SMOOTH);
         ImageIcon finalLogoIcon = new ImageIcon(imgLogoScaled);
         JButton logoButton = new JButton(finalLogoIcon);
+        logoButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        	}
+        });
         logoButton.setBorderPainted(false);
         logoButton.setFocusPainted(false);
         logoButton.setContentAreaFilled(false);
