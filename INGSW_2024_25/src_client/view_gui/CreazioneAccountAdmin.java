@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.Calendar;
 
 public class CreazioneAccountAdmin extends JFrame {
-
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNome;
     private JTextField  txtCognome;
@@ -35,13 +34,10 @@ public class CreazioneAccountAdmin extends JFrame {
     private static final String ALL_CHARS = UPPERCASE + LOWERCASE + DIGITS;
     private static final int LENGTH = 10;
     private static final SecureRandom random = new SecureRandom();
-    /**
-     * 
-     * Costruttore
-     */
+    
     public CreazioneAccountAdmin(Controller c, User user) {
     	FlatLaf.setup(new FlatLightLaf());
-      
+        
     	finestraCorrente=this;
         setTitle("Creazione Account Admin - DietiEstates25");
 
@@ -49,20 +45,45 @@ public class CreazioneAccountAdmin extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        setSize(600, 640);
+        setSize(600, 440);
         setLocationRelativeTo(null); 
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton indietroButton = new JButton("←");
-        indietroButton.setPreferredSize(new Dimension(60, 25));
-        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
-        indietroButton.addActionListener(e -> {dispose(); new HomeGenerale(c, user);});
-        indietroPanel.add(indietroButton, BorderLayout.NORTH);
-        mainPanel.add(indietroPanel);
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBounds(0, 0, 586, 100);
+        headerPanel.setBackground(new Color(40, 132, 212));
+        headerPanel.setPreferredSize(new Dimension(getWidth(), 100));
+
+        JButton backButton = new JButton("← Indietro");
+        backButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        backButton.setFocusPainted(false);
+        backButton.setForeground(Color.WHITE);
+        backButton.setBackground(new Color(40, 132, 212));
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.addActionListener(e -> {
+            dispose();
+            new HomeGenerale(c, user);
+        });
+
+ 
+        JLabel logoLabel = new JLabel();
+        logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        try {
+            ImageIcon logoIcon = new ImageIcon(getClass().getResource("/immagini/logopngwhite.png"));
+            Image scaledImage = logoIcon.getImage().getScaledInstance(120, 60, Image.SCALE_SMOOTH);
+            logoLabel.setIcon(new ImageIcon(scaledImage));
+        } catch (Exception ex) {
+            logoLabel.setText("LOGO");
+            logoLabel.setForeground(Color.WHITE);
+            logoLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        }
+        mainPanel.setLayout(null);
+
+        headerPanel.add(backButton, BorderLayout.WEST);
+        headerPanel.add(logoLabel, BorderLayout.EAST);
+        mainPanel.add(headerPanel);
         
         dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd-MM-yyyy");
@@ -70,7 +91,7 @@ public class CreazioneAccountAdmin extends JFrame {
 
 		dateChooser.getCalendarButton().addActionListener(e -> { });
 
-		dateChooser.setBounds(152, 128, 200, 30);
+		dateChooser.setBounds(119, 192, 91, 19);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -18); 
         Date dataMassima = cal.getTime();
@@ -82,66 +103,62 @@ public class CreazioneAccountAdmin extends JFrame {
         String password = generateRandomString(); 
 
         txtNome = new JTextField(15);
+        txtNome.setBounds(84, 112, 126, 19);
         txtCognome = new JTextField(15);
+        txtCognome.setBounds(405, 112, 126, 19);
         txtTelefono = new JTextField(15);
+        txtTelefono.setBounds(405, 192, 126, 19);
         txtEmail = new JTextField(15);
-        txtPassword = new JTextField(password, 15); 
-        mainPanel.add(createLabelFieldPanel("Nome:", txtNome));
-        mainPanel.add(createLabelFieldPanel("Cognome:", txtCognome));
-        mainPanel.add(createDateFieldPanel("Data di nascita:", dateChooser));
-        mainPanel.add(createLabelFieldPanel("Telefono:", txtTelefono));        
-        mainPanel.add(createLabelFieldPanel("E-mail:", txtEmail));
-        mainPanel.add(createLabelFieldPanel("Password:", txtPassword)); 
+        txtEmail.setBounds(84, 271, 126, 19);
+        txtPassword = new JTextField(password, 15);
+        txtPassword.setBounds(405, 271, 126, 19);
+        Label lblNome = new Label("Nome:");
+        lblNome.setBounds(10, 110, 44, 21);
+        Label lblCognome = new Label("Cognome:");
+        lblCognome.setBounds(299, 110, 61, 21);
+        Label lblData = new Label("Data di nascita:");
+        lblData.setBounds(10, 190, 103, 21);
+        Label lblTelefono = new Label("Telefono:");
+        lblTelefono.setBounds(299, 190, 56, 21);
+        Label lblEmail = new Label("Email:");
+        lblEmail.setBounds(10, 269, 44, 21);
+        Label lblPassword = new Label("Password:");
+        lblPassword.setBounds(297, 271, 63, 21);
+        mainPanel.add(lblNome);
+        mainPanel.add(lblCognome);
+        mainPanel.add(lblData);
+        mainPanel.add(lblTelefono);        
+        mainPanel.add(lblEmail);
+        mainPanel.add(lblPassword);
+        mainPanel.add(txtNome);
+        mainPanel.add(txtCognome);
+        mainPanel.add(dateChooser);
+        mainPanel.add(txtTelefono);
+        mainPanel.add(txtEmail);
+        mainPanel.add(txtPassword);        
+     
         txtPassword.setEditable(false);
-        JLabel label = new JLabel("Sarà possibile modificare la password in futuro. Ricordati di segnarla da qualche parte! ;)");
-        label.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
-        mainPanel.add(label);
         
         JButton btnCreaAccount = new JButton("Crea Account");
+        btnCreaAccount.setBounds(233, 372, 93, 21);
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnCreaAccount.addActionListener(e -> creaAccount(c, user));
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.add(btnCreaAccount);
+        mainPanel.add(btnCreaAccount);
 
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 10))); 
-        mainPanel.add(buttonPanel); 
+        Component rigidArea = Box.createRigidArea(new Dimension(0, 10));
+        rigidArea.setBounds(742, 115, 12, 10);
+        mainPanel.add(rigidArea);  
+        JLabel label = new JLabel("Sarà possibile modificare la password in futuro. Ricordati di segnarla da qualche parte! ;)");
+        label.setBounds(84, 337, 435, 15);
+        mainPanel.add(label);
+        label.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
 
         getContentPane().add(mainPanel);
 
         setVisible(true);
     }
-
-    /**
-     * 
-     * @param labelText
-     * @param textField
-     * @return JPanel da aggiungere alla finestra, idem il metodo successivi
-     */
-    private JPanel createLabelFieldPanel(String labelText, JTextField textField) {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel label = new JLabel(labelText);
-        label.setPreferredSize(new Dimension(150, 25)); 
-        panel.add(label);
-        panel.add(textField);
-        return panel;
-    }
     
-    private JPanel createDateFieldPanel(String labelText, JDateChooser dateChooser) {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel label = new JLabel(labelText);
-        label.setPreferredSize(new Dimension(150, 25)); 
-        dateChooser.setPreferredSize(new Dimension(176, 20));
-        panel.add(label);
-        panel.add(dateChooser);
-        return panel;
-    }
-    /**
-     * 
-     * @param c
-     * @param agenteChiamante
-     * Metodo che permette la generazzione di un account di un'agente immobiliare
-     */
     private void creaAccount(Controller c, User agenteChiamante) {
         String nome = txtNome.getText().trim();
         String cognome = txtCognome.getText().trim();
@@ -217,6 +234,4 @@ public class CreazioneAccountAdmin extends JFrame {
 
         return new String(charArray);
     }
-
-    
 }
