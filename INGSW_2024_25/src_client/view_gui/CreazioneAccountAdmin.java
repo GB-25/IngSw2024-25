@@ -45,13 +45,14 @@ public class CreazioneAccountAdmin extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        setSize(600, 440);
+        setSize(600, 461);
         setLocationRelativeTo(null); 
 
         JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(new Color(255, 255, 255));
         
         JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBounds(0, 0, 586, 100);
+        headerPanel.setBounds(0, 0, 600, 100);
         headerPanel.setBackground(new Color(40, 132, 212));
         headerPanel.setPreferredSize(new Dimension(getWidth(), 100));
 
@@ -91,7 +92,7 @@ public class CreazioneAccountAdmin extends JFrame {
 
 		dateChooser.getCalendarButton().addActionListener(e -> { });
 
-		dateChooser.setBounds(119, 192, 91, 19);
+		dateChooser.setBounds(145, 192, 91, 19);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -18); 
         Date dataMassima = cal.getTime();
@@ -103,27 +104,27 @@ public class CreazioneAccountAdmin extends JFrame {
         String password = generateRandomString(); 
 
         txtNome = new JTextField(15);
-        txtNome.setBounds(84, 112, 126, 19);
+        txtNome.setBounds(110, 112, 126, 19);
         txtCognome = new JTextField(15);
-        txtCognome.setBounds(405, 112, 126, 19);
+        txtCognome.setBounds(444, 112, 126, 19);
         txtTelefono = new JTextField(15);
-        txtTelefono.setBounds(405, 192, 126, 19);
+        txtTelefono.setBounds(444, 190, 126, 19);
         txtEmail = new JTextField(15);
-        txtEmail.setBounds(84, 271, 126, 19);
+        txtEmail.setBounds(110, 269, 126, 19);
         txtPassword = new JTextField(password, 15);
-        txtPassword.setBounds(405, 271, 126, 19);
+        txtPassword.setBounds(444, 271, 126, 19);
         Label lblNome = new Label("Nome:");
-        lblNome.setBounds(10, 110, 44, 21);
+        lblNome.setBounds(44, 110, 44, 21);
         Label lblCognome = new Label("Cognome:");
-        lblCognome.setBounds(299, 110, 61, 21);
+        lblCognome.setBounds(352, 110, 61, 21);
         Label lblData = new Label("Data di nascita:");
-        lblData.setBounds(10, 190, 103, 21);
+        lblData.setBounds(23, 190, 103, 21);
         Label lblTelefono = new Label("Telefono:");
-        lblTelefono.setBounds(299, 190, 56, 21);
+        lblTelefono.setBounds(357, 190, 56, 21);
         Label lblEmail = new Label("Email:");
-        lblEmail.setBounds(10, 269, 44, 21);
+        lblEmail.setBounds(44, 269, 44, 21);
         Label lblPassword = new Label("Password:");
-        lblPassword.setBounds(297, 271, 63, 21);
+        lblPassword.setBounds(350, 269, 63, 21);
         mainPanel.add(lblNome);
         mainPanel.add(lblCognome);
         mainPanel.add(lblData);
@@ -139,8 +140,8 @@ public class CreazioneAccountAdmin extends JFrame {
      
         txtPassword.setEditable(false);
         
-        JButton btnCreaAccount = new JButton("Crea Account");
-        btnCreaAccount.setBounds(233, 372, 93, 21);
+        JButton btnCreaAccount = new JButton("<html><center>Crea<br> Account</center></html>");
+        btnCreaAccount.setBounds(250, 367, 93, 31);
         btnCreaAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnCreaAccount.addActionListener(e -> creaAccount(c, user));
 
@@ -149,8 +150,8 @@ public class CreazioneAccountAdmin extends JFrame {
         Component rigidArea = Box.createRigidArea(new Dimension(0, 10));
         rigidArea.setBounds(742, 115, 12, 10);
         mainPanel.add(rigidArea);  
-        JLabel label = new JLabel("Sarà possibile modificare la password in futuro. Ricordati di segnarla da qualche parte! ;)");
-        label.setBounds(84, 337, 435, 15);
+        JLabel label = new JLabel("<html><center>Sarà possibile modificare la password in futuro.<br> Ricordati di segnarla da qualche parte! ;)</center></html>");
+        label.setBounds(159, 321, 285, 34);
         mainPanel.add(label);
         label.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
 
