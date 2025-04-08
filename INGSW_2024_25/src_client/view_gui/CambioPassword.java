@@ -15,6 +15,7 @@ public class CambioPassword extends JFrame {
     private JPasswordField txtNuovaPassword;
     private JPasswordField txtConfermaPassword;
     private static final String ERRORE = "Errore";
+    private static final String FONT = "Segoe UI";
     private boolean[] valori = {false, false, false, false};
 
     public CambioPassword(Controller c, User user) {
@@ -37,7 +38,7 @@ public class CambioPassword extends JFrame {
         headerPanel.setPreferredSize(new Dimension(getWidth(), 100));
 
         JButton backButton = new JButton("← Indietro");
-        backButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        backButton.setFont(new Font(FONT, Font.PLAIN, 14));
         backButton.setFocusPainted(false);
         backButton.setForeground(Color.WHITE);
         backButton.setBackground(new Color(40, 132, 212));
@@ -58,7 +59,7 @@ public class CambioPassword extends JFrame {
         } catch (Exception ex) {
             logoLabel.setText("LOGO");
             logoLabel.setForeground(Color.WHITE);
-            logoLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+            logoLabel.setFont(new Font(FONT, Font.BOLD, 20));
         }
 
         headerPanel.add(backButton, BorderLayout.WEST);
@@ -149,7 +150,7 @@ public class CambioPassword extends JFrame {
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
         JButton btnCambiaPassword = new JButton("Cambia Password");
-        btnCambiaPassword.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnCambiaPassword.setFont(new Font(FONT, Font.BOLD, 14));
         btnCambiaPassword.setBackground(new Color(33, 150, 243));
         btnCambiaPassword.setForeground(Color.WHITE);
         btnCambiaPassword.setFocusPainted(false);

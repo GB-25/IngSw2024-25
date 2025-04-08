@@ -33,34 +33,74 @@ public class PrenotazioneCliente extends JFrame {
     private JFrame finestraCorrente;
     private SchermataCaricamento schermataCaricamento;
     private transient Logger logger = Logger.getLogger(getClass().getName());
-    private static final String SELEZIONA = "Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00).";
+    private static final String SELEZIONA = "<html><center>Seleziona una data ed un orario <br>ad intervalli di mezz'ora (10:00 - 18:00)</center></html>";
     /**
      * 
      * Costruttore
      */
     public PrenotazioneCliente(Controller c, Immobile immobile, User user, JFrame finestraPrecedente) {
+    	setBackground(Color.WHITE);
     	FlatLaf.setup(new FlatLightLaf());
     	finestraCorrente = this;
         setTitle("Prenotazione Cliente - DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(650, 400);
+        setSize(650, 408);
         setLocationRelativeTo(null);
         mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(Color.WHITE);
         setContentPane(mainPanel);
         setResizable(false);
         JPanel middlePanel = new JPanel();
+        middlePanel.setBackground(Color.WHITE);
         middlePanel.setPreferredSize(new Dimension(600, 180));
 
         JPanel indietroPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         indietroPanel.setBackground(new Color(40, 132, 212));
-
-        JLabel phraseLabel = new JLabel("<html><div align='center'>Specifica la data e l'orario di prenotazione</div></html>");
+        indietroPanel.setPreferredSize(new Dimension(650, 75));
+        JButton backButton = new JButton("← Indietro");
+        backButton.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+        backButton.setFocusPainted(false);
+        backButton.setForeground(Color.WHITE);
+        backButton.setBackground(new Color(40, 132, 212));
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.addActionListener(e -> {
+        	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
+      		 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {			 
+      			 @Override
+      			 protected Void doInBackground () throws Exception {
+           	dispose();
+           	try {
+           		if (finestraPrecedente instanceof VisioneImmobile) {
+           			c.showImmobile(finestraCorrente, immobile, user, null);
+           		}
+           		else {
+           			c.createHomeUtente(finestraCorrente, user)  ;
+           			}
+   			} catch (GeocodingException | URISyntaxException e1) {
+   				logger.severe("Errore nel caricamento della finestra");
+   			} return null;}
+      			 @Override
+      			 protected void done() {
+      				 schermataCaricamento.close();}};
+      				 worker.execute();});
+        indietroPanel.add(backButton, BorderLayout.WEST);
+        JLabel phraseLabel = new JLabel("<html><div align='center'>Specifica la data e <br>l'orario di prenotazione</div></html>");
         phraseLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        phraseLabel.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD, 18));
+        phraseLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         phraseLabel.setForeground(new Color(255, 255, 255));
-        indietroPanel.add(phraseLabel);
+        indietroPanel.add(phraseLabel, BorderLayout.CENTER);
+        
+        
+        JLabel logoLabel = new JLabel();
+        logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/immagini/logopngwhite.png"));
+        Image scaledImage = logoIcon.getImage().getScaledInstance(120, 60, Image.SCALE_SMOOTH);
+        
+        logoLabel.setIcon(new ImageIcon(scaledImage));
+        indietroPanel.add(logoLabel, BorderLayout.EAST);
+        
         mainPanel.add(indietroPanel, BorderLayout.NORTH);
-
         dateChooser = new JDateChooser();
         dateChooser.setBounds(307, 54, 176, 25);
         dateChooser.setDateFormatString("yyyy-MM-dd");
@@ -95,53 +135,32 @@ public class PrenotazioneCliente extends JFrame {
         middlePanel.add(timeSpinner);
 
         JButton confirmButton = new JButton("Prenota");
-        confirmButton.setBounds(262, 144, 105, 21);
+        confirmButton.setForeground(Color.WHITE);
+        confirmButton.setBounds(264, 254, 105, 21);
+        confirmButton.setBackground(new Color(40, 132, 212));
         middlePanel.add(confirmButton);
 
-        JLabel outputLabel = new JLabel("Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00)");
-        outputLabel.setBounds(112, 186, 408, 13);
+        JLabel outputLabel = new JLabel(SELEZIONA);
+        outputLabel.setBounds(108, 12, 408, 36);
         outputLabel.setHorizontalAlignment(SwingConstants.CENTER);
         middlePanel.add(outputLabel);
 
         JLabel weatherLabel = new JLabel(" ");
         weatherLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        weatherLabel.setBounds(175, 224, 264, 13);
+        weatherLabel.setBounds(183, 198, 264, 13);
         middlePanel.add(weatherLabel);
         
         JButton weatherButton = new JButton("<html><center>Controlla<br>Meteo</center></html>");
-        weatherButton.setBounds(262, 259, 105, 31);
+        weatherButton.setBounds(264, 155, 105, 31);
+        weatherButton.setBackground(new Color(40, 132, 212));
+        weatherButton.setForeground(Color.WHITE);
         middlePanel.add(weatherButton);
 
         weatherButton.addActionListener(e -> getWeather (outputLabel, timeSpinner, weatherLabel));
 
         confirmButton.addActionListener(e -> postReservation(c, timeSpinner, outputLabel, user, immobile));
 
-        mainPanel.add(middlePanel, BorderLayout.CENTER);
-        JButton indietroButton = new JButton("←");
-        indietroButton.setBounds(21, 10, 60, 25);
-        middlePanel.add(indietroButton);
-        indietroButton.setPreferredSize(new Dimension(60, 25));
-        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
-        indietroButton.addActionListener(e -> {
-        	schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
-   		 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {			 
-   			 @Override
-   			 protected Void doInBackground () throws Exception {
-        	dispose();
-        	try {
-        		if (finestraPrecedente instanceof VisioneImmobile) {
-        			c.showImmobile(finestraCorrente, immobile, user, null);
-        		}
-        		else {
-        			c.createHomeUtente(finestraCorrente, user)  ;
-        			}
-			} catch (GeocodingException | URISyntaxException e1) {
-				logger.severe("Errore nel caricamento della finestra");
-			} return null;}
-   			 @Override
-   			 protected void done() {
-   				 schermataCaricamento.close();}};
-   				 worker.execute();});
+        mainPanel.add(middlePanel, BorderLayout.WEST);
     }
     /**
      * Metodo per ottenere i dati meteo

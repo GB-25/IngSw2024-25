@@ -10,6 +10,8 @@ import classi.User;
 import controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -65,7 +67,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     public CaricamentoProprietaNuovo(Controller c, User user) {
         finestraCorrente = this;
         FlatLaf.setup(new FlatLightLaf());
-        setResizable(false);
+        
         setupWindow();
         JPanel mainPanel = createMainPanel();
         leftPanel = createLeftPanel(c, user);
@@ -129,6 +131,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         label.setBounds(20, 67, 160, 35);
         leftPanel.add(label);
         cmbType = new JComboBox<>(new String[]{"", "Casa", "Appartamento", "Villa"});
+        cmbType.setBackground(new Color(255, 255, 255));
         cmbType.setBounds(190, 67, 160, 35);
         leftPanel.add(cmbType);
 
@@ -136,6 +139,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         adLabel.setBounds(20, 112, 160, 35);
         leftPanel.add(adLabel);
         cmbAdType = new JComboBox<>(new String[]{"", "Vendita", "Affitto"});
+        cmbAdType.setBackground(new Color(255, 255, 255));
         cmbAdType.setBounds(190, 112, 160, 35);
         leftPanel.add(cmbAdType);
 
@@ -163,8 +167,8 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         addressLabel.setBounds(20, 202, 160, 35);
         leftPanel.add(addressLabel);
         leftPanel.add(searchField);
-        JButton buttonSearch = new JButton("Mostra sulla mappa");
-        buttonSearch.setBounds(20, 292, 160, 35);
+        JButton buttonSearch = new JButton("<html><center>Mostra sulla <br>mappa</center></html>");
+        buttonSearch.setBounds(20, 270, 160, 35);
         buttonSearch.setMaximumSize(new Dimension(100, 25));
 
         buttonSearch.addActionListener(e -> {
@@ -235,7 +239,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     }
 
     private void addAdditionalFields(JPanel leftPanel) {
-        JLabel widthLabel = new JLabel("Dimensioni alloggio:");
+        JLabel widthLabel = new JLabel("<html><center>Dimensioni alloggio (m²) :</center></html>");
         widthLabel.setBounds(20, 382, 160, 35);
         leftPanel.add(widthLabel);
         txtWidth = new JTextField(10);
@@ -260,6 +264,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         complexLabel.setBounds(20, 517, 160, 35);
         leftPanel.add(complexLabel);
         cmbCondo = new JComboBox<>(new String[]{"No", "Sì"});
+        cmbCondo.setBackground(new Color(255, 255, 255));
         cmbCondo.setBounds(190, 517, 160, 35);
         leftPanel.add(cmbCondo);
 
@@ -267,6 +272,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         energyClassLabel.setBounds(20, 562, 160, 35);
         leftPanel.add(energyClassLabel);
         cmbEnergyClass = new JComboBox<>(new String[]{"", "A", "B", "C", "D", "E", "F", "G"});
+        cmbEnergyClass.setBackground(new Color(255, 255, 255));
         cmbEnergyClass.setBounds(190, 562, 160, 35);
         leftPanel.add(cmbEnergyClass);
 
@@ -274,6 +280,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         gardenLabel.setBounds(20, 607, 160, 35);
         leftPanel.add(gardenLabel);
         cmbGarden = new JComboBox<>(new String[]{"No", "Sì"});
+        cmbGarden.setBackground(new Color(255, 255, 255));
         cmbGarden.setBounds(190, 607, 160, 35);
         leftPanel.add(cmbGarden);
 
@@ -281,6 +288,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         balconyLabel.setBounds(20, 652, 160, 35);
         leftPanel.add(balconyLabel);
         cmbBalcony = new JComboBox<>(new String[]{"No", "Sì"});
+        cmbBalcony.setBackground(new Color(255, 255, 255));
         cmbBalcony.setBounds(190, 652, 160, 35);
         leftPanel.add(cmbBalcony);
 
@@ -288,6 +296,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
         elevatorLabel.setBounds(20, 697, 160, 35);
         leftPanel.add(elevatorLabel);
         cmbElevator = new JComboBox<>(new String[]{"No", "Sì"});
+        cmbElevator.setBackground(new Color(255, 255, 255));
         cmbElevator.setBounds(190, 697, 160, 35);
         leftPanel.add(cmbElevator);
     }
@@ -308,17 +317,23 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
     private JPanel createRightPanel() {
         JPanel rightPanel = new JPanel(new BorderLayout()); 
         rightPanel.setPreferredSize(new Dimension(400, 800));
+        rightPanel.setBackground(new Color(40, 132, 212));
 
         photoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         photoPanel.setPreferredSize(new Dimension(380, 480));
-        photoPanel.setBorder(BorderFactory.createTitledBorder("Foto caricate:"));
+        TitledBorder title = BorderFactory.createTitledBorder("Foto caricate:");
+        title.setTitleColor(Color.WHITE);
+        photoPanel.setBorder(title);
+        
+        photoPanel.setBackground(new Color(40, 132, 212));
         
         JButton btnCaricaFoto = new JButton("Carica Foto");
         btnCaricaFoto.addActionListener(e -> caricaFoto());
 
         JPanel photoButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         photoButtonPanel.add(btnCaricaFoto);
-
+        photoButtonPanel.setBackground(new Color(40, 132, 212));
+        
         photoPanel.add(photoButtonPanel);
 
         rightPanel.add(photoPanel, BorderLayout.NORTH);

@@ -15,6 +15,7 @@ public class RicercaImmobili extends JFrame {
     private JFrame finestraCorrente;
     private SchermataCaricamento schermataCaricamento;
     private static final String ERRORE = "Errore";
+    private static final String FONT = "Segoe UI";
     /**
      * 
      * Costruttore
@@ -39,7 +40,7 @@ public class RicercaImmobili extends JFrame {
         headerPanel.setPreferredSize(new Dimension(getWidth(), 100));
 
         JButton backButton = new JButton("← Indietro");
-        backButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        backButton.setFont(new Font(FONT, Font.PLAIN, 14));
         backButton.setFocusPainted(false);
         backButton.setForeground(Color.WHITE);
         backButton.setBackground(new Color(40, 132, 212));
@@ -53,18 +54,14 @@ public class RicercaImmobili extends JFrame {
         JLabel titleLabel = new JLabel("RICERCA IMMOBILI");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        titleLabel.setFont(new Font(FONT, Font.BOLD, 20));
+        
         JLabel logoLabel = new JLabel();
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-            ImageIcon logoIcon = new ImageIcon(getClass().getResource("/immagini/logopngwhite.png"));
-            Image scaledImage = logoIcon.getImage().getScaledInstance(120, 60, Image.SCALE_SMOOTH);
-            logoLabel.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception ex) {
-            logoLabel.setText("LOGO");
-            logoLabel.setForeground(Color.WHITE);
-            logoLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        }
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/immagini/logopngwhite.png"));
+        Image scaledImage = logoIcon.getImage().getScaledInstance(120, 60, Image.SCALE_SMOOTH);
+        logoLabel.setIcon(new ImageIcon(scaledImage));
+        
         headerPanel.add(backButton, BorderLayout.WEST);
         headerPanel.add(titleLabel, BorderLayout.CENTER);
         headerPanel.add(logoLabel, BorderLayout.EAST);
@@ -171,7 +168,7 @@ public class RicercaImmobili extends JFrame {
         gbcPrezzoMinLabel.gridx = 0;
         gbcPrezzoMinLabel.gridy = 4;
         gbcPrezzoMinLabel.weightx = 0.3;
-        formPanel.add(new JLabel("Prezzo Minimo:"), gbcPrezzoMinLabel);
+        formPanel.add(new JLabel("Prezzo Minimo (€) :"), gbcPrezzoMinLabel);
 
         GridBagConstraints gbcPrezzoMinField = new GridBagConstraints();
         gbcPrezzoMinField.insets = new Insets(10, 10, 10, 10);
@@ -181,7 +178,7 @@ public class RicercaImmobili extends JFrame {
         gbcPrezzoMinField.gridy = 4;
         gbcPrezzoMinField.weightx = 0.7;
         JTextField prezzoMinField = new JTextField("500");
-        prezzoMinField.setHorizontalAlignment(JTextField.RIGHT);
+        prezzoMinField.setHorizontalAlignment(SwingConstants.RIGHT);
         prezzoMinField.setPreferredSize(new Dimension(250, 30));
         formPanel.add(prezzoMinField, gbcPrezzoMinField);
 
@@ -193,7 +190,7 @@ public class RicercaImmobili extends JFrame {
         gbcPrezzoMaxLabel.gridx = 0;
         gbcPrezzoMaxLabel.gridy = 5;
         gbcPrezzoMaxLabel.weightx = 0.3;
-        formPanel.add(new JLabel("Prezzo Massimo:"), gbcPrezzoMaxLabel);
+        formPanel.add(new JLabel("Prezzo Massimo (€) :"), gbcPrezzoMaxLabel);
 
         GridBagConstraints gbcPrezzoMaxField = new GridBagConstraints();
         gbcPrezzoMaxField.insets = new Insets(10, 10, 10, 10);
@@ -204,7 +201,7 @@ public class RicercaImmobili extends JFrame {
         gbcPrezzoMaxField.weightx = 0.7;
         JTextField prezzoMaxField = new JTextField("1000000");
         prezzoMaxField.setPreferredSize(new Dimension(250, 30));
-        prezzoMaxField.setHorizontalAlignment(JTextField.RIGHT);
+        prezzoMaxField.setHorizontalAlignment(SwingConstants.RIGHT);
         formPanel.add(prezzoMaxField, gbcPrezzoMaxField);
 
        
@@ -242,7 +239,7 @@ public class RicercaImmobili extends JFrame {
         gbcNoteLabel.gridwidth = 2;
         gbcNoteLabel.fill = GridBagConstraints.CENTER;
         JLabel noteLabel = new JLabel("Si prega di inserire un prezzo minimo che");
-        noteLabel.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        noteLabel.setFont(new Font(FONT, Font.ITALIC, 12));
         noteLabel.setHorizontalAlignment(SwingConstants.CENTER);
         formPanel.add(noteLabel, gbcNoteLabel);
 
@@ -261,7 +258,7 @@ public class RicercaImmobili extends JFrame {
 
        
         JButton cercaButton = new JButton("CERCA IMMOBILI");
-        cercaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        cercaButton.setFont(new Font(FONT, Font.BOLD, 14));
         cercaButton.setBackground(new Color(40, 132, 212));
         cercaButton.setForeground(Color.WHITE);
         cercaButton.setFocusPainted(false);
@@ -272,12 +269,11 @@ public class RicercaImmobili extends JFrame {
                 @Override
                 protected Void doInBackground() throws Exception {
                     String indirizzo = posizioneField.getText();
-                    boolean prezzoMinimo = Controller.isNumeric(prezzoMinField.getText());
-                    boolean prezzoMassimo = Controller.isNumeric(prezzoMaxField.getText());
+                    boolean prezzo = Controller.isNumeric(prezzoMinField.getText()) && Controller.isNumeric(prezzoMaxField.getText());
                     
                     if (indirizzo.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Devi inserire almeno una città dove cercare", ERRORE, JOptionPane.ERROR_MESSAGE);
-                    } else if (!prezzoMinimo || !prezzoMassimo) {
+                    } else if (!prezzo) {
                         JOptionPane.showMessageDialog(null, "Occhio al prezzo! Ci sono dei caratteri non numerici", ERRORE, JOptionPane.ERROR_MESSAGE);
                     } else {
                         double prezzoMin = Double.parseDouble(prezzoMinField.getText());

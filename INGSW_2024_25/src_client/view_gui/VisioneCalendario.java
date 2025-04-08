@@ -43,14 +43,29 @@ public class VisioneCalendario extends JFrame {
         indietroPanel.setBackground(new Color(40, 132, 212));
         JButton indietroButton = new JButton("←");
         indietroButton.setHorizontalAlignment(SwingConstants.LEFT);
-        indietroButton.setPreferredSize(new Dimension(60, 25));
-        indietroButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        indietroButton.setPreferredSize(new Dimension(60, 50));
+        indietroButton.setFont(new Font("Dialog", Font.PLAIN, 14));
+        
+        indietroButton.setFocusPainted(false);
+        indietroButton.setForeground(Color.WHITE);
+        indietroButton.setBackground(new Color(40, 132, 212));
+        indietroButton.setBorderPainted(false);
+        indietroButton.setContentAreaFilled(false);
+        indietroButton.addActionListener(e -> {
+            dispose();
+            new HomeGenerale(c, user);
+        });
         indietroButton.addActionListener(e -> {
             dispose();
             new HomeGenerale(c, user);
         });
         indietroPanel.add(indietroButton, BorderLayout.WEST);
-        
+        JLabel logoLabel = new JLabel();
+        logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/immagini/logopngwhite.png"));
+        Image scaledImage = logoIcon.getImage().getScaledInstance(120, 60, Image.SCALE_SMOOTH);
+        logoLabel.setIcon(new ImageIcon(scaledImage));
+        indietroPanel.add(logoLabel, BorderLayout.EAST);
         today = LocalDate.now();
         startDate = today;
         
