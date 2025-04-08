@@ -92,7 +92,7 @@ public class CreazioneAccountAdmin extends JFrame {
 
 		dateChooser.getCalendarButton().addActionListener(e -> { });
 
-		dateChooser.setBounds(145, 192, 91, 19);
+		dateChooser.setBounds(110, 192, 126, 19);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -18); 
         Date dataMassima = cal.getTime();
@@ -118,7 +118,7 @@ public class CreazioneAccountAdmin extends JFrame {
         Label lblCognome = new Label("Cognome:");
         lblCognome.setBounds(352, 110, 61, 21);
         Label lblData = new Label("Data di nascita:");
-        lblData.setBounds(23, 190, 103, 21);
+        lblData.setBounds(23, 190, 77, 21);
         Label lblTelefono = new Label("Telefono:");
         lblTelefono.setBounds(357, 190, 56, 21);
         Label lblEmail = new Label("Email:");

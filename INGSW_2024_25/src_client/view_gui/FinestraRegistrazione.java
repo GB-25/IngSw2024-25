@@ -1,450 +1,401 @@
-
 package view_gui;
 
 import java.awt.*;
-
 import javax.swing.*;
-
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.toedter.calendar.JDateChooser;
-
 import controller.Controller;
-
 import java.util.Date;
 import java.util.Calendar;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
-
 public class FinestraRegistrazione extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JFrame finestraCorrente;
-	private SchermataCaricamento schermataCaricamento;
-	private JLabel labelVerifyNome = new JLabel();
-	private JLabel labelVerifyCognome = new JLabel();
-	private JLabel validationLabel = new JLabel();
-	private JLabel labelConfermaTelefono = new JLabel();
-	private JLabel lblLunghezza = new JLabel();
-	private JLabel lblMaiuscola = new JLabel();
-	private JLabel lblMinuscola = new JLabel();
-	private JLabel lblNumero = new JLabel();
-	private JLabel lblCheckPassword = new JLabel();
-	private JTextField textFieldNome;
-	private JTextField textFieldCognome;
-	private JTextField textFieldMail;
-	private JTextField textFieldTelefono;
-	private JPasswordField passwordField;
-	private JPasswordField passwordFieldConferma;
-	private JDateChooser dateChooser;
-	private JButton btnConferma = new JButton("Conferma");
-	private boolean[] controllo = {false, false, false, false};
-	private boolean[] valori = {false, false, false, false};
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JFrame finestraCorrente;
+    private SchermataCaricamento schermataCaricamento;
+    private JLabel labelVerifyNome = new JLabel();
+    private JLabel labelVerifyCognome = new JLabel();
+    private JLabel validationLabel = new JLabel();
+    private JLabel labelConfermaTelefono = new JLabel();
+    private JLabel lblLunghezza = new JLabel("· essere lunga almeno 6 caratteri");
+    private JLabel lblMaiuscola = new JLabel("· contenere almeno una lettera maiuscola");
+    private JLabel lblMinuscola = new JLabel("· contenere almeno una lettera minuscola");
+    private JLabel lblNumero = new JLabel("· contenere almeno un numero");
+    private JLabel lblCheckPassword = new JLabel("");
+    private JTextField textFieldNome;
+    private JTextField textFieldCognome;
+    private JTextField textFieldMail;
+    private JTextField textFieldTelefono;
+    private JPasswordField passwordField;
+    private JPasswordField passwordFieldConferma;
+    private JDateChooser dateChooser;
+    private JButton btnConferma = new JButton("Crea Account");
+    private boolean[] controllo = {false, false, false, false};
+    private boolean[] valori = {false, false, false, false};
+    private boolean combacia = false;
 
-	private boolean combacia = false;
+    /**
+     * Controllore
+     */
+    public FinestraRegistrazione(Controller c) {
+        finestraCorrente = this;
+        initializeUI();
+        initializeComponents(c);
+    }
 
-	
+    /**
+     * Metodi per la costruzione della finestra
+     */
+    private void initializeUI() {
+        FlatLaf.setup(new FlatLightLaf());
+        setTitle("Registrazione - DietiEstates25");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setBounds(100, 100, 600, 548);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(255, 255, 255));
+        contentPane.setBorder(null);
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+        setResizable(false);
+        setLocationRelativeTo(null); // Centra la finestra
+    }
 
-	/**
-	 * Controllore
-	 */
-	public FinestraRegistrazione(Controller c) {
-	    finestraCorrente = this;
-	    initializeUI();
-	    initializeComponents(c);
-	}
-	/**
-	 * Metodi per la costruzione della finestra
-	 */
-	private void initializeUI() {
-		FlatLaf.setup(new FlatLightLaf());
-	    setBackground(new Color(0, 153, 255));
-	    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	    setBounds(100, 100, 542, 635);
-	    contentPane = new JPanel();
-	    contentPane.setBackground(new Color(255, 255, 255));
-	    contentPane.setBorder(null);
-	    setContentPane(contentPane);
-	    contentPane.setLayout(null);
-	    setResizable(false);
-	}
+    private void initializeComponents(Controller c) {
+        addHeader();
+        addLabelsAndFields(c);
+        addPasswordRequirements();
+        addConfirmPasswordField(c);
+        addButtons(c);
+    }
 
-	private void initializeComponents(Controller c) {
-	    addLogo();
-	    addRegistrationLabel();
-	    addNameFields(c);
-	    addSurnameFields(c);
-	    addBirthDateField();
-	    addEmailField(c);
-	    addPhoneField(c);
-	    addPasswordFields(c);
-	    addConfirmButton(c);
-	    addCancelButton(c);
-	}
+    private void addHeader() {
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBounds(0, 0, 600, 100);
+        headerPanel.setBackground(new Color(40, 132, 212));
+        headerPanel.setPreferredSize(new Dimension(getWidth(), 100));
 
-	private void addLogo() {
-	    JLabel logoLabel = new JLabel();
-	    logoLabel.setBounds(22, 0, 103, 67);
-	    ImageIcon logo = new ImageIcon(getClass().getResource("/immagini/LOGO.png"));
-	    Image imageLogo = logo.getImage().getScaledInstance(logoLabel.getWidth(), logoLabel.getHeight(), Image.SCALE_SMOOTH);
-	    logoLabel.setIcon(new ImageIcon(imageLogo));
-	    contentPane.add(logoLabel);
-	}
+        JLabel titleLabel = new JLabel("Registrati in pochi passi!");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-	private void addRegistrationLabel() {
-	    JLabel lblRegistratiInPochi = new JLabel("Registrati in pochi passi!");
-	    lblRegistratiInPochi.setFont(new Font("Microsoft YaHei UI Light", Font.BOLD | Font.ITALIC, 26));
-	    lblRegistratiInPochi.setForeground(new Color(0, 153, 255));
-	    lblRegistratiInPochi.setBounds(148, 12, 377, 40);
-	    contentPane.add(lblRegistratiInPochi);
-	}
+        JLabel logoLabel = new JLabel();
+        logoLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        logoLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20)); // Spazio dal bordo
+        try {
+            ImageIcon logoIcon = new ImageIcon(getClass().getResource("/immagini/logopngwhite.png"));
+            Image scaledImage = logoIcon.getImage().getScaledInstance(120, 60, Image.SCALE_SMOOTH);
+            logoLabel.setIcon(new ImageIcon(scaledImage));
+        } catch (Exception ex) {
+            logoLabel.setText("LOGO");
+            logoLabel.setForeground(Color.WHITE);
+            logoLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        }
 
-	private void addNameFields(Controller c) {
-	    JLabel lblNome = new JLabel("Nome");
-	    lblNome.setBounds(32, 81, 70, 15);
-	    contentPane.add(lblNome);
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
+        headerPanel.add(logoLabel, BorderLayout.EAST);
+        contentPane.add(headerPanel);
+    }
 
-	    textFieldNome = new JTextField();
-	    textFieldNome.setBounds(77, 79, 114, 19);
-	    contentPane.add(textFieldNome);
-	    textFieldNome.setColumns(10);
+    private void addLabelsAndFields(Controller c) {
+        // Etichette
+        JLabel lblNome = new JLabel("Nome:");
+        lblNome.setBounds(30, 120, 80, 15);
+        contentPane.add(lblNome);
 
-	    labelVerifyNome = new JLabel("");
-	    labelVerifyNome.setBounds(77, 96, 114, 25);
-	    contentPane.add(labelVerifyNome); 
+        JLabel lblCognome = new JLabel("Cognome:");
+        lblCognome.setBounds(300, 120, 80, 15);
+        contentPane.add(lblCognome);
 
-	    textFieldNome.addKeyListener(createNameKeyListener(c));
-	}
+        JLabel lblDataDiNascita = new JLabel("Data di Nascita:");
+        lblDataDiNascita.setBounds(30, 169, 120, 15);
+        contentPane.add(lblDataDiNascita);
 
-	private KeyAdapter createNameKeyListener(Controller c) {
-	    return new KeyAdapter() {
-	        @Override
-	        public void keyReleased(KeyEvent e) {
-	            validateName(c);
-	        }
-	    };
-	}
-	/**
-	 * 
-	 * @param c
-	 * Controllo che il nome sia realistico, lo stesso fa il metodo dopo con il cognome
-	 */
-	private void validateName(Controller c) {
-	    String text = textFieldNome.getText();
-	    if (c.isValidNome(text)) {
-	        labelVerifyNome.setText("Nome valido ✔️");
-	        labelVerifyNome.setForeground(Color.GREEN);
-	        controllo[0] = true;
-	    } else {
-	        labelVerifyNome.setText("Nome non valido ❌");
-	        labelVerifyNome.setForeground(Color.RED);
-	        controllo[0] = false;
-	    }
-	    updateConfirmButtonState(c);
-	}
+        JLabel lblIndirizzoMail = new JLabel("Email:");
+        lblIndirizzoMail.setBounds(300, 169, 80, 15);
+        contentPane.add(lblIndirizzoMail);
 
-	private void addSurnameFields(Controller c) {
-	    JLabel lblCognome = new JLabel("Cognome\n");
-	    lblCognome.setBounds(226, 81, 70, 15);
-	    contentPane.add(lblCognome);
+        JLabel lblTelefono = new JLabel("Telefono:");
+        lblTelefono.setBounds(30, 216, 80, 15);
+        contentPane.add(lblTelefono);
 
-	    textFieldCognome = new JTextField();
-	    textFieldCognome.setBounds(295, 79, 114, 19);
-	    contentPane.add(textFieldCognome);
-	    textFieldCognome.setColumns(10);
+        JLabel lblPassword = new JLabel("Password:");
+        lblPassword.setBounds(30, 273, 80, 15);
+        contentPane.add(lblPassword);
 
-	    labelVerifyCognome = new JLabel("");
-	    labelVerifyCognome.setBounds(295, 96, 114, 25);
-	    contentPane.add(labelVerifyCognome);
+        JLabel lblConferma = new JLabel("Ripeti Password:");
+        lblConferma.setBounds(300, 273, 120, 15);
+        contentPane.add(lblConferma);
 
-	    textFieldCognome.addKeyListener(createSurnameKeyListener(c));
-	}
+        // Campi di testo
+        textFieldNome = new JTextField();
+        textFieldNome.setBounds(120, 118, 150, 20);
+        contentPane.add(textFieldNome);
+        textFieldNome.setColumns(10);
+        textFieldNome.addKeyListener(createNameKeyListener(c));
+        labelVerifyNome.setBounds(120, 140, 150, 15);
+        contentPane.add(labelVerifyNome);
 
-	private KeyAdapter createSurnameKeyListener(Controller c) {
-	    return new KeyAdapter() {
-	        @Override
-	        public void keyReleased(KeyEvent e) {
-	            validateSurname(c);
-	        }
-	    };
-	}
+        textFieldCognome = new JTextField();
+        textFieldCognome.setBounds(390, 118, 150, 20);
+        contentPane.add(textFieldCognome);
+        textFieldCognome.setColumns(10);
+        textFieldCognome.addKeyListener(createSurnameKeyListener(c));
+        labelVerifyCognome.setBounds(390, 140, 150, 15);
+        contentPane.add(labelVerifyCognome);
 
-	private void validateSurname(Controller c) {
-	    String text = textFieldCognome.getText();
-	    if (c.isValidNome(text)) {
-	        labelVerifyCognome.setText("Cognome valido ✔️");
-	        labelVerifyCognome.setForeground(Color.GREEN);
-	        controllo[1] = true;
-	    } else {
-	        labelVerifyCognome.setText("Cognome non valido ❌");
-	        labelVerifyCognome.setForeground(Color.RED);
-	        controllo[1] = false;
-	    }
-	    updateConfirmButtonState(c);
-	}
+        dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("dd-MM-yyyy");
+        ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
+        dateChooser.setBounds(120, 164, 150, 20);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -18);
+        Date dataMassima = cal.getTime();
+        cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 82);
+        Date dataMinima = cal.getTime();
+        dateChooser.setSelectableDateRange(dataMinima, dataMassima);
+        contentPane.add(dateChooser);
 
-	private void addBirthDateField() {
-	    JLabel lblDataDiNascita = new JLabel("Data di Nascita");
-	    lblDataDiNascita.setBounds(32, 133, 159, 15);
-	    contentPane.add(lblDataDiNascita);
+        textFieldMail = new JTextField();
+        textFieldMail.setBounds(390, 166, 150, 20);
+        contentPane.add(textFieldMail);
+        textFieldMail.setColumns(10);
+        textFieldMail.addKeyListener(createEmailKeyListener(c));
+        validationLabel.setBounds(390, 187, 150, 15);
+        contentPane.add(validationLabel);
 
-	    dateChooser = new JDateChooser();
-	    dateChooser.setDateFormatString("yyyy-MM-dd");
-	    ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
-	    dateChooser.setBounds(152, 128, 200, 30);
+        textFieldTelefono = new JTextField();
+        textFieldTelefono.setBounds(120, 213, 150, 20);
+        contentPane.add(textFieldTelefono);
+        textFieldTelefono.setColumns(10);
+        textFieldTelefono.addKeyListener(createPhoneKeyListener(c));
+        labelConfermaTelefono.setBounds(120, 233, 150, 15);
+        contentPane.add(labelConfermaTelefono);
 
-	    Calendar cal = Calendar.getInstance();
-	    cal.add(Calendar.YEAR, -18); 
-	    Date dataMassima = cal.getTime();
+        passwordField = new JPasswordField();
+        passwordField.setBounds(120, 270, 150, 20);
+        contentPane.add(passwordField);
+        passwordField.addKeyListener(createPasswordKeyListener(c));
 
-	    cal = Calendar.getInstance();
-	    cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 82); 
-	    Date dataMinima = cal.getTime();
+        passwordFieldConferma = new JPasswordField();
+        passwordFieldConferma.setBounds(390, 270, 150, 20);
+        contentPane.add(passwordFieldConferma);
+        passwordFieldConferma.addKeyListener(createConfirmPasswordKeyListener(c));
+        lblCheckPassword.setBounds(373, 290, 180, 15);
+        contentPane.add(lblCheckPassword);
+    }
 
-	    dateChooser.setSelectableDateRange(dataMinima, dataMassima);
-	    contentPane.add(dateChooser);
-	}
+    private void addPasswordRequirements() {
+        JLabel lblRequisiti = new JLabel("La password deve:");
+        lblRequisiti.setBounds(32, 317, 150, 15);
+        contentPane.add(lblRequisiti);
 
-	private void addEmailField(Controller c) {
-	    JLabel lblIndirizzoMail = new JLabel("Indirizzo Mail");
-	    lblIndirizzoMail.setBounds(32, 199, 119, 15);
-	    contentPane.add(lblIndirizzoMail);
+        lblLunghezza.setBounds(50, 343, 250, 15);
+        contentPane.add(lblLunghezza);
 
-	    textFieldMail = new JTextField();
-	    textFieldMail.setBounds(135, 197, 114, 19);
-	    contentPane.add(textFieldMail);
-	    textFieldMail.setColumns(10);
+        lblMaiuscola.setBounds(50, 369, 300, 15);
+        contentPane.add(lblMaiuscola);
 
-	    validationLabel = new JLabel("");
-	    validationLabel.setBounds(135, 225, 161, 14);
-	    contentPane.add(validationLabel); 
+        lblMinuscola.setBounds(50, 395, 300, 15);
+        contentPane.add(lblMinuscola);
 
-	    textFieldMail.addKeyListener(createEmailKeyListener(c));
-	}
+        lblNumero.setBounds(50, 421, 250, 15);
+        contentPane.add(lblNumero);
+    }
 
-	private KeyAdapter createEmailKeyListener(Controller c) {
-	    return new KeyAdapter() {
-	        @Override
-	        public void keyReleased(KeyEvent e) {
-	            validateEmail(c);
-	        }
-	    };
-	}
-	/**
-	 * 
-	 * @param c
-	 * Controllo che la mail sia di un formato giusto
-	 */
-	private void validateEmail(Controller c) {
-	    String text = textFieldMail.getText();
-	    if (c.isValidEmail(text)) {
-	        validationLabel.setText("Email valida ✔️");
-	        validationLabel.setForeground(Color.GREEN);
-	        controllo[2] = true;
-	    } else {
-	        validationLabel.setText("Email non valida ❌");
-	        validationLabel.setForeground(Color.RED);
-	        controllo[2] = false;
-	    }
-	    updateConfirmButtonState(c);
-	}
+    private void addConfirmPasswordField(Controller c) {
+        // Già aggiunto in addLabelsAndFields
+    }
 
-	private void addPhoneField(Controller c) {
-	    JLabel lblTelefono = new JLabel("Telefono");
-	    lblTelefono.setBounds(310, 199, 70, 15);
-	    contentPane.add(lblTelefono);
+    private void addButtons(Controller c) {
+        btnConferma.setEnabled(false);
+        btnConferma.addActionListener(e -> handleConfirmation(c));
+        btnConferma.setBounds(420, 468, 120, 30);
+        contentPane.add(btnConferma);
 
-	    textFieldTelefono = new JTextField();
-	    textFieldTelefono.setBounds(381, 197, 114, 19);
-	    contentPane.add(textFieldTelefono);
-	    textFieldTelefono.setColumns(10);
+        JButton btnAnnulla = new JButton("Annulla");
+        btnAnnulla.setBounds(30, 468, 120, 30);
+        btnAnnulla.addActionListener(e -> handleCancellation(c));
+        contentPane.add(btnAnnulla);
+    }
 
-	    labelConfermaTelefono = new JLabel("");
-	    labelConfermaTelefono.setBounds(391, 224, 104, 19);
-	    contentPane.add(labelConfermaTelefono); 
+    private KeyAdapter createNameKeyListener(Controller c) {
+        return new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                validateName(c);
+            }
+        };
+    }
 
-	    textFieldTelefono.addKeyListener(createPhoneKeyListener(c));
-	}
+    private void validateName(Controller c) {
+        String text = textFieldNome.getText();
+        if (c.isValidNome(text)) {
+            labelVerifyNome.setText("✔️");
+            labelVerifyNome.setForeground(Color.GREEN);
+            controllo[0] = true;
+        } else {
+            labelVerifyNome.setText("❌");
+            labelVerifyNome.setForeground(Color.RED);
+            controllo[0] = false;
+        }
+        updateConfirmButtonState(c);
+    }
 
-	private KeyAdapter createPhoneKeyListener(Controller c) {
-	    return new KeyAdapter() {
-	        @Override
-	        public void keyReleased(KeyEvent e) {
-	            validatePhone(c);
-	        }
-	    };
-	}
-	/**
-	 * Controllo che il numero di telefono sia realistico
-	 * @param c
-	 */
-	private void validatePhone(Controller c) {
-	    String text = textFieldTelefono.getText();
-	    if (c.isValidNumero(text)) {
-	        labelConfermaTelefono.setText("Numero valido ✔️");
-	        labelConfermaTelefono.setForeground(Color.GREEN);
-	        controllo[3] = true;
-	    } else {
-	        labelConfermaTelefono.setText("Numero non valido ❌");
-	        labelConfermaTelefono.setForeground(Color.RED);
-	        controllo[3] = false;
-	    }
-	    updateConfirmButtonState(c);
-	}
+    private KeyAdapter createSurnameKeyListener(Controller c) {
+        return new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                validateSurname(c);
+            }
+        };
+    }
 
-	private void addPasswordFields(Controller c) {
-	    JLabel lblPassword = new JLabel("Password");
-	    lblPassword.setBounds(32, 257, 70, 15);
-	    contentPane.add(lblPassword);
+    private void validateSurname(Controller c) {
+        String text = textFieldCognome.getText();
+        if (c.isValidNome(text)) {
+            labelVerifyCognome.setText("✔️");
+            labelVerifyCognome.setForeground(Color.GREEN);
+            controllo[1] = true;
+        } else {
+            labelVerifyCognome.setText("❌");
+            labelVerifyCognome.setForeground(Color.RED);
+            controllo[1] = false;
+        }
+        updateConfirmButtonState(c);
+    }
 
-	    passwordField = new JPasswordField();
-	    passwordField.setBounds(135, 255, 183, 19);
-	    contentPane.add(passwordField);
+    private KeyAdapter createEmailKeyListener(Controller c) {
+        return new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                validateEmail(c);
+            }
+        };
+    }
 
-	    JLabel lblRequisiti = new JLabel("La password deve:");
-	    lblRequisiti.setBounds(175, 284, 159, 15);
-	    contentPane.add(lblRequisiti);
+    private void validateEmail(Controller c) {
+        String text = textFieldMail.getText();
+        if (c.isValidEmail(text)) {
+            validationLabel.setText("✔️ Email valida");
+            validationLabel.setForeground(Color.GREEN);
+            controllo[2] = true;
+        } else {
+            validationLabel.setText("❌ Email non valida");
+            validationLabel.setForeground(Color.RED);
+            controllo[2] = false;
+        }
+        updateConfirmButtonState(c);
+    }
 
-	    lblLunghezza = new JLabel("· essere lunga almeno 6 caratteri");
-	    lblLunghezza.setBounds(135, 311, 258, 15);
-	    contentPane.add(lblLunghezza); 
+    private KeyAdapter createPhoneKeyListener(Controller c) {
+        return new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                validatePhone(c);
+            }
+        };
+    }
 
-	    lblMaiuscola = new JLabel("· contenere almeno una lettera maiuscola");
-	    lblMaiuscola.setBounds(118, 338, 329, 15);
-	    contentPane.add(lblMaiuscola); 
+    private void validatePhone(Controller c) {
+        String text = textFieldTelefono.getText();
+        if (c.isValidNumero(text)) {
+            labelConfermaTelefono.setText("✔️");
+            labelConfermaTelefono.setForeground(Color.GREEN);
+            controllo[3] = true;
+        } else {
+            labelConfermaTelefono.setText("❌");
+            labelConfermaTelefono.setForeground(Color.RED);
+            controllo[3] = false;
+        }
+        updateConfirmButtonState(c);
+    }
 
-	    lblMinuscola = new JLabel("· contenere almeno una lettera minuscola");
-	    lblMinuscola.setBounds(118, 366, 319, 15);
-	    contentPane.add(lblMinuscola); 
+    private KeyAdapter createPasswordKeyListener(Controller c) {
+        return new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                validatePassword(c);
+            }
+        };
+    }
 
-	    lblNumero = new JLabel("· contenere almeno un numero");
-	    lblNumero.setBounds(143, 394, 257, 15);
-	    contentPane.add(lblNumero); 
+    private void validatePassword(Controller c) {
+        char[] text = passwordField.getPassword();
+        c.isValidPassword(text, valori);
+        updatePasswordLabels();
+        updateConfirmButtonState(c);
+    }
 
-	    JLabel lblConferma = new JLabel("Ripeti Password");
-	    lblConferma.setBounds(32, 439, 169, 15);
-	    contentPane.add(lblConferma);
+    private void updatePasswordLabels() {
+        lblLunghezza.setForeground(valori[0] ? Color.GREEN : Color.RED);
+        lblMaiuscola.setForeground(valori[1] ? Color.GREEN : Color.RED);
+        lblMinuscola.setForeground(valori[2] ? Color.GREEN : Color.RED);
+        lblNumero.setForeground(valori[3] ? Color.GREEN : Color.RED);
+    }
 
-	    passwordFieldConferma = new JPasswordField();
-	    passwordFieldConferma.setBounds(135, 437, 183, 19);
-	    contentPane.add(passwordFieldConferma);
+    private KeyAdapter createConfirmPasswordKeyListener(Controller c) {
+        return new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                validateConfirmPassword(c);
+            }
+        };
+    }
 
-	    lblCheckPassword = new JLabel("");
-	    lblCheckPassword.setBounds(135, 464, 229, 15);
-	    contentPane.add(lblCheckPassword);
+    private void validateConfirmPassword(Controller c) {
+        if (c.verifyPassword(passwordField.getPassword(), passwordFieldConferma.getPassword())) {
+            lblCheckPassword.setText("✔️ Le password coincidono");
+            lblCheckPassword.setForeground(Color.GREEN);
+            combacia = true;
+        } else {
+            lblCheckPassword.setText("❌ Le password non coincidono");
+            lblCheckPassword.setForeground(Color.RED);
+            combacia = false;
+        }
+        updateConfirmButtonState(c);
+    }
 
-	    passwordField.addKeyListener(createPasswordKeyListener(c));
-	    passwordFieldConferma.addKeyListener(createConfirmPasswordKeyListener(c));
-	}
+    private void handleConfirmation(Controller c) {
+        schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Creazione Account...");
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+                char[] pass = passwordField.getPassword();
+                String password = new String(pass);
+                c.handleRegistration(textFieldNome.getText(), textFieldCognome.getText(), data, textFieldMail.getText(), textFieldTelefono.getText(), password, false);
+                return null;
+            }
 
-	private KeyAdapter createPasswordKeyListener(Controller c) {
-	    return new KeyAdapter() {
-	        @Override
-	        public void keyReleased(KeyEvent e) {
-	            validatePassword(c);
-	        }
-	    };
-	}
-	/**
-	 * Controllo sulla password
-	 * @param c
-	 */
-	private void validatePassword(Controller c) {
-	    char[] text = passwordField.getPassword();
-	    c.isValidPassword(text, valori);
-	    updatePasswordLabels();
-	    updateConfirmButtonState(c);
-	}
+            @Override
+            protected void done() {
+                schermataCaricamento.close();
+            }
+        };
+        worker.execute();
+    }
 
-	private void updatePasswordLabels() {
-	    lblLunghezza.setForeground(valori[0] ? Color.GREEN : Color.RED);
-	    lblMaiuscola.setForeground(valori[1] ? Color.GREEN : Color.RED);
-	    lblMinuscola.setForeground(valori[2] ? Color.GREEN : Color.RED);
-	    lblNumero.setForeground(valori[3] ? Color.GREEN : Color.RED);
-	}
+    private void handleCancellation(Controller c) {
+        int risposta = JOptionPane.showConfirmDialog(
+                finestraCorrente,
+                "Sei sicuro di voler annullare la registrazione?",
+                "Conferma Annullamento",
+                JOptionPane.YES_NO_OPTION
+        );
 
-	private KeyAdapter createConfirmPasswordKeyListener(Controller c) {
-	    return new KeyAdapter() {
-	        @Override
-	        public void keyReleased(KeyEvent e) {
-	            validateConfirmPassword(c);
-	        }
-	    };
-	}
+        if (risposta == JOptionPane.YES_OPTION) {
+            c.returnLogin(finestraCorrente);
+        }
+    }
 
-	private void validateConfirmPassword(Controller c) {
-	    if (c.verifyPassword(passwordField.getPassword(), passwordFieldConferma.getPassword())) {
-	        lblCheckPassword.setText("La password combacia ✔️");
-	        lblCheckPassword.setForeground(Color.GREEN);
-	        combacia = true;
-	    } else {
-	        lblCheckPassword.setText("La password non combacia ❌");
-	        lblCheckPassword.setForeground(Color.RED);
-	        combacia = false;
-	    }
-	    updateConfirmButtonState(c);
-	}
-
-	private void addConfirmButton(Controller c) {
-	
-	    btnConferma.setEnabled(false);
-	    btnConferma.addActionListener(e -> handleConfirmation(c));
-	    btnConferma.setBounds(391, 561, 117, 25);
-	    contentPane.add(btnConferma);
-	}
-	/**
-	 * creazione di un utente
-	 * @param c
-	 */
-	private void handleConfirmation(Controller c) {
-	    schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Caricamento");
-	    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-	        @Override
-	        protected Void doInBackground() throws Exception {
-	            String data = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-	            char[] pass = passwordField.getPassword();
-	            String password = new String(pass);
-	            c.handleRegistration(textFieldNome.getText(), textFieldCognome.getText(), data, textFieldMail.getText(), textFieldTelefono.getText(), password, false);
-	            return null;
-	        }
-
-	        @Override
-	        protected void done() {
-	            schermataCaricamento.close();
-	        }
-	    };
-	    worker.execute();
-	}
-
-	private void addCancelButton(Controller c) {
-	    JButton btnAnnulla = new JButton("Annulla");
-	    btnAnnulla.setBounds(22, 561, 117, 25);
-	    btnAnnulla.addActionListener(e -> handleCancellation(c));
-	    contentPane.add(btnAnnulla);
-	}
-
-	private void handleCancellation(Controller c) {
-	    int risposta = JOptionPane.showConfirmDialog(
-	            finestraCorrente,
-	            "Sei sicuro di non voler continuare la registrazione?",
-	            "Attenzione",
-	            JOptionPane.YES_NO_OPTION
-	    );
-
-	    if (risposta == JOptionPane.YES_OPTION) {
-	        c.returnLogin(finestraCorrente);
-	    }
-	}
-	/**
-	 * se i campi sono riempiti di valori realistici e giusti, si attiva il pulsante
-	 * @param c
-	 */
-	private void updateConfirmButtonState(Controller c) {
-	    boolean enable = (c.checkFields(controllo)) && (combacia) && (c.checkFields(valori)) && (dateChooser.getDate() != null);
-	    btnConferma.setEnabled(enable);
-	}
+    private void updateConfirmButtonState(Controller c) {
+        boolean enable = (c.checkFields(controllo)) && (combacia) && (c.checkFields(valori)) && (dateChooser.getDate() != null);
+        btnConferma.setEnabled(enable);
+    }
 }
