@@ -39,17 +39,18 @@ public class FinestraRegistrazione extends JFrame {
     private boolean combacia = false;
 
     /**
-     * Controllore
+     * 
+     * Costruttore
      */
     public FinestraRegistrazione(Controller c) {
         finestraCorrente = this;
         initializeUI();
         initializeComponents(c);
     }
-
-    /**
-     * Metodi per la costruzione della finestra
-     */
+    
+	/**
+	 * Metodi che permettono la costruzione grafica della finestra
+	 */
     private void initializeUI() {
         FlatLaf.setup(new FlatLightLaf());
         setTitle("Registrazione - DietiEstates25");
@@ -61,14 +62,13 @@ public class FinestraRegistrazione extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
         setResizable(false);
-        setLocationRelativeTo(null); // Centra la finestra
+        setLocationRelativeTo(null); 
     }
 
     private void initializeComponents(Controller c) {
         addHeader();
         addLabelsAndFields(c);
         addPasswordRequirements();
-        addConfirmPasswordField(c);
         addButtons(c);
     }
 
@@ -85,7 +85,7 @@ public class FinestraRegistrazione extends JFrame {
 
         JLabel logoLabel = new JLabel();
         logoLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        logoLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20)); // Spazio dal bordo
+        logoLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
         try {
             ImageIcon logoIcon = new ImageIcon(getClass().getResource("/immagini/logopngwhite.png"));
             Image scaledImage = logoIcon.getImage().getScaledInstance(120, 60, Image.SCALE_SMOOTH);
@@ -102,7 +102,7 @@ public class FinestraRegistrazione extends JFrame {
     }
 
     private void addLabelsAndFields(Controller c) {
-        // Etichette
+      
         JLabel lblNome = new JLabel("Nome:");
         lblNome.setBounds(30, 120, 80, 15);
         contentPane.add(lblNome);
@@ -111,8 +111,8 @@ public class FinestraRegistrazione extends JFrame {
         lblCognome.setBounds(300, 120, 80, 15);
         contentPane.add(lblCognome);
 
-        JLabel lblDataDiNascita = new JLabel("Data di Nascita:");
-        lblDataDiNascita.setBounds(30, 169, 120, 15);
+        JLabel lblDataDiNascita = new JLabel("<html><center>Data di Nascita:</center></html>");
+        lblDataDiNascita.setBounds(14, 164, 88, 30);
         contentPane.add(lblDataDiNascita);
 
         JLabel lblIndirizzoMail = new JLabel("Email:");
@@ -131,7 +131,6 @@ public class FinestraRegistrazione extends JFrame {
         lblConferma.setBounds(300, 273, 120, 15);
         contentPane.add(lblConferma);
 
-        // Campi di testo
         textFieldNome = new JTextField();
         textFieldNome.setBounds(120, 118, 150, 20);
         contentPane.add(textFieldNome);
@@ -208,10 +207,6 @@ public class FinestraRegistrazione extends JFrame {
         contentPane.add(lblNumero);
     }
 
-    private void addConfirmPasswordField(Controller c) {
-        // Già aggiunto in addLabelsAndFields
-    }
-
     private void addButtons(Controller c) {
         btnConferma.setEnabled(false);
         btnConferma.addActionListener(e -> handleConfirmation(c));
@@ -233,6 +228,10 @@ public class FinestraRegistrazione extends JFrame {
         };
     }
 
+    /**
+     * controllo dei valori inseriti tramite chiamata ai metodi del controllore
+     * @param c
+     */
     private void validateName(Controller c) {
         String text = textFieldNome.getText();
         if (c.isValidNome(text)) {
@@ -360,7 +359,11 @@ public class FinestraRegistrazione extends JFrame {
         }
         updateConfirmButtonState(c);
     }
-
+    
+    /**
+     * Metodo per la creazione di un nuovo account
+     * @param c
+     */
     private void handleConfirmation(Controller c) {
         schermataCaricamento = c.createSchermataCaricamento(finestraCorrente, "Creazione Account...");
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -393,7 +396,12 @@ public class FinestraRegistrazione extends JFrame {
             c.returnLogin(finestraCorrente);
         }
     }
-
+    
+    /**
+     * Aggiorna lo status del tasto conferma appena vengono inseriti tutti i dati ed essi
+     * risultano essere validi
+     * @param c
+     */
     private void updateConfirmButtonState(Controller c) {
         boolean enable = (c.checkFields(controllo)) && (combacia) && (c.checkFields(valori)) && (dateChooser.getDate() != null);
         btnConferma.setEnabled(enable);
