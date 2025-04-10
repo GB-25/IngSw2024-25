@@ -1,0 +1,23 @@
+client.model.ClientModel#searchHouse(Ljava/lang/String;)Ljava/util/List;
+false
+4fbf9f25f96b37657f8760badd82a6a9
+java.lang.String#equals(Ljava/lang/Object;)Z
+java.util.ArrayList#<init>()V
+java.util.ArrayList#instance-init#
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+shared.classi.Immobile#<init>(IDLshared/classi/ComposizioneImmobile;Ljava/lang/String;Ljava/lang/String;Lshared/classi/User;Lshared/classi/Immobile;)V
+shared.classi.Immobile#<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+shared.classi.Immobile#instance-init#
+==
+add java.util.ArrayList#add(Ljava/lang/Object;)Z
+getAgente client.model.ClientModel#getAgente(Ljava/lang/String;)Lshared/classi/User;
+getComposizione client.model.ClientModel#getComposizione(I)Lshared/classi/ComposizioneImmobile;
+getDouble org.json.JSONObject#getDouble(Ljava/lang/String;)D
+getInt org.json.JSONObject#getInt(Ljava/lang/String;)I
+getJSONArray org.json.JSONObject#getJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+getJSONObject org.json.JSONArray#getJSONObject(I)Lorg/json/JSONObject;
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+length org.json.JSONArray#length()I
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+sendRequest client.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;

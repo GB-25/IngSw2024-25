@@ -1,0 +1,4616 @@
+
+1.0ingsw2025_dietiestates25JavaFrontend"1744294136226*java2.BÀä
+4
+/src/main/java/client/controller/Controller.java2
+
+package4
+
+client.controller5
+!
+client.controller.Controller7
+
+
+class8
+
+access9
+
+public10
+
+simple name11
+
+
+Controller12
+,
+&client.controller.Controller.lastPoint14
+
+field15
+
+private16
+
+	lastPoint17
+/
+)client.controller.Controller.APIKEYSTRING19
+
+APIKEYSTRING20
+)
+#client.controller.Controller.ERRORE22
+
+ERRORE23
++
+%client.controller.Controller.FEATURES25
+
+FEATURES26
+4
+.client.controller.Controller.COORDINATESSTRING28
+
+COORDINATESSTRING29
+3
+-client.controller.Controller.finestraCorrente31
+
+	protected32
+
+finestraCorrente33
+5
+/client.controller.Controller.finestraPrincipale35
+
+finestraPrincipale36
+(
+"client.controller.Controller.model38
+
+model39
+
+client.model.ClientModel41
+
+unknown42
+
+is type43
+
+
+uses44
+7
+1client.controller.Controller.schermataCaricamento46
+
+schermataCaricamento47
+*
+$client.view_gui.SchermataCaricamento49
+-
+'client.controller.Controller.homeUtente51
+
+
+homeUtente52
+-
+'client.controller.Controller.homeAgente54
+
+
+homeAgente55
+8
+2client.controller.Controller.finestraRegistrazione57
+
+finestraRegistrazione58
+.
+(client.controller.Controller.caricamento60
+
+caricamento61
+8
+2client.controller.Controller.caricamentoConfermato63
+
+caricamentoConfermato64
+1
++client.controller.Controller.creazioneAdmin66
+
+creazioneAdmin67
+1
++client.controller.Controller.cambioPassword69
+
+cambioPassword70
+4
+.client.controller.Controller.visioneCalendario72
+
+visioneCalendario73
+*
+$client.controller.Controller.ricerca75
+
+ricerca76
+,
+&client.controller.Controller.risultato78
+
+	risultato79
+*
+$client.controller.Controller.prenota81
+
+prenota82
+2
+,client.controller.Controller.visioneImmobile84
+
+visioneImmobile85
+9
+3client.controller.Controller.prenotazioneConfermata87
+
+prenotazioneConfermata88
+6
+0client.controller.Controller.visionePrenotazione90
+
+visionePrenotazione91
+3
+-client.controller.Controller.calendarioAttesa93
+
+calendarioAttesa94
+%
+client.controller.Controller.ip96
+
+ip97
+(
+"client.controller.Controller.porta99
+
+porta100
+*
+#client.controller.Controller.logger102
+
+logger103
+'
+ client.controller.Controller.MIN105
+
+
+MIN106
+'
+ client.controller.Controller.MAX108
+
+
+MAX109
+-
+&client.controller.Controller#<init>()V111
+
+method112
+
+calls113
+
+
+references114
+!
+client.view_gui.ProvaLogin116
+ç
+Öclient.controller.Controller#createSchermataCaricamento(Ljavax/swing/JFrame;Ljava/lang/String;)Lclient/view_gui/SchermataCaricamento;118
+!
+createSchermataCaricamento119
+
+returns120
+F
+?client.controller.Controller#handleLogin(Ljava/lang/String;[C)V122
+
+handleLogin123
+
+shared.classi.User125
+d
+]client.model.ClientModel#loginModel(Ljava/lang/String;Ljava/lang/String;)Lshared/classi/User;127
+#
+client.view_gui.HomeGenerale129
+ß
+üclient.controller.Controller#handleRegistration(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V131
+
+handleRegistration132
+±
+©client.model.ClientModel#registerModel(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lshared/classi/User;134
+E
+>client.controller.Controller#isValidEmail(Ljava/lang/String;)Z136
+
+isValidEmail137
+D
+=client.controller.Controller#isValidNome(Ljava/lang/String;)Z139
+
+isValidNome140
+:
+3client.controller.Controller#isValidPassword([C[Z)V142
+
+isValidPassword143
+4
+-client.controller.Controller#checkFields([Z)Z145
+
+checkFields146
+F
+?client.controller.Controller#isValidNumero(Ljava/lang/String;)Z148
+
+isValidNumero149
+9
+2client.controller.Controller#verifyPassword([C[C)Z151
+
+verifyPassword152
+]
+Vclient.controller.Controller#cambiaFinestra(Ljavax/swing/JFrame;Ljavax/swing/JFrame;)V154
+
+cambiaFinestra155
+K
+Dclient.controller.Controller#updatePassword(Lshared/classi/User;[C)V157
+
+updatePassword158
+
+	has param159
+5
+.shared.classi.User#getMail()Ljava/lang/String;161
+W
+Pclient.model.ClientModel#newPasswordModel(Ljava/lang/String;Ljava/lang/String;)Z163
+V
+Oclient.controller.Controller#fileDownload(Ljava/lang/String;)Ljava/lang/String;165
+
+fileDownload166
+W
+Pclient.model.ClientModel#downloadFileModel(Ljava/lang/String;)Ljava/lang/String;168
+t
+mclient.controller.Controller#checkDettagliInserzione(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z170
+
+checkDettagliInserzione171
+B
+;client.controller.Controller#isNumeric(Ljava/lang/String;)Z173
+K
+Dclient.controller.Controller#checkComboBox(Ljavax/swing/JComboBox;)Z175
+
+checkComboBox176
+
+	isNumeric177
+œ
+«client.controller.Controller#getCoordinates(Lclient/controller/Controller;Ljava/lang/String;Ljavax/swing/JPanel;Lorg/jxmapviewer/JXMapViewer;Ljava/util/List;Lshared/classi/User;Ljavax/swing/JFrame;)V179
+
+getCoordinates180
+"
+org.jxmapviewer.JXMapViewer182
+
+shared.classi.Immobile184
+*
+#client.eccezioni.GeocodingException186
+O
+Hclient.controller.Controller#getCoordinatesFromAPI(Ljava/lang/String;)[D188
+f
+_client.controller.Controller#configureMap(Ljavax/swing/JPanel;Lorg/jxmapviewer/JXMapViewer;DD)V190
+-
+&org.jxmapviewer.viewer.DefaultWaypoint192
+(
+!shared.classi.User#getIsAgente()Z194
+i
+bclient.controller.Controller#addImmobileWaypoints(Ljava/util/List;Ljava/util/Map;Ljava/util/Set;)V196
+)
+"org.jxmapviewer.viewer.GeoPosition198
+e
+^client.controller.Controller#configureWaypoints(Lorg/jxmapviewer/JXMapViewer;Ljava/util/Set;)V200
+≤
+™client.controller.Controller#addWaypointClickListener(Lclient/controller/Controller;Lorg/jxmapviewer/JXMapViewer;Ljava/util/Map;Lshared/classi/User;Ljavax/swing/JFrame;)V202
+^
+Wclient.controller.Controller#addMapInteractionListeners(Lorg/jxmapviewer/JXMapViewer;)V204
+
+getCoordinatesFromAPI205
+
+org.json.JSONObject207
+
+org.json.JSONException209
+
+org.json.JSONArray211
+#
+org.json.JSONArray#length()I213
+O
+Horg.json.JSONObject#getJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;215
+Q
+Jorg.json.JSONObject#getJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;217
+?
+8org.json.JSONArray#getJSONObject(I)Lorg/json/JSONObject;219
+'
+ org.json.JSONArray#getDouble(I)D221
+
+configureMap222
+-
+&org.jxmapviewer.viewer.TileFactoryInfo224
+)
+"org.jxmapviewer.OSMTileFactoryInfo226
+0
+)org.jxmapviewer.viewer.DefaultTileFactory228
+X
+Qorg.jxmapviewer.JXMapViewer#setTileFactory(Lorg/jxmapviewer/viewer/TileFactory;)V230
+\
+Uorg.jxmapviewer.JXMapViewer#setAddressLocation(Lorg/jxmapviewer/viewer/GeoPosition;)V232
+.
+'org.jxmapviewer.JXMapViewer#setZoom(I)V234
+
+addImmobileWaypoints235
+>
+7shared.classi.Immobile#getIndirizzo()Ljava/lang/String;237
+K
+Dshared.classi.Immobile#getImmobileDettagli()Lshared/classi/Immobile;239
+8
+1org.jxmapviewer.viewer.GeoPosition#getLatitude()D241
+9
+2org.jxmapviewer.viewer.GeoPosition#getLongitude()D243
+
+configureWaypoints244
+-
+&org.jxmapviewer.viewer.WaypointPainter246
+L
+Eorg.jxmapviewer.viewer.WaypointPainter#setWaypoints(Ljava/util/Set;)V248
+X
+Qorg.jxmapviewer.JXMapViewer#setOverlayPainter(Lorg/jxmapviewer/painter/Painter;)V250
+
+addWaypointClickListener251
+%
+client.controller.Controller$1253
+P
+Iclient.controller.Controller$1#mouseClicked(Ljava/awt/event/MouseEvent;)V255
+
+mouseClicked256
+)
+"org.jxmapviewer.viewer.TileFactory258
+W
+Porg.jxmapviewer.JXMapViewer#getTileFactory()Lorg/jxmapviewer/viewer/TileFactory;260
+-
+&org.jxmapviewer.JXMapViewer#getZoom()I262
+J
+Corg.jxmapviewer.JXMapViewer#getViewportBounds()Ljava/awt/Rectangle;264
+r
+korg.jxmapviewer.viewer.TileFactory#geoToPixel(Lorg/jxmapviewer/viewer/GeoPosition;I)Ljava/awt/geom/Point2D;266
+_
+Xorg.jxmapviewer.viewer.DefaultWaypoint#getPosition()Lorg/jxmapviewer/viewer/GeoPosition;268
+'
+ client.controller.Controller$1$1270
+H
+Aclient.controller.Controller$1$1#doInBackground()Ljava/lang/Void;272
+
+doInBackground273
+&
+client.view_gui.VisioneImmobile275
+/
+(client.controller.Controller$1$1#done()V277
+
+done278
+4
+-client.view_gui.SchermataCaricamento#close()V280
+!
+addMapInteractionListeners281
+%
+client.controller.Controller$2283
+P
+Iclient.controller.Controller$2#mousePressed(Ljava/awt/event/MouseEvent;)V285
+
+mousePressed286
+Q
+Jclient.controller.Controller$2#mouseReleased(Ljava/awt/event/MouseEvent;)V288
+
+mouseReleased289
+%
+client.controller.Controller$3291
+P
+Iclient.controller.Controller$3#mouseDragged(Ljava/awt/event/MouseEvent;)V293
+
+mouseDragged294
+Z
+Sorg.jxmapviewer.JXMapViewer#getCenterPosition()Lorg/jxmapviewer/viewer/GeoPosition;296
+r
+korg.jxmapviewer.viewer.TileFactory#pixelToGeo(Ljava/awt/geom/Point2D;I)Lorg/jxmapviewer/viewer/GeoPosition;298
+[
+Torg.jxmapviewer.JXMapViewer#setCenterPosition(Lorg/jxmapviewer/viewer/GeoPosition;)V300
+n
+gclient.controller.Controller#fetchAddressSuggestions(Ljava/lang/String;Ljavax/swing/DefaultListModel;)V302
+
+fetchAddressSuggestions303
+
+okhttp3.OkHttpClient305
+
+okhttp3.HttpUrl$Builder307
+
+okhttp3.HttpUrl309
+<
+5okhttp3.HttpUrl#newBuilder()Lokhttp3/HttpUrl$Builder;311
+A
+:okhttp3.HttpUrl#parse(Ljava/lang/String;)Lokhttp3/HttpUrl;313
+o
+hokhttp3.HttpUrl$Builder#addQueryParameter(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/HttpUrl$Builder;315
+
+okhttp3.Request317
+
+okhttp3.Request$Builder319
+7
+0okhttp3.Request$Builder#build()Lokhttp3/Request;321
+O
+Hokhttp3.Request$Builder#url(Ljava/lang/String;)Lokhttp3/Request$Builder;323
+3
+,okhttp3.HttpUrl#toString()Ljava/lang/String;325
+7
+0okhttp3.HttpUrl$Builder#build()Lokhttp3/HttpUrl;327
+
+okhttp3.Call329
+0
+)okhttp3.Call#enqueue(Lokhttp3/Callback;)V331
+D
+=okhttp3.OkHttpClient#newCall(Lokhttp3/Request;)Lokhttp3/Call;333
+%
+client.controller.Controller$4335
+U
+Nclient.controller.Controller$4#onFailure(Lokhttp3/Call;Ljava/io/IOException;)V337
+
+	onFailure338
+S
+Lclient.controller.Controller$4#onResponse(Lokhttp3/Call;Lokhttp3/Response;)V340
+
+
+onResponse341
+
+okhttp3.Response343
+'
+ okhttp3.Response#isSuccessful()Z345
+
+okhttp3.Response#code()I347
+
+okhttp3.ResponseBody349
+6
+/okhttp3.ResponseBody#string()Ljava/lang/String;351
+4
+-okhttp3.Response#body()Lokhttp3/ResponseBody;353
+J
+Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;355
+l
+eclient.controller.Controller#showReservation(Lshared/classi/User;ZLjava/lang/String;)Ljava/util/List;357
+
+showReservation358
+f
+_client.model.ClientModel#getReservation(Ljava/lang/String;ZLjava/lang/String;Z)Ljava/util/List;360
+ù
+ïclient.controller.Controller#createReservation(Lshared/classi/User;Lshared/classi/Immobile;Ljava/lang/String;Ljava/lang/String;Ljavax/swing/JFrame;)V362
+
+createReservation363
+&
+shared.classi.Immobile#getId()I365
+=
+6shared.classi.Immobile#getAgente()Lshared/classi/User;367
+{
+tclient.model.ClientModel#makeReservation(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)I369
+!
+shared.classi.Prenotazione371
+O
+Hclient.controller.Controller#notifyAgente(Lshared/classi/Prenotazione;)V373
+c
+\client.controller.Controller#reservationConfirmed(Ljavax/swing/JFrame;Lshared/classi/User;)V375
+n
+gclient.controller.Controller#getPrenotazione(Lshared/classi/User;Ljava/time/LocalDate;)Ljava/util/List;377
+
+getPrenotazione378
+p
+iclient.model.ClientModel#getWholeReservationAgent(Lshared/classi/User;Ljava/lang/String;)Ljava/util/List;380
+†
+òclient.controller.Controller#viewPendingReservation(Ljavax/swing/JFrame;Lshared/classi/User;Lshared/classi/Prenotazione;Lclient/controller/Controller;)V382
+
+viewPendingReservation383
+*
+#client.view_gui.VisionePrenotazione385
+ô
+ëclient.controller.Controller#viewReservationsScreen(Lclient/controller/Controller;Lshared/classi/User;Ljava/time/LocalDate;Ljavax/swing/JFrame;)V387
+
+viewReservationsScreen388
+)
+"client.view_gui.CalendarioInAttesa390
+p
+iclient.controller.Controller#reservationConfirm(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z392
+
+reservationConfirm393
+l
+eclient.model.ClientModel#confirmReservation(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z395
+7
+0client.controller.Controller#reservationDeny(I)V397
+
+reservationDeny398
+3
+,client.model.ClientModel#denyReservation(I)Z400
+X
+Qclient.controller.Controller#getUrls(Lshared/classi/Immobile;)[Ljava/lang/String;402
+
+getUrls403
+9
+2shared.classi.Immobile#getUrls()Ljava/lang/String;405
+É
+|client.controller.Controller#ricercaImmobili(DDLshared/classi/Immobile;Lshared/classi/ComposizioneImmobile;)Ljava/util/List;407
+
+ricercaImmobili408
+)
+"shared.classi.ComposizioneImmobile410
+4
+-client.controller.Controller#checkPrezzi(DD)Z412
+É
+|client.controller.Controller#checkDettagliImmobile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;414
+E
+>shared.classi.Immobile#getClasseEnergetica()Ljava/lang/String;416
+9
+2shared.classi.Immobile#getTipo()Ljava/lang/String;418
+=
+6shared.classi.Immobile#getAnnuncio()Ljava/lang/String;420
+U
+Nclient.controller.Controller#checkDettagliComposizione(ZZZZ)Ljava/lang/String;422
+8
+1shared.classi.ComposizioneImmobile#isAscensore()Z424
+9
+2shared.classi.ComposizioneImmobile#isCondominio()Z426
+7
+0shared.classi.ComposizioneImmobile#isTerrazzo()Z428
+7
+0shared.classi.ComposizioneImmobile#isGiardino()Z430
+O
+Hclient.model.ClientModel#searchHouse(Ljava/lang/String;)Ljava/util/List;432
+
+notifyAgente433
+A
+:shared.classi.Prenotazione#getAgente()Lshared/classi/User;435
+*
+#shared.classi.Prenotazione#getId()I437
+[
+Tclient.controller.Controller#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)V439
+
+aggiungiNotifica440
+
+shared.classi.Notifica442
+Q
+Jclient.model.ClientModel#inviaRichiestaNotifica(Lshared/classi/Notifica;)Z444
+Z
+Sclient.controller.Controller#getNotificheUtente(Ljava/lang/String;)Ljava/util/List;446
+
+getNotificheUtente447
+\
+Uclient.model.ClientModel#richiestaNotificheUtente(Ljava/lang/String;)Ljava/util/List;449
+Q
+Jclient.controller.Controller#notifyCliente(Lshared/classi/Prenotazione;Z)V451
+
+notifyCliente452
+?
+8shared.classi.Prenotazione#getUser()Lshared/classi/User;454
+G
+@shared.classi.Prenotazione#getImmobile()Lshared/classi/Immobile;456
+O
+Hclient.controller.Controller#setNotificaLetta(Lshared/classi/Notifica;)V458
+
+setNotificaLetta459
+H
+Aclient.model.ClientModel#notificaLetta(Lshared/classi/Notifica;)Z461
+M
+Fclient.controller.Controller#controlCheckBox(Ljavax/swing/JCheckBox;)Z463
+
+controlCheckBox464
+_
+Xclient.controller.Controller#createHomeAgente(Ljavax/swing/JFrame;Lshared/classi/User;)V466
+
+createHomeAgente467
+_
+Xclient.controller.Controller#createHomeUtente(Ljavax/swing/JFrame;Lshared/classi/User;)V469
+
+createHomeUtente470
+
+reservationConfirmed471
+-
+&client.view_gui.PrenotazioneConfermata473
+b
+[client.controller.Controller#confermaCaricamento(Ljavax/swing/JFrame;Lshared/classi/User;)V475
+
+confermaCaricamento476
+,
+%client.view_gui.CaricamentoConfermato478
+F
+?client.controller.Controller#returnLogin(Ljavax/swing/JFrame;)V480
+
+returnLogin481
+Z
+Sclient.controller.Controller#createAdmin(Ljavax/swing/JFrame;Lshared/classi/User;)V483
+
+createAdmin484
+,
+%client.view_gui.CreazioneAccountAdmin486
+h
+aclient.controller.Controller#createCaricamentoImmobile(Ljavax/swing/JFrame;Lshared/classi/User;)V488
+ 
+createCaricamentoImmobile489
+0
+)client.view_gui.CaricamentoProprietaNuovo491
+]
+Vclient.controller.Controller#changePassword(Ljavax/swing/JFrame;Lshared/classi/User;)V493
+
+changePassword494
+%
+client.view_gui.CambioPassword496
+[
+Tclient.controller.Controller#viewCalendar(Ljavax/swing/JFrame;Lshared/classi/User;)V498
+
+viewCalendar499
+(
+!client.view_gui.VisioneCalendario501
+[
+Tclient.controller.Controller#findImmobili(Ljavax/swing/JFrame;Lshared/classi/User;)V503
+
+findImmobili504
+&
+client.view_gui.RicercaImmobili506
+G
+@client.controller.Controller#registerUser(Ljavax/swing/JFrame;)V508
+
+registerUser509
+,
+%client.view_gui.FinestraRegistrazione511
+É
+|client.controller.Controller#showResultImmobili(Ljavax/swing/JFrame;Lshared/classi/User;Ljava/util/List;Ljava/lang/String;)V513
+
+showResultImmobili514
+'
+ client.view_gui.RisultatoRicerca516
+|
+uclient.controller.Controller#makeReservationClient(Ljavax/swing/JFrame;Lshared/classi/Immobile;Lshared/classi/User;)V518
+
+makeReservationClient519
+*
+#client.view_gui.PrenotazioneCliente521
+à
+Äclient.controller.Controller#showImmobile(Ljavax/swing/JFrame;Lshared/classi/Immobile;Lshared/classi/User;Ljavax/swing/JFrame;)V523
+
+showImmobile524
+]
+Vclient.controller.Controller#uploadNewHouse(Lshared/classi/Immobile;Ljava/util/List;)V526
+
+uploadNewHouse527
+^
+Wclient.model.ClientModel#uploadNewHouseModel(Lshared/classi/Immobile;Ljava/util/List;)Z529
+†
+òclient.controller.Controller#createAdmin(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V531
+
+checkPrezzi532
+ 
+checkDettagliComposizione533
+
+checkDettagliImmobile534
+a
+Zclient.controller.Controller#checkPrenotazione(Ljavax/swing/JFrame;ILshared/classi/User;)V536
+
+checkPrenotazione537
+S
+Lclient.model.ClientModel#retrievePrenotazione(I)Lshared/classi/Prenotazione;539
+{
+tclient.controller.Controller#viewPrenotazione(Lshared/classi/User;Lshared/classi/Prenotazione;Ljavax/swing/JFrame;)V541
+
+viewPrenotazione542
+d
+]client.controller.Controller#recreatePrenotazione(Lshared/classi/User;ILjavax/swing/JFrame;)V544
+
+recreatePrenotazione545
+>
+7client.controller.Controller#main([Ljava/lang/String;)V547
+
+main548J
+
+1
+12Z
+
+3	
+354j«M
+
+185
+18518642
+G
+174@
+174175112 *
+1˝ ˝(26:3B
+	
+9
+10
+
+11
+176
+@
+80:
+808115 *
+1K K(26:3B
+	
+9
+32
+
+
+11
+82
+G
+381@
+381382112 *
+1ˆ ˆ(26:3B
+	
+9
+10
+
+11
+383
+
+208
+20820942
+
+229
+22923042
+I
+284B
+284285112 *
+1ˆ
+ ˆ(2282:3B
+	
+9
+10
+
+11
+286
+G
+156@
+156157112 *
+1Ÿ Ÿ(26:3B
+	
+9
+10
+
+11
+158
+
+453
+45345442
+
+249
+24925042
+
+500
+50050142
+G
+178@
+178179112 *
+1ì ì(26:3B
+	
+9
+10
+
+11
+180
+G
+356@
+356357112 *
+1ÿ ÿ(26:3B
+	
+9
+10
+
+11
+358
+
+299
+29930042
+@
+56:
+565715 *
+1C C(26:3B
+	
+9
+32
+
+
+11
+58
+
+310
+31031142
+
+316
+31631742
+G
+465@
+465466112 *
+1Û Û(26:3B
+	
+9
+10
+
+11
+467
+G
+396@
+396397112 *
+1é é(26:3B
+	
+9
+10
+
+11
+398
+
+214
+21421542
+G
+189@
+189190112 *
+1á á(	26:3B
+	
+9
+16
+
+11
+222
+@
+45:
+454615 *
+1@ @(26:3B
+	
+9
+32
+
+
+11
+47
+D
+101=
+10110215 *
+1R R(26:3B
+	
+9
+32
+
+11
+103
+
+167
+16716842
+E
+121>
+121122112 *
+1i i(26:3B
+	
+9
+10
+
+11
+123
+
+160
+16016142
+G
+406@
+406407112 *
+1° °(26:3B
+	
+9
+10
+
+11
+408
+G
+525@
+525526112 *
+1« «(26:3B
+	
+9
+10
+
+11
+527
+G
+535@
+535536112 *
+1å å(26:3B
+	
+9
+10
+
+11
+537
+
+263
+26326442
+G
+468@
+468469112 *
+1˘ ˘(26:3B
+	
+9
+10
+
+11
+470
+@
+37:
+373815 *
+1? ?(26:3B
+	
+9
+32
+
+
+11
+39
+I
+276B
+276277112 *
+1Ë Ë(2269:3B
+	
+9
+32
+
+11
+278
+@
+21:
+212215 *
+19 9(	26:3B
+	
+9
+16
+
+
+11
+23
+
+370
+37037142
+@
+24:
+242515 *
+1: :(	26:3B
+	
+9
+16
+
+
+11
+26
+
+419
+41942042
+@
+18:
+181915 *
+18 8(	26:3B
+	
+9
+16
+
+
+11
+20
+I
+271B
+271272112 *
+1‚ ‚(2269:3B
+	
+9
+32
+
+11
+273
+
+115
+11511642
+G
+187@
+187188112 *
+1≈ ≈(	26:3B
+	
+9
+16
+
+11
+205
+
+436
+43643742
+
+342
+34234342
+
+328
+32832942
+G
+361@
+361362112 *
+1‡ ‡(26:3B
+	
+9
+10
+
+11
+363
+D
+110=
+110111112 *
+1Z Z(26:3B
+	
+9
+10
+
+
+11
+12
+
+245
+24524642
+G
+199@
+199200112 *
+1« «(	26:3B
+	
+9
+16
+
+11
+244
+
+274
+27427542
+
+359
+35936042
+G
+438@
+438439112 *
+1ƒ ƒ(	26:3B
+	
+9
+16
+
+11
+440
+
+295
+29529642
+
+304
+30430542
+
+267
+26726842
+
+417
+41741842
+D
+107=
+10710815 *
+1T T(	26:3B
+	
+9
+16
+
+11
+109
+
+477
+47747842
+G
+492@
+492493112 *
+1ù ù(26:3B
+	
+9
+10
+
+11
+494
+G
+141@
+141142112 *
+1ô ô(26:3B
+	
+9
+10
+
+11
+143
+
+314
+31431542
+@
+83:
+838415 *
+1L L(26:3B
+	
+9
+32
+
+
+11
+85
+
+472
+47247342
+@
+59:
+596015 *
+1D D(26:3B
+	
+9
+32
+
+
+11
+61
+
+223
+22322442
+@
+74:
+747515 *
+1I I(26:3B
+	
+9
+32
+
+
+11
+76
+@
+27:
+272815 *
+1; ;(	26:3B
+	
+9
+16
+
+
+11
+29
+@
+50:
+505115 *
+1A A(26:3B
+	
+9
+32
+
+
+11
+52
+
+423
+42342442
+@
+30:
+303115 *
+1= =(26:3B
+	
+9
+32
+
+
+11
+33
+
+206
+20620742
+
+495
+49549642
+
+227
+22722842
+G
+172@
+172173112 *
+1Ç Ç(26:3B
+	
+9
+10
+
+11
+177
+G
+487@
+487488112 *
+1ó ó(26:3B
+	
+9
+10
+
+11
+489
+
+460
+46046142
+@
+13:
+131415 *
+17 7(	26:3B
+	
+9
+16
+
+
+11
+17
+G
+502@
+502503112 *
+1© ©(26:3B
+	
+9
+10
+
+11
+504
+
+48
+484942
+G
+546@
+546547112 *
+1® ®(26:3B
+	
+9
+10
+
+11
+548
+
+126
+12612742
+
+354
+35435542
+G
+376@
+376377112 *
+1Ú Ú(26:3B
+	
+9
+10
+
+11
+378
+G
+386@
+386387112 *
+1¸ ¸(26:3B
+	
+9
+10
+
+11
+388
+9
+64
+678 *
+15 5(:3B
+	
+9
+10
+
+
+11
+12
+G
+374@
+374375112 *
+1ˇ ˇ(26:3B
+	
+9
+10
+
+11
+471
+
+441
+44144242
+
+218
+21821942
+G
+411@
+411412112 *
+1Ÿ Ÿ(26:3B
+	
+9
+10
+
+11
+532
+G
+450@
+450451112 *
+1” ”(26:3B
+	
+9
+10
+
+11
+452
+
+306
+30630742
+G
+201@
+201202112 *
+1Õ Õ(	26:3B
+	
+9
+16
+
+11
+251
+
+231
+23123242
+
+429
+42943042
+
+324
+32432542
+G
+522@
+522523112 *
+1¡ ¡(26:3B
+	
+9
+10
+
+11
+524
+
+247
+24724842
+G
+512@
+512513112 *
+1µ µ(26:3B
+	
+9
+10
+
+11
+514
+
+384
+38438542
+I
+339B
+339340112 *
+1∂ ∂(2334:3B
+	
+9
+10
+
+11
+341
+G
+164@
+164165112 *
+1Ê Ê(26:3B
+	
+9
+10
+
+11
+166
+I
+336B
+336337112 *
+1± ±(2334:3B
+	
+9
+10
+
+11
+338
+G
+195@
+195196112 *
+1ò ò(	26:3B
+	
+9
+16
+
+11
+235
+
+520
+52052142
+
+538
+53853942
+G
+507@
+507508112 *
+1Ø Ø(26:3B
+	
+9
+10
+
+11
+509
+
+40
+404142
+@
+95:
+959615 *
+1P P(26:3B
+	
+9
+32
+
+
+11
+97
+
+220
+22022142
+
+322
+32232342
+
+394
+39439542
+
+505
+50550642
+
+225
+22522642
+I
+292B
+292293112 *
+1Ç
+ Ç(2290:3B
+	
+9
+10
+
+11
+294
+G
+413@
+413414112 *
+1˝ ˝(26:3B
+	
+9
+10
+
+11
+534
+
+210
+21021142
+G
+462@
+462463112 *
+1Ô Ô(26:3B
+	
+9
+10
+
+11
+464
+
+181
+18118242
+
+318
+31831942
+G
+474@
+474475112 *
+1Ö Ö(26:3B
+	
+9
+10
+
+11
+476
+
+346
+34634742
+
+352
+35235342
+D
+104=
+10410515 *
+1S S(	26:3B
+	
+9
+16
+
+11
+106
+
+128
+12812942
+G
+372@
+372373112 *
+1∂ ∂(26:3B
+	
+9
+10
+
+11
+433
+
+348
+34834942
+
+344
+34434542
+
+257
+25725842
+G
+301@
+301302112 *
+1• •(26:3B
+	
+9
+10
+
+11
+303
+I
+254B
+254255112 *
+1œ
+ œ(2252:3B
+	
+9
+10
+
+11
+256
+G
+530@
+530531112 *
+1“ “(26:3B
+	
+9
+10
+
+11
+484
+
+193
+19319442
+
+259
+25926042
+
+326
+32632742
+G
+153@
+153154112 *
+1‘ ‘(26:3B
+	
+9
+10
+
+11
+155
+
+236
+23623742
+@
+77:
+777815 *
+1J J(26:3B
+	
+9
+32
+
+
+11
+79
+
+379
+37938042
+
+162
+16216342
+
+238
+23823942
+
+485
+48548642
+G
+138@
+138139112 *
+1ç ç(26:3B
+	
+9
+10
+
+11
+140
+
+434
+43443542
+G
+391@
+391392112 *
+1Ç Ç(26:3B
+	
+9
+10
+
+11
+393
+G
+401@
+401402112 *
+1õ õ(26:3B
+	
+9
+10
+
+11
+403
+
+368
+36836942
+
+366
+36636742
+@
+34:
+343515 *
+1> >(26:3B
+	
+9
+32
+
+
+11
+36
+G
+543@
+543544112 *
+1° °(26:3B
+	
+9
+10
+
+11
+545
+
+124
+12412542
+@
+86:
+868715 *
+1M M(26:3B
+	
+9
+32
+
+
+11
+88
+I
+287B
+287288112 *
+1˚
+ ˚(2282:3B
+	
+9
+10
+
+11
+289
+E
+130>
+130131112 *
+1x x(26:3B
+	
+9
+10
+
+11
+132
+
+240
+24024142
+
+312
+31231342
+A
+98;
+989915 *
+1Q Q(26:3B
+	
+9
+32
+
+11
+100
+
+320
+32032142
+
+425
+42542642
+
+448
+44844942
+
+279
+27928042
+@
+68:
+686915 *
+1G G(26:3B
+	
+9
+32
+
+
+11
+70
+G
+203@
+203204112 *
+1Ù Ù(	26:3B
+	
+9
+16
+
+11
+281
+G
+457@
+457458112 *
+1Á Á(26:3B
+	
+9
+10
+
+11
+459
+G
+540@
+540541112 *
+1ï ï(26:3B
+	
+9
+10
+
+11
+542
+G
+150@
+150151112 *
+1» »(26:3B
+	
+9
+10
+
+11
+152
+
+191
+19119242
+
+364
+36436542
+
+330
+33033142
+
+515
+51551642
+
+197
+19719842
+
+431
+43143242
+G
+517@
+517518112 *
+1ª ª(26:3B
+	
+9
+10
+
+11
+519
+G
+421@
+421422112 *
+1‰ ‰(26:3B
+	
+9
+10
+
+11
+533
+@
+92:
+929315 *
+1O O(26:3B
+	
+9
+32
+
+
+11
+94
+G
+479@
+479480112 *
+1ã ã(26:3B
+	
+9
+10
+
+11
+481
+@
+53:
+535415 *
+1B B(26:3B
+	
+9
+32
+
+
+11
+55
+G
+135@
+135136112 *
+1à à(26:3B
+	
+9
+10
+
+11
+137
+
+510
+51051142
+
+389
+38939042
+
+332
+33233342
+
+265
+26526642
+@
+62:
+626315 *
+1E E(26:3B
+	
+9
+32
+
+
+11
+64
+
+183
+18318442
+
+233
+23323442
+
+443
+44344442
+
+242
+24224342
+
+404
+40440542
+
+216
+21621742
+
+308
+30830942
+
+409
+40941042
+
+490
+49049142
+G
+482@
+482483112 *
+1ë ë(26:3B
+	
+9
+10
+
+11
+484
+:
+2903
+2902918 *
+1Å@ Å(A2203:3B
+	
+9
+32
+G
+497@
+497498112 *
+1£ £(26:3B
+	
+9
+10
+
+11
+499
+:
+3343
+3343358 *
+1∞8 ∞(92301:3B
+	
+9
+32
+
+133
+13313442
+:
+2523
+2522538 *
+1Œ4 Œ(52201:3B
+	
+9
+32
+:
+2823
+2822838 *
+1ı4 ı(52203:3B
+	
+9
+32
+G
+445@
+445446112 *
+1œ œ(26:3B
+	
+9
+10
+
+11
+447
+@
+89:
+899015 *
+1N N(26:3B
+	
+9
+32
+
+
+11
+91
+G
+144@
+144145112 *
+1∑ ∑(26:3B
+	
+9
+10
+
+11
+146
+
+415
+41541642
+
+455
+45545642
+
+297
+29729842
+
+427
+42742842
+@
+71:
+717215 *
+1H H(26:3B
+	
+9
+32
+
+
+11
+73
+G
+147@
+147148112 *
+1ƒ ƒ(26:3B
+	
+9
+10
+
+11
+149
+
+212
+21221342
+
+350
+35035142
+E
+117>
+117118112 *
+1c c(26:3B
+	
+9
+10
+
+11
+119
+
+528
+52852942
+:
+2693
+2692708 *
+1·U ·(V2254:3B
+	
+9
+32
+@
+65:
+656615 *
+1F F(26:3B
+	
+9
+32
+
+
+11
+67
+G
+169@
+169170112 *
+1ı ı(26:3B
+	
+9
+10
+
+11
+171
+
+399
+39940042
+
+261
+26126242râÃ
+
+374043*
+1? ?(
+
+374044*
+1? ?(
+
+374044*
+1? ?(
+
+454843*
+1@ @(
+
+454844*
+1@ @(
+
+454844*
+1@ @(+
+
+1106113*
+1Z	 Z(
+
+11034114*
+1\ \(
+
+110115113*
+1\ \(&
+
+110644*
+1\' \(+
+
+1106114*
+1\' \(+
+
+11034114*
+1] ](
+
+11034114*
+1] ](
+
+1104044*
+1_ _(
+
+11037114*
+1_ _(
+
+11040113*
+1_ _(
+
+11095114*
+1_ _(
+
+11098114*
+1_ _($
+
+11748120*
+1c	 c(
+
+1174844*
+1c	 c(
+
+1174844*
+1d d(
+
+11745114*
+1d d(
+
+11748113*
+1d! d(5
+
+1174844*
+1e e(!
+
+11745114*
+1e e(!
+
+12112443*
+1l l(
+
+12112444*
+1l l(
+
+121124120*
+1l l(
+
+12140114*
+1l l(
+
+121126113*
+1l l(
+
+12137114*
+1l l(
+
+1214044*
+1l l(
+
+12137114*
+1l l(
+
+12134114*
+1q q(
+
+12134114*
+1q q(
+
+12150114*
+1s s(
+
+121128113*
+1s s("
+
+121644*
+1s# s('
+
+1216114*
+1s# s('
+
+12150114*
+1t t(
+
+12150114*
+1t t(
+
+13012443*
+1z z(
+
+13012444*
+1z z(
+
+130124120*
+1z z(
+
+13040114*
+1z z(
+
+130133113*
+1z z("
+
+13037114*
+1z z(
+
+1304044*
+1z z(
+
+13037114*
+1z z(
+
+13021114*
+1|B |(H
+
+13056114*
+1~ ~(
+
+13056114*
+1~ ~(
+
+13050114*
+1 (
+
+130128113*
+1 (!
+
+130644*
+1" (&
+
+1306114*
+1" (&
+
+13050114*
+1Ä Ä(
+
+13050114*
+1Ä Ä(
+
+156124159*
+1Ÿ Ÿ(!
+
+15612443*
+1Ÿ" Ÿ(&
+
+15612444*
+1Ÿ Ÿ(!
+
+156124114*
+1€ €(
+
+156160113*
+1€ €(
+
+15640114*
+1‹ ‹(
+
+156162113*
+1‹ ‹(&
+
+15637114*
+1‹ ‹(
+
+1564044*
+1‹ ‹(
+
+15637114*
+1‹ ‹(
+
+15621114*
+1‡Z ‡(`
+
+16440114*
+1Á Á(
+
+164167113*
+1Á Á(,
+
+16437114*
+1Á Á(
+
+1644044*
+1Á Á(
+
+16437114*
+1Á Á(
+
+1696114*
+1ˆ ˆ("
+
+169172113*
+1ˆ ˆ("
+
+1696114*
+1˜ ˜($
+
+169172113*
+1˜ ˜($
+
+1696114*
+1¯ ¯("
+
+169172113*
+1¯ ¯("
+
+1786159*
+1ì ì('
+
+178181159*
+1ìL ì(W
+
+178124159*
+1î! î(%
+
+178643*
+1ì( ì()
+
+178644*
+1ì ì('
+
+17818143*
+1ìX ì(a
+
+17818144*
+1ìL ì(W
+
+17818344*
+1î î(
+
+17812443*
+1î& î(*
+
+17812444*
+1î! î(%
+
+17818544*
+1îD î(V
+
+1786114*
+1ó! ó(6
+
+178187113*
+1ó! ó(6
+
+17821114*
+1öL ö(R
+
+1786114*
+1û
+ û(
+
+178189113*
+1û
+ û(
+
+17819144*
+1† †(
+
+17818344*
+1† †('
+
+17819144*
+1° °(
+
+178124114*
+1£ £(
+
+178193113*
+1£ £(
+
+1786114*
+1§ §("
+
+178195113*
+1§ §("
+
+178191113*
+1ß  ß(/
+
+178197113*
+1ß4 ß(?
+
+1786114*
+1™
+ ™(
+
+178199113*
+1™
+ ™(
+
+178124114*
+1¨ ¨(
+
+178193113*
+1¨ ¨(
+
+1786114*
+1≠ ≠(&
+
+178201113*
+1≠ ≠(&
+
+1786114*
+1∞
+ ∞($
+
+178203113*
+1∞
+ ∞($
+
+17818543*
+1∑" ∑(#
+
+17818544*
+1∑ ∑(!
+
+178101114*
+1∏
+ ∏(
+
+178101114*
+1∏
+ ∏(
+
+17821114*
+1π> π(D
+
+18718544*
+1≈@ ≈(R
+
+18718114*
+1∆ ∆("
+
+187101114*
+1À À(
+
+187101114*
+1À À(
+
+187185113*
+1Ã Ã(&
+
+187101114*
+1÷ ÷(
+
+187101114*
+1÷ ÷(
+
+187185113*
+1◊ ◊(&
+
+187101114*
+1„ „(
+
+187101114*
+1„ „(
+
+187185113*
+1‰ ‰(&
+
+18720643*
+1Á Á(
+
+18720644*
+1Á Á(
+
+187206113*
+1È È('
+
+18720843*
+1Í Í(
+
+18720844*
+1Í Í(
+
+187101114*
+1Î Î(
+
+187101114*
+1Î Î(
+
+187185113*
+1Ï Ï(&
+
+187210114*
+1Ô
+ Ô(
+
+187212113*
+1Ô. Ô(4
+
+187210120*
+1Ô
+ Ô(
+
+187206114*
+1Ô
+ Ô(
+
+187214113*
+1Ô Ô(#
+
+18724114*
+1Ô$ Ô(,
+
+18720643*
+1Ò Ò(!
+
+18720644*
+1Ò Ò(
+
+187206120*
+1Ò$ Ò(0
+
+187206114*
+1Ò$ Ò(0
+
+187216113*
+1ÒY Ò(f
+
+187206120*
+1Ò$ Ò(0
+
+187210114*
+1Ò$ Ò(0
+
+187218113*
+1ÒH Ò(U
+
+187210120*
+1Ò$ Ò(0
+
+187206114*
+1Ò$ Ò(0
+
+187214113*
+1Ò1 Ò(=
+
+18724114*
+1Ò> Ò(F
+
+187210114*
+1Ú Ú(#
+
+187220113*
+1ÚD Ú(M
+
+187210120*
+1Ú Ú(#
+
+187206114*
+1Ú Ú(#
+
+187214113*
+1Ú$ Ú(0
+
+18727114*
+1Ú1 Ú(B
+
+187210114*
+1Û Û(#
+
+187220113*
+1ÛD Û(M
+
+187210120*
+1Û Û(#
+
+187206114*
+1Û Û(#
+
+187214113*
+1Û$ Û(0
+
+18727114*
+1Û1 Û(B
+
+18720843*
+1ı! ı("
+
+18720844*
+1ı ı( 
+
+187101114*
+1ˆ ˆ(
+
+187101114*
+1ˆ ˆ(
+
+187185113*
+1˜ ˜(*
+
+187101114*
+1˙ ˙(
+
+187101114*
+1˙ ˙(
+
+187185113*
+1˚ ˚(&
+
+189181159*
+1á- á(8
+
+18918143*
+1á9 á(B
+
+18918144*
+1á- á(8
+
+18922343*
+1â â(
+
+18922344*
+1â â(
+
+189225113*
+1â! â(3
+
+18922743*
+1ä ä($
+
+18922744*
+1ä ä(
+
+189227113*
+1ä+ ä(=
+
+189181114*
+1ã ã(
+
+189229113*
+1ã ã(
+
+18919743*
+1å å( 
+
+18919744*
+1å å(
+
+189197113*
+1å' å(2
+
+189181114*
+1ç ç(
+
+189231113*
+1ç ç("
+
+189181114*
+1é é(
+
+189233113*
+1é é(
+
+19518344*
+1ò) ò(1
+
+19519144*
+1òA ò(P
+
+19518344*
+1òR ò(Z
+
+19519144*
+1òm ò(|
+
+19519744*
+1ö ö(
+
+19518114*
+1õ õ($
+
+19518343*
+1ù ù(
+
+19518344*
+1ù ù(
+
+195183114*
+1û4 û(<
+
+195236113*
+1ûS û(_
+
+195183120*
+1û4 û(<
+
+195183114*
+1û4 û(<
+
+195238113*
+1û= û(P
+
+19520643*
+1¨ ¨((
+
+19520644*
+1¨	 ¨(
+
+195206113*
+1¨/ ¨(9
+
+195210114*
+1≠ ≠(!
+
+195212113*
+1≠9 ≠(?
+
+195210120*
+1≠ ≠(!
+
+195206114*
+1≠ ≠(!
+
+195214113*
+1≠" ≠(.
+
+19524114*
+1≠/ ≠(7
+
+19520643*
+1Æ Æ(%
+
+19520644*
+1Æ
+ Æ(
+
+195206120*
+1Æ( Æ(<
+
+195206114*
+1Æ( Æ(<
+
+195216113*
+1Æe Æ(r
+
+195206120*
+1Æ( Æ(<
+
+195210114*
+1Æ( Æ(<
+
+195218113*
+1ÆT Æ(a
+
+195210120*
+1Æ( Æ(<
+
+195206114*
+1Æ( Æ(<
+
+195214113*
+1Æ= Æ(I
+
+19524114*
+1ÆJ Æ(R
+
+195210114*
+1Ø Ø(/
+
+195220113*
+1ØP Ø(Y
+
+195210120*
+1Ø Ø(/
+
+195206114*
+1Ø Ø(/
+
+195214113*
+1Ø0 Ø(<
+
+19527114*
+1Ø= Ø(N
+
+195210114*
+1∞ ∞(/
+
+195220113*
+1∞P ∞(Y
+
+195210120*
+1∞ ∞(/
+
+195206114*
+1∞ ∞(/
+
+195214113*
+1∞0 ∞(<
+
+19527114*
+1∞= ∞(N
+
+195197114*
+1≥ ≥('
+
+195240113*
+1≥/ ≥(:
+
+195197120*
+1≥ ≥('
+
+195197114*
+1¥ ¥(%
+
+195242113*
+1¥- ¥(9
+
+195197120*
+1¥ ¥(%
+
+19519743*
+1∫ ∫(&
+
+19519744*
+1∫
+ ∫(
+
+195197113*
+1∫- ∫(8
+
+19519143*
+1º º("
+
+19519144*
+1º
+ º(
+
+195191113*
+1º) º(8
+
+195183120*
+1æ
+ æ(
+
+195101114*
+1¬ ¬(
+
+195101114*
+1¬ ¬(
+
+19521114*
+1√> √(D
+
+199181159*
+1«" «(-
+
+19918143*
+1«. «(7
+
+19918144*
+1«" «(-
+
+19919144*
+1«= «(L
+
+19924543*
+1»' »(6
+
+19924544*
+1» »(
+
+19919144*
+1» »(%
+
+199245113*
+1»= »(L
+
+199245114*
+1… …(
+
+199247113*
+1… …("
+
+199181114*
+1   (
+
+199249113*
+1   (!
+
+2016159*
+1Õ( Õ(2
+
+201181159*
+1Õ6 Õ(A
+
+201124159*
+1Õy Õ(}
+
+201643*
+1Õ3 Õ(4
+
+201644*
+1Õ( Õ(2
+
+20118143*
+1ÕB Õ(K
+
+20118144*
+1Õ6 Õ(A
+
+20119144*
+1ÕQ Õ(`
+
+20118344*
+1Õb Õ(j
+
+20112443*
+1Õ~ Õ(Ç
+
+20112444*
+1Õy Õ(}
+
+25425743*
+1“ “(%
+
+25425744*
+1“ “(
+
+254257120*
+1“( “(1
+
+254181114*
+1“( “(1
+
+254259113*
+1“2 “(@
+
+254181114*
+1”  ”()
+
+254261113*
+1”* ”(1
+
+254181114*
+1‘) ‘(2
+
+254263113*
+1‘3 ‘(D
+
+25419144*
+1◊ ◊(,
+
+25418344*
+1◊. ◊(6
+
+25419143*
+1ÿ" ÿ(*
+
+25419144*
+1ÿ ÿ(!
+
+254191120*
+1ÿ- ÿ(2
+
+25418343*
+1Ÿ Ÿ(#
+
+25418344*
+1Ÿ Ÿ(
+
+254183120*
+1Ÿ& Ÿ(+
+
+254257114*
+1€' €(2
+
+254265113*
+1€3 €(=
+
+254197120*
+1€> €(F
+
+254191114*
+1€> €(F
+
+254267113*
+1€G €(R
+
+2544844*
+1‡ ‡(*
+
+25445114*
+1‡ ‡(*
+
+25448120*
+1‡- ‡(.
+
+2546114*
+1‡- ‡(.
+
+254117113*
+1‡/ ‡(I
+
+25430114*
+1‡J ‡(Z
+
+271274113*
+1‰" ‰(1
+
+27648114*
+1Í" Í(6
+
+276279113*
+1Í7 Í(<
+
+27645114*
+1Í" Í(6
+
+2764844*
+1Í" Í(6
+
+27645114*
+1Í" Í(6
+
+203181159*
+1Ù* Ù(5
+
+20318143*
+1Ù6 Ù(?
+
+20318144*
+1Ù* Ù(5
+
+28413114*
+1¯ ¯(
+
+28713114*
+1˝ ˝(
+
+29213114*
+1Ñ Ñ(
+
+29213114*
+1Ü( Ü(1
+
+29213114*
+1á( á(1
+
+29219743*
+1â â($
+
+29219744*
+1â â(
+
+292197120*
+1â' â(0
+
+292181114*
+1â' â(0
+
+292295113*
+1â1 â(B
+
+29225743*
+1ä ä()
+
+29225744*
+1ä ä(
+
+292257120*
+1ä, ä(5
+
+292181114*
+1ä, ä(5
+
+292259113*
+1ä6 ä(D
+
+292257114*
+1ã( ã(3
+
+292265113*
+1ã4 ã(>
+
+292181114*
+1ãG ã(P
+
+292261113*
+1ãQ ã(X
+
+29219743*
+1é é('
+
+29219744*
+1é é(
+
+292197120*
+1é* é(5
+
+292257114*
+1é* é(5
+
+292297113*
+1é6 é(@
+
+292181114*
+1éQ é(Z
+
+292261113*
+1é[ é(b
+
+292181114*
+1ê ê(
+
+292299113*
+1ê ê(-
+
+29213114*
+1ë ë(
+
+203181114*
+1ó ó(
+
+203261113*
+1ó ó(&
+
+203181114*
+1ô ô(
+
+203233113*
+1ô ô(
+
+203181114*
+1õ õ(
+
+203233113*
+1õ õ(
+
+30118114*
+1¶ ¶("
+
+30130443*
+1® ®(
+
+30130444*
+1®	 ®(
+
+301304113*
+1®# ®(/
+
+30130643*
+1© ©(#
+
+30130844*
+1©	 ©(
+
+30130644*
+1© ©(
+
+301306114*
+1© ©(
+
+301306120*
+1©& ©(-
+
+301308114*
+1©& ©(-
+
+301310113*
+1©< ©(F
+
+301308120*
+1©& ©(-
+
+301308114*
+1©& ©(-
+
+301312113*
+1©. ©(3
+
+30130844*
+1©& ©(-
+
+301306120*
+1™	 ™(
+
+301306114*
+1™	 ™(
+
+301314113*
+1™ ™(%
+
+301306120*
+1´	 ´(
+
+301306114*
+1´	 ´(
+
+301314113*
+1´ ´(%
+
+301306120*
+1¨	 ¨(
+
+301306114*
+1¨	 ¨(
+
+301314113*
+1¨ ¨(%
+
+30131643*
+1Æ Æ(
+
+30131644*
+1Æ	 Æ(
+
+301316120*
+1Æ Æ(
+
+301318114*
+1Æ Æ(
+
+301320113*
+1ÆT Æ(Y
+
+301318120*
+1Æ Æ(
+
+301318114*
+1Æ Æ(
+
+301322113*
+1Æ1 Æ(4
+
+30131644*
+1Æ Æ(&
+
+301318113*
+1Æ' Æ(.
+
+301308114*
+1Æ5 Æ(?
+
+301324113*
+1ÆH Æ(P
+
+301308120*
+1Æ5 Æ(?
+
+301306114*
+1Æ5 Æ(?
+
+301326113*
+1Æ@ Æ(E
+
+301328114*
+1∞	 ∞(
+
+301330113*
+1∞! ∞((
+
+301328120*
+1∞	 ∞(
+
+301304114*
+1∞	 ∞(
+
+301332113*
+1∞ ∞(
+
+336328159*
+1≤# ≤('
+
+33632843*
+1≤( ≤(,
+
+33632844*
+1≤# ≤('
+
+336101114*
+1≥ ≥(
+
+336101114*
+1≥ ≥(
+
+339328159*
+1∑$ ∑((
+
+339342159*
+1∑/ ∑(7
+
+33932843*
+1∑) ∑(-
+
+33932844*
+1∑$ ∑((
+
+33934243*
+1∑8 ∑(@
+
+33934244*
+1∑/ ∑(7
+
+339342114*
+1∏ ∏(
+
+339344113*
+1∏ ∏(+
+
+339101114*
+1π π(
+
+339101114*
+1π π(
+
+339342114*
+1π< π(D
+
+339346113*
+1πE π(I
+
+339348114*
+1Ω' Ω(/
+
+339350113*
+1Ω7 Ω(=
+
+339348120*
+1Ω' Ω(/
+
+339342114*
+1Ω' Ω(/
+
+339352113*
+1Ω0 Ω(4
+
+33920643*
+1ø  ø($
+
+33920644*
+1ø ø(
+
+339206113*
+1ø+ ø(5
+
+33921043*
+1¿ ¿('
+
+33921044*
+1¿ ¿(
+
+339210120*
+1¿* ¿(.
+
+339206114*
+1¿* ¿(.
+
+339214113*
+1¿/ ¿(;
+
+33924114*
+1¿< ¿(D
+
+339210114*
+1√) √(1
+
+339212113*
+1√2 √(8
+
+33920643*
+1ƒ$ ƒ(+
+
+33920644*
+1ƒ ƒ(#
+
+339206120*
+1ƒ. ƒ(6
+
+339210114*
+1ƒ. ƒ(6
+
+339218113*
+1ƒ7 ƒ(D
+
+339206114*
+1≈* ≈(1
+
+339354113*
+1≈N ≈(W
+
+339206120*
+1≈* ≈(1
+
+339206114*
+1≈* ≈(1
+
+339216113*
+1≈2 ≈(?
+
+339101114*
+1œ œ(
+
+339101114*
+1œ œ(
+
+356124159*
+1ÿ& ÿ(*
+
+35612443*
+1ÿ+ ÿ(/
+
+35612444*
+1ÿ& ÿ(*
+
+356124114*
+1⁄ ⁄(
+
+356160113*
+1⁄ ⁄(
+
+356124114*
+1€ €(
+
+356193113*
+1€ €(&
+
+35640114*
+1‹
+ ‹(
+
+356359113*
+1‹ ‹(
+
+35637114*
+1‹
+ ‹(
+
+3564044*
+1‹
+ ‹(
+
+35637114*
+1‹
+ ‹(
+
+361124159*
+1‡  ‡($
+
+361183159*
+1‡+ ‡(3
+
+36112443*
+1‡% ‡()
+
+36112444*
+1‡  ‡($
+
+36118343*
+1‡4 ‡(<
+
+36118344*
+1‡+ ‡(3
+
+361124114*
+1‚ ‚(
+
+361160113*
+1‚ ‚("
+
+361183114*
+1‰ ‰(
+
+361364113*
+1‰ ‰("
+
+361124114*
+1Â Â(
+
+361160113*
+1Â* Â(1
+
+361124120*
+1Â Â(
+
+361183114*
+1Â Â(
+
+361366113*
+1Â Â('
+
+36112443*
+1Ê Ê(
+
+36112444*
+1Ê Ê(
+
+361124120*
+1Ê Ê(
+
+361183114*
+1Ê Ê(
+
+361366113*
+1Ê Ê("
+
+36140114*
+1Á Á(
+
+361368113*
+1Á Á(!
+
+36137114*
+1Á Á(
+
+3614044*
+1Á Á(
+
+36137114*
+1Á Á(
+
+36121114*
+1Èw È(}
+
+36137043*
+1Î Î(
+
+36137044*
+1Î Î(
+
+361370113*
+1Î$ Î(0
+
+3616114*
+1Ï Ï(
+
+361372113*
+1Ï	 Ï(
+
+3616114*
+1Ï Ï(
+
+361644*
+1Ï Ï(
+
+3616114*
+1Ï Ï(
+
+3616114*
+1Ì Ì(
+
+361374113*
+1Ì Ì(
+
+376124159*
+1Ú, Ú(0
+
+37637044*
+1Ú Ú(
+
+37612443*
+1Ú1 Ú(5
+
+37612444*
+1Ú, Ú(0
+
+37640114*
+1Û
+ Û(
+
+376379113*
+1Û Û((
+
+37637114*
+1Û
+ Û(
+
+3764044*
+1Û
+ Û(
+
+37637114*
+1Û
+ Û(
+
+381124159*
+1ˆ> ˆ(B
+
+381370159*
+1ˆI ˆ(U
+
+3816159*
+1ˆd ˆ(n
+
+38112443*
+1ˆC ˆ(G
+
+38112444*
+1ˆ> ˆ(B
+
+38137043*
+1ˆV ˆ(b
+
+38137044*
+1ˆI ˆ(U
+
+381643*
+1ˆo ˆ(p
+
+381644*
+1ˆd ˆ(n
+
+38189114*
+1˜ ˜(
+
+381384113*
+1˜ ˜(0
+
+38189114*
+1˘ ˘(
+
+38189114*
+1˘ ˘(
+
+3866159*
+1¸% ¸(/
+
+386124159*
+1¸3 ¸(7
+
+386643*
+1¸0 ¸(1
+
+386644*
+1¸% ¸(/
+
+38612443*
+1¸8 ¸(<
+
+38612444*
+1¸3 ¸(7
+
+38692114*
+1˝ ˝(
+
+386389113*
+1˝ ˝(,
+
+38692114*
+1ˇ ˇ(
+
+38692114*
+1ˇ ˇ(
+
+39140114*
+1É É(
+
+391394113*
+1É É(/
+
+39137114*
+1É É(
+
+3914044*
+1É É(
+
+39137114*
+1É É(
+
+39121114*
+1Öf Ö(l
+
+39640114*
+1è è(
+
+396399113*
+1è è(*
+
+39637114*
+1è è(
+
+3964044*
+1è è(
+
+39637114*
+1è è(
+
+39621114*
+1ëL ë(R
+
+401183159*
+1õ õ("
+
+40118343*
+1õ# õ(+
+
+40118344*
+1õ õ("
+
+401183114*
+1ù ù(
+
+401404113*
+1ù ù(!
+
+406183159*
+1°L °(T
+
+406409159*
+1°_ °(s
+
+40618344*
+1° °(
+
+40618343*
+1°U °(]
+
+40618344*
+1°L °(T
+
+40640943*
+1°t °(Ä
+
+40640944*
+1°_ °(s
+
+4066114*
+1£ £(
+
+406411113*
+1£ £(
+
+40621114*
+1§´ §(±
+
+406183114*
+1™+ ™(3
+
+406236113*
+1™4 ™(@
+
+4066114*
+1´ ´($
+
+406413113*
+1´ ´($
+
+406183114*
+1´% ´(-
+
+406415113*
+1´. ´(A
+
+406183114*
+1´E ´(M
+
+406417113*
+1´N ´(U
+
+406183114*
+1´Y ´(a
+
+406419113*
+1´b ´(m
+
+4066114*
+1¨ ¨((
+
+406421113*
+1¨ ¨((
+
+406409114*
+1¨) ¨(5
+
+406423113*
+1¨6 ¨(A
+
+406409114*
+1¨E ¨(Q
+
+406425113*
+1¨R ¨(^
+
+406409114*
+1¨b ¨(n
+
+406427113*
+1¨o ¨(y
+
+406409114*
+1¨} ¨(â
+ 
+406429113*
+1¨ä ¨(î
+
+40640114*
+1∞ ∞(
+
+406431113*
+1∞ ∞(
+
+40637114*
+1∞ ∞(
+
+4064044*
+1∞ ∞(
+
+40637114*
+1∞ ∞(
+
+372370159*
+1∂ ∂('
+
+37237043*
+1∂( ∂(4
+
+37237044*
+1∂ ∂('
+
+37212443*
+1∑ ∑(
+
+37212444*
+1∑ ∑(
+
+
+372124120*
+1∑ ∑( 
+
+372370114*
+1∑ ∑( 
+
+372434113*
+1∑! ∑(*
+
+37221114*
+1∫] ∫(c
+
+372370114*
+1æ? æ(K
+
+372436113*
+1æL æ(Q
+
+3726114*
+1¿ ¿(
+
+372438113*
+1¿ ¿(
+
+372124114*
+1¿ ¿(
+
+372160113*
+1¿ ¿(%
+
+43844143*
+1≈ ≈(
+
+43844144*
+1≈ ≈(
+
+438441113*
+1≈# ≈(+
+
+43840114*
+1« «(
+
+438443113*
+1« «(4
+
+43837114*
+1« «(
+
+4384044*
+1« «(
+
+43837114*
+1« «(
+
+438101114*
+1   (
+
+438101114*
+1   (
+
+44544144*
+1œ œ(
+
+44540114*
+1– –(
+
+445448113*
+1– –(+
+
+44537114*
+1– –(
+
+4454044*
+1– –(
+
+44537114*
+1– –(
+
+450370159*
+1” ”((
+
+45037043*
+1”) ”(5
+
+45037044*
+1” ”((
+
+45012443*
+1‘ ‘(
+
+45012444*
+1‘ ‘(
+
+
+450124120*
+1‘ ‘(!
+
+450370114*
+1‘ ‘(!
+
+450453113*
+1‘" ‘()
+
+45021114*
+1ÿ] ÿ(c
+
+450370114*
+1›D ›(P
+
+450436113*
+1›Q ›(V
+
+450183114*
+1ﬂQ ﬂ(]
+
+450364113*
+1ﬂl ﬂ(q
+
+450183120*
+1ﬂQ ﬂ(]
+
+450370114*
+1ﬂQ ﬂ(]
+
+450455113*
+1ﬂ^ ﬂ(i
+
+4506114*
+1„ „(
+
+450438113*
+1„ „(
+
+450124114*
+1„ „(
+
+450160113*
+1„ „(&
+
+457441159*
+1Á Á('
+
+45744143*
+1Á( Á(0
+
+45744144*
+1Á Á('
+
+45740114*
+1Ë Ë(
+
+457460113*
+1Ë Ë(+
+
+45737114*
+1Ë Ë(
+
+4574044*
+1Ë Ë(
+
+45737114*
+1Ë Ë(
+
+45721114*
+1Íd Í(j
+
+465124159*
+1Û; Û(?
+
+46512443*
+1Û@ Û(D
+
+46512444*
+1Û; Û(?
+
+46553114*
+1Ù Ù(
+
+465128113*
+1Ù Ù(#
+
+465644*
+1Ù$ Ù((
+
+4656114*
+1Ù$ Ù((
+
+46553114*
+1ˆ ˆ(
+
+46553114*
+1ˆ ˆ(
+
+468124159*
+1˘; ˘(?
+
+46812443*
+1˘@ ˘(D
+
+46812444*
+1˘; ˘(?
+
+46850114*
+1˙ ˙(
+
+468128113*
+1˙ ˙(#
+
+468644*
+1˙$ ˙((
+
+4686114*
+1˙$ ˙((
+
+46850114*
+1¸ ¸(
+
+46850114*
+1¸ ¸(
+
+374124159*
+1ˇ? ˇ(C
+
+37412443*
+1ˇD ˇ(H
+
+37412444*
+1ˇ? ˇ(C
+
+37486114*
+1Ä Ä(
+
+374472113*
+1Ä# Ä(9
+
+374644*
+1Ä: Ä(>
+
+3746114*
+1Ä: Ä(>
+
+37486114*
+1Ç Ç(
+
+37486114*
+1Ç Ç(
+
+474124159*
+1Ö> Ö(B
+
+47412443*
+1ÖC Ö(G
+
+47412444*
+1Ö> Ö(B
+
+47462114*
+1Ü Ü(
+
+474477113*
+1Ü" Ü(7
+
+474644*
+1Ü9 Ü(=
+
+4746114*
+1Ü9 Ü(=
+
+47462114*
+1à à(
+
+47462114*
+1à à(
+
+47934114*
+1å å(
+
+479115113*
+1å å()
+
+479644*
+1å* å(.
+
+4796114*
+1å* å(.
+
+47934114*
+1é é(
+
+47934114*
+1é é(
+
+482124159*
+1ë6 ë(:
+
+48212443*
+1ë; ë(?
+
+48212444*
+1ë6 ë(:
+
+48265114*
+1í í(
+
+482485113*
+1í í(0
+
+482644*
+1í1 í(5
+
+4826114*
+1í1 í(5
+
+48265114*
+1î î(
+
+48265114*
+1î î(
+
+487124159*
+1óD ó(H
+
+48712443*
+1óI ó(M
+
+48712444*
+1óD ó(H
+
+48759114*
+1ò ò(
+
+487490113*
+1ò ò(1
+
+487644*
+1ò2 ò(6
+
+4876114*
+1ò2 ò(6
+
+48759114*
+1ö ö(
+
+48759114*
+1ö ö(
+
+492124159*
+1ù9 ù(=
+
+49212443*
+1ù> ù(B
+
+49212444*
+1ù9 ù(=
+
+49268114*
+1û û(
+
+492495113*
+1û û()
+
+492644*
+1û* û(.
+
+4926114*
+1û* û(.
+
+49268114*
+1† †(
+
+49268114*
+1† †(
+
+497124159*
+1£7 £(;
+
+49712443*
+1£< £(@
+
+49712444*
+1£7 £(;
+
+49771114*
+1§ §(
+
+497500113*
+1§ §(/
+
+497644*
+1§0 §(4
+
+4976114*
+1§0 §(4
+
+49771114*
+1¶ ¶(
+
+49771114*
+1¶ ¶(
+
+502124159*
+1©7 ©(;
+
+50212443*
+1©< ©(@
+
+50212444*
+1©7 ©(;
+
+50274114*
+1™ ™(
+
+502505113*
+1™ ™(#
+
+502644*
+1™$ ™((
+
+5026114*
+1™$ ™((
+
+50274114*
+1¨ ¨(
+
+50274114*
+1¨ ¨(
+
+50756114*
+1∞ ∞(
+
+507510113*
+1∞" ∞(7
+
+507644*
+1∞8 ∞(<
+
+5076114*
+1∞8 ∞(<
+
+50756114*
+1≤ ≤(
+
+50756114*
+1≤ ≤(
+
+512124159*
+1µ= µ(A
+
+51212443*
+1µB µ(F
+
+51212444*
+1µ= µ(A
+
+51218344*
+1µM µ(U
+
+51218544*
+1µy µ(ã
+
+51277114*
+1∂ ∂(
+
+512515113*
+1∂ ∂(&
+
+512644*
+1∂' ∂(+
+
+5126114*
+1∂' ∂(+
+
+51277114*
+1∏ ∏(
+
+51277114*
+1∏ ∏(
+
+517183159*
+1ª@ ª(H
+
+517124159*
+1ªS ª(W
+
+51718343*
+1ªI ª(Q
+
+51718344*
+1ª@ ª(H
+
+51712443*
+1ªX ª(\
+
+51712444*
+1ªS ª(W
+
+51780114*
+1º º(
+
+517520113*
+1º º('
+
+517644*
+1º( º(,
+
+5176114*
+1º( º(,
+
+51780114*
+1æ æ(
+
+51780114*
+1æ æ(
+
+522183159*
+1¡7 ¡(?
+
+522124159*
+1¡J ¡(N
+
+52218343*
+1¡@ ¡(H
+
+52218344*
+1¡7 ¡(?
+
+52212443*
+1¡O ¡(S
+
+52212444*
+1¡J ¡(N
+
+52218544*
+1¡m ¡(
+
+52283114*
+1¬ ¬(
+
+522274113*
+1¬ ¬(+
+
+522644*
+1¬, ¬(0
+
+5226114*
+1¬, ¬(0
+
+52283114*
+1ƒ ƒ(
+
+52283114*
+1ƒ ƒ(
+
+525183159*
+1«  «((
+
+52518343*
+1«) «(1
+
+52518344*
+1«  «((
+
+52540114*
+1… …( 
+
+525528113*
+1…! …(4
+
+52537114*
+1… …( 
+
+5254044*
+1… …( 
+
+52537114*
+1… …( 
+
+52521114*
+1ÀB À(H
+
+525477113*
+1Õ Õ(
+
+525644*
+1Õ Õ("
+
+5256114*
+1Õ Õ("
+
+525124120*
+1Õ$ Õ(,
+
+525183114*
+1Õ$ Õ(,
+
+525366113*
+1Õ- Õ(6
+
+53012443*
+1” ”(
+
+53012444*
+1” ”(
+
+
+530124120*
+1” ”(
+
+53040114*
+1” ”(
+
+530133113*
+1” ”(%
+
+53037114*
+1” ”(
+
+5304044*
+1” ”(
+
+53037114*
+1” ”(
+
+53021114*
+1’B ’(H
+
+411104114*
+1⁄ ⁄(
+
+411107114*
+1⁄- ⁄(0
+
+411104114*
+1⁄C ⁄(F
+
+411107114*
+1⁄W ⁄(Z
+
+535124159*
+1å9 å(=
+
+53512443*
+1å> å(B
+
+53512444*
+1å9 å(=
+
+53537043*
+1ç ç(
+
+53537044*
+1ç ç(
+
+535370120*
+1ç ç($
+
+53540114*
+1ç ç($
+
+535538113*
+1ç% ç(9
+
+53537114*
+1ç ç($
+
+5354044*
+1ç ç($
+
+53537114*
+1ç ç($
+
+5356114*
+1è è(
+
+535540113*
+1è è(
+
+53521114*
+1ëL ë(R
+
+540124159*
+1ï ï(#
+
+540370159*
+1ï* ï(6
+
+54012443*
+1ï$ ï((
+
+54012444*
+1ï ï(#
+
+54037043*
+1ï7 ï(C
+
+54037044*
+1ï* ï(6
+
+540124114*
+1ñ ñ(
+
+
+540193113*
+1ñ ñ(
+
+54089114*
+1ó ó(
+
+540384113*
+1ó ó(1
+
+540644*
+1óG ó(K
+
+5406114*
+1óG ó(K
+
+54089114*
+1ô ô(
+
+54089114*
+1ô ô(
+
+54018343*
+1õ õ(
+
+54018344*
+1õ õ(
+
+540183120*
+1õ õ($
+
+540370114*
+1õ õ($
+
+540455113*
+1õ% õ(0
+
+5406114*
+1ú ú(
+
+540517113*
+1ú ú(
+
+543124159*
+1°# °('
+
+54312443*
+1°( °(,
+
+54312444*
+1°# °('
+
+54318344*
+1£	 £(
+
+54340114*
+1£ £(#
+
+543431113*
+1£$ £(/
+
+54337114*
+1£ £(#
+
+5434044*
+1£ £(#
+
+54337114*
+1£ £(#
+
+54318343*
+1§ §(
+
+54318344*
+1§ §(
+
+543183120*
+1§ §( 
+
+5436114*
+1• •(
+
+543517113*
+1• •(
+
+5466113*
+1™ ™(

@@ -1,0 +1,9 @@
+client.view_gui.FinestraRegistrazione#validateEmail(Lclient/controller/Controller;)V
+false
+cb06b53041b95012def2b985cdd076bc
+client.view_gui.FinestraRegistrazione#updateConfirmButtonState(Lclient/controller/Controller;)V
+==
+getText javax.swing.text.JTextComponent#getText()Ljava/lang/String;
+isValidEmail client.controller.Controller#isValidEmail(Ljava/lang/String;)Z
+setForeground javax.swing.JComponent#setForeground(Ljava/awt/Color;)V
+setText javax.swing.JLabel#setText(Ljava/lang/String;)V

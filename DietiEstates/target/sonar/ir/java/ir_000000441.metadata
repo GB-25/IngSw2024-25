@@ -1,0 +1,5 @@
+client.controller.Controller#checkDettagliInserzione(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z
+false
+eebcef8c34fd104431edf3308583d307
+client.controller.Controller#isNumeric(Ljava/lang/String;)Z
+java.lang.String#equals(Ljava/lang/Object;)Z

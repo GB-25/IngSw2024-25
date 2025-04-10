@@ -1,0 +1,6 @@
+client.controller.Controller#getUrls(Lshared/classi/Immobile;)[Ljava/lang/String;
+false
+9303f2ed899d5ff1dea101f271682959
+java.lang.String#split(Ljava/lang/String;)[Ljava/lang/String;
+==
+getUrls shared.classi.Immobile#getUrls()Ljava/lang/String;

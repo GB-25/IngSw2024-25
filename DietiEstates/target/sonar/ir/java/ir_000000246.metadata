@@ -1,0 +1,6 @@
+server.business_logic_layer.UserService#registerUser(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Z
+false
+1d4ccbcbc9a305c88f59c001ad27a001
+==
+getUserByMail server.data_access_layer.interfaces.UserRepositoryInterface#getUserByMail(Ljava/lang/String;)Lshared/classi/User;
+register server.data_access_layer.interfaces.UserRepositoryInterface#register(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V

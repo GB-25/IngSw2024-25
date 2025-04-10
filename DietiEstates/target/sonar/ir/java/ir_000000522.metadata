@@ -1,0 +1,7 @@
+client.view_gui.CaricamentoProprietaNuovo#setupUploadButton(Lclient/controller/Controller;Lshared/classi/User;Ljavax/swing/JPanel;)V
+false
+528331e81e861553cc541ce9f5ed7778
+==
+addActionListener javax.swing.AbstractButton#addActionListener(Ljava/awt/event/ActionListener;)V
+getComponent java.awt.Container#getComponent(I)Ljava/awt/Component;
+getComponentCount java.awt.Container#getComponentCount()I

@@ -1,0 +1,7 @@
+client.controller.Controller#recreatePrenotazione(Lshared/classi/User;ILjavax/swing/JFrame;)V
+false
+3202cccebb71d2c9d6f3540564cc0f1e
+==
+get java.util.List#get(I)Ljava/lang/Object;
+makeReservationClient client.controller.Controller#makeReservationClient(Ljavax/swing/JFrame;Lshared/classi/Immobile;Lshared/classi/User;)V
+searchHouse client.model.ClientModel#searchHouse(Ljava/lang/String;)Ljava/util/List;

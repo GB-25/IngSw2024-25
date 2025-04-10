@@ -1,0 +1,40 @@
+
+5__sonar_lambda_53$client.view_gui.PrenotazioneClientex
+l/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/PrenotazioneCliente.java¡' ¡(N"startingBlock*Þ
+startingBlock
+¡' ¡(Nž
+›
+
+__unknown_file ("
+weatherLabeljavax.swing.JLabel"__id*U
+
+__unknown_file (9*7%
+#client.view_gui.PrenotazioneCliente"
+weatherLabelš
+—
+
+__unknown_file (
+weatherInfojava.lang.String"__id*T
+
+__unknown_file (8*6%
+#client.view_gui.PrenotazioneCliente"
+weatherInfo*
+1*š
+1
+¡- ¡(9ëè
+
+¡- ¡(N
+%27void"/javax.swing.JLabel#setText(Ljava/lang/String;)V*@
+
+__unknown_file ($
+"
+weatherLabeljavax.swing.JLabel*=
+
+__unknown_file (!
+
+weatherInfojava.lang.String2setText(Ljava/lang/String;)"
+
+¡- ¡(N
+
+%27voidB
+java.lang.Runnable

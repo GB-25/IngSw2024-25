@@ -1,0 +1,172 @@
+
+Pclient.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;k
+a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.java3 3(!"16*ª
+135 5(Ng
+e
+5 5(N
+outjava.io.PrintWriter"__id*7
+
+__unknown_file (
+
+%4java.io.PrintWriterª§
+6J 6(a
+%6java.io.InputStream"5java.net.Socket#getInputStream()Ljava/io/InputStream;*7
+
+__unknown_file (
+
+socketjava.net.Socket2getInputStream()*
+12*³
+145I 5(M<:
+5# 5(.
+%4java.io.PrintWriter"java.io.PrintWriterÞ
+Û
+5 5(N
+%5"4java.io.PrintWriter#<init>(Ljava/io/OutputStream;Z)V*7
+
+__unknown_file (
+
+%4java.io.PrintWriter*8
+
+__unknown_file (
+
+%3java.io.OutputStream* 
+
+__unknown_file (2*
+13*©
+154 4(7b
+`
+4 4(7
+socketjava.net.Socket"__id*3
+
+__unknown_file (
+
+%1java.net.Socket®«
+5/ 5(G
+%3java.io.OutputStream"7java.net.Socket#getOutputStream()Ljava/io/OutputStream;*7
+
+__unknown_file (
+
+socketjava.net.Socket2getOutputStream()*
+14*‘
+164( 4(0r
+p
+4( 4(0
+%0java.lang.String"__id*F
+
+__unknown_file (**(
+client.model.ClientModel"
+
+serverIP42
+4! 4('
+%1java.net.Socket"java.net.SocketÐ
+Í
+4 4(7
+%2",java.net.Socket#<init>(Ljava/lang/String;I)V*3
+
+__unknown_file (
+
+%1java.net.Socket*4
+
+__unknown_file (
+
+%0java.lang.String*"
+
+__unknown_file (
+""*
+15*7
+6; ;(,"(
+; ;(,
+
+%14org.json.JSONObject*ø
+7: :(,g
+e
+: :(,
+responsejava.lang.String"__id*5
+
+__unknown_file (
+
+%13java.lang.String=;
+; ;(!
+%14org.json.JSONObject"org.json.JSONObject»
+¸
+; ;(+
+%15"/org.json.JSONObject#<init>(Ljava/lang/String;)V*8
+
+__unknown_file (
+
+%14org.json.JSONObject*:
+
+__unknown_file (
+
+responsejava.lang.String*
+6*¸
+8: :( £ 
+: :(+
+%13java.lang.String"3java.io.BufferedReader#readLine()Ljava/lang/String;*:
+
+__unknown_file (
+
+injava.io.BufferedReader2
+readLine()*
+7*ï
+98 8(+Ú×
+8 8(+
+%12void"0java.io.PrintWriter#println(Ljava/lang/String;)V*8
+
+__unknown_file (
+
+outjava.io.PrintWriter*5
+
+__unknown_file (
+
+%11java.lang.String2println(Ljava/lang/String;)*
+8*¦
+106 6(cl
+j
+6 6(c
+injava.io.BufferedReader"__id*:
+
+__unknown_file (
+
+%9java.io.BufferedReader¢Ÿ
+8 8(*
+%11java.lang.String"0org.json.JSONObject#toString()Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject2
+toString()*
+9*œ
+116! 6(cB@
+6% 6(3
+%9java.io.BufferedReader"java.io.BufferedReaderÁ
+¾
+6! 6(c
+%10"0java.io.BufferedReader#<init>(Ljava/io/Reader;)V*:
+
+__unknown_file (
+
+%9java.io.BufferedReader*=
+
+__unknown_file (!
+
+%7java.io.InputStreamReader*
+10*¦
+1264 6(bHF
+68 6(I
+%7java.io.InputStreamReader"java.io.InputStreamReaderÅ
+Â
+64 6(b
+%8"8java.io.InputStreamReader#<init>(Ljava/io/InputStream;)V*=
+
+__unknown_file (!
+
+%7java.io.InputStreamReader*7
+
+__unknown_file (
+
+%6java.io.InputStream*
+11:*
+3" 3(4
+requestorg.json.JSONObjectB
+client.model.ClientModelH

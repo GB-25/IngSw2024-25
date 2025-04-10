@@ -1,0 +1,28 @@
+
+=client.view_gui.ProvaLogin$2#doInBackground()Ljava/lang/Void;o
+c/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/ProvaLogin.java¿ ¿(-"1*‹
+1
+À À(ƒ
+€
+
+À À("
+%0javax.swing.JFrame"__id*R
+
+__unknown_file (6*4
+client.view_gui.ProvaLogin$2"
+finestraCorrenteÝÚ
+
+À À(#
+
+%1void"@client.controller.Controller#registerUser(Ljavax/swing/JFrame;)V*"
+
+__unknown_file (
+""*6
+
+__unknown_file (
+
+%0javax.swing.JFrame2"registerUser(Ljavax/swing/JFrame;)"
+
+Á Á(
+""B 
+client.view_gui.ProvaLogin$2

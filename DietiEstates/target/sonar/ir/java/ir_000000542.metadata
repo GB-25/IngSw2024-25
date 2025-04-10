@@ -1,0 +1,6 @@
+server.data_access_layer.DatabaseManager#instance-init#
+false
+0b9843dd3b6035a479b67a63e1d3227a
+java.lang.Class#getName()Ljava/lang/String;
+java.lang.Object#getClass()Ljava/lang/Class;
+java.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;

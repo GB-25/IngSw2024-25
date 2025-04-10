@@ -1,0 +1,346 @@
+
+|client.controller.Controller#ricercaImmobili(DDLshared/classi/Immobile;Lshared/classi/ComposizioneImmobile;)Ljava/util/List;q
+e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.java° °(&"3*œ
+2
+§ §(V
+T
+§™ §(∞
+%3java.lang.String"__id*&
+
+__unknown_file (
+
+ErroreE
+C
+§≤ §(À	
+%4int"__id*"
+
+__unknown_file (
+""Ê
+„
+§ §(Ã
+
+%5void"ejavax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V*7
+
+__unknown_file ("
+javax.swing.JOptionPane*"
+
+__unknown_file (
+""*§
+
+__unknown_file (áÑ
+ÅInserisci un intervallo di prezzo giusto (tra i 500 e 1000000‚Ç¨). Occhio a non mettere il prezzo massimo minore di quello minimo*4
+
+__unknown_file (
+
+%3java.lang.String*'
+
+__unknown_file (
+	
+%4intè
+å
+
+¶
+ ¶(!
+%6java.util.List"1java.util.Collections#emptyList()Ljava/util/List;*5
+
+__unknown_file ("
+java.util.Collections"$
+
+¶ ¶("
+
+%6java.util.List*Ö
+3
+¢( ¢(JFD
+
+¢ ¢('
+%0java.lang.StringBuilder"java.lang.StringBuilder…
+∆
+
+¢ ¢(K
+%1"3java.lang.StringBuilder#<init>(Ljava/lang/String;)V*;
+
+__unknown_file (
+
+%0java.lang.StringBuilder*@
+
+__unknown_file ($"
+ SELECT * FROM immobili WHERE 1=1q
+o
+
+¢ ¢(L
+sqljava.lang.StringBuilder"__id*;
+
+__unknown_file (
+
+%0java.lang.StringBuilder‰·
+
+£ £('
+%2boolean"-client.controller.Controller#checkPrezzi(DD)Z*<
+
+__unknown_file ( 
+client.controller.Controller*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""2checkPrezzi(DD)*
+2
+1*É'
+1
+© ©(i
+g
+
+© ©()
+%7java.lang.String"__concat*!
+
+© ©(
+ AND prezzo >= *
+
+©  ©()
+""{
+y
+
+© ©(;
+%8java.lang.String"__concat*&
+
+© ©()
+
+%7java.lang.String*!
+
+©* ©(;
+ AND prezzo <= n
+l
+
+© ©(E
+%9java.lang.String"__concat*&
+
+© ©(;
+
+%8java.lang.String*
+
+©< ©(E
+""åâ
+
+© ©(F
+%10java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*<
+
+__unknown_file ( 
+
+sqljava.lang.StringBuilder*4
+
+__unknown_file (
+
+%9java.lang.String2append(Ljava/lang/String;)≥∞
+
+™* ™(A
+%11java.lang.String"7shared.classi.Immobile#getIndirizzo()Ljava/lang/String;*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2getIndirizzo()Ü
+É
+
+™ ™(A
+%12java.lang.String"__concat*)
+
+™ ™('
+ AND indirizzo ILIKE '%*'
+
+™* ™(A
+
+%11java.lang.Stringp
+n
+
+™ ™(H
+%13java.lang.String"__concat*'
+
+™ ™(A
+
+%12java.lang.String*
+
+™D ™(H
+%'çä
+
+™ ™(I
+%14java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*<
+
+__unknown_file ( 
+
+sqljava.lang.StringBuilder*5
+
+__unknown_file (
+
+%13java.lang.String2append(Ljava/lang/String;)¡æ
+
+´$ ´(B
+%15java.lang.String">shared.classi.Immobile#getClasseEnergetica()Ljava/lang/String;*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2getClasseEnergetica()©¶
+
+´D ´(V
+%16java.lang.String"2shared.classi.Immobile#getTipo()Ljava/lang/String;*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2	getTipo()±Æ
+
+´X ´(n
+%17java.lang.String"6shared.classi.Immobile#getAnnuncio()Ljava/lang/String;*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2getAnnuncio()ÿ’
+
+´ ´(o
+%18java.lang.String"|client.controller.Controller#checkDettagliImmobile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+client.controller.Controller*5
+
+__unknown_file (
+
+%15java.lang.String*5
+
+__unknown_file (
+
+%16java.lang.String*5
+
+__unknown_file (
+
+%17java.lang.String2McheckDettagliImmobile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)çä
+
+´ ´(p
+%19java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*<
+
+__unknown_file ( 
+
+sqljava.lang.StringBuilder*5
+
+__unknown_file (
+
+%18java.lang.String2append(Ljava/lang/String;)≥∞
+
+¨( ¨(B
+%20boolean"1shared.classi.ComposizioneImmobile#isAscensore()Z*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2isAscensore()µ≤
+
+¨D ¨(_
+%21boolean"2shared.classi.ComposizioneImmobile#isCondominio()Z*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2isCondominio()±Æ
+
+¨a ¨(z
+%22boolean"0shared.classi.ComposizioneImmobile#isTerrazzo()Z*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2isTerrazzo()≤Ø
+¨| ¨(ï
+%23boolean"0shared.classi.ComposizioneImmobile#isGiardino()Z*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2isGiardino()êç
+¨ ¨(ñ
+%24java.lang.String"Nclient.controller.Controller#checkDettagliComposizione(ZZZZ)Ljava/lang/String;*<
+
+__unknown_file ( 
+client.controller.Controller*,
+
+__unknown_file (
+
+%20boolean*,
+
+__unknown_file (
+
+%21boolean*,
+
+__unknown_file (
+
+%22boolean*,
+
+__unknown_file (
+
+%23boolean2checkDettagliComposizione(ZZZZ)éã
+¨ ¨(ó
+%25java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*<
+
+__unknown_file ( 
+
+sqljava.lang.StringBuilder*5
+
+__unknown_file (
+
+%24java.lang.String2append(Ljava/lang/String;)˘ˆ
+
+≠ ≠(
+%26java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*<
+
+__unknown_file ( 
+
+sqljava.lang.StringBuilder*!
+
+__unknown_file (
+;2append(Ljava/lang/String;)®•
+
+Æ Æ( 
+%27java.lang.String"4java.lang.StringBuilder#toString()Ljava/lang/String;*<
+
+__unknown_file ( 
+
+sqljava.lang.StringBuilder2
+toString()f
+d
+
+Æ Æ(!
+queryjava.lang.String"__id*5
+
+__unknown_file (
+
+%27java.lang.String~
+|
+
+∞
+ ∞(
+%28client.model.ClientModel"__id*G
+
+__unknown_file (+*)
+client.controller.Controller"
+modelâÜ
+
+∞
+ ∞("
+%29java.util.List"Hclient.model.ClientModel#searchHouse(Ljava/lang/String;)Ljava/util/List;*=
+
+__unknown_file (!
+
+%28client.model.ClientModel*7
+
+__unknown_file (
+
+queryjava.lang.String2searchHouse(Ljava/lang/String;)"%
+
+∞ ∞(#
+
+%29java.util.List: 
+
+__unknown_file (
+"": 
+
+__unknown_file (
+"":0
+
+°K °(]"
+immobileshared.classi.Immobile:@
+
+°^ °(2
+composizione"shared.classi.ComposizioneImmobileB 
+client.controller.ControllerH

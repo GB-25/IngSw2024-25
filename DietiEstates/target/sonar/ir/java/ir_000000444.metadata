@@ -1,0 +1,14 @@
+client.controller.Controller#configureMap(Ljavax/swing/JPanel;Lorg/jxmapviewer/JXMapViewer;DD)V
+false
+6df65c920cd34f04df945f3772a9047d
+org.jxmapviewer.OSMTileFactoryInfo#<init>()V
+org.jxmapviewer.OSMTileFactoryInfo#instance-init#
+org.jxmapviewer.viewer.DefaultTileFactory#<init>(Lorg/jxmapviewer/viewer/TileFactoryInfo;)V
+org.jxmapviewer.viewer.DefaultTileFactory#instance-init#
+org.jxmapviewer.viewer.GeoPosition#<init>(DD)V
+org.jxmapviewer.viewer.GeoPosition#instance-init#
+==
+removeAll java.awt.Container#removeAll()V
+setAddressLocation org.jxmapviewer.JXMapViewer#setAddressLocation(Lorg/jxmapviewer/viewer/GeoPosition;)V
+setTileFactory org.jxmapviewer.JXMapViewer#setTileFactory(Lorg/jxmapviewer/viewer/TileFactory;)V
+setZoom org.jxmapviewer.JXMapViewer#setZoom(I)V

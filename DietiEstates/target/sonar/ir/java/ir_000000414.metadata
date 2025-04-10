@@ -1,0 +1,20 @@
+server.presentation_layer.ClientHandler#uploadNewHouse(Lorg/json/JSONObject;)Lorg/json/JSONObject;
+false
+b7ad0c8756c6c6221568855b6852ab59
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+server.business_logic_layer.HouseService#<init>(Lserver/data_access_layer/interfaces/HouseRepositoryInterface;)V
+server.business_logic_layer.HouseService#instance-init#
+shared.classi.ComposizioneImmobile#<init>(IIIILshared/classi/ComposizioneImmobile;)V
+shared.classi.ComposizioneImmobile#<init>(ZZZZ)V
+shared.classi.ComposizioneImmobile#instance-init#
+shared.classi.Immobile#<init>(IDLshared/classi/ComposizioneImmobile;Ljava/lang/String;Ljava/lang/String;Lshared/classi/User;Lshared/classi/Immobile;)V
+shared.classi.Immobile#<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+shared.classi.Immobile#instance-init#
+==
+getBoolean org.json.JSONObject#getBoolean(Ljava/lang/String;)Z
+getInt org.json.JSONObject#getInt(Ljava/lang/String;)I
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+put org.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+uploadHouse server.business_logic_layer.HouseService#uploadHouse(Lshared/classi/Immobile;Ljava/lang/String;)I

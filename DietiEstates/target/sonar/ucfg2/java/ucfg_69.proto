@@ -1,0 +1,35 @@
+
+__sonar_lambda_10$s
+i/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/Server.java< (A"1*¦
+1 (V
+T
+ (
+%7java.util.logging.Logger"__id*"
+
+__unknown_file (
+""U
+S
+ (%
+%8java.util.logging.Level"__id*"
+
+__unknown_file (
+""ÍÊ
+ (A
+
+%9void"Jjava.util.logging.Logger#log(Ljava/util/logging/Level;Ljava/lang/String;)V*<
+
+__unknown_file ( 
+
+%7java.util.logging.Logger*;
+
+__unknown_file (
+
+%8java.util.logging.Level*9
+
+__unknown_file (
+ðŸ›‘ Server in arresto...20log(Ljava/util/logging/Level;Ljava/lang/String;)"
+ (A
+
+
+%9voidB
+java.lang.Runnable

@@ -1,0 +1,56 @@
+
+Oclient.controller.Controller#fileDownload(Ljava/lang/String;)Ljava/lang/String;q
+e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.javaæ æ("3*=
+2
+é é(",
+
+é é(
+
+fileDatajava.lang.String*¡
+3
+ç ç(}
+{
+
+ç ç(
+%0client.model.ClientModel"__id*G
+
+__unknown_file (+*)
+client.controller.Controller"
+modelš—
+
+ç ç(5
+%1java.lang.String"Pclient.model.ClientModel#downloadFileModel(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+%0client.model.ClientModel*:
+
+__unknown_file (
+
+fileNamejava.lang.String2%downloadFileModel(Ljava/lang/String;)h
+f
+
+ç ç(6
+fileDatajava.lang.String"__id*4
+
+__unknown_file (
+
+%1java.lang.String
+
+è è(
+%2boolean"java.lang.String#isEmpty()Z*:
+
+__unknown_file (
+
+fileDatajava.lang.String2	isEmpty()*
+2
+1*%
+1
+ë ë("
+
+ë ë(
+"":*
+
+æ æ(+
+fileNamejava.lang.StringB 
+client.controller.ControllerH

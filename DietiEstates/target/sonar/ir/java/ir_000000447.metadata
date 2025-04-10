@@ -1,0 +1,7 @@
+client.controller.Controller#addMapInteractionListeners(Lorg/jxmapviewer/JXMapViewer;)V
+false
+9963347b00ab6b3bd18fb1196dc842c1
+==
+addMouseListener java.awt.Component#addMouseListener(Ljava/awt/event/MouseListener;)V
+addMouseMotionListener java.awt.Component#addMouseMotionListener(Ljava/awt/event/MouseMotionListener;)V
+addMouseWheelListener java.awt.Component#addMouseWheelListener(Ljava/awt/event/MouseWheelListener;)V

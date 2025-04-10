@@ -1,0 +1,6 @@
+server.business_logic_layer.ReservationService#acceptReservation(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z
+false
+b2ff979f71a4cc6b118c42875a968b8b
+==
+alreadyGotAppointment server.data_access_layer.interfaces.ReservationRepositoryInterface#alreadyGotAppointment(Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Z
+confirmReservation server.data_access_layer.interfaces.ReservationRepositoryInterface#confirmReservation(I)V

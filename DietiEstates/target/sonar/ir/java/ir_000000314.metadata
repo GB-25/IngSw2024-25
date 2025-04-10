@@ -1,0 +1,8 @@
+client.view_gui.FinestraRegistrazione#addPasswordRequirements()V
+false
+4086dc98f599a08f2ee4c4b32d0f8a23
+javax.swing.JLabel#<init>(Ljava/lang/String;)V
+javax.swing.JLabel#instance-init#
+==
+add java.awt.Container#add(Ljava/awt/Component;)Ljava/awt/Component;
+setBounds java.awt.Component#setBounds(IIII)V

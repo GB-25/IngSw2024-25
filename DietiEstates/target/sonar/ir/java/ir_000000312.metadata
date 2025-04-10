@@ -1,0 +1,7 @@
+client.view_gui.FinestraRegistrazione#initializeComponents(Lclient/controller/Controller;)V
+false
+da67e5d3e2aff8cf839494f017655248
+client.view_gui.FinestraRegistrazione#addButtons(Lclient/controller/Controller;)V
+client.view_gui.FinestraRegistrazione#addHeader()V
+client.view_gui.FinestraRegistrazione#addLabelsAndFields(Lclient/controller/Controller;)V
+client.view_gui.FinestraRegistrazione#addPasswordRequirements()V

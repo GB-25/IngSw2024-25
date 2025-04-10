@@ -1,0 +1,255 @@
+
+aserver.business_logic_layer.HouseService#uploadHouse(Lshared/classi/Immobile;Ljava/lang/String;)I{
+q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/HouseService.java# #("4*‹
+2) )( °­
+) )(0	
+%8int"3shared.classi.ComposizioneImmobile#getQuadratura()I*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2getQuadratura()´±
+* *(.	
+%9int"5shared.classi.ComposizioneImmobile#getNumeroStanze()I*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2getNumeroStanze()§¤
++ +(&
+
+%10int".shared.classi.ComposizioneImmobile#getPiani()I*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2
+getPiani()¶³
+, ,(6
+%11boolean"0shared.classi.ComposizioneImmobile#isGiardino()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isGiardino()º·
+- -(:
+%12boolean"2shared.classi.ComposizioneImmobile#isCondominio()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isCondominio()¸µ
+. .(8
+%13boolean"1shared.classi.ComposizioneImmobile#isAscensore()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isAscensore()¶³
+/ /(6
+%14boolean"0shared.classi.ComposizioneImmobile#isTerrazzo()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isTerrazzo()·
+´
+0 0(C
+%15<server.data_access_layer.interfaces.HouseRepositoryInterface"__id*]
+
+__unknown_file (A*?*
+(server.business_logic_layer.HouseService"
+houseRepositoryðí
+0 0(t
+
+%16int"Yserver.data_access_layer.interfaces.HouseRepositoryInterface#uploadComposizione(IIIZZZZ)I*a
+
+__unknown_file (E
+C
+%15<server.data_access_layer.interfaces.HouseRepositoryInterface*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""2uploadComposizione(IIIZZZZ)
+1 1('
+%17double"#shared.classi.Immobile#getPrezzo()D*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2getPrezzo()µ²
+2 2(1
+%18java.lang.String"9shared.classi.Immobile#getDescrizione()Ljava/lang/String;*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2getDescrizione()j
+h
+2 2(2
+descrizionejava.lang.String"__id*5
+
+__unknown_file (
+
+%18java.lang.String§¤
+3 3(#
+%19java.lang.String"2shared.classi.Immobile#getUrls()Ljava/lang/String;*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2	getUrls()c
+a
+3 3($
+urlsjava.lang.String"__id*5
+
+__unknown_file (
+
+%19java.lang.String·
+´
+4
+ 4(C
+%20<server.data_access_layer.interfaces.HouseRepositoryInterface"__id*]
+
+__unknown_file (A*?*
+(server.business_logic_layer.HouseService"
+houseRepository¼¹
+4
+ 4(^
+
+%21int"›server.data_access_layer.interfaces.HouseRepositoryInterface#uploadHouse(DILshared/classi/Immobile;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I*a
+
+__unknown_file (E
+C
+%20<server.data_access_layer.interfaces.HouseRepositoryInterface*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""*H
+
+__unknown_file (,
+*
+immobileDettaglishared.classi.Immobile*=
+
+__unknown_file (!
+
+descrizionejava.lang.String*6
+
+__unknown_file (
+
+urlsjava.lang.String*8
+
+__unknown_file (
+
+agentejava.lang.String2]uploadHouse(DILshared/classi/Immobile;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)"
+4 4(_
+""*Ñ
+3( ((,¹¶
+( ((;
+%7boolean"2shared.classi.ComposizioneImmobile#isCondominio()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isCondominio()*
+2
+1*ª
+4$& $(.Ú×
+$& $(@(
+%0"shared.classi.ComposizioneImmobile"Lshared.classi.Immobile#getComposizione()Lshared/classi/ComposizioneImmobile;*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2getComposizione()
+Œ
+$ $(A2
+composizione"shared.classi.ComposizioneImmobile"__id*F
+
+__unknown_file (*
+(
+%0"shared.classi.ComposizioneImmobileöó
+%- %(K(
+%1"shared.classi.ComposizioneImmobile"Xshared.classi.ComposizioneImmobile#getComposizione()Lshared/classi/ComposizioneImmobile;*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2getComposizione()–
+“
+% %(L9
+composizioneBoolean"shared.classi.ComposizioneImmobile"__id*F
+
+__unknown_file (*
+(
+%1"shared.classi.ComposizioneImmobileÊÇ
+& &(<
+%2shared.classi.Immobile"Dshared.classi.Immobile#getImmobileDettagli()Lshared/classi/Immobile;*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile2getImmobileDettagli()z
+x
+& &(=*
+immobileDettaglishared.classi.Immobile"__id*:
+
+__unknown_file (
+
+%2shared.classi.Immobile¶
+³
+' '(!B
+%3<server.data_access_layer.interfaces.HouseRepositoryInterface"__id*]
+
+__unknown_file (A*?*
+(server.business_logic_layer.HouseService"
+houseRepository¸µ
+'4 '(S
+%4java.lang.String"7shared.classi.Immobile#getIndirizzo()Ljava/lang/String;*H
+
+__unknown_file (,
+*
+immobileDettaglishared.classi.Immobile2getIndirizzo()æã
+' '(T
+%5shared.classi.Immobile"zserver.data_access_layer.interfaces.HouseRepositoryInterface#getHouseByAddress(Ljava/lang/String;)Lshared/classi/Immobile;*`
+
+__unknown_file (D
+B
+%3<server.data_access_layer.interfaces.HouseRepositoryInterface*4
+
+__unknown_file (
+
+%4java.lang.String2%getHouseByAddress(Ljava/lang/String;)n
+l
+' '(U
+casashared.classi.Immobile"__id*:
+
+__unknown_file (
+
+%5shared.classi.Immobile|
+z
+( ((
+%6boolean"	__compare*
+( ((
+==*,
+( (( 
+
+casashared.classi.Immobile*
+( ((
+""*
+2
+3*!
+16	 6(
+"
+6 6(
+"":.
+# #(*"
+immobileshared.classi.Immobile:&
+#+ #(8
+agentejava.lang.StringB,*
+(server.business_logic_layer.HouseServiceHX

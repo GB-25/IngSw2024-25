@@ -1,0 +1,352 @@
+
+Oclient.model.ClientModel#uploadFileModel(Ljava/lang/String;I)Ljava/lang/String;k
+a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.java} }(!"19*µ
+13
+†$ †(Aœ™
+
+†$ †(A
+%9java.lang.String"/java.nio.file.Path#toString()Ljava/lang/String;*6
+
+__unknown_file (
+
+%8java.nio.file.Path2
+toString()*
+12*­
+14
+„ „(Nj
+h
+
+„ „(N
+
+base64Datajava.lang.String"__id*4
+
+__unknown_file (
+
+%7java.lang.String¨¥
+
+†$ †(6
+%8java.nio.file.Path"4java.nio.file.Path#getFileName()Ljava/nio/file/Path;*8
+
+__unknown_file (
+
+pathjava.nio.file.Path2getFileName()*
+13*„
+15
+„C „(Lëè
+
+„  „(M
+%7java.lang.String"=java.util.Base64$Encoder#encodeToString([B)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+%6java.util.Base64$Encoder*1
+
+__unknown_file (
+
+	fileBytesbyte[]2encodeToString([B)*
+14*Š
+16
+ƒ ƒ(8U
+S
+
+ƒ ƒ(8
+	fileBytesbyte[]"__id**
+
+__unknown_file (
+
+%5byte[]š
+—
+
+„  „(3
+%6java.util.Base64$Encoder"7java.util.Base64#getEncoder()Ljava/util/Base64$Encoder;*0
+
+__unknown_file ("
+java.util.Base64*
+15*É
+17
+‚ ‚(,h
+f
+
+‚ ‚(,
+pathjava.nio.file.Path"__id*6
+
+__unknown_file (
+
+%4java.nio.file.PathÆ
+Ã
+
+ƒ ƒ(7
+%5byte[]"8java.nio.file.Files#readAllBytes(Ljava/nio/file/Path;)[B*3
+
+__unknown_file ("
+java.nio.file.Files*8
+
+__unknown_file (
+
+pathjava.nio.file.Path*
+16*‡
+18
+‚ ‚(î
+ë
+
+‚ ‚(+
+%4java.nio.file.Path"Rjava.nio.file.Paths#get(Ljava/lang/String;[Ljava/lang/String;)Ljava/nio/file/Path;*3
+
+__unknown_file ("
+java.nio.file.Paths*:
+
+__unknown_file (
+
+filePathjava.lang.String*
+17* 
+19~ ~(-<:
+~! ~(+
+%0org.json.JSONObject"org.json.JSONObjectj
+h
+~ ~(-
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectk
+i
+~ ~(.
+requestorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObjectR
+P
+ (
+%2java.lang.String"__id*&
+
+__unknown_file (
+
+actionÇÄ
+ ()
+%3org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*4
+
+__unknown_file (
+
+%2java.lang.String**
+
+__unknown_file (
+
+uploadFile2)put(Ljava/lang/String;Ljava/lang/Object;)U
+S
+
+€ €(
+fileUrljava.lang.String"__id*"
+
+__unknown_file (
+""*
+18*<
+1
+“ “("+
+
+“ “(
+
+fileUrljava.lang.String*‰
+3
+ ({
+y
+
+ (
+%19java.util.logging.Logger"__id*D
+
+__unknown_file ((*&
+client.model.ClientModel"
+loggerX
+V
+
+ (%
+%20java.util.logging.Level"__id*"
+
+__unknown_file (
+""’
+
+
+' (f"
+%21java.util.function.Supplier"__declareFunction*J
+
+__unknown_file (.,
+*__sonar_lambda_11$client.model.ClientModel”
+‘
+
+__unknown_file (0
+"
+%21java.util.function.Supplier"
+
+response"__id*=
+
+__unknown_file (!
+
+responseorg.json.JSONObjectïì
+
+ (g
+%25void"Ujava.util.logging.Logger#log(Ljava/util/logging/Level;Ljava/util/function/Supplier;)V*=
+
+__unknown_file (!
+
+%19java.util.logging.Logger*<
+
+__unknown_file ( 
+
+%20java.util.logging.Level*@
+
+__unknown_file ($
+"
+%21java.util.function.Supplier2;log(Ljava/util/logging/Level;Ljava/util/function/Supplier;)*
+1*~
+4
+‹ ‹(7h
+f
+
+‹ ‹(7
+fileUrljava.lang.String"__id*5
+
+__unknown_file (
+
+%18java.lang.String*
+1*‹
+5
+‹ ‹("ôñ
+
+‹ ‹(7
+%18java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*'
+
+__unknown_file (	
+fileUrl2getString(Ljava/lang/String;)*
+4*É
+7
+Š2 Š(9V
+T
+
+Š2 Š(9
+%16java.lang.String"__id*'
+
+__unknown_file (	
+success×Ô
+
+Š Š(:
+%17boolean",java.lang.String#equals(Ljava/lang/Object;)Z*5
+
+__unknown_file (
+
+%15java.lang.String*5
+
+__unknown_file (
+
+%16java.lang.String2equals(Ljava/lang/Object;)*
+3
+5*á
+8
+‰ ‰(7o
+m
+
+‰ ‰(7
+responseorg.json.JSONObject"__id*8
+
+__unknown_file (
+
+%13org.json.JSONObjectU
+S
+
+Š# Š()
+%14java.lang.String"__id*&
+
+__unknown_file (
+
+status‚ÿ
+
+Š Š(*
+%15java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*5
+
+__unknown_file (
+
+%14java.lang.String2getString(Ljava/lang/String;)*
+7*°
+9
+‰" ‰(-™–
+
+‰" ‰(6
+%13org.json.JSONObject"Pclient.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;*8
+
+__unknown_file (
+client.model.ClientModel*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject2"sendRequest(Lorg/json/JSONObject;)*
+8*¦
+10
+ˆ ˆ(Ž‹
+
+ˆ ˆ(!
+%12org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*"
+
+__unknown_file (
+id*"
+
+__unknown_file (
+""2put(Ljava/lang/String;I)*
+9*é
+11
+‡ ‡(ÐÍ
+
+‡ ‡(/
+%11org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*(
+
+__unknown_file (
+
+fileData*<
+
+__unknown_file ( 
+
+
+base64Datajava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+10*á
+12
+† †(BÈÅ
+
+† †(B
+%10org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*(
+
+__unknown_file (
+
+fileName*4
+
+__unknown_file (
+
+%9java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+11:(
+}" }(2
+filePathjava.lang.String: 
+
+__unknown_file (
+""B
+client.model.ClientModelH

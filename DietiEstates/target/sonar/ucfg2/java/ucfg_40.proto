@@ -1,0 +1,27 @@
+
+]server.business_logic_layer.ReservationService#getPrenotazione(I)Lshared/classi/Prenotazione;Å
+w/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/ReservationService.javaI I($"1*”
+1J	 J(»
+≈
+J	 J(H
+%0Bserver.data_access_layer.interfaces.ReservationRepositoryInterface"__id*i
+
+__unknown_file (M*K0
+.server.business_logic_layer.ReservationService"
+reservationRepository»≈
+J	 J(5 
+%1shared.classi.Prenotazione"tserver.data_access_layer.interfaces.ReservationRepositoryInterface#getReservationById(I)Lshared/classi/Prenotazione;*f
+
+__unknown_file (J
+H
+%0Bserver.data_access_layer.interfaces.ReservationRepositoryInterface*"
+
+__unknown_file (
+""2getReservationById(I)".
+J J(6"
+ 
+%1shared.classi.Prenotazione: 
+
+__unknown_file (
+""B20
+.server.business_logic_layer.ReservationServiceH

@@ -1,0 +1,11 @@
+client.controller.Controller#notifyCliente(Lshared/classi/Prenotazione;Z)V
+false
+09cea1457b7659a62047df2fbeac90df
+client.controller.Controller#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)V
+javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
+==
+getId shared.classi.Immobile#getId()I
+getId shared.classi.Prenotazione#getId()I
+getImmobile shared.classi.Prenotazione#getImmobile()Lshared/classi/Immobile;
+getMail shared.classi.User#getMail()Ljava/lang/String;
+getUser shared.classi.Prenotazione#getUser()Lshared/classi/User;

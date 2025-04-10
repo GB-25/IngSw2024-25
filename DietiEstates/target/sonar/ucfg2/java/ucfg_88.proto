@@ -1,0 +1,121 @@
+
+,client.model.ClientModel#denyReservation(I)Zm
+a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.java„ „(""1*‹
+1
+… …(-><
+
+…! …(+
+%0org.json.JSONObject"org.json.JSONObjectl
+j
+
+… …(-
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectm
+k
+
+… …(.
+requestorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObjectT
+R
+
+† †(
+%2java.lang.String"__id*&
+
+__unknown_file (
+
+actionÐÍ
+
+† †(0
+%3org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*4
+
+__unknown_file (
+
+%2java.lang.String*1
+
+__unknown_file (
+reservationDenied2)put(Ljava/lang/String;Ljava/lang/Object;)Š
+
+‡ ‡(
+%4org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*"
+
+__unknown_file (
+id*"
+
+__unknown_file (
+""2put(Ljava/lang/String;I)˜•
+
+‰ ‰(2
+%5org.json.JSONObject"Pclient.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;*8
+
+__unknown_file (
+client.model.ClientModel*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject2"sendRequest(Lorg/json/JSONObject;)n
+l
+
+‰ ‰(3
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%5org.json.JSONObjectT
+R
+
+Š$ Š(*
+%6java.lang.String"__id*&
+
+__unknown_file (
+
+status€ý
+
+Š Š(+
+%7java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%6java.lang.String2getString(Ljava/lang/String;)S
+Q
+
+Š3 Š(8
+%8java.lang.String"__id*%
+
+__unknown_file (	
+errorÔÑ
+
+Š Š(9
+%9boolean",java.lang.String#equals(Ljava/lang/Object;)Z*4
+
+__unknown_file (
+
+%7java.lang.String*4
+
+__unknown_file (
+
+%8java.lang.String2equals(Ljava/lang/Object;)"
+
+Š Š(;
+"": 
+
+__unknown_file (
+""B
+client.model.ClientModelHX

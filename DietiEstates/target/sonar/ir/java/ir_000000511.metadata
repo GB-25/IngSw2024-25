@@ -1,0 +1,8 @@
+client.view_gui.CaricamentoProprietaNuovo#setupWindow()V
+false
+2ad7b0447f37a076b1d01cf5ee751ba7
+==
+setDefaultCloseOperation javax.swing.JFrame#setDefaultCloseOperation(I)V
+setLocationRelativeTo java.awt.Window#setLocationRelativeTo(Ljava/awt/Component;)V
+setSize java.awt.Window#setSize(II)V
+setTitle java.awt.Frame#setTitle(Ljava/lang/String;)V

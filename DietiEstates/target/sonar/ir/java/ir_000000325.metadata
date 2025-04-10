@@ -1,0 +1,8 @@
+client.view_gui.FinestraRegistrazione#validatePassword(Lclient/controller/Controller;)V
+false
+b50b6af1913fc16c2022db06142903c6
+client.view_gui.FinestraRegistrazione#updateConfirmButtonState(Lclient/controller/Controller;)V
+client.view_gui.FinestraRegistrazione#updatePasswordLabels()V
+==
+getPassword javax.swing.JPasswordField#getPassword()[C
+isValidPassword client.controller.Controller#isValidPassword([C[Z)V

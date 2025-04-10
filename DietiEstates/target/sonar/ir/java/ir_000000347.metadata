@@ -1,0 +1,7 @@
+client.view_gui.VisionePrenotazione#mouseClicked(Ljava/awt/event/MouseEvent;)V
+false
+219e4ce3b18423aa96436a51e11a10e1
+==
+getClickCount java.awt.event.MouseEvent#getClickCount()I
+getZoom org.jxmapviewer.JXMapViewer#getZoom()I
+setZoom org.jxmapviewer.JXMapViewer#setZoom(I)V

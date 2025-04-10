@@ -1,0 +1,5 @@
+server.business_logic_layer.UserService#updatePassword(Ljava/lang/String;Ljava/lang/String;)Z
+false
+506e9de6843bdfba8b2caa4fde65ad47
+==
+updatePassword server.data_access_layer.interfaces.UserRepositoryInterface#updatePassword(Ljava/lang/String;Ljava/lang/String;)Z

@@ -1,0 +1,173 @@
+
+iserver.presentation_layer.ClientHandler#handleDownloadRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;|
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.javaµ µ(+"10*é
+5
+¾ ¾(ÒÏ
+
+¾ ¾(0
+%11org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*(
+
+__unknown_file (
+
+fileData*=
+
+__unknown_file (!
+
+base64Imagejava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+1*†
+6
+¼ ¼(Lk
+i
+
+¼ ¼(L
+base64Imagejava.lang.String"__id*4
+
+__unknown_file (
+
+%7java.lang.StringT
+R
+
+½ ½(
+%8java.lang.String"__id*&
+
+__unknown_file (
+
+statusU
+S
+
+½  ½('
+%9java.lang.String"__id*'
+
+__unknown_file (	
+successÕÒ
+
+½ ½((
+%10org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%8java.lang.String*4
+
+__unknown_file (
+
+%9java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+5*Ñ
+7
+º º(I¯
+¬
+
+º º(I=)
+'server.presentation_layer.ClientHandler"
+storageService"__id*Y
+
+__unknown_file (=
+;
+%45server.business_logic_layer.GoogleCloudStorageService¯
+¬
+
+¼  ¼(.;
+%65server.business_logic_layer.GoogleCloudStorageService"__id*[
+
+__unknown_file (?*=)
+'server.presentation_layer.ClientHandler"
+storageServiceÖÓ
+
+¼  ¼(K
+%7java.lang.String"nserver.business_logic_layer.GoogleCloudStorageService#downloadHouseImage(Ljava/lang/String;)Ljava/lang/String;*Y
+
+__unknown_file (=
+;
+%65server.business_logic_layer.GoogleCloudStorageService*:
+
+__unknown_file (
+
+fileNamejava.lang.String2&downloadHouseImage(Ljava/lang/String;)*
+6*Ž
+8
+¹ ¹(;h
+f
+
+¹ ¹(;
+fileNamejava.lang.String"__id*4
+
+__unknown_file (
+
+%2java.lang.Stringµ
+²
+
+º: º(HA
+%3;server.data_access_layer.interfaces.StorageManagerInterface"__id*[
+
+__unknown_file (?*=)
+'server.presentation_layer.ClientHandler"
+storageManagerƒ€
+
+º  º(9;
+%45server.business_logic_layer.GoogleCloudStorageService"5server.business_logic_layer.GoogleCloudStorageServiceÏ
+Ì
+
+º º(I
+%5"|server.business_logic_layer.GoogleCloudStorageService#<init>(Lserver/data_access_layer/interfaces/StorageManagerInterface;)V*Y
+
+__unknown_file (=
+;
+%45server.business_logic_layer.GoogleCloudStorageService*_
+
+__unknown_file (C
+A
+%3;server.data_access_layer.interfaces.StorageManagerInterface*
+7*Š
+9
+¹ ¹($óð
+
+¹ ¹(:
+%2java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*(
+
+__unknown_file (
+
+fileName2getString(Ljava/lang/String;)*
+8*³
+10
+¶ ¶(-><
+
+¶! ¶(+
+%0org.json.JSONObject"org.json.JSONObjectl
+j
+
+¶ ¶(-
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectn
+l
+
+¶ ¶(.
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObject*
+9*@
+1
+Ã Ã("/
+
+Ã Ã(!
+
+responseorg.json.JSONObject:,
+
+µ, µ(>
+requestorg.json.JSONObjectB+)
+'server.presentation_layer.ClientHandler

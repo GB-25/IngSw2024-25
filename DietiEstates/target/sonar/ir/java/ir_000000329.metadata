@@ -1,0 +1,6 @@
+client.view_gui.FinestraRegistrazione#handleConfirmation(Lclient/controller/Controller;)V
+false
+320315f4014e0fb01cf514b109a31fa9
+javax.swing.SwingWorker#execute()V
+==
+createSchermataCaricamento client.controller.Controller#createSchermataCaricamento(Ljavax/swing/JFrame;Ljava/lang/String;)Lclient/view_gui/SchermataCaricamento;

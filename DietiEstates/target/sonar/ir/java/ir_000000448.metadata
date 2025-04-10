@@ -1,0 +1,17 @@
+client.controller.Controller#fetchAddressSuggestions(Ljava/lang/String;Ljavax/swing/DefaultListModel;)V
+false
+c600bd0119e372aa8baeb3d2cec67382
+okhttp3.HttpUrl#newBuilder()Lokhttp3/HttpUrl$Builder;
+okhttp3.HttpUrl#parse(Ljava/lang/String;)Lokhttp3/HttpUrl;
+okhttp3.HttpUrl#toString()Ljava/lang/String;
+okhttp3.HttpUrl$Builder#addQueryParameter(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/HttpUrl$Builder;
+okhttp3.HttpUrl$Builder#build()Lokhttp3/HttpUrl;
+okhttp3.OkHttpClient#<init>()V
+okhttp3.OkHttpClient#instance-init#
+okhttp3.Request$Builder#<init>()V
+okhttp3.Request$Builder#instance-init#
+==
+build okhttp3.Request$Builder#build()Lokhttp3/Request;
+enqueue okhttp3.Call#enqueue(Lokhttp3/Callback;)V
+newCall okhttp3.OkHttpClient#newCall(Lokhttp3/Request;)Lokhttp3/Call;
+url okhttp3.Request$Builder#url(Ljava/lang/String;)Lokhttp3/Request$Builder;

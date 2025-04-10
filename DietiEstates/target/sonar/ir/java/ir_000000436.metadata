@@ -1,0 +1,4 @@
+client.controller.Controller#isValidNumero(Ljava/lang/String;)Z
+false
+9539297bfbf7da59c05b85ac6e6aa089
+java.lang.String#matches(Ljava/lang/String;)Z

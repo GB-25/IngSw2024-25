@@ -1,0 +1,7 @@
+server.business_logic_layer.ReservationService#newReservation(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)Z
+false
+212d3697595e4e8517db925effe86ed6
+==
+alreadyGotAppointment server.data_access_layer.interfaces.ReservationRepositoryInterface#alreadyGotAppointment(Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Z
+checkReservation server.data_access_layer.interfaces.ReservationRepositoryInterface#checkReservation(Ljava/lang/String;I)Lshared/classi/Prenotazione;
+createReservation server.data_access_layer.interfaces.ReservationRepositoryInterface#createReservation(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)V

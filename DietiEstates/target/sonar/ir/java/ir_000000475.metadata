@@ -1,0 +1,7 @@
+client.controller.Controller#showResultImmobili(Ljavax/swing/JFrame;Lshared/classi/User;Ljava/util/List;Ljava/lang/String;)V
+false
+7e4283b87e290ba97ce9c69ea103a758
+client.view_gui.RisultatoRicerca#<init>(Lclient/controller/Controller;Lshared/classi/User;Ljava/util/List;Ljava/lang/String;)V
+client.view_gui.RisultatoRicerca#instance-init#
+==
+setVisible java.awt.Window#setVisible(Z)V

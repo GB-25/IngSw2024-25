@@ -1,0 +1,570 @@
+
+Wclient.view_gui.PrenotazioneCliente#getWeather(DDLjava/lang/String;I)Ljava/lang/String;x
+l/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/PrenotazioneCliente.java≠ ≠("42*é
+24
+∆" ∆(D=;
+
+∆& ∆(/
+%21org.json.JSONArray"org.json.JSONArray∂
+≥
+
+∆" ∆(D
+%22".org.json.JSONArray#<init>(Ljava/lang/String;)V*7
+
+__unknown_file (
+
+%21org.json.JSONArray*5
+
+__unknown_file (
+
+%20java.lang.String*
+23*∆
+25
+∆0 ∆(8≠™
+
+∆0 ∆(C
+%20java.lang.String"4java.lang.StringBuilder#toString()Ljava/lang/String;*A
+
+__unknown_file (%
+#
+responsejava.lang.StringBuilder2
+toString()*
+24*ü
+26
+ƒ ƒ(ÜÉ
+
+ƒ ƒ(
+%19void"java.io.BufferedReader#close()V*>
+
+__unknown_file ("
+ 
+readerjava.io.BufferedReader2close()*
+25*¨
+27
+¬ ¬(ìê
+
+¬ ¬(%
+%18java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*A
+
+__unknown_file (%
+#
+responsejava.lang.StringBuilder*6
+
+__unknown_file (
+
+linejava.lang.String2append(Ljava/lang/String;)*
+29*Ó
+28
+¡ ¡(,e
+c
+
+¡ ¡(,
+linejava.lang.String"__id*5
+
+__unknown_file (
+
+%16java.lang.Stringk
+i
+
+¡ ¡(5
+%17boolean"	__compare*
+
+¡. ¡(0
+!=*
+
+¡ ¡(-
+""*
+
+¡1 ¡(5
+""*
+26
+27*¬
+29
+¡ ¡(!©¶
+
+¡ ¡(,
+%16java.lang.String"3java.io.BufferedReader#readLine()Ljava/lang/String;*>
+
+__unknown_file ("
+ 
+readerjava.io.BufferedReader2
+readLine()*
+28*„
+30
+ø ø(9w
+u
+
+ø ø(9#
+responsejava.lang.StringBuilder"__id*<
+
+__unknown_file ( 
+
+%14java.lang.StringBuilderR
+P
+
+¿ ¿(
+linejava.lang.String"__id*"
+
+__unknown_file (
+""*
+29*Ã
+31
+æ æ(es
+q
+
+æ æ(e 
+readerjava.io.BufferedReader"__id*;
+
+__unknown_file (
+
+%12java.io.BufferedReaderGE
+
+ø) ø(6
+%14java.lang.StringBuilder"java.lang.StringBuilderv
+t
+
+ø% ø(8
+%15"!java.lang.StringBuilder#<init>()V*<
+
+__unknown_file ( 
+
+%14java.lang.StringBuilder*
+30*•
+32
+æ$ æ(dEC
+
+æ( æ(6
+%12java.io.BufferedReader"java.io.BufferedReader≈
+¬
+
+æ$ æ(d
+%13"0java.io.BufferedReader#<init>(Ljava/io/Reader;)V*;
+
+__unknown_file (
+
+%12java.io.BufferedReader*>
+
+__unknown_file ("
+ 
+%10java.io.InputStreamReader*
+31*ü
+10
+ÿ ÿ(áÑ
+
+Ÿ! Ÿ(J
+%30org.json.JSONArray"Horg.json.JSONObject#getJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;*?
+
+__unknown_file (#
+!
+
+hourlyDataorg.json.JSONObject*.
+
+__unknown_file (
+temperature_2m2 getJSONArray(Ljava/lang/String;)*
+9*Ø
+33
+æ7 æ(cKI
+
+æ; æ(L 
+%10java.io.InputStreamReader"java.io.InputStreamReader…
+∆
+
+æ7 æ(c
+%11"8java.io.InputStreamReader#<init>(Ljava/io/InputStream;)V*>
+
+__unknown_file ("
+ 
+%10java.io.InputStreamReader*7
+
+__unknown_file (
+
+%9java.io.InputStream*
+32*A
+11
+’ ’(2"/
+
+’ ’(3!
+‚ö†Ô∏è Dati meteo incompleti!*’
+34
+æM æ(Qºπ
+
+æM æ(b
+%9java.io.InputStream"<java.net.URLConnection#getInputStream()Ljava/io/InputStream;*@
+
+__unknown_file ($
+"
+connjava.net.HttpURLConnection2getInputStream()*
+33*°
+35
+ª ª(&g
+e
+
+ª ª(5
+%8java.lang.String"__concat*
+
+ª ª(&
+Errore HTTP: *
+
+ª) ª(5
+"""&
+
+ª ª(6
+
+%8java.lang.String*Ò
+13
+‘6 ‘(@‘—
+
+‘6 ‘(S
+%29boolean",org.json.JSONObject#has(Ljava/lang/String;)Z*?
+
+__unknown_file (#
+!
+
+hourlyDataorg.json.JSONObject*+
+
+__unknown_file (
+weathercode2has(Ljava/lang/String;)*
+10
+11*Ö
+36
+π π(6i
+g
+
+∫ ∫(#
+%7boolean"	__compare*
+
+∫ ∫(
+!=*
+
+∫ ∫(
+""*
+
+∫  ∫(#2»*
+35
+34*∑
+37
+π π(#ûõ
+
+π π(5	
+%6int"-java.net.HttpURLConnection#getResponseCode()I*@
+
+__unknown_file ($
+"
+connjava.net.HttpURLConnection2getResponseCode()*
+36*Á
+15
+“ “(Iq
+o
+
+“ “(I!
+
+hourlyDataorg.json.JSONObject"__id*8
+
+__unknown_file (
+
+%27org.json.JSONObject◊‘
+
+‘ ‘(1
+%28boolean",org.json.JSONObject#has(Ljava/lang/String;)Z*?
+
+__unknown_file (#
+!
+
+hourlyDataorg.json.JSONObject*.
+
+__unknown_file (
+temperature_2m2has(Ljava/lang/String;)*
+13
+11*˘
+38
+∂% ∂(Ut
+r
+
+∂ ∂(V"
+connjava.net.HttpURLConnection"__id*:
+
+__unknown_file (
+
+%4java.net.URLConnectionÍÁ
+
+∑ ∑((
+
+%5void"@java.net.HttpURLConnection#setRequestMethod(Ljava/lang/String;)V*@
+
+__unknown_file ($
+"
+connjava.net.HttpURLConnection*#
+
+__unknown_file (
+GET2$setRequestMethod(Ljava/lang/String;)*
+37*û
+16
+“$ “(0ÖÇ
+
+“$ “(H
+%27org.json.JSONObject"Jorg.json.JSONObject#getJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;*A
+
+__unknown_file (%
+#
+jsonResponseorg.json.JSONObject*&
+
+__unknown_file (
+
+hourly2!getJSONObject(Ljava/lang/String;)*
+15*¡
+39
+∂9 ∂(U®•
+
+∂9 ∂(U
+%4java.net.URLConnection"5java.net.URL#openConnection()Ljava/net/URLConnection;*0
+
+__unknown_file (
+
+%3java.net.URL2openConnection()*
+38*F
+17
+œ œ(7"4
+
+œ œ(8&$
+"‚ö†Ô∏è Dati meteo non disponibili!*„
+19
+Ã Ã(As
+q
+
+Ã Ã(A#
+jsonResponseorg.json.JSONObject"__id*8
+
+__unknown_file (
+
+%25org.json.JSONObject—Œ
+
+Œ Œ(+
+%26boolean",org.json.JSONObject#has(Ljava/lang/String;)Z*A
+
+__unknown_file (%
+#
+jsonResponseorg.json.JSONObject*&
+
+__unknown_file (
+
+hourly2has(Ljava/lang/String;)*
+16
+17*8
+4
+‹ ‹(h"'
+
+‹ ‹(h
+
+%35java.lang.String*€
+5
+‹ ‹(gƒ
+¡
+
+‹ ‹(g
+%35java.lang.String"Pjava.lang.String#format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;*0
+
+__unknown_file ("
+java.lang.String*;
+
+__unknown_file (
+üå°Ô∏è %.1f¬∞C | ‚òÅÔ∏è %s*"
+
+__unknown_file (
+""*5
+
+__unknown_file (
+
+%34java.lang.String*
+4*¯
+6
+⁄ ⁄(S·
+ﬁ
+
+‹D ‹(f
+%34java.lang.String"Nclient.view_gui.PrenotazioneCliente#getWeatherDescription(I)Ljava/lang/String;*C
+
+__unknown_file ('%
+#client.view_gui.PrenotazioneCliente*"
+
+__unknown_file (
+""*
+5*π
+7
+⁄L ⁄(Q¢ü
+
+⁄ ⁄(R
+
+%33int"org.json.JSONArray#getInt(I)I*7
+
+__unknown_file (
+
+%32org.json.JSONArray*"
+
+__unknown_file (
+""2	getInt(I)*
+6*õ
+8
+Ÿ Ÿ(\ÑÅ
+
+⁄ ⁄(D
+%32org.json.JSONArray"Horg.json.JSONObject#getJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;*?
+
+__unknown_file (#
+!
+
+hourlyDataorg.json.JSONObject*+
+
+__unknown_file (
+weathercode2 getJSONArray(Ljava/lang/String;)*
+7*¬
+9
+ŸU Ÿ(Z´®
+
+Ÿ! Ÿ([
+%31double" org.json.JSONArray#getDouble(I)D*7
+
+__unknown_file (
+
+%30org.json.JSONArray*"
+
+__unknown_file (
+""2getDouble(I)*
+8*˘
+40
+µ µ()[
+Y
+
+µ µ()
+urijava.net.URI"__id*0
+
+__unknown_file (
+
+%1java.net.URIÉÄ
+
+∂9 ∂(D
+%3java.net.URL""java.net.URI#toURL()Ljava/net/URL;*1
+
+__unknown_file (
+
+urijava.net.URI2toURL()*
+39*‰
+41
+∞ ≥(i
+g
+
+∞ ≥(
+	urlStringjava.lang.String"__id*4
+
+__unknown_file (
+
+%0java.lang.String0.
+
+µ µ(
+%1java.net.URI"java.net.URIÆ
+´
+
+µ µ((
+%2"(java.net.URI#<init>(Ljava/lang/String;)V*0
+
+__unknown_file (
+
+%1java.net.URI*;
+
+__unknown_file (
+
+	urlStringjava.lang.String*
+40*Ø
+42
+∞ ∞(%ñ
+ì
+
+∞ ≥(
+%0java.lang.String"Pjava.lang.String#format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;*0
+
+__unknown_file ("
+java.lang.String*∞
+
+__unknown_file (ìê
+çhttps://api.open-meteo.com/v1/forecast?latitude=%.2f&longitude=%.2f&hourly=temperature_2m,weathercode&start_date=%s&end_date=%s&timezone=auto*"
+
+__unknown_file (
+""*"
+
+__unknown_file (
+""*6
+
+__unknown_file (
+
+datejava.lang.String*6
+
+__unknown_file (
+
+datejava.lang.String*
+41*Ô
+20
+Ã& Ã(/÷”
+
+Ã& Ã(@
+%25org.json.JSONObject"8org.json.JSONArray#getJSONObject(I)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+	jsonArrayorg.json.JSONArray*
+
+__unknown_file (2 2getJSONObject(I)*
+19*I
+21
+… …(:"7
+
+… …(;)'
+%‚ö†Ô∏è Nessun dato meteo disponibile!*â
+22
+»& »('m
+k
+
+» »('
+%24boolean"	__compare*
+
+»# »(%
+==*
+
+» »("
+
+
+%23int*
+
+»& »('2 *
+20
+21*ä
+23
+∆ ∆(En
+l
+
+∆ ∆(E
+	jsonArrayorg.json.JSONArray"__id*7
+
+__unknown_file (
+
+%21org.json.JSONArrayÅ
+
+» »("
+
+%23int"org.json.JSONArray#length()I*=
+
+__unknown_file (!
+
+	jsonArrayorg.json.JSONArray2length()*
+22: 
+
+__unknown_file (
+"": 
+
+__unknown_file (
+"":&
+
+≠A ≠(M
+datejava.lang.String: 
+
+__unknown_file (
+""B'%
+#client.view_gui.PrenotazioneCliente

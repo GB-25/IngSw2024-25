@@ -1,0 +1,5 @@
+client.view_gui.FinestraRegistrazione#<init>(Lclient/controller/Controller;)V
+false
+89a7bf8024ded5f4acff9837c691b2a8
+client.view_gui.FinestraRegistrazione#initializeComponents(Lclient/controller/Controller;)V
+client.view_gui.FinestraRegistrazione#initializeUI()V

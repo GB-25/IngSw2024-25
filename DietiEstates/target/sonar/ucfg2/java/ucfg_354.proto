@@ -1,0 +1,70 @@
+
+eclient.controller.Controller#showReservation(Lshared/classi/User;ZLjava/lang/String;)Ljava/util/List;q
+e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.javaØ Ø($"1*ý
+1
+Ú Ú(œ™
+
+Ú Ú(
+%0java.lang.String".shared.classi.User#getMail()Ljava/lang/String;*8
+
+__unknown_file (
+
+usershared.classi.User2	getMail()d
+b
+
+Ú Ú(
+mailjava.lang.String"__id*4
+
+__unknown_file (
+
+%0java.lang.StringŠ‡
+
+Û Û('
+%1boolean"!shared.classi.User#getIsAgente()Z*8
+
+__unknown_file (
+
+usershared.classi.User2getIsAgente()}
+{
+
+Ü	 Ü(
+%2client.model.ClientModel"__id*G
+
+__unknown_file (+*)
+client.controller.Controller"
+model´±
+
+Ü	 Ü(@
+%3java.util.List"_client.model.ClientModel#getReservation(Ljava/lang/String;ZLjava/lang/String;Z)Ljava/util/List;*<
+
+__unknown_file ( 
+
+%2client.model.ClientModel*6
+
+__unknown_file (
+
+mailjava.lang.String*"
+
+__unknown_file (
+""*6
+
+__unknown_file (
+
+datajava.lang.String*"
+
+__unknown_file (
+""26getReservation(Ljava/lang/String;ZLjava/lang/String;Z)"$
+
+Ü Ü(A
+
+%3java.util.List:(
+
+Ø% Ø(/
+usershared.classi.User: 
+
+__unknown_file (
+"":&
+
+ØE Ø(P
+datajava.lang.StringB 
+client.controller.ControllerH

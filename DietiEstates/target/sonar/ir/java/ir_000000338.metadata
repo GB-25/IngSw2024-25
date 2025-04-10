@@ -1,0 +1,11 @@
+client.view_gui.VisioneCalendario#showAppointmentsForDate(Ljava/util/Map;Ljava/time/LocalDate;Ljava/lang/String;)V
+false
+78cc986383c508486c61ee0fb269bb3a
+java.lang.String#join(Ljava/lang/CharSequence;Ljava/lang/Iterable;)Ljava/lang/String;
+java.time.LocalDate#toString()Ljava/lang/String;
+java.util.ArrayList#<init>()V
+java.util.ArrayList#instance-init#
+javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
+==
+getOrDefault java.util.Map#getOrDefault(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+isEmpty java.util.List#isEmpty()Z

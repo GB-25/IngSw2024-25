@@ -1,0 +1,10 @@
+client.view_gui.CaricamentoProprietaNuovo#createMainPanel()Ljavax/swing/JPanel;
+false
+af126dfa5fc06f20b660a103f1292866
+java.awt.BorderLayout#<init>()V
+java.awt.BorderLayout#instance-init#
+javax.swing.JPanel#<init>(Ljava/awt/LayoutManager;)V
+javax.swing.JPanel#instance-init#
+==
+setBackground javax.swing.JComponent#setBackground(Ljava/awt/Color;)V
+setContentPane javax.swing.JFrame#setContentPane(Ljava/awt/Container;)V

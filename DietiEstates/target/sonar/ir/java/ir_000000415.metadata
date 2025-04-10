@@ -1,0 +1,11 @@
+server.presentation_layer.ClientHandler#addNotifica(Lorg/json/JSONObject;)Lorg/json/JSONObject;
+false
+467e44a37791fd346b332765ead1ba7c
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+server.business_logic_layer.ReservationService#<init>(Lserver/data_access_layer/interfaces/ReservationRepositoryInterface;)V
+server.business_logic_layer.ReservationService#instance-init#
+==
+aggiungiNotifica server.business_logic_layer.ReservationService#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)Z
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;

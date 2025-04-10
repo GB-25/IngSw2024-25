@@ -1,0 +1,52 @@
+
+fserver.business_logic_layer.ReservationService#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)ZÅ
+w/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/ReservationService.java; ;( "1*¢
+1<+ <(7B@
+<" <(*
+%0shared.classi.Notifica"shared.classi.Notificaí
+è
+< <(C
+%1"Dshared.classi.Notifica#<init>(Ljava/lang/String;Ljava/lang/String;)V*:
+
+__unknown_file (
+
+%0shared.classi.Notifica*>
+
+__unknown_file ("
+ 
+destinatariojava.lang.String*;
+
+__unknown_file (
+
+	messaggiojava.lang.Stringw
+u
+< <(D'
+nuovaNotificashared.classi.Notifica"__id*:
+
+__unknown_file (
+
+%0shared.classi.Notifica»
+≈
+= =(!H
+%2Bserver.data_access_layer.interfaces.ReservationRepositoryInterface"__id*i
+
+__unknown_file (M*K0
+.server.business_logic_layer.ReservationService"
+reservationRepository·ﬁ
+= =(>
+%3boolean"kserver.data_access_layer.interfaces.ReservationRepositoryInterface#salvaNotifica(Lshared/classi/Notifica;)Z*f
+
+__unknown_file (J
+H
+%2Bserver.data_access_layer.interfaces.ReservationRepositoryInterface*E
+
+__unknown_file ()
+'
+nuovaNotificashared.classi.Notifica2'salvaNotifica(Lshared/classi/Notifica;)"
+= =(?
+"":,
+;! ;(5 
+destinatariojava.lang.String:)
+;6 ;(F
+	messaggiojava.lang.StringB20
+.server.business_logic_layer.ReservationServiceHX

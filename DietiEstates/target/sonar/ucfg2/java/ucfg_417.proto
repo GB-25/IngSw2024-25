@@ -1,0 +1,240 @@
+
+Åclient.view_gui.CaricamentoProprietaNuovo#createLeftPanel(Lclient/controller/Controller;Lshared/classi/User;)Ljavax/swing/JPanel;|
+r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java_ _(""1*¡&
+1` `( :8
+` `(
+%0javax.swing.JPanel"javax.swing.JPanelh
+f
+` `( 
+%1"javax.swing.JPanel#<init>()V*6
+
+__unknown_file (
+
+%0javax.swing.JPanelá
+Ñ
+` `( :+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanel"__id*6
+
+__unknown_file (
+
+%0javax.swing.JPanelá
+Ñ
+a a(
+%2javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanel:8
+a' a(0
+%3java.awt.Dimension"java.awt.Dimension±
+Æ
+a# a(:
+%4"java.awt.Dimension#<init>(II)V*6
+
+__unknown_file (
+
+%3java.awt.Dimension*!
+
+__unknown_file (2Ú*!
+
+__unknown_file (2êÒÓ
+a a(;
+
+%5void">javax.swing.JComponent#setPreferredSize(Ljava/awt/Dimension;)V*6
+
+__unknown_file (
+
+%2javax.swing.JPanel*6
+
+__unknown_file (
+
+%3java.awt.Dimension2&setPreferredSize(Ljava/awt/Dimension;)á
+Ñ
+b b(
+%6javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanelø
+º
+b b(K
+%7javax.swing.border.Border"Ljavax.swing.BorderFactory#createEmptyBorder(IIII)Ljavax/swing/border/Border;*9
+
+__unknown_file ("
+javax.swing.BorderFactory* 
+
+__unknown_file (2* 
+
+__unknown_file (2* 
+
+__unknown_file (2* 
+
+__unknown_file (2¯ı
+b b(L
+
+%8void">javax.swing.JComponent#setBorder(Ljavax/swing/border/Border;)V*6
+
+__unknown_file (
+
+%6javax.swing.JPanel*=
+
+__unknown_file (!
+
+%7javax.swing.border.Border2&setBorder(Ljavax/swing/border/Border;)á
+Ñ
+c c(
+%9javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanelM
+K
+c  c(+
+%10java.awt.Color"__id*"
+
+__unknown_file (
+""·ﬁ
+c c(,
+%11void"7javax.swing.JComponent#setBackground(Ljava/awt/Color;)V*6
+
+__unknown_file (
+
+%9javax.swing.JPanel*3
+
+__unknown_file (
+
+%10java.awt.Color2setBackground(Ljava/awt/Color;)à
+Ö
+e e(
+%12javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanelú
+ô
+e e()
+%13void"Äclient.view_gui.CaricamentoProprietaNuovo#addBackButton(Ljavax/swing/JPanel;Lclient/controller/Controller;Lshared/classi/User;)V*I
+
+__unknown_file (-+
+)client.view_gui.CaricamentoProprietaNuovo*7
+
+__unknown_file (
+
+%12javax.swing.JPanel*?
+
+__unknown_file (#
+!
+cclient.controller.Controller*8
+
+__unknown_file (
+
+usershared.classi.Userà
+Ö
+f f( 
+%14javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanelÔ
+Ï
+f f(!
+%15void"Oclient.view_gui.CaricamentoProprietaNuovo#addInputFields(Ljavax/swing/JPanel;)V*I
+
+__unknown_file (-+
+)client.view_gui.CaricamentoProprietaNuovo*7
+
+__unknown_file (
+
+%14javax.swing.JPanelà
+Ö
+g g(%
+%16javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanel¢
+ü
+g g(/
+%17void"Üclient.view_gui.CaricamentoProprietaNuovo#addSearchComponents(Ljavax/swing/JPanel;Lclient/controller/Controller;Lshared/classi/User;)V*I
+
+__unknown_file (-+
+)client.view_gui.CaricamentoProprietaNuovo*7
+
+__unknown_file (
+
+%16javax.swing.JPanel*?
+
+__unknown_file (#
+!
+cclient.controller.Controller*8
+
+__unknown_file (
+
+usershared.classi.Userà
+Ö
+h h(%
+%18javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanelÙ
+Ò
+h h(&
+%19void"Tclient.view_gui.CaricamentoProprietaNuovo#addDescriptionField(Ljavax/swing/JPanel;)V*I
+
+__unknown_file (-+
+)client.view_gui.CaricamentoProprietaNuovo*7
+
+__unknown_file (
+
+%18javax.swing.JPanelà
+Ö
+i i(%
+%20javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanelÙ
+Ò
+i i(&
+%21void"Tclient.view_gui.CaricamentoProprietaNuovo#addAdditionalFields(Ljavax/swing/JPanel;)V*I
+
+__unknown_file (-+
+)client.view_gui.CaricamentoProprietaNuovo*7
+
+__unknown_file (
+
+%20javax.swing.JPanelà
+Ö
+j j(&
+%22javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanelı
+Ú
+j j('
+%23void"Uclient.view_gui.CaricamentoProprietaNuovo#addUploadButtonPanel(Ljavax/swing/JPanel;)V*I
+
+__unknown_file (-+
+)client.view_gui.CaricamentoProprietaNuovo*7
+
+__unknown_file (
+
+%22javax.swing.JPanelà
+Ö
+l l(
+%24javax.swing.JPanel"__id*X
+
+__unknown_file (<*:+
+)client.view_gui.CaricamentoProprietaNuovo"
+	leftPanel"'
+l l(
+
+%24javax.swing.JPanel:-
+_# _(0!
+cclient.controller.Controller:&
+_1 _(:
+usershared.classi.UserB-+
+)client.view_gui.CaricamentoProprietaNuovo

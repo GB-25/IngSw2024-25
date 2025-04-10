@@ -1,0 +1,272 @@
+
+xserver.data_access_layer.DatabaseManager#alreadyGotAppointment(Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Z}
+q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/data_access_layer/DatabaseManager.java‹ ‹(("startingBlock*Ê
+13‚ ‚(éÃ
+…
+‚ ‚(é
+queryjava.lang.String"__id*ò
+
+__unknown_file (|z
+xSELECT * FROM prenotazioni WHERE user_id = ? AND data_prenotazione = ? AND ora_prenotazione = ? AND is_confirmed = TRUE;*
+11*Ë
+14‡ ‡(êŒ
+À
+‡ ‡(ê
+queryjava.lang.String"__id*ö
+
+__unknown_file (~|
+zSELECT * FROM prenotazioni WHERE agente_id = ? AND data_prenotazione = ? AND ora_prenotazione = ? AND is_confirmed = TRUE;*
+11*o
+15
+› ›(S
+Q
+
+› ›(
+queryjava.lang.String"__id*"
+
+__unknown_file (
+""*
+13
+14*%
+1
+ı ı("
+
+ı ı(
+""*%
+3
+Ô Ô("
+
+Ô Ô(
+""*È
+startingBlock
+‹( ‹(`é
+ã
+
+€ €(
+%12"
+__annotate*2
+
+__unknown_file (
+java.lang.Override*6
+
+__unknown_file (
+
+mailjava.lang.String[
+Y
+
+‹0 ‹(4
+mailjava.lang.String"__annotation*#
+
+__unknown_file (
+
+%12é
+ã
+
+€ €(
+%13"
+__annotate*2
+
+__unknown_file (
+java.lang.Override*6
+
+__unknown_file (
+
+datajava.lang.String[
+Y
+
+‹O ‹(S
+datajava.lang.String"__annotation*#
+
+__unknown_file (
+
+%13ç
+ä
+
+€ €(
+%14"
+__annotate*2
+
+__unknown_file (
+java.lang.Override*5
+
+__unknown_file (
+
+orajava.lang.StringZ
+X
+
+‹\ ‹(_
+orajava.lang.String"__annotation*#
+
+__unknown_file (
+
+%14*
+15*˙
+5
+Ï Ï(/f
+d
+
+Ï Ï(/
+rsjava.sql.ResultSet"__id*6
+
+__unknown_file (
+
+%8java.sql.ResultSetyw
+
+Ó Ó(
+%9boolean"java.sql.ResultSet#next()Z*6
+
+__unknown_file (
+
+rsjava.sql.ResultSet2next()*
+3
+1*—
+6
+Ï Ï(∫∑
+
+Ï Ï(.
+%8java.sql.ResultSet"=java.sql.PreparedStatement#executeQuery()Ljava/sql/ResultSet;*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement2executeQuery()*
+5*©
+7
+Í Í(íè
+
+Í Í("
+
+%7void":java.sql.PreparedStatement#setString(ILjava/lang/String;)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*5
+
+__unknown_file (
+
+orajava.lang.String2setString(ILjava/lang/String;)*
+6*™
+8
+È È(ìê
+
+È È(#
+
+%6void":java.sql.PreparedStatement#setString(ILjava/lang/String;)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*6
+
+__unknown_file (
+
+datajava.lang.String2setString(ILjava/lang/String;)*
+7*§
+9
+Ê Ê(Hx
+v
+
+Ê Ê(H"
+stmtjava.sql.PreparedStatement"__id*>
+
+__unknown_file ("
+ 
+%4java.sql.PreparedStatementìê
+
+Ë	 Ë( 
+
+%5void":java.sql.PreparedStatement#setString(ILjava/lang/String;)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*6
+
+__unknown_file (
+
+mailjava.lang.String2setString(ILjava/lang/String;)*
+8*±
+10
+Â Â(Up
+n
+
+Â Â(U!
+
+connectionjava.sql.Connection"__id*7
+
+__unknown_file (
+
+%3java.sql.Connectionß§
+
+Ê& Ê(H 
+%4java.sql.PreparedStatement"Tjava.sql.Connection#prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement;*?
+
+__unknown_file (#
+!
+
+connectionjava.sql.Connection*7
+
+__unknown_file (
+
+queryjava.lang.String2$prepareStatement(Ljava/lang/String;)*
+9*å
+11
+Â% Â(2P
+N
+
+ÂA Â(D
+%0java.lang.String"__id*"
+
+__unknown_file (
+""V
+T
+
+ÂF Â(J
+%1java.lang.String"__id*(
+
+__unknown_file (
+
+postgresP
+N
+
+ÂL Â(T
+%2java.lang.String"__id*"
+
+__unknown_file (
+""˜
+Ù
+
+Â% Â(U
+%3java.sql.Connection"qjava.sql.DriverManager#getConnection(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;*6
+
+__unknown_file ("
+java.sql.DriverManager*4
+
+__unknown_file (
+
+%0java.lang.String*4
+
+__unknown_file (
+
+%1java.lang.String*4
+
+__unknown_file (
+
+%2java.lang.String*
+10:&
+
+‹) ‹(5
+mailjava.lang.String: 
+
+__unknown_file (
+"":&
+
+‹H ‹(T
+datajava.lang.String:%
+
+‹U ‹(_
+orajava.lang.StringB,*
+(server.data_access_layer.DatabaseManagerHX

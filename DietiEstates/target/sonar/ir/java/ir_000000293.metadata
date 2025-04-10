@@ -1,0 +1,39 @@
+client.model.ClientModel#uploadNewHouseModel(Lshared/classi/Immobile;Ljava/util/List;)Z
+false
+7dffad59e5f9df2d4bb927a9b584908b
+java.lang.String#equals(Ljava/lang/Object;)Z
+java.lang.StringBuilder#<init>()V
+java.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+java.lang.StringBuilder#instance-init#
+java.lang.StringBuilder#toString()Ljava/lang/String;
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+==
+getAgente shared.classi.Immobile#getAgente()Lshared/classi/User;
+getAnnuncio shared.classi.Immobile#getAnnuncio()Ljava/lang/String;
+getClasseEnergetica shared.classi.Immobile#getClasseEnergetica()Ljava/lang/String;
+getComposizione shared.classi.ComposizioneImmobile#getComposizione()Lshared/classi/ComposizioneImmobile;
+getComposizione shared.classi.Immobile#getComposizione()Lshared/classi/ComposizioneImmobile;
+getDescrizione shared.classi.Immobile#getDescrizione()Ljava/lang/String;
+getImmobileDettagli shared.classi.Immobile#getImmobileDettagli()Lshared/classi/Immobile;
+getIndirizzo shared.classi.Immobile#getIndirizzo()Ljava/lang/String;
+getInt org.json.JSONObject#getInt(Ljava/lang/String;)I
+getMail shared.classi.User#getMail()Ljava/lang/String;
+getNumeroStanze shared.classi.ComposizioneImmobile#getNumeroStanze()I
+getPiani shared.classi.ComposizioneImmobile#getPiani()I
+getPrezzo shared.classi.Immobile#getPrezzo()D
+getQuadratura shared.classi.ComposizioneImmobile#getQuadratura()I
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+getTipo shared.classi.Immobile#getTipo()Ljava/lang/String;
+isAscensore shared.classi.ComposizioneImmobile#isAscensore()Z
+isCondominio shared.classi.ComposizioneImmobile#isCondominio()Z
+isGiardino shared.classi.ComposizioneImmobile#isGiardino()Z
+isTerrazzo shared.classi.ComposizioneImmobile#isTerrazzo()Z
+length java.lang.AbstractStringBuilder#length()I
+put org.json.JSONObject#put(Ljava/lang/String;D)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;Z)Lorg/json/JSONObject;
+sendRequest client.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;
+updateUrls client.model.ClientModel#updateUrls(Ljava/lang/String;I)Z
+uploadFileModel client.model.ClientModel#uploadFileModel(Ljava/lang/String;I)Ljava/lang/String;

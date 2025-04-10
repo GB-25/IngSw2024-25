@@ -1,0 +1,6 @@
+client.view_gui.VisioneImmobile#instance-init#
+false
+1c7fccb22afa28d7af562acbfcf99fd9
+java.lang.Class#getName()Ljava/lang/String;
+java.lang.Object#getClass()Ljava/lang/Class;
+java.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;

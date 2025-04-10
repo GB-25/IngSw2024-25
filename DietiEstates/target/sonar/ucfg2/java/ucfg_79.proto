@@ -1,0 +1,122 @@
+
+Pclient.model.ClientModel#newPasswordModel(Ljava/lang/String;Ljava/lang/String;)Zk
+a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.javao o(#"1*ý
+1p p(-<:
+p! p(+
+%0org.json.JSONObject"org.json.JSONObjectj
+h
+p p(-
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectk
+i
+p p(.
+requestorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObjectR
+P
+q q(
+%2java.lang.String"__id*&
+
+__unknown_file (
+
+actionËÈ
+q q(-
+%3org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*4
+
+__unknown_file (
+
+%2java.lang.String*.
+
+__unknown_file (
+updatePassword2)put(Ljava/lang/String;Ljava/lang/Object;)ÃÀ
+r r(!
+%4org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*$
+
+__unknown_file (
+mail*6
+
+__unknown_file (
+
+mailjava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)ÓÐ
+s s(1
+%5org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*+
+
+__unknown_file (
+newPassword*?
+
+__unknown_file (#
+!
+nuovaPasswordjava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)–“
+t t(2
+%6org.json.JSONObject"Pclient.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;*8
+
+__unknown_file (
+client.model.ClientModel*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject2"sendRequest(Lorg/json/JSONObject;)l
+j
+t t(3
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%6org.json.JSONObjectR
+P
+u! u('
+%7java.lang.String"__id*&
+
+__unknown_file (
+
+statusþû
+u u((
+%8java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%7java.lang.String2getString(Ljava/lang/String;)S
+Q
+u0 u(7
+%9java.lang.String"__id*'
+
+__unknown_file (	
+successÓÐ
+u u(8
+%10boolean",java.lang.String#equals(Ljava/lang/Object;)Z*4
+
+__unknown_file (
+
+%8java.lang.String*4
+
+__unknown_file (
+
+%9java.lang.String2equals(Ljava/lang/Object;)"
+u u(:
+"":$
+o$ o(0
+mailjava.lang.String:-
+o1 o(E!
+nuovaPasswordjava.lang.StringB
+client.model.ClientModelHX

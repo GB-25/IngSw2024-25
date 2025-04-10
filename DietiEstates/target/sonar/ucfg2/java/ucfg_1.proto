@@ -1,0 +1,48 @@
+
+0__sonar_lambda_0$client.view_gui.VisioneImmobiler
+h/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/VisioneImmobile.javaA% A(I"startingBlock*Ø
+startingBlockA% A(I·
+´
+
+__unknown_file (7
+VisioneImmobile.thisclient.view_gui.VisioneImmobile"__id*Y
+
+__unknown_file (=*;!
+client.view_gui.VisioneImmobile"
+VisioneImmobile.this*
+1*¾
+1A* A(4–
+“
+A* A(4
+%50java.awt.CardLayout"__id*e
+
+__unknown_file (I*G
+7
+VisioneImmobile.thisclient.view_gui.VisioneImmobile"
+
+cardLayout•
+’
+A> A(H
+%51javax.swing.JPanel"__id*e
+
+__unknown_file (I*G
+7
+VisioneImmobile.thisclient.view_gui.VisioneImmobile"
+
+imagePanelâß
+A* A(I
+%52void"3java.awt.CardLayout#previous(Ljava/awt/Container;)V*8
+
+__unknown_file (
+
+%50java.awt.CardLayout*7
+
+__unknown_file (
+
+%51javax.swing.JPanel2previous(Ljava/awt/Container;)"
+A* A(I
+
+%52void:+
+A% A(&
+ejava.awt.event.ActionEventB!
+java.awt.event.ActionListener

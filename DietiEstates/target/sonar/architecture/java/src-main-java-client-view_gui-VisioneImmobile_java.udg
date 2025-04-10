@@ -1,0 +1,834 @@
+
+1.0ingsw2025_dietiestates25JavaFrontend"1744294123116*java2.B¥
+7
+2src/main/java/client/view_gui/VisioneImmobile.java2
+
+package4
+
+client.view_gui5
+$
+client.view_gui.VisioneImmobile7
+
+
+class8
+
+access9
+
+public10
+
+simple name11
+
+VisioneImmobile12
+6
+0client.view_gui.VisioneImmobile.serialVersionUID14
+
+field15
+
+private16
+
+serialVersionUID17
+0
+*client.view_gui.VisioneImmobile.imagePanel19
+
+
+imagePanel20
+0
+*client.view_gui.VisioneImmobile.cardLayout22
+
+
+cardLayout23
+0
+*client.view_gui.VisioneImmobile.prevButton25
+
+
+prevButton26
+0
+*client.view_gui.VisioneImmobile.nextButton28
+
+
+nextButton29
+6
+0client.view_gui.VisioneImmobile.finestraCorrente31
+
+finestraCorrente32
+1
++client.view_gui.VisioneImmobile.fontScritte34
+
+fontScritte35
+,
+&client.view_gui.VisioneImmobile.logger37
+
+	protected38
+
+logger39
+é
+áclient.view_gui.VisioneImmobile#<init>(Lclient/controller/Controller;Lshared/classi/Immobile;Lshared/classi/User;Ljavax/swing/JFrame;)V41
+
+method42
+"
+client.controller.Controller44
+
+unknown45
+
+	has param46
+
+shared.classi.Immobile48
+
+shared.classi.User50
+
+calls51
+
+is type52
+
+
+uses53
+)
+#client.eccezioni.GeocodingException55
+
+
+references56
+!
+com.formdev.flatlaf.FlatLaf58
+C
+=com.formdev.flatlaf.FlatLaf#setup(Ljavax/swing/LookAndFeel;)Z60
+&
+ com.formdev.flatlaf.FlatLightLaf62
+|
+vclient.view_gui.VisioneImmobile#createTopPanel(Lclient/controller/Controller;Lshared/classi/User;)Ljavax/swing/JPanel;64
+W
+Qclient.controller.Controller#getUrls(Lshared/classi/Immobile;)[Ljava/lang/String;66
+M
+Gclient.view_gui.VisioneImmobile#addImageToCarousel(Ljava/lang/String;)V68
+U
+Oclient.controller.Controller#fileDownload(Ljava/lang/String;)Ljava/lang/String;70
+f
+`client.view_gui.VisioneImmobile#createDetailsPanel(Lshared/classi/Immobile;)Ljavax/swing/JPanel;72
+¨
+•client.view_gui.VisioneImmobile#createButtonPanel(Lclient/controller/Controller;Lshared/classi/Immobile;Lshared/classi/User;Ljavax/swing/JFrame;)Ljavax/swing/JPanel;74
+!
+org.jxmapviewer.JXMapViewer76
+Œ
+«client.controller.Controller#getCoordinates(Lclient/controller/Controller;Ljava/lang/String;Ljavax/swing/JPanel;Lorg/jxmapviewer/JXMapViewer;Ljava/util/List;Lshared/classi/User;Ljavax/swing/JFrame;)V78
+=
+7shared.classi.Immobile#getIndirizzo()Ljava/lang/String;80
+
+returns81
+J
+Dshared.classi.Immobile#getImmobileDettagli()Lshared/classi/Immobile;83
+
+createTopPanel84
+"
+client.view_gui.HomeGenerale86
+
+createDetailsPanel87
+(
+"shared.classi.ComposizioneImmobile89
+R
+Lshared.classi.Immobile#getComposizione()Lshared/classi/ComposizioneImmobile;91
+^
+Xshared.classi.ComposizioneImmobile#getComposizione()Lshared/classi/ComposizioneImmobile;93
+)
+#shared.classi.Immobile#getPrezzo()D95
+<
+6shared.classi.Immobile#getAnnuncio()Ljava/lang/String;97
+9
+3shared.classi.ComposizioneImmobile#getQuadratura()I99
+<
+5shared.classi.ComposizioneImmobile#getNumeroStanze()I101
+E
+>shared.classi.Immobile#getClasseEnergetica()Ljava/lang/String;103
+9
+2shared.classi.Immobile#getTipo()Ljava/lang/String;105
+8
+1shared.classi.ComposizioneImmobile#isAscensore()Z107
+7
+0shared.classi.ComposizioneImmobile#isGiardino()Z109
+7
+0shared.classi.ComposizioneImmobile#isTerrazzo()Z111
+9
+2shared.classi.ComposizioneImmobile#isCondominio()Z113
+@
+9shared.classi.Immobile#getDescrizione()Ljava/lang/String;115
+
+createButtonPanel116
+|
+uclient.controller.Controller#makeReservationClient(Ljavax/swing/JFrame;Lshared/classi/Immobile;Lshared/classi/User;)V118
+[
+Tclient.controller.Controller#findImmobili(Ljavax/swing/JFrame;Lshared/classi/User;)V120
+
+addImageToCarousel121J
+
+1
+12Z
+
+3	
+354jì
+
+75
+757645
+
+54
+545545
+B
+71<
+717242 *
+1à à(26:3B
+	
+9
+16
+
+
+11
+87
+
+61
+616245
+
+65
+656645
+@
+36:
+363715 *
+1 (26:3B
+	
+9
+38
+
+
+11
+39
+
+117
+11711845
+@
+18:
+181915 *
+1 (	26:3B
+	
+9
+16
+
+
+11
+20
+
+69
+697045
+
+106
+10610745
+
+49
+495045
+
+98
+989945
+@
+30:
+303115 *
+1 (26:3B
+	
+9
+16
+
+
+11
+32
+
+96
+969745
+@
+33:
+333415 *
+1 (26:3B
+	
+9
+16
+
+
+11
+35
+
+85
+858645
+
+77
+777845
+
+102
+10210345
+
+119
+11912045
+@
+63:
+636442 *
+1o o(26:3B
+	
+9
+16
+
+
+11
+84
+@
+13:
+131415 *
+1 (26:3B
+	
+9
+16
+
+
+11
+17
+
+94
+949545
+
+92
+929345
+@
+27:
+272815 *
+1 (26:3B
+	
+9
+16
+
+
+11
+29
+C
+73=
+737442 *
+1º º(26:3B
+	
+9
+16
+
+11
+116
+
+110
+11011145
+9
+64
+678 *
+1 (:3B
+	
+9
+10
+
+
+11
+12
+
+100
+10010145
+
+112
+11211345
+
+43
+434445
+
+47
+474845
+
+90
+909145
+@
+40:
+404142 *
+1 (26:3B
+	
+9
+10
+
+
+11
+12
+
+104
+10410545
+
+79
+798045
+C
+67=
+676842 *
+1‡ ‡(26:3B
+	
+9
+16
+
+11
+121
+
+114
+11411545
+
+108
+10810945
+@
+24:
+242515 *
+1 (26:3B
+	
+9
+16
+
+
+11
+26
+
+82
+828345
+@
+21:
+212215 *
+1 (26:3B
+	
+9
+16
+
+
+11
+23
+
+59
+596045
+
+57
+575845
+
+88
+888945rÚ
+
+404346*
+1 (&
+
+404746*
+1* (2
+
+404946*
+1= (A
+
+40651*
+1 (
+
+404352*
+1' ((
+
+404353*
+1 (&
+
+404752*
+13 (;
+
+404753*
+1* (2
+
+404952*
+1B (F
+
+404953*
+1= (A
+
+405453*
+1` (r
+
+403056*
+1 (
+
+40653*
+1 (
+
+40656*
+1 (
+
+405756*
+1! !(
+
+405951*
+1! !(
+
+405753*
+1! !(
+
+406151*
+1! !($
+
+40656*
+1- -()
+
+406351*
+1- -()
+
+401856*
+13	 3(
+
+402156*
+14	 4(
+
+401856*
+15	 5(
+
+401856*
+15	 5(
+
+402156*
+15 5((
+
+401856*
+16	 6(
+
+401856*
+16	 6(
+
+404356*
+18 8(
+
+406551*
+18 8(&
+
+40656*
+1:
+ :(
+
+406751*
+1:
+ :(
+
+404356*
+1: :(
+
+406951*
+1: :(+
+
+402456*
+1>	 >(
+
+402756*
+1?	 ?(
+
+402456*
+1A	 A(
+
+402456*
+1A	 A(
+
+402156*
+1A+ A(5
+
+402156*
+1A+ A(5
+
+401856*
+1A? A(I
+
+402756*
+1B	 B(
+
+402756*
+1B	 B(
+
+402156*
+1B+ B(5
+
+402156*
+1B+ B(5
+
+401856*
+1B; B(E
+
+402456*
+1D" D(,
+
+402756*
+1E" E(,
+
+401856*
+1I I(%
+
+40656*
+1M M(1
+
+407151*
+1M M(1
+
+40656*
+1U U(/
+
+407351*
+1U U(/
+
+407552*
+1X X(
+
+407553*
+1X X(
+
+407551*
+1X$ X(/
+
+404753*
+1^ ^(
+
+404356*
+1`	 `(
+
+
+407751*
+1` `(
+
+404756*
+1` `(%
+
+407951*
+1`< `(H
+
+404781*
+1` `(%
+
+404756*
+1` `(%
+
+408251*
+1`& `(9
+
+634346*
+1o# o(-
+
+634946*
+1o1 o(5
+
+634352*
+1o. o(/
+
+634353*
+1o# o(-
+
+634952*
+1o6 o(:
+
+634953*
+1o1 o(5
+
+638551*
+1Ä< Ä(H
+
+714746*
+1à' à(/
+
+714752*
+1à0 à(8
+
+714753*
+1à' à(/
+
+718852*
+1â â('
+
+718853*
+1â â(
+
+718881*
+1â* â(2
+
+714756*
+1â* â(2
+
+719051*
+1â3 â(B
+
+718852*
+1ä ä(.
+
+718853*
+1ä ä(
+
+718881*
+1ä1 ä(=
+
+718856*
+1ä1 ä(=
+
+719251*
+1ä> ä(M
+
+714756*
+1ê3 ê(;
+
+719451*
+1ê< ê(E
+
+713356*
+1ë% ë(0
+
+714756*
+1î2 î(:
+
+719651*
+1îQ î(\
+
+714781*
+1î2 î(:
+
+714756*
+1î2 î(:
+
+718251*
+1î; î(N
+
+718856*
+1ï9 ï(E
+
+719851*
+1ïF ï(S
+
+718856*
+1ñ3 ñ(?
+
+7110051*
+1ñ@ ñ(O
+
+714756*
+1ó? ó(G
+
+7110251*
+1ó^ ó(q
+
+714781*
+1ó? ó(G
+
+714756*
+1ó? ó(G
+
+718251*
+1óH ó([
+
+714756*
+1ò( ò(0
+
+7110451*
+1òG ò(N
+
+714781*
+1ò( ò(0
+
+714756*
+1ò( ò(0
+
+718251*
+1ò1 ò(D
+
+718856*
+1ô: ô(M
+
+7110651*
+1ôN ô(Y
+
+718856*
+1ö7 ö(J
+
+7110851*
+1öK ö(U
+
+718856*
+1õ8 õ(K
+
+7111051*
+1õL õ(V
+
+718856*
+1ú: ú(M
+
+7111251*
+1úN ú(Z
+
+714756*
+1ü3 ü(;
+
+7111451*
+1ü< ü(J
+
+713356*
+1§* §(5
+
+734346*
+1º& º(0
+
+734746*
+1º4 º(<
+
+734946*
+1ºG º(K
+
+734352*
+1º1 º(2
+
+734353*
+1º& º(0
+
+734752*
+1º= º(E
+
+734753*
+1º4 º(<
+
+734952*
+1ºL º(P
+
+734953*
+1ºG º(K
+
+733356*
+1√( √(3
+
+734356*
+1…
+ …(
+
+7311751*
+1… …(!
+
+733056*
+1…" …(2
+
+733356*
+1Œ) Œ(4
+
+734356*
+1‘ ‘(
+
+7311951*
+1‘ ‘(
+
+733056*
+1‘ ‘(,
+
+671856*
+1È È(
+
+671856*
+1È È(
+
+671856*
+1Î Î(
+
+671856*
+1Î Î(
+
+671856*
+1Ï Ï(
+
+671856*
+1Ï Ï(
+
+673656*
+1Ó Ó(
+
+673656*
+1Ó Ó(

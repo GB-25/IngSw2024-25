@@ -1,0 +1,27 @@
+
+?client.view_gui.HomeGenerale$1#doInBackground()Ljava/lang/Void;o
+e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/HomeGenerale.java:  :(."1*Ñ
+1; ;(ƒ
+€
+;! ;(1
+%0javax.swing.JFrame"__id*T
+
+__unknown_file (8*6 
+client.view_gui.HomeGenerale$1"
+finestraCorrente§¤
+; ;(8
+
+%1void"Tclient.controller.Controller#findImmobili(Ljavax/swing/JFrame;Lshared/classi/User;)V*"
+
+__unknown_file (
+""*6
+
+__unknown_file (
+
+%0javax.swing.JFrame*"
+
+__unknown_file (
+""26findImmobili(Ljavax/swing/JFrame;Lshared/classi/User;)"
+< <( 
+""B" 
+client.view_gui.HomeGenerale$1

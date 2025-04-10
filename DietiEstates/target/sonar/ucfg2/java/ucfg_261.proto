@@ -1,0 +1,216 @@
+
+gserver.presentation_layer.ClientHandler#handleUploadRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;|
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.java£ £()"12*ä
+5
+­	 ­(ÍÊ
+
+­	 ­()
+%13org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*'
+
+__unknown_file (	
+fileUrl*9
+
+__unknown_file (
+
+fileUrljava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+1*†
+6
+ª	 ª(\g
+e
+
+ª	 ª(\
+fileUrljava.lang.String"__id*4
+
+__unknown_file (
+
+%9java.lang.StringU
+S
+
+¬ ¬(
+%10java.lang.String"__id*&
+
+__unknown_file (
+
+statusV
+T
+
+¬ ¬(%
+%11java.lang.String"__id*'
+
+__unknown_file (	
+success×Ô
+
+¬	 ¬(&
+%12org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*5
+
+__unknown_file (
+
+%10java.lang.String*5
+
+__unknown_file (
+
+%11java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+5*Õ
+7
+©	 ©(G¯
+¬
+
+©	 ©(G=)
+'server.presentation_layer.ClientHandler"
+storageService"__id*Y
+
+__unknown_file (=
+;
+%65server.business_logic_layer.GoogleCloudStorageService¯
+¬
+
+ª ª((;
+%85server.business_logic_layer.GoogleCloudStorageService"__id*[
+
+__unknown_file (?*=)
+'server.presentation_layer.ClientHandler"
+storageServiceÚ×
+
+ª ª([
+%9java.lang.String"server.business_logic_layer.GoogleCloudStorageService#uploadHouseImage(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;*Y
+
+__unknown_file (=
+;
+%85server.business_logic_layer.GoogleCloudStorageService*:
+
+__unknown_file (
+
+fileNamejava.lang.String*<
+
+__unknown_file ( 
+
+
+base64Datajava.lang.String*"
+
+__unknown_file (
+""27uploadHouseImage(Ljava/lang/String;Ljava/lang/String;I)*
+6*¤
+8
+¨	 ¨(/µ
+²
+
+©8 ©(FA
+%5;server.data_access_layer.interfaces.StorageManagerInterface"__id*[
+
+__unknown_file (?*=)
+'server.presentation_layer.ClientHandler"
+storageManagerƒ€
+
+© ©(7;
+%65server.business_logic_layer.GoogleCloudStorageService"5server.business_logic_layer.GoogleCloudStorageServiceÏ
+Ì
+
+© ©(G
+%7"|server.business_logic_layer.GoogleCloudStorageService#<init>(Lserver/data_access_layer/interfaces/StorageManagerInterface;)V*Y
+
+__unknown_file (=
+;
+%65server.business_logic_layer.GoogleCloudStorageService*_
+
+__unknown_file (C
+A
+%5;server.data_access_layer.interfaces.StorageManagerInterface*
+7*Ì
+9
+§	 §(;j
+h
+
+§	 §(;
+
+base64Datajava.lang.String"__id*4
+
+__unknown_file (
+
+%3java.lang.StringÉÆ
+
+¨ ¨(.	
+%4int"/org.json.JSONObject#getInt(Ljava/lang/String;)I*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*"
+
+__unknown_file (
+id2getInt(Ljava/lang/String;)*
+8*õ
+10
+¦	 ¦(9h
+f
+
+¦	 ¦(9
+fileNamejava.lang.String"__id*4
+
+__unknown_file (
+
+%2java.lang.Stringóð
+
+§ §(:
+%3java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*(
+
+__unknown_file (
+
+fileData2getString(Ljava/lang/String;)*
+9*Œ
+11
+¦ ¦("óð
+
+¦ ¦(8
+%2java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*(
+
+__unknown_file (
+
+fileName2getString(Ljava/lang/String;)*
+10*´
+12
+¤ ¤(+><
+
+¤ ¤()
+%0org.json.JSONObject"org.json.JSONObjectl
+j
+
+¤ ¤(+
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectn
+l
+
+¤ ¤(,
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObject*
+11*@
+1
+² ²("/
+
+² ²(!
+
+responseorg.json.JSONObject:,
+
+£* £(<
+requestorg.json.JSONObjectB+)
+'server.presentation_layer.ClientHandler

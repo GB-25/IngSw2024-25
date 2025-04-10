@@ -1,0 +1,7 @@
+client.controller.Controller#returnLogin(Ljavax/swing/JFrame;)V
+false
+53a4d449d6eda88662c7cdaea70fe06a
+client.view_gui.ProvaLogin#<init>(Lclient/controller/Controller;)V
+client.view_gui.ProvaLogin#instance-init#
+==
+setVisible java.awt.Window#setVisible(Z)V

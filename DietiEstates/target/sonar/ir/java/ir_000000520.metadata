@@ -1,0 +1,20 @@
+client.view_gui.CaricamentoProprietaNuovo#addUploadButtonPanel(Ljavax/swing/JPanel;)V
+false
+a41a7a4254869ba2bf8b5f4ffa04fde6
+java.awt.Color#<init>(III)V
+java.awt.Color#instance-init#
+java.awt.Dimension#<init>(II)V
+java.awt.Dimension#instance-init#
+java.awt.Font#<init>(Ljava/lang/String;II)V
+java.awt.Font#instance-init#
+javax.swing.JButton#<init>(Ljava/lang/String;)V
+javax.swing.JButton#instance-init#
+javax.swing.JPanel#<init>()V
+javax.swing.JPanel#instance-init#
+==
+add java.awt.Container#add(Ljava/awt/Component;)Ljava/awt/Component;
+setBackground javax.swing.JComponent#setBackground(Ljava/awt/Color;)V
+setBounds java.awt.Component#setBounds(IIII)V
+setFont javax.swing.JComponent#setFont(Ljava/awt/Font;)V
+setForeground javax.swing.JComponent#setForeground(Ljava/awt/Color;)V
+setPreferredSize javax.swing.JComponent#setPreferredSize(Ljava/awt/Dimension;)V

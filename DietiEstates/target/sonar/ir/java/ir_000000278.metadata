@@ -1,0 +1,5 @@
+server.business_logic_layer.GoogleCloudStorageService#downloadHouseImage(Ljava/lang/String;)Ljava/lang/String;
+false
+09fb4ea1c7f43990be78ba4a32a2fb4a
+==
+downloadImageAsBase64 server.data_access_layer.interfaces.StorageManagerInterface#downloadImageAsBase64(Ljava/lang/String;)Ljava/lang/String;

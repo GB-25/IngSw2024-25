@@ -1,0 +1,21 @@
+server.presentation_layer.ClientHandler#getPrenotazione(Lorg/json/JSONObject;)Lorg/json/JSONObject;
+false
+708cdad21946a5a36ad8d9c7437d18ec
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+server.business_logic_layer.ReservationService#<init>(Lserver/data_access_layer/interfaces/ReservationRepositoryInterface;)V
+server.business_logic_layer.ReservationService#instance-init#
+==
+getAgente shared.classi.Prenotazione#getAgente()Lshared/classi/User;
+getDataPrenotazione shared.classi.Prenotazione#getDataPrenotazione()Ljava/lang/String;
+getId shared.classi.Immobile#getId()I
+getImmobile shared.classi.Prenotazione#getImmobile()Lshared/classi/Immobile;
+getInt org.json.JSONObject#getInt(Ljava/lang/String;)I
+getMail shared.classi.User#getMail()Ljava/lang/String;
+getOraPrenotazione shared.classi.Prenotazione#getOraPrenotazione()Ljava/lang/String;
+getPrenotazione server.business_logic_layer.ReservationService#getPrenotazione(I)Lshared/classi/Prenotazione;
+getUser shared.classi.Prenotazione#getUser()Lshared/classi/User;
+isConfirmed shared.classi.Prenotazione#isConfirmed()Z
+put org.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;Z)Lorg/json/JSONObject;

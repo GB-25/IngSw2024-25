@@ -1,0 +1,358 @@
+
+_server.presentation_layer.ClientHandler#handleLogin(Lorg/json/JSONObject;)Lorg/json/JSONObject;z
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.javap p(""9*£
+2{ {(U
+S
+{ {(!
+%23java.lang.String"__id*(
+
+__unknown_file (
+
+isAgenteîë
+{# {(@
+%24boolean"!shared.classi.User#getIsAgente()Z*C
+
+__unknown_file ('
+%
+isAuthenticatedshared.classi.User2getIsAgente()™ß
+{ {(A
+%25org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;Z)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*5
+
+__unknown_file (
+
+%23java.lang.String*,
+
+__unknown_file (
+
+%24boolean2put(Ljava/lang/String;Z)¶£
+|  |(9
+%26java.lang.String".shared.classi.User#getNome()Ljava/lang/String;*C
+
+__unknown_file ('
+%
+isAuthenticatedshared.classi.User2	getNome()ƒ¡
+| |(:
+%27org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*$
+
+__unknown_file (
+nome*5
+
+__unknown_file (
+
+%26java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)¨©
+}$ }(@
+%28java.lang.String"1shared.classi.User#getCognome()Ljava/lang/String;*C
+
+__unknown_file ('
+%
+isAuthenticatedshared.classi.User2getCognome()«ƒ
+} }(A
+%29org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*'
+
+__unknown_file (	
+cognome*5
+
+__unknown_file (
+
+%28java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)∫∑
+~% ~(H
+%30java.lang.String"8shared.classi.User#getNumeroTelefono()Ljava/lang/String;*C
+
+__unknown_file ('
+%
+isAuthenticatedshared.classi.User2getNumeroTelefono()»≈
+~ ~(I
+%31org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*(
+
+__unknown_file (
+
+telefono*5
+
+__unknown_file (
+
+%30java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)¥±
+( (H
+%32java.lang.String"5shared.classi.User#getDataNascita()Ljava/lang/String;*C
+
+__unknown_file ('
+%
+isAuthenticatedshared.classi.User2getDataNascita()À»
+ (I
+%33org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*+
+
+__unknown_file (
+dataNascita*5
+
+__unknown_file (
+
+%32java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+1*ı
+3y y(`’“
+y y(`
+%21org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*5
+
+__unknown_file (
+
+%16java.lang.String*5
+
+__unknown_file (
+
+%18java.lang.Object2)put(Ljava/lang/String;Ljava/lang/Object;)Ö
+Ç
+z z(#
+%22boolean"	__compare*
+z z(
+!=*3
+z z('
+%
+isAuthenticatedshared.classi.User*
+z z(#
+""*
+2
+1*v
+4yK y(_b
+`
+yK y(_
+%18java.lang.Object"__id*5
+
+__unknown_file (
+
+%20java.lang.String*
+3*v
+5y8 y(Hb
+`
+y8 y(H
+%18java.lang.Object"__id*5
+
+__unknown_file (
+
+%19java.lang.String*
+3*À
+6x x(F’“
+x x(F
+%15org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*5
+
+__unknown_file (
+
+%10java.lang.String*5
+
+__unknown_file (
+
+%12java.lang.Object2)put(Ljava/lang/String;Ljava/lang/Object;)T
+R
+y y(
+%16java.lang.String"__id*'
+
+__unknown_file (	
+messageÖ
+Ç
+y y(5
+%17boolean"	__compare*
+y. y(0
+!=*3
+y y(-'
+%
+isAuthenticatedshared.classi.User*
+y1 y(5
+""*
+4
+5* 
+7x@ x(ER
+P
+x@ x(E
+%14java.lang.String"__id*%
+
+__unknown_file (	
+errorb
+`
+x@ x(E
+%12java.lang.Object"__id*5
+
+__unknown_file (
+
+%14java.lang.String*
+6*Ã
+8x6 x(=T
+R
+x6 x(=
+%13java.lang.String"__id*'
+
+__unknown_file (	
+successb
+`
+x6 x(=
+%12java.lang.Object"__id*5
+
+__unknown_file (
+
+%13java.lang.String*
+6*¥
+9q q(ÌÍ
+q q(/
+%0java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*$
+
+__unknown_file (
+mail2getString(Ljava/lang/String;)b
+`
+q q(0
+mailjava.lang.String"__id*4
+
+__unknown_file (
+
+%0java.lang.StringT
+R
+r, r(4
+%1java.lang.String"__id*(
+
+__unknown_file (
+
+password˝˙
+r r(5
+%2java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*4
+
+__unknown_file (
+
+%1java.lang.String2getString(Ljava/lang/String;)f
+d
+r r(6
+passwordjava.lang.String"__id*4
+
+__unknown_file (
+
+%2java.lang.String≥
+∞
+s& s(4A
+%3;server.data_access_layer.interfaces.UserRepositoryInterface"__id*[
+
+__unknown_file (?*=)
+'server.presentation_layer.ClientHandler"
+userRepositorydb
+s s(%-
+%4'server.business_logic_layer.UserService"'server.business_logic_layer.UserService±
+Æ
+s s(5
+%5"nserver.business_logic_layer.UserService#<init>(Lserver/data_access_layer/interfaces/UserRepositoryInterface;)V*K
+
+__unknown_file (/
+-
+%4'server.business_logic_layer.UserService*_
+
+__unknown_file (C
+A
+%3;server.data_access_layer.interfaces.UserRepositoryInterfaceú
+ô
+s s(5:)
+'server.presentation_layer.ClientHandler"
+userService"__id*K
+
+__unknown_file (/
+-
+%4'server.business_logic_layer.UserServiceú
+ô
+u u(*-
+%6'server.business_logic_layer.UserService"__id*X
+
+__unknown_file (<*:)
+'server.presentation_layer.ClientHandler"
+userServiceîë
+u u(K
+%7shared.classi.User"rserver.business_logic_layer.UserService#authenticateUser(Ljava/lang/String;Ljava/lang/String;)Lshared/classi/User;*K
+
+__unknown_file (/
+-
+%6'server.business_logic_layer.UserService*6
+
+__unknown_file (
+
+mailjava.lang.String*:
+
+__unknown_file (
+
+passwordjava.lang.String26authenticateUser(Ljava/lang/String;Ljava/lang/String;)q
+o
+u u(L%
+isAuthenticatedshared.classi.User"__id*6
+
+__unknown_file (
+
+%7shared.classi.User<:
+w" w(,
+%8org.json.JSONObject"org.json.JSONObjectj
+h
+w w(.
+%9"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%8org.json.JSONObjectl
+j
+w w(/
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%8org.json.JSONObjectS
+Q
+x x(
+%10java.lang.String"__id*&
+
+__unknown_file (
+
+statusÖ
+Ç
+x x(3
+%11boolean"	__compare*
+x- x(/
+!=*3
+x x(,'
+%
+isAuthenticatedshared.classi.User*
+x/ x(3
+""*
+7
+8*@
+1
+Å Å("/
+
+Å Å(!
+
+responseorg.json.JSONObject:*
+p# p(5
+requestorg.json.JSONObjectB+)
+'server.presentation_layer.ClientHandler

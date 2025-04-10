@@ -1,0 +1,8 @@
+client.controller.Controller#configureWaypoints(Lorg/jxmapviewer/JXMapViewer;Ljava/util/Set;)V
+false
+aa0c4221656228ce1c2ed247fc19de16
+org.jxmapviewer.viewer.WaypointPainter#<init>()V
+org.jxmapviewer.viewer.WaypointPainter#instance-init#
+==
+setOverlayPainter org.jxmapviewer.JXMapViewer#setOverlayPainter(Lorg/jxmapviewer/painter/Painter;)V
+setWaypoints org.jxmapviewer.viewer.WaypointPainter#setWaypoints(Ljava/util/Set;)V

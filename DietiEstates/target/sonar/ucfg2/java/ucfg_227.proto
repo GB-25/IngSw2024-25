@@ -1,0 +1,27 @@
+
+_server.business_logic_layer.HouseService#getComposizione(I)Lshared/classi/ComposizioneImmobile;{
+q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/HouseService.java (,"1*Ï
+1 	  (¶
+³
+ 	  (B
+%0<server.data_access_layer.interfaces.HouseRepositoryInterface"__id*]
+
+__unknown_file (A*?*
+(server.business_logic_layer.HouseService"
+houseRepositoryÎË
+ 	  (0(
+%1"shared.classi.ComposizioneImmobile"wserver.data_access_layer.interfaces.HouseRepositoryInterface#getComposizioneById(I)Lshared/classi/ComposizioneImmobile;*`
+
+__unknown_file (D
+B
+%0<server.data_access_layer.interfaces.HouseRepositoryInterface*"
+
+__unknown_file (
+""2getComposizioneById(I)"6
+   (1*
+(
+%1"shared.classi.ComposizioneImmobile: 
+
+__unknown_file (
+""B,*
+(server.business_logic_layer.HouseServiceH

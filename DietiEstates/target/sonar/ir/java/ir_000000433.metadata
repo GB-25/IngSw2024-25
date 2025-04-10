@@ -1,0 +1,4 @@
+client.controller.Controller#isValidNome(Ljava/lang/String;)Z
+false
+01c438bc43a922372e8ea881770ece75
+java.lang.String#length()I

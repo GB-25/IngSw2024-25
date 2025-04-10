@@ -1,0 +1,51 @@
+client.view_gui.HomeGenerale#createTopPanel(Lclient/controller/Controller;Lshared/classi/User;)Ljavax/swing/JPanel;
+false
+c76f7de07076989382adbc653358fcbc
+client.view_gui.HomeGenerale#updateBellIcon(Lclient/controller/Controller;Lshared/classi/User;Ljavax/swing/JButton;)V
+java.awt.BorderLayout#<init>()V
+java.awt.BorderLayout#instance-init#
+java.awt.Color#<init>(III)V
+java.awt.Color#instance-init#
+java.awt.Cursor#<init>(I)V
+java.awt.Cursor#instance-init#
+java.awt.Dimension#<init>(II)V
+java.awt.Dimension#instance-init#
+java.awt.FlowLayout#<init>(III)V
+java.awt.FlowLayout#instance-init#
+java.lang.Class#getResource(Ljava/lang/String;)Ljava/net/URL;
+java.lang.Object#getClass()Ljava/lang/Class;
+javax.swing.BorderFactory#createLineBorder(Ljava/awt/Color;)Ljavax/swing/border/Border;
+javax.swing.ImageIcon#<init>(Ljava/awt/Image;)V
+javax.swing.ImageIcon#<init>(Ljava/net/URL;)V
+javax.swing.ImageIcon#instance-init#
+javax.swing.JButton#<init>()V
+javax.swing.JButton#<init>(Ljavax/swing/Icon;)V
+javax.swing.JButton#instance-init#
+javax.swing.JMenuItem#<init>(Ljava/lang/String;)V
+javax.swing.JMenuItem#instance-init#
+javax.swing.JPanel#<init>(Ljava/awt/LayoutManager;)V
+javax.swing.JPanel#instance-init#
+javax.swing.JPopupMenu#<init>()V
+javax.swing.JPopupMenu#instance-init#
+javax.swing.JSeparator#<init>()V
+javax.swing.JSeparator#<init>(I)V
+javax.swing.JSeparator#instance-init#
+==
+add java.awt.Container#add(Ljava/awt/Component;)Ljava/awt/Component;
+add java.awt.Container#add(Ljava/awt/Component;Ljava/lang/Object;)V
+add javax.swing.JPopupMenu#add(Ljavax/swing/JMenuItem;)Ljavax/swing/JMenuItem;
+addActionListener javax.swing.AbstractButton#addActionListener(Ljava/awt/event/ActionListener;)V
+addComponentListener java.awt.Component#addComponentListener(Ljava/awt/event/ComponentListener;)V
+getCognome shared.classi.User#getCognome()Ljava/lang/String;
+getImage javax.swing.ImageIcon#getImage()Ljava/awt/Image;
+getIsAgente shared.classi.User#getIsAgente()Z
+getNome shared.classi.User#getNome()Ljava/lang/String;
+getScaledInstance java.awt.Image#getScaledInstance(III)Ljava/awt/Image;
+setBackground javax.swing.JComponent#setBackground(Ljava/awt/Color;)V
+setBorder javax.swing.JComponent#setBorder(Ljavax/swing/border/Border;)V
+setBorderPainted javax.swing.AbstractButton#setBorderPainted(Z)V
+setContentAreaFilled javax.swing.AbstractButton#setContentAreaFilled(Z)V
+setCursor java.awt.Component#setCursor(Ljava/awt/Cursor;)V
+setEnabled javax.swing.JMenuItem#setEnabled(Z)V
+setFocusPainted javax.swing.AbstractButton#setFocusPainted(Z)V
+setPreferredSize javax.swing.JComponent#setPreferredSize(Ljava/awt/Dimension;)V

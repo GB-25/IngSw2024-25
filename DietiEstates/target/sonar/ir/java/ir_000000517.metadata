@@ -1,0 +1,6 @@
+client.view_gui.CaricamentoProprietaNuovo#setupSearchListeners(Ljavax/swing/JTextField;Ljavax/swing/DefaultListModel;Ljavax/swing/JList;Lclient/controller/Controller;)V
+false
+cf910c3bb813d2da26c43b2d371c176c
+==
+addKeyListener java.awt.Component#addKeyListener(Ljava/awt/event/KeyListener;)V
+addMouseListener java.awt.Component#addMouseListener(Ljava/awt/event/MouseListener;)V

@@ -1,0 +1,164 @@
+
+^server.data_access_layer.DatabaseManager#updatePassword(Ljava/lang/String;Ljava/lang/String;)Z{
+q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/data_access_layer/DatabaseManager.java\ \(!"startingBlock*!
+3d d("
+d d(
+""*Ñ
+startingBlock\! \(Då
+â
+[ [(
+%10"
+__annotate*2
+
+__unknown_file (
+java.lang.Override*6
+
+__unknown_file (
+
+mailjava.lang.StringY
+W
+\) \(-
+mailjava.lang.String"__annotation*#
+
+__unknown_file (
+
+%10ï
+í
+[ [(
+%11"
+__annotate*2
+
+__unknown_file (
+java.lang.Override*?
+
+__unknown_file (#
+!
+nuovaPasswordjava.lang.Stringb
+`
+\6 \(C!
+nuovaPasswordjava.lang.String"__annotation*#
+
+__unknown_file (
+
+%11*
+9*≠
+4c c(òï
+c c(#	
+%7int"+java.sql.PreparedStatement#executeUpdate()I*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement2executeUpdate()*
+3*¶
+5b	 b(ëé
+b	 b( 
+
+%6void":java.sql.PreparedStatement#setString(ILjava/lang/String;)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*6
+
+__unknown_file (
+
+mailjava.lang.String2setString(ILjava/lang/String;)*
+4*ß
+6_ _(Kv
+t
+_ _(K"
+stmtjava.sql.PreparedStatement"__id*>
+
+__unknown_file ("
+ 
+%4java.sql.PreparedStatementöó
+a	 a()
+
+%5void":java.sql.PreparedStatement#setString(ILjava/lang/String;)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*?
+
+__unknown_file (#
+!
+nuovaPasswordjava.lang.String2setString(ILjava/lang/String;)*
+5*™
+7^
+ ^(Rn
+l
+^
+ ^(R!
+
+connectionjava.sql.Connection"__id*7
+
+__unknown_file (
+
+%3java.sql.Connection•¢
+_) _(K 
+%4java.sql.PreparedStatement"Tjava.sql.Connection#prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement;*?
+
+__unknown_file (#
+!
+
+connectionjava.sql.Connection*7
+
+__unknown_file (
+
+queryjava.lang.String2$prepareStatement(Ljava/lang/String;)*
+6*Ä
+8^" ^(/N
+L
+^> ^(A
+%0java.lang.String"__id*"
+
+__unknown_file (
+""T
+R
+^C ^(G
+%1java.lang.String"__id*(
+
+__unknown_file (
+
+postgresN
+L
+^I ^(Q
+%2java.lang.String"__id*"
+
+__unknown_file (
+""ı
+Ú
+^" ^(R
+%3java.sql.Connection"qjava.sql.DriverManager#getConnection(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;*6
+
+__unknown_file ("
+java.sql.DriverManager*4
+
+__unknown_file (
+
+%0java.lang.String*4
+
+__unknown_file (
+
+%1java.lang.String*4
+
+__unknown_file (
+
+%2java.lang.String*
+7*ê
+9] ](C|
+z
+] ](D
+queryjava.lang.String"__id*M
+
+__unknown_file (1/
+-UPDATE users SET password = ? WHERE mail = ?;*
+8:$
+\" \(.
+mailjava.lang.String:-
+\/ \(C!
+nuovaPasswordjava.lang.StringB,*
+(server.data_access_layer.DatabaseManagerHX

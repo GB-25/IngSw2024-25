@@ -1,0 +1,5 @@
+client.view_gui.VisionePrenotazione#mousePressed(Ljava/awt/event/MouseEvent;)V
+false
+6be8b058d1b83cdc4228245e4c0371dd
+==
+getPoint java.awt.event.MouseEvent#getPoint()Ljava/awt/Point;

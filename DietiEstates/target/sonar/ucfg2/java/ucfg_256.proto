@@ -1,0 +1,73 @@
+
+9__sonar_lambda_25$server.presentation_layer.ClientHandlerz
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.javagP l(	"1*ù
+
+1h' h(7=;
+h+ h(5
+%24org.json.JSONObject"org.json.JSONObjectl
+j
+h' h(7
+%25"org.json.JSONObject#<init>()V*8
+
+__unknown_file (
+
+%24org.json.JSONObjectr
+p
+h h(8$
+errorResponseorg.json.JSONObject"__id*8
+
+__unknown_file (
+
+%24org.json.JSONObjectS
+Q
+i i($
+%26java.lang.String"__id*&
+
+__unknown_file (
+
+statusR
+P
+i& i(+
+%27java.lang.String"__id*%
+
+__unknown_file (	
+error⁄◊
+i i(,
+%28org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*B
+
+__unknown_file (&
+$
+errorResponseorg.json.JSONObject*5
+
+__unknown_file (
+
+%26java.lang.String*5
+
+__unknown_file (
+
+%27java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)T
+R
+j j(%
+%29java.lang.String"__id*'
+
+__unknown_file (	
+message‹Ÿ
+j j(A
+%30org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*B
+
+__unknown_file (&
+$
+errorResponseorg.json.JSONObject*5
+
+__unknown_file (
+
+%29java.lang.String*7
+
+__unknown_file (
+Azione non riconosciuta2)put(Ljava/lang/String;Ljava/lang/Object;)"2
+k k(!&
+$
+errorResponseorg.json.JSONObject:&
+gP g(S
+reqorg.json.JSONObjectB$"
+ java.util.function.UnaryOperator

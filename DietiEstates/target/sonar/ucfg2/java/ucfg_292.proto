@@ -1,0 +1,58 @@
+
+.__sonar_lambda_29$client.view_gui.HomeGeneraleo
+e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/HomeGenerale.java|- |(X"startingBlock*ä
+startingBlock|- |(X‹
+ˆ
+
+__unknown_file (!
+cclient.controller.Controller"__id*C
+
+__unknown_file ('*%
+client.view_gui.HomeGenerale"
+c‡
+„
+
+__unknown_file (
+usershared.classi.User"__id*F
+
+__unknown_file (**(
+client.view_gui.HomeGenerale"
+user«
+¨
+
+__unknown_file (1
+HomeGenerale.thisclient.view_gui.HomeGenerale"__id*S
+
+__unknown_file (7*5
+client.view_gui.HomeGenerale"
+HomeGenerale.this*
+1*£
+1|2 |(3–
+“
+|A |(Q
+%121javax.swing.JFrame"__id*e
+
+__unknown_file (I*G
+1
+HomeGenerale.thisclient.view_gui.HomeGenerale"
+finestraCorrenteÞÛ
+|2 |(X
+%122void"Tclient.controller.Controller#viewCalendar(Ljavax/swing/JFrame;Lshared/classi/User;)V*?
+
+__unknown_file (#
+!
+cclient.controller.Controller*8
+
+__unknown_file (
+
+%121javax.swing.JFrame*8
+
+__unknown_file (
+
+usershared.classi.User26viewCalendar(Ljavax/swing/JFrame;Lshared/classi/User;)"
+|2 |(X
+
+%122void:+
+|- |(.
+ejava.awt.event.ActionEventB!
+java.awt.event.ActionListener

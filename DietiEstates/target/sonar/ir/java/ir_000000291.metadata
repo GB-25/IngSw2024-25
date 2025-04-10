@@ -1,0 +1,12 @@
+client.model.ClientModel#getAgente(Ljava/lang/String;)Lshared/classi/User;
+false
+bee19e938b9ce3eaf6bbdd513d7d9f82
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+shared.classi.User#<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
+shared.classi.User#instance-init#
+==
+getBoolean org.json.JSONObject#getBoolean(Ljava/lang/String;)Z
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+sendRequest client.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;

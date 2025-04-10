@@ -1,0 +1,64 @@
+
+Oclient.view_gui.CaricamentoProprietaNuovo#createMainPanel()Ljavax/swing/JPanel;|
+r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.javaX X(""1*“	
+1Y& Y(8@>
+Y* Y(6
+%0java.awt.BorderLayout"java.awt.BorderLayoutn
+l
+Y& Y(8
+%1"java.awt.BorderLayout#<init>()V*9
+
+__unknown_file (
+
+%0java.awt.BorderLayout:8
+Y Y(%
+%2javax.swing.JPanel"javax.swing.JPanel¼
+¹
+Y Y(9
+%3"4javax.swing.JPanel#<init>(Ljava/awt/LayoutManager;)V*6
+
+__unknown_file (
+
+%2javax.swing.JPanel*9
+
+__unknown_file (
+
+%0java.awt.BorderLayoutk
+i
+Y Y(:
+	mainPaneljavax.swing.JPanel"__id*6
+
+__unknown_file (
+
+%2javax.swing.JPanelL
+J
+Z  Z(+
+%4java.awt.Color"__id*"
+
+__unknown_file (
+""æã
+Z Z(,
+
+%5void"7javax.swing.JComponent#setBackground(Ljava/awt/Color;)V*=
+
+__unknown_file (!
+
+	mainPaneljavax.swing.JPanel*2
+
+__unknown_file (
+
+%4java.awt.Color2setBackground(Ljava/awt/Color;)ƒ€
+[ [(!
+
+%6void"8javax.swing.JFrame#setContentPane(Ljava/awt/Container;)V*I
+
+__unknown_file (-+
+)client.view_gui.CaricamentoProprietaNuovo*=
+
+__unknown_file (!
+
+	mainPaneljavax.swing.JPanel2$setContentPane(Ljava/awt/Container;)"-
+\ \(!
+
+	mainPaneljavax.swing.JPanelB-+
+)client.view_gui.CaricamentoProprietaNuovo

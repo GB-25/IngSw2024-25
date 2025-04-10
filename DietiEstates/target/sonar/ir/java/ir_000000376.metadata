@@ -1,0 +1,5 @@
+server.business_logic_layer.HouseService#getImmobile(I)Lshared/classi/Immobile;
+false
+70e0ca6932768e74aec7c8e44e088765
+==
+getHouseById server.data_access_layer.interfaces.HouseRepositoryInterface#getHouseById(I)Lshared/classi/Immobile;

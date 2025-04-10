@@ -1,0 +1,275 @@
+
+]client.model.ClientModel#loginModel(Ljava/lang/String;Ljava/lang/String;)Lshared/classi/User;k
+a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.javaF F("4*f
+2V V(R
+P
+V V(
+usershared.classi.User"__id*"
+
+__unknown_file (
+""*
+1*Ô
+3N N("ïì
+N N(4
+%12java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*$
+
+__unknown_file (
+nome2getString(Ljava/lang/String;)c
+a
+N N(5
+nomejava.lang.String"__id*5
+
+__unknown_file (
+
+%12java.lang.Stringòï
+O O(:
+%13java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*'
+
+__unknown_file (	
+cognome2getString(Ljava/lang/String;)f
+d
+O O(;
+cognomejava.lang.String"__id*5
+
+__unknown_file (
+
+%13java.lang.Stringöó
+P! P(B
+%14java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*+
+
+__unknown_file (
+dataNascita2getString(Ljava/lang/String;)j
+h
+P P(C
+dataNascitajava.lang.String"__id*5
+
+__unknown_file (
+
+%14java.lang.Stringóð
+Q Q(<
+%15java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*(
+
+__unknown_file (
+
+telefono2getString(Ljava/lang/String;)g
+e
+Q Q(=
+telefonojava.lang.String"__id*5
+
+__unknown_file (
+
+%15java.lang.StringU
+S
+R3 R(A
+%16java.lang.String"__id*(
+
+__unknown_file (
+
+isAgenteèå
+R R(B
+%17boolean"3org.json.JSONObject#getBoolean(Ljava/lang/String;)Z*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*5
+
+__unknown_file (
+
+%16java.lang.String2getBoolean(Ljava/lang/String;);9
+T T(
+%18shared.classi.User"shared.classi.Userß
+Ü
+T T([
+%19"‰shared.classi.User#<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V*7
+
+__unknown_file (
+
+%18shared.classi.User*6
+
+__unknown_file (
+
+mailjava.lang.String*:
+
+__unknown_file (
+
+passwordjava.lang.String*6
+
+__unknown_file (
+
+nomejava.lang.String*9
+
+__unknown_file (
+
+cognomejava.lang.String*:
+
+__unknown_file (
+
+telefonojava.lang.String*=
+
+__unknown_file (!
+
+dataNascitajava.lang.String*"
+
+__unknown_file (
+""g
+e
+T T([
+usershared.classi.User"__id*7
+
+__unknown_file (
+
+%18shared.classi.User*
+1*˜
+4G G(-<:
+G! G(+
+%0org.json.JSONObject"org.json.JSONObjectj
+h
+G G(-
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectk
+i
+G G(.
+requestorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObjectR
+P
+H H(
+%2java.lang.String"__id*&
+
+__unknown_file (
+
+actionÂ¿
+H H($
+%3org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*4
+
+__unknown_file (
+
+%2java.lang.String*%
+
+__unknown_file (	
+login2)put(Ljava/lang/String;Ljava/lang/Object;)ÃÀ
+I I(!
+%4org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*$
+
+__unknown_file (
+mail*6
+
+__unknown_file (
+
+mailjava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)T
+R
+J J("
+%5java.lang.String"__id*(
+
+__unknown_file (
+
+password×Ô
+J J(-
+%6org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*4
+
+__unknown_file (
+
+%5java.lang.String*:
+
+__unknown_file (
+
+passwordjava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)R
+P
+K K(
+usershared.classi.User"__id*"
+
+__unknown_file (
+""–“
+L L(2
+%7org.json.JSONObject"Pclient.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;*8
+
+__unknown_file (
+client.model.ClientModel*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject2"sendRequest(Lorg/json/JSONObject;)l
+j
+L L(3
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%7org.json.JSONObjectR
+P
+M M(%
+%8java.lang.String"__id*&
+
+__unknown_file (
+
+statusþû
+M M(&
+%9java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%8java.lang.String2getString(Ljava/lang/String;)T
+R
+M. M(5
+%10java.lang.String"__id*'
+
+__unknown_file (	
+successÔÑ
+M M(6
+%11boolean",java.lang.String#equals(Ljava/lang/Object;)Z*4
+
+__unknown_file (
+
+%9java.lang.String*5
+
+__unknown_file (
+
+%10java.lang.String2equals(Ljava/lang/Object;)*
+2
+3*7
+1X X("(
+X X(
+
+usershared.classi.User:$
+F F('
+mailjava.lang.String:(
+F( F(7
+passwordjava.lang.StringB
+client.model.ClientModelH

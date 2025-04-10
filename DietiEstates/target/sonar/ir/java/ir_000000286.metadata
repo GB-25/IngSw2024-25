@@ -1,0 +1,24 @@
+client.model.ClientModel#getWholeReservationAgent(Lshared/classi/User;Ljava/lang/String;)Ljava/util/List;
+false
+af3e578ab755696dd59dd5c2e5d09d79
+java.lang.String#equals(Ljava/lang/Object;)Z
+java.util.ArrayList#<init>()V
+java.util.ArrayList#instance-init#
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+shared.classi.Prenotazione#<init>(ILjava/lang/String;Ljava/lang/String;Lshared/classi/User;Lshared/classi/Immobile;Lshared/classi/User;Z)V
+shared.classi.Prenotazione#instance-init#
+==
+add java.util.ArrayList#add(Ljava/lang/Object;)Z
+get java.util.List#get(I)Ljava/lang/Object;
+getAgente client.model.ClientModel#getAgente(Ljava/lang/String;)Lshared/classi/User;
+getInt org.json.JSONObject#getInt(Ljava/lang/String;)I
+getJSONArray org.json.JSONObject#getJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+getJSONObject org.json.JSONArray#getJSONObject(I)Lorg/json/JSONObject;
+getMail shared.classi.User#getMail()Ljava/lang/String;
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+length org.json.JSONArray#length()I
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;Z)Lorg/json/JSONObject;
+searchHouse client.model.ClientModel#searchHouse(Ljava/lang/String;)Ljava/util/List;
+sendRequest client.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;

@@ -1,0 +1,273 @@
+
+Jclient.model.ClientModel#getAgente(Ljava/lang/String;)Lshared/classi/User;m
+a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.java´ ´("1*Û%
+1
+µ µ(-><
+
+µ! µ(+
+%0org.json.JSONObject"org.json.JSONObjectl
+j
+
+µ µ(-
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectm
+k
+
+µ µ(.
+requestorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObjectT
+R
+
+¶ ¶(
+%2java.lang.String"__id*&
+
+__unknown_file (
+
+actionÉÆ
+
+¶ ¶()
+%3org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*4
+
+__unknown_file (
+
+%2java.lang.String**
+
+__unknown_file (
+
+findAgente2)put(Ljava/lang/String;Ljava/lang/Object;)ËÈ
+
+· ·('
+%4org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*$
+
+__unknown_file (
+mail*<
+
+__unknown_file ( 
+
+
+mailAgentejava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)˜•
+
+¹ ¹(2
+%5org.json.JSONObject"Pclient.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;*8
+
+__unknown_file (
+client.model.ClientModel*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject2"sendRequest(Lorg/json/JSONObject;)n
+l
+
+¹ ¹(3
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%5org.json.JSONObjectðí
+
+» »(0
+%6java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*$
+
+__unknown_file (
+mail2getString(Ljava/lang/String;)d
+b
+
+» »(1
+mailjava.lang.String"__id*4
+
+__unknown_file (
+
+%6java.lang.StringV
+T
+
+¼- ¼(;
+%7java.lang.String"__id*(
+
+__unknown_file (
+
+password€ý
+
+¼ ¼(<
+%8java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%7java.lang.String2getString(Ljava/lang/String;)h
+f
+
+¼ ¼(=
+passwordjava.lang.String"__id*4
+
+__unknown_file (
+
+%8java.lang.Stringðí
+
+½ ½(0
+%9java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*$
+
+__unknown_file (
+nome2getString(Ljava/lang/String;)d
+b
+
+½ ½(1
+nomejava.lang.String"__id*4
+
+__unknown_file (
+
+%9java.lang.Stringôñ
+
+¾ ¾(6
+%10java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*'
+
+__unknown_file (	
+cognome2getString(Ljava/lang/String;)h
+f
+
+¾ ¾(7
+cognomejava.lang.String"__id*5
+
+__unknown_file (
+
+%10java.lang.Stringøõ
+
+¿ ¿(>
+%11java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*+
+
+__unknown_file (
+dataNascita2getString(Ljava/lang/String;)l
+j
+
+¿ ¿(?
+dataNascitajava.lang.String"__id*5
+
+__unknown_file (
+
+%11java.lang.Stringõò
+
+À À(8
+%12java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*(
+
+__unknown_file (
+
+telefono2getString(Ljava/lang/String;)i
+g
+
+À À(9
+telefonojava.lang.String"__id*5
+
+__unknown_file (
+
+%12java.lang.StringW
+U
+
+Á/ Á(=
+%13java.lang.String"__id*(
+
+__unknown_file (
+
+isAgenteêç
+
+Á Á(>
+%14boolean"3org.json.JSONObject#getBoolean(Ljava/lang/String;)Z*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*5
+
+__unknown_file (
+
+%13java.lang.String2getBoolean(Ljava/lang/String;)a
+_
+
+Á Á(?
+isAgentejava.lang.Boolean"__id*,
+
+__unknown_file (
+
+%14boolean=;
+
+Ã Ã(
+%15shared.classi.User"shared.classi.Userú
+÷
+
+Ã Ã(W
+%16"‰shared.classi.User#<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V*7
+
+__unknown_file (
+
+%15shared.classi.User*6
+
+__unknown_file (
+
+mailjava.lang.String*:
+
+__unknown_file (
+
+passwordjava.lang.String*6
+
+__unknown_file (
+
+nomejava.lang.String*9
+
+__unknown_file (
+
+cognomejava.lang.String*:
+
+__unknown_file (
+
+telefonojava.lang.String*=
+
+__unknown_file (!
+
+dataNascitajava.lang.String*;
+
+__unknown_file (
+
+isAgentejava.lang.Boolean")
+
+Ã Ã(X
+
+%15shared.classi.User:,
+
+´ ´(+
+
+mailAgentejava.lang.StringB
+client.model.ClientModelH

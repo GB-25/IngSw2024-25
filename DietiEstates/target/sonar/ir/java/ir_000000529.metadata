@@ -1,0 +1,7 @@
+client.view_gui.CaricamentoProprietaNuovo#mouseClicked(Ljava/awt/event/MouseEvent;)V
+false
+2340a539c98853d096dce62b9c48e9f3
+==
+getClickCount java.awt.event.MouseEvent#getClickCount()I
+getZoom org.jxmapviewer.JXMapViewer#getZoom()I
+setZoom org.jxmapviewer.JXMapViewer#setZoom(I)V

@@ -1,0 +1,13 @@
+client.model.ClientModel#loginModel(Ljava/lang/String;Ljava/lang/String;)Lshared/classi/User;
+false
+9eec04401b287feb4d629f7c5e599080
+java.lang.String#equals(Ljava/lang/Object;)Z
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+shared.classi.User#<init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
+shared.classi.User#instance-init#
+==
+getBoolean org.json.JSONObject#getBoolean(Ljava/lang/String;)Z
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+sendRequest client.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;

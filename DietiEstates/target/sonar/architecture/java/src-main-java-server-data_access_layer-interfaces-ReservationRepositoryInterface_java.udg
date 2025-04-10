@@ -1,0 +1,254 @@
+
+1.0ingsw2025_dietiestates25JavaFrontend"1744294133084*java2.B‘
+Z
+Usrc/main/java/server/data_access_layer/interfaces/ReservationRepositoryInterface.java2
+
+package4
+(
+#server.data_access_layer.interfaces5
+G
+Bserver.data_access_layer.interfaces.ReservationRepositoryInterface7
+
+	interface8
+
+access9
+
+public10
+
+simple name11
+$
+ReservationRepositoryInterface12
+™
+’server.data_access_layer.interfaces.ReservationRepositoryInterface#alreadyGotAppointment(Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Z14
+
+method15
+
+alreadyGotAppointment16
+‹
+„server.data_access_layer.interfaces.ReservationRepositoryInterface#checkReservation(Ljava/lang/String;I)Lshared/classi/Prenotazione;18
+
+checkReservation19
+ 
+shared.classi.Prenotazione21
+
+unknown22
+
+returns23
+
+
+uses24
+§
+ server.data_access_layer.interfaces.ReservationRepositoryInterface#createReservation(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)V26
+
+createReservation27
+›
+”server.data_access_layer.interfaces.ReservationRepositoryInterface#getReservationByMail(Ljava/lang/String;ZLjava/lang/String;Z)Ljava/util/ArrayList;29
+
+getReservationByMail30
+^
+Xserver.data_access_layer.interfaces.ReservationRepositoryInterface#deleteReservation(I)V32
+
+deleteReservation33
+_
+Yserver.data_access_layer.interfaces.ReservationRepositoryInterface#confirmReservation(I)V35
+
+confirmReservation36
+§
+ server.data_access_layer.interfaces.ReservationRepositoryInterface#getReservationId(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZ)I38
+
+getReservationId39
+
+yserver.data_access_layer.interfaces.ReservationRepositoryInterface#getNotificheUtente(Ljava/lang/String;)Ljava/util/List;41
+
+getNotificheUtente42
+
+shared.classi.Notifica44
+q
+kserver.data_access_layer.interfaces.ReservationRepositoryInterface#salvaNotifica(Lshared/classi/Notifica;)Z46
+
+salvaNotifica47
+
+	has param48
+
+is type49
+X
+Rserver.data_access_layer.interfaces.ReservationRepositoryInterface#setNotifica(I)Z51
+
+setNotifica52
+z
+tserver.data_access_layer.interfaces.ReservationRepositoryInterface#getReservationById(I)Lshared/classi/Prenotazione;54
+
+getReservationById55J
+
+1
+12Z
+
+3	
+354j¹
+@
+37:
+373815 *
+1 (26:3B
+	
+9
+10
+
+
+11
+39
+@
+50:
+505115 *
+1 (	26:3B
+	
+9
+10
+
+
+11
+52
+@
+13:
+131415 *
+1
+ 
+(	26:3B
+	
+9
+10
+
+
+11
+16
+9
+64
+678 *
+1 (0:3B
+	
+9
+10
+
+
+11
+12
+@
+40:
+404115 *
+1 (26:3B
+	
+9
+10
+
+
+11
+42
+@
+31:
+313215 *
+1 (26:3B
+	
+9
+10
+
+
+11
+33
+
+43
+434422
+@
+34:
+343515 *
+1 (26:3B
+	
+9
+10
+
+
+11
+36
+
+20
+202122
+@
+25:
+252615 *
+1 (26:3B
+	
+9
+10
+
+
+11
+27
+@
+53:
+535415 *
+1 (26:3B
+	
+9
+10
+
+
+11
+55
+@
+17:
+171815 *
+1 (26:3B
+	
+9
+10
+
+
+11
+19
+@
+45:
+454615 *
+1 (	26:3B
+	
+9
+10
+
+
+11
+47
+@
+28:
+282915 *
+1 (26:3B
+	
+9
+10
+
+
+11
+30ró
+
+172023*
+1 (
+
+172024*
+1 (
+
+282024*
+1 (
+
+404324*
+1 (
+
+454348*
+1 ( 
+
+454349*
+1! (.
+
+454324*
+1 ( 
+
+532023*
+1 (
+
+532024*
+1 (

@@ -1,0 +1,7 @@
+client.controller.Controller#reservationConfirmed(Ljavax/swing/JFrame;Lshared/classi/User;)V
+false
+dde28a95d0451527b4c3f268f2585366
+client.view_gui.PrenotazioneConfermata#<init>(Lclient/controller/Controller;Lshared/classi/User;)V
+client.view_gui.PrenotazioneConfermata#instance-init#
+==
+setVisible java.awt.Window#setVisible(Z)V

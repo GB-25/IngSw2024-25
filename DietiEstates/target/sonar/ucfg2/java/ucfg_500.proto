@@ -1,0 +1,370 @@
+
+Zserver.data_access_layer.DatabaseManager#getReservationById(I)Lshared/classi/Prenotazione;}
+q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/data_access_layer/DatabaseManager.javaÜ Ü(*"20*Ë
+13
+ç ç(#U
+S
+
+ç1 ç(7
+%8java.lang.String"__id*'
+
+__unknown_file (	
+user_id¯ı
+
+ç$ ç(8
+%9java.lang.String"Bjava.sql.ResultSet#getString(Ljava/lang/String;)Ljava/lang/String;*6
+
+__unknown_file (
+
+rsjava.sql.ResultSet*4
+
+__unknown_file (
+
+%8java.lang.String2getString(Ljava/lang/String;)*
+12*¸
+15
+ã ã()f
+d
+
+ã ã()
+rsjava.sql.ResultSet"__id*6
+
+__unknown_file (
+
+%6java.sql.ResultSetyw
+
+å
+ å(
+%7boolean"java.sql.ResultSet#next()Z*6
+
+__unknown_file (
+
+rsjava.sql.ResultSet2next()*
+13
+1*”
+16
+ã ã(∫∑
+
+ã ã((
+%6java.sql.ResultSet"=java.sql.PreparedStatement#executeQuery()Ljava/sql/ResultSet;*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement2executeQuery()*
+15*Í
+17
+â â(Ix
+v
+
+â â(I"
+stmtjava.sql.PreparedStatement"__id*>
+
+__unknown_file ("
+ 
+%4java.sql.PreparedStatement◊‘
+
+ä ä(
+
+%5void"&java.sql.PreparedStatement#setInt(II)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*"
+
+__unknown_file (
+""2
+setInt(II)*
+16*≤
+18
+à
+ à(Sp
+n
+
+à
+ à(S!
+
+connectionjava.sql.Connection"__id*7
+
+__unknown_file (
+
+%3java.sql.Connectionß§
+
+â' â(I 
+%4java.sql.PreparedStatement"Tjava.sql.Connection#prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement;*?
+
+__unknown_file (#
+!
+
+connectionjava.sql.Connection*7
+
+__unknown_file (
+
+queryjava.lang.String2$prepareStatement(Ljava/lang/String;)*
+17*å
+19
+à# à(0P
+N
+
+à? à(B
+%0java.lang.String"__id*"
+
+__unknown_file (
+""V
+T
+
+àD à(H
+%1java.lang.String"__id*(
+
+__unknown_file (
+
+postgresP
+N
+
+àJ à(R
+%2java.lang.String"__id*"
+
+__unknown_file (
+""˜
+Ù
+
+à# à(S
+%3java.sql.Connection"qjava.sql.DriverManager#getConnection(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;*6
+
+__unknown_file ("
+java.sql.DriverManager*4
+
+__unknown_file (
+
+%0java.lang.String*4
+
+__unknown_file (
+
+%1java.lang.String*4
+
+__unknown_file (
+
+%2java.lang.String*
+18*%
+1
+ó	 ó("
+
+ó ó(
+""*D
+3ë ë(Ñ"2
+ë ë(Ñ#
+!
+%22shared.classi.Prenotazione*«
+4ë ë(ÉMK
+
+ë ë(!
+%22shared.classi.Prenotazione"shared.classi.Prenotazione‡
+›
+ë ë(É
+%23"äshared.classi.Prenotazione#<init>(ILjava/lang/String;Ljava/lang/String;Lshared/classi/User;Lshared/classi/Immobile;Lshared/classi/User;Z)V*?
+
+__unknown_file (#
+!
+%22shared.classi.Prenotazione*"
+
+__unknown_file (
+""*5
+
+__unknown_file (
+
+%18java.lang.String*5
+
+__unknown_file (
+
+%20java.lang.String*;
+
+__unknown_file (
+
+clienteshared.classi.User*@
+
+__unknown_file ($
+"
+immobileshared.classi.Immobile*:
+
+__unknown_file (
+
+agenteshared.classi.User*,
+
+__unknown_file (
+
+%21boolean*
+3*Ò
+5
+ëJ ë(Q⁄◊
+ëe ë(Ç
+%21boolean"2java.sql.ResultSet#getBoolean(Ljava/lang/String;)Z*6
+
+__unknown_file (
+
+rsjava.sql.ResultSet*,
+
+__unknown_file (
+is_confirmed2getBoolean(Ljava/lang/String;)*
+4*Ú
+6
+ë7 ë(9_
+]
+
+ëD ë(G
+%19java.lang.String"__id*0
+
+__unknown_file (
+ora_prenotazione˙˜
+
+ë7 ë(H
+%20java.lang.String"Bjava.sql.ResultSet#getString(Ljava/lang/String;)Ljava/lang/String;*6
+
+__unknown_file (
+
+rsjava.sql.ResultSet*5
+
+__unknown_file (
+
+%19java.lang.String2getString(Ljava/lang/String;)*
+5*Í
+7
+è è(?u
+s
+
+è è(?"
+immobileshared.classi.Immobile"__id*;
+
+__unknown_file (
+
+%16shared.classi.Immobile`
+^
+
+ë0 ë(4
+%17java.lang.String"__id*1
+
+__unknown_file (
+data_prenotazione˙˜
+
+ë# ë(5
+%18java.lang.String"Bjava.sql.ResultSet#getString(Ljava/lang/String;)Ljava/lang/String;*6
+
+__unknown_file (
+
+rsjava.sql.ResultSet*5
+
+__unknown_file (
+
+%17java.lang.String2getString(Ljava/lang/String;)*
+6*ú
+8
+è è(>ÖÇ
+
+è è(>
+%16shared.classi.Immobile"Pserver.data_access_layer.DatabaseManager#getHouseById(I)Lshared/classi/Immobile;*H
+
+__unknown_file (,*
+(server.data_access_layer.DatabaseManager*(
+
+__unknown_file (
+
+
+%15int2getHouseById(I)*
+7*∂
+9
+é é(Ak
+i
+
+é é(A
+agenteshared.classi.User"__id*7
+
+__unknown_file (
+
+%13shared.classi.UserZ
+X
+
+è2 è(<
+%14java.lang.String"__id*+
+
+__unknown_file (
+immobile_id÷”
+
+è( è(=
+
+%15int".java.sql.ResultSet#getInt(Ljava/lang/String;)I*6
+
+__unknown_file (
+
+rsjava.sql.ResultSet*5
+
+__unknown_file (
+
+%14java.lang.String2getInt(Ljava/lang/String;)*
+8*Ï
+20á á(ì“
+œ
+á á(î
+queryjava.lang.String"__id*û
+
+__unknown_file (Å
+}SELECT id, data_prenotazione, ora_prenotazione, user_id, immobile_id, agente_id, is_confirmed FROM prenotazioni WHERE id = ?;*
+19*∆
+10
+é é(@Æ´
+
+é é(@
+%13shared.classi.User"^server.data_access_layer.DatabaseManager#getUserByMail(Ljava/lang/String;)Lshared/classi/User;*H
+
+__unknown_file (,*
+(server.data_access_layer.DatabaseManager*5
+
+__unknown_file (
+
+%12java.lang.String2!getUserByMail(Ljava/lang/String;)*
+9*€
+11
+ç ç(:l
+j
+
+ç ç(:
+clienteshared.classi.User"__id*7
+
+__unknown_file (
+
+%10shared.classi.UserX
+V
+
+é0 é(>
+%11java.lang.String"__id*)
+
+__unknown_file (
+	agente_id˙˜
+
+é# é(?
+%12java.lang.String"Bjava.sql.ResultSet#getString(Ljava/lang/String;)Ljava/lang/String;*6
+
+__unknown_file (
+
+rsjava.sql.ResultSet*5
+
+__unknown_file (
+
+%11java.lang.String2getString(Ljava/lang/String;)*
+10*∆
+12
+ç ç(9≠™
+
+ç ç(9
+%10shared.classi.User"^server.data_access_layer.DatabaseManager#getUserByMail(Ljava/lang/String;)Lshared/classi/User;*H
+
+__unknown_file (,*
+(server.data_access_layer.DatabaseManager*4
+
+__unknown_file (
+
+%9java.lang.String2!getUserByMail(Ljava/lang/String;)*
+11: 
+
+__unknown_file (
+""B,*
+(server.data_access_layer.DatabaseManagerH

@@ -1,0 +1,15 @@
+client.view_gui.CaricamentoProprietaNuovo#handleUpload(Lclient/controller/Controller;Lshared/classi/User;)V
+false
+abb74c83139e9a03a94efd5ca608fcbb
+client.controller.Controller#isNumeric(Ljava/lang/String;)Z
+client.view_gui.CaricamentoProprietaNuovo#areAllFieldsFilled()Z
+com.google.re2j.Pattern#matches(Ljava/lang/String;Ljava/lang/CharSequence;)Z
+java.lang.String#trim()Ljava/lang/String;
+javax.swing.JOptionPane#showConfirmDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;II)I
+javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
+javax.swing.SwingWorker#execute()V
+==
+checkDettagliInserzione client.controller.Controller#checkDettagliInserzione(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z
+createSchermataCaricamento client.controller.Controller#createSchermataCaricamento(Ljavax/swing/JFrame;Ljava/lang/String;)Lclient/view_gui/SchermataCaricamento;
+getText javax.swing.text.JTextComponent#getText()Ljava/lang/String;
+size java.util.List#size()I

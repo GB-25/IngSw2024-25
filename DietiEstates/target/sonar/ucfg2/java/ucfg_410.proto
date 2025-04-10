@@ -1,0 +1,58 @@
+
+7__sonar_lambda_42$client.view_gui.CaricamentoConfermatox
+n/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoConfermato.javaI" I(Q"startingBlock*ö
+startingBlockI" I(Qî
+ë
+
+__unknown_file (!
+cclient.controller.Controller"__id*L
+
+__unknown_file (0*.'
+%client.view_gui.CaricamentoConfermato"
+cê
+ç
+
+__unknown_file (
+usershared.classi.User"__id*O
+
+__unknown_file (3*1'
+%client.view_gui.CaricamentoConfermato"
+userœ
+Ã
+
+__unknown_file (C
+CaricamentoConfermato.this%client.view_gui.CaricamentoConfermato"__id*e
+
+__unknown_file (I*G'
+%client.view_gui.CaricamentoConfermato"
+CaricamentoConfermato.this*
+1*π
+1I' I((ß
+§
+I: I(J
+%71javax.swing.JFrame"__id*w
+
+__unknown_file ([*Y
+C
+CaricamentoConfermato.this%client.view_gui.CaricamentoConfermato"
+finestraCorrente‰·
+I' I(Q
+%72void"Xclient.controller.Controller#createHomeAgente(Ljavax/swing/JFrame;Lshared/classi/User;)V*?
+
+__unknown_file (#
+!
+cclient.controller.Controller*7
+
+__unknown_file (
+
+%71javax.swing.JFrame*8
+
+__unknown_file (
+
+usershared.classi.User2:createHomeAgente(Ljavax/swing/JFrame;Lshared/classi/User;)"
+I' I(Q
+
+%72void:+
+I" I(#
+ejava.awt.event.ActionEventB!
+java.awt.event.ActionListener

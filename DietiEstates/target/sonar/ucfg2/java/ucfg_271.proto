@@ -1,0 +1,186 @@
+
+_server.presentation_layer.ClientHandler#addNotifica(Lorg/json/JSONObject;)Lorg/json/JSONObject;|
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.javaù ù( "4*–
+2
+£( £(-T
+R
+
+£( £(-
+%12java.lang.String"__id*%
+
+__unknown_file (	
+errord
+b
+
+£( £(-
+%10java.lang.Object"__id*5
+
+__unknown_file (
+
+%12java.lang.String*
+1*“
+3
+£ £(%V
+T
+
+£ £(%
+%11java.lang.String"__id*'
+
+__unknown_file (	
+successd
+b
+
+£ £(%
+%10java.lang.Object"__id*5
+
+__unknown_file (
+
+%11java.lang.String*
+1*”
+4
+û û(!˜Ù
+
+û û(;
+%0java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*,
+
+__unknown_file (
+destinatario2getString(Ljava/lang/String;)l
+j
+
+û û(< 
+destinatariojava.lang.String"__id*4
+
+__unknown_file (
+
+%0java.lang.StringÙÒ
+
+ü ü(5
+%1java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*)
+
+__unknown_file (
+	messaggio2getString(Ljava/lang/String;)i
+g
+
+ü ü(6
+	messaggiojava.lang.String"__id*4
+
+__unknown_file (
+
+%1java.lang.String√
+¿
+
+†0 †(EH
+%2Bserver.data_access_layer.interfaces.ReservationRepositoryInterface"__id*b
+
+__unknown_file (F*D)
+'server.presentation_layer.ClientHandler"
+reservationRepositorytr
+
+† †(/4
+%3.server.business_logic_layer.ReservationService".server.business_logic_layer.ReservationServiceœ
+Ã
+
+† †(F
+%4"|server.business_logic_layer.ReservationService#<init>(Lserver/data_access_layer/interfaces/ReservationRepositoryInterface;)V*R
+
+__unknown_file (6
+4
+%3.server.business_logic_layer.ReservationService*f
+
+__unknown_file (J
+H
+%2Bserver.data_access_layer.interfaces.ReservationRepositoryInterface¨
+©
+
+† †(FA)
+'server.presentation_layer.ClientHandler"
+reservationService"__id*R
+
+__unknown_file (6
+4
+%3.server.business_logic_layer.ReservationService¨
+©
+
+° °(#4
+%5.server.business_logic_layer.ReservationService"__id*_
+
+__unknown_file (C*A)
+'server.presentation_layer.ClientHandler"
+reservationServiceèå
+
+° °(M
+%6boolean"fserver.business_logic_layer.ReservationService#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)Z*R
+
+__unknown_file (6
+4
+%5.server.business_logic_layer.ReservationService*>
+
+__unknown_file ("
+ 
+destinatariojava.lang.String*;
+
+__unknown_file (
+
+	messaggiojava.lang.String26aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)><
+
+¢ ¢((
+%7org.json.JSONObject"org.json.JSONObjectl
+j
+
+¢ ¢(*
+%8"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%7org.json.JSONObjectn
+l
+
+¢ ¢(+
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%7org.json.JSONObjectT
+R
+
+£ £(
+%9java.lang.String"__id*&
+
+__unknown_file (
+
+status*
+2
+3*ô
+1
+£ £(.÷”
+
+£ £(.
+%13org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%9java.lang.String*5
+
+__unknown_file (
+
+%10java.lang.Object2)put(Ljava/lang/String;Ljava/lang/Object;)"/
+
+§ §(!
+
+responseorg.json.JSONObject:,
+
+ù! ù(3
+requestorg.json.JSONObjectB+)
+'server.presentation_layer.ClientHandlerH

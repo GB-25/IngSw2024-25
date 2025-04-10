@@ -1,0 +1,67 @@
+
+zserver.business_logic_layer.ReservationService#acceptReservation(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)ZÅ
+w/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/ReservationService.java( ((!"3*Ü
+2* *(»
+≈
+* *(H
+%2Bserver.data_access_layer.interfaces.ReservationRepositoryInterface"__id*i
+
+__unknown_file (M*K0
+.server.business_logic_layer.ReservationService"
+reservationRepositoryóî
+* *(/
+
+%3void"Yserver.data_access_layer.interfaces.ReservationRepositoryInterface#confirmReservation(I)V*f
+
+__unknown_file (J
+H
+%2Bserver.data_access_layer.interfaces.ReservationRepositoryInterface*"
+
+__unknown_file (
+""2confirmReservation(I)"
++ +(
+""*ï
+3) )(»
+≈
+) )(H
+%0Bserver.data_access_layer.interfaces.ReservationRepositoryInterface"__id*i
+
+__unknown_file (M*K0
+.server.business_logic_layer.ReservationService"
+reservationRepository≤Ø
+) )(H
+%1boolean"íserver.data_access_layer.interfaces.ReservationRepositoryInterface#alreadyGotAppointment(Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Z*f
+
+__unknown_file (J
+H
+%0Bserver.data_access_layer.interfaces.ReservationRepositoryInterface*6
+
+__unknown_file (
+
+mailjava.lang.String* 
+
+__unknown_file (2*6
+
+__unknown_file (
+
+datajava.lang.String*5
+
+__unknown_file (
+
+orajava.lang.String2NalreadyGotAppointment(Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)*
+2
+1*!
+1-
+ -("
+- -(
+"": 
+
+__unknown_file (
+"":$
+(* ((6
+mailjava.lang.String:$
+(7 ((C
+datajava.lang.String:#
+(D ((N
+orajava.lang.StringB20
+.server.business_logic_layer.ReservationServiceHX

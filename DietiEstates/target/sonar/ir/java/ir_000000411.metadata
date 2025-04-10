@@ -1,0 +1,11 @@
+server.presentation_layer.ClientHandler#handleNewPassword(Lorg/json/JSONObject;)Lorg/json/JSONObject;
+false
+c442efd94bbf8749067fadfb1d430112
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+server.business_logic_layer.UserService#<init>(Lserver/data_access_layer/interfaces/UserRepositoryInterface;)V
+server.business_logic_layer.UserService#instance-init#
+==
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+updatePassword server.business_logic_layer.UserService#updatePassword(Ljava/lang/String;Ljava/lang/String;)Z

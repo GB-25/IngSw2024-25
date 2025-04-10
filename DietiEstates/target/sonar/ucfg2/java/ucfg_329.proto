@@ -1,0 +1,102 @@
+
+mclient.controller.Controller#checkDettagliInserzione(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Zq
+e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.javaõ õ('"11*Ü
+6
+ø. ø(4ÅÂ
+
+ø. ø(@
+%5boolean",java.lang.String#equals(Ljava/lang/Object;)Z*8
+
+__unknown_file (
+
+stanzejava.lang.String*!
+
+__unknown_file (
+02equals(Ljava/lang/Object;)*
+1*í
+7
+÷ ÷(AÓ
+Ð
+
+ø ø()
+%4boolean";client.controller.Controller#isNumeric(Ljava/lang/String;)Z*<
+
+__unknown_file ( "
+client.controller.Controller*8
+
+__unknown_file (
+
+stanzejava.lang.String*
+6
+1*Û
+8
+÷/ ÷(4ÄÁ
+
+÷/ ÷(@
+%3boolean",java.lang.String#equals(Ljava/lang/Object;)Z*7
+
+__unknown_file (
+
+pianijava.lang.String*!
+
+__unknown_file (
+02equals(Ljava/lang/Object;)*
+7*ì
+9
+ö ö(GÒ
+Ï
+
+÷ ÷(*
+%2boolean";client.controller.Controller#isNumeric(Ljava/lang/String;)Z*<
+
+__unknown_file ( "
+client.controller.Controller*7
+
+__unknown_file (
+
+pianijava.lang.String*
+7
+8*à
+10
+ö1 ö(:ÈÅ
+
+ö1 ö(F
+%1boolean",java.lang.String#equals(Ljava/lang/Object;)Z*;
+
+__unknown_file (
+
+	grandezzajava.lang.String*!
+
+__unknown_file (
+02equals(Ljava/lang/Object;)*
+9*ò
+11
+ö ö(!Ö
+Ó
+
+ö ö(,
+%0boolean";client.controller.Controller#isNumeric(Ljava/lang/String;)Z*<
+
+__unknown_file ( "
+client.controller.Controller*;
+
+__unknown_file (
+
+	grandezzajava.lang.String*
+9
+10*%
+1
+ú ú(3"
+
+ú ú(3
+"":+
+
+õ( õ(9
+	grandezzajava.lang.String:'
+
+õ: õ(G
+pianijava.lang.String:(
+
+õH õ(U
+stanzejava.lang.StringB 
+client.controller.ControllerHX

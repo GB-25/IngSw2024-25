@@ -1,0 +1,8 @@
+client.view_gui.HomeGenerale#nessunaNotifica(Ljavax/swing/JPopupMenu;)V
+false
+0bbd3a0fb93a8b51fec50a6cbbbecc34
+javax.swing.JMenuItem#<init>(Ljava/lang/String;)V
+javax.swing.JMenuItem#instance-init#
+==
+add javax.swing.JPopupMenu#add(Ljavax/swing/JMenuItem;)Ljavax/swing/JMenuItem;
+setEnabled javax.swing.JMenuItem#setEnabled(Z)V

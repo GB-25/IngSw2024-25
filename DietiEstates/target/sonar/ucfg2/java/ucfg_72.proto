@@ -1,0 +1,41 @@
+
+server.business_logic_layer.GoogleCloudStorageService#uploadHouseImage(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;ˆ
+~/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/GoogleCloudStorageService.java (""1*Ò
+1 (Á
+¾
+ (A
+%0;server.data_access_layer.interfaces.StorageManagerInterface"__id*i
+
+__unknown_file (M*K7
+5server.business_logic_layer.GoogleCloudStorageService"
+storageManagerØÕ
+ (J
+%1java.lang.String"server.data_access_layer.interfaces.StorageManagerInterface#uploadFile(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;*_
+
+__unknown_file (C
+A
+%0;server.data_access_layer.interfaces.StorageManagerInterface*:
+
+__unknown_file (
+
+fileNamejava.lang.String*<
+
+__unknown_file ( 
+
+
+base64Datajava.lang.String*"
+
+__unknown_file (
+""21uploadFile(Ljava/lang/String;Ljava/lang/String;I)"$
+ (K
+
+%1java.lang.String:(
+# (3
+fileNamejava.lang.String:*
+4 (F
+
+base64Datajava.lang.String: 
+
+__unknown_file (
+""B97
+5server.business_logic_layer.GoogleCloudStorageServiceH

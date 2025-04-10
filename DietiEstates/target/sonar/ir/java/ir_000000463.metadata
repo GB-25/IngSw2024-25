@@ -1,0 +1,5 @@
+client.controller.Controller#controlCheckBox(Ljavax/swing/JCheckBox;)Z
+false
+a5795b21a24d7b207e560a6f0a5abb8b
+==
+isSelected javax.swing.AbstractButton#isSelected()Z

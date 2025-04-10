@@ -1,0 +1,18 @@
+client.view_gui.HomeGenerale#bellButtonVisible(Lclient/controller/Controller;Ljavax/swing/JPopupMenu;Lshared/classi/User;Ljavax/swing/JButton;)V
+false
+1df8dea5c9d29ccd84145d970baa4528
+client.view_gui.HomeGenerale#nessunaNotifica(Ljavax/swing/JPopupMenu;)V
+java.awt.Color#<init>(III)V
+java.awt.Color#instance-init#
+javax.swing.BorderFactory#createLineBorder(Ljava/awt/Color;)Ljavax/swing/border/Border;
+javax.swing.SwingUtilities#invokeLater(Ljava/lang/Runnable;)V
+==
+forEach java.lang.Iterable#forEach(Ljava/util/function/Consumer;)V
+getMail shared.classi.User#getMail()Ljava/lang/String;
+getNotificheUtente client.controller.Controller#getNotificheUtente(Ljava/lang/String;)Ljava/util/List;
+isEmpty java.util.List#isEmpty()Z
+pack javax.swing.JPopupMenu#pack()V
+removeAll java.awt.Container#removeAll()V
+repaint java.awt.Component#repaint()V
+revalidate javax.swing.JComponent#revalidate()V
+setBorder javax.swing.JComponent#setBorder(Ljavax/swing/border/Border;)V

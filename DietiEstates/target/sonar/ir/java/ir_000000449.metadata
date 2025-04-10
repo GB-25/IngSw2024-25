@@ -1,0 +1,7 @@
+client.controller.Controller#showReservation(Lshared/classi/User;ZLjava/lang/String;)Ljava/util/List;
+false
+31f17c3a87819be350b36ba09dcb470e
+==
+getIsAgente shared.classi.User#getIsAgente()Z
+getMail shared.classi.User#getMail()Ljava/lang/String;
+getReservation client.model.ClientModel#getReservation(Ljava/lang/String;ZLjava/lang/String;Z)Ljava/util/List;

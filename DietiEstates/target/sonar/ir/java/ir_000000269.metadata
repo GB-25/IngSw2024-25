@@ -1,0 +1,11 @@
+server.data_access_layer.GoogleCloudStorageManager#uploadFile(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;
+false
+e2151e9271ac98968c35c4f0a9df078e
+com.google.cloud.storage.BlobId#of(Ljava/lang/String;Ljava/lang/String;)Lcom/google/cloud/storage/BlobId;
+com.google.cloud.storage.BlobInfo#newBuilder(Lcom/google/cloud/storage/BlobId;)Lcom/google/cloud/storage/BlobInfo$Builder;
+java.util.Base64#getDecoder()Ljava/util/Base64$Decoder;
+==
+build com.google.cloud.storage.BlobInfo$Builder#build()Lcom/google/cloud/storage/BlobInfo;
+create com.google.cloud.storage.Storage#create(Lcom/google/cloud/storage/BlobInfo;[B[Lcom/google/cloud/storage/Storage$BlobTargetOption;)Lcom/google/cloud/storage/Blob;
+decode java.util.Base64$Decoder#decode(Ljava/lang/String;)[B
+setContentType com.google.cloud.storage.BlobInfo$Builder#setContentType(Ljava/lang/String;)Lcom/google/cloud/storage/BlobInfo$Builder;

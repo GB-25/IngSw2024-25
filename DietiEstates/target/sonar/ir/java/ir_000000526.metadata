@@ -1,0 +1,5 @@
+client.view_gui.CaricamentoProprietaNuovo#mousePressed(Ljava/awt/event/MouseEvent;)V
+false
+8de94128b0407b1401d9a1ad9317cbb2
+==
+getPoint java.awt.event.MouseEvent#getPoint()Ljava/awt/Point;

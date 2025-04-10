@@ -1,0 +1,162 @@
+
+Qserver.data_access_layer.DatabaseManager#salvaNotifica(Lshared/classi/Notifica;)Z}
+q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/data_access_layer/DatabaseManager.java® ®( "11*%
+3
+µ µ("
+
+µ µ(
+""*±
+4
+´ ´(š—
+
+´ ´( 	
+%9int"+java.sql.PreparedStatement#executeUpdate()I*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement2executeUpdate()*
+3*¨
+5
+³ ³(6‘Ž
+
+³ ³(6
+
+%8void":java.sql.PreparedStatement#setString(ILjava/lang/String;)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*4
+
+__unknown_file (
+
+%7java.lang.String2setString(ILjava/lang/String;)*
+4*É
+6
+³ ³(²¯
+
+³ ³(5
+%7java.lang.String"7shared.classi.Notifica#getMessaggio()Ljava/lang/String;*@
+
+__unknown_file ($
+"
+notificashared.classi.Notifica2getMessaggio()*
+5*¨
+7
+² ²(>‘Ž
+
+² ²(>
+
+%6void":java.sql.PreparedStatement#setString(ILjava/lang/String;)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*4
+
+__unknown_file (
+
+%5java.lang.String2setString(ILjava/lang/String;)*
+6*Ó
+8
+± ±(Ex
+v
+
+± ±(E"
+stmtjava.sql.PreparedStatement"__id*>
+
+__unknown_file ("
+ 
+%4java.sql.PreparedStatementÂ¿
+
+² ²(=
+%5java.lang.String"?shared.classi.Notifica#getDestinatarioEmail()Ljava/lang/String;*@
+
+__unknown_file ($
+"
+notificashared.classi.Notifica2getDestinatarioEmail()*
+7*®
+9
+° °(Up
+n
+
+° °(U!
+
+connectionjava.sql.Connection"__id*7
+
+__unknown_file (
+
+%3java.sql.Connection¥¢
+
+±% ±(E 
+%4java.sql.PreparedStatement"Tjava.sql.Connection#prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement;*?
+
+__unknown_file (#
+!
+
+connectionjava.sql.Connection*5
+
+__unknown_file (
+
+sqljava.lang.String2$prepareStatement(Ljava/lang/String;)*
+8*‹
+10
+°% °(2P
+N
+
+°A °(D
+%0java.lang.String"__id*"
+
+__unknown_file (
+""V
+T
+
+°F °(J
+%1java.lang.String"__id*(
+
+__unknown_file (
+
+postgresP
+N
+
+°L °(T
+%2java.lang.String"__id*"
+
+__unknown_file (
+""÷
+ô
+
+°% °(U
+%3java.sql.Connection"qjava.sql.DriverManager#getConnection(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;*6
+
+__unknown_file ("
+java.sql.DriverManager*4
+
+__unknown_file (
+
+%0java.lang.String*4
+
+__unknown_file (
+
+%1java.lang.String*4
+
+__unknown_file (
+
+%2java.lang.String*
+9*º
+11
+¯ ¯(h¡
+ž
+
+¯ ¯(i
+sqljava.lang.String"__id*q
+
+__unknown_file (US
+QINSERT INTO notifiche (destinatario_email, messaggio, letta) VALUES (?, ?, false)*
+10:0
+
+®! ®(2"
+notificashared.classi.NotificaB,*
+(server.data_access_layer.DatabaseManagerHX

@@ -1,0 +1,7 @@
+client.controller.Controller#isValidPassword([C[Z)V
+false
+8a5c6b8b2da6ebb85c8c898b6fae11e6
+java.lang.String#<init>([C)V
+java.lang.String#instance-init#
+java.lang.String#length()I
+java.lang.String#matches(Ljava/lang/String;)Z

@@ -1,0 +1,7 @@
+server.business_logic_layer.ReservationService#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)Z
+false
+f43426d993c693f2aaa902fb520ab7f1
+shared.classi.Notifica#<init>(Ljava/lang/String;Ljava/lang/String;)V
+shared.classi.Notifica#instance-init#
+==
+salvaNotifica server.data_access_layer.interfaces.ReservationRepositoryInterface#salvaNotifica(Lshared/classi/Notifica;)Z

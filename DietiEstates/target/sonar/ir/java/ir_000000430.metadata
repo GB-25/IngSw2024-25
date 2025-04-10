@@ -1,0 +1,11 @@
+client.controller.Controller#handleLogin(Ljava/lang/String;[C)V
+false
+cfe290a9960fe6e17574e263ba01794f
+client.view_gui.HomeGenerale#<init>(Lclient/controller/Controller;Lshared/classi/User;)V
+client.view_gui.HomeGenerale#instance-init#
+java.lang.String#<init>([C)V
+java.lang.String#instance-init#
+javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
+==
+loginModel client.model.ClientModel#loginModel(Ljava/lang/String;Ljava/lang/String;)Lshared/classi/User;
+setVisible java.awt.Window#setVisible(Z)V

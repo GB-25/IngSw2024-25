@@ -1,0 +1,27 @@
+
+?client.view_gui.HomeGenerale$2#doInBackground()Ljava/lang/Void;o
+e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/HomeGenerale.javaH  H(."1*ë
+1I I(ƒ
+€
+I0 I(@
+%0javax.swing.JFrame"__id*T
+
+__unknown_file (8*6 
+client.view_gui.HomeGenerale$2"
+finestraCorrenteÁ¾
+I I(G
+
+%1void"aclient.controller.Controller#createCaricamentoImmobile(Ljavax/swing/JFrame;Lshared/classi/User;)V*"
+
+__unknown_file (
+""*6
+
+__unknown_file (
+
+%0javax.swing.JFrame*"
+
+__unknown_file (
+""2CcreateCaricamentoImmobile(Ljavax/swing/JFrame;Lshared/classi/User;)"
+J J( 
+""B" 
+client.view_gui.HomeGenerale$2

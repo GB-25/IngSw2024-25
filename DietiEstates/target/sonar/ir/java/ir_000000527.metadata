@@ -1,0 +1,11 @@
+client.view_gui.CaricamentoProprietaNuovo#mouseDragged(Ljava/awt/event/MouseEvent;)V
+false
+0fdb17cb3a5263d3223dac2a438fc5b2
+java.awt.Point#<init>(II)V
+java.awt.Point#instance-init#
+==
+convertPointToGeoPosition org.jxmapviewer.JXMapViewer#convertPointToGeoPosition(Ljava/awt/geom/Point2D;)Lorg/jxmapviewer/viewer/GeoPosition;
+getHeight javax.swing.JComponent#getHeight()I
+getPoint java.awt.event.MouseEvent#getPoint()Ljava/awt/Point;
+getWidth javax.swing.JComponent#getWidth()I
+setCenterPosition org.jxmapviewer.JXMapViewer#setCenterPosition(Lorg/jxmapviewer/viewer/GeoPosition;)V

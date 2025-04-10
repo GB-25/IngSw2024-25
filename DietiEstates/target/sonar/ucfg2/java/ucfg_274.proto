@@ -1,0 +1,225 @@
+
+[server.presentation_layer.ClientHandler#setUrls(Lorg/json/JSONObject;)Lorg/json/JSONObject;|
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.javaÇ Ç("7*z
+2
+Î< Î(Dd
+b
+
+Î< Î(D
+%15java.lang.Object"__id*5
+
+__unknown_file (
+
+%17java.lang.String*
+1*z
+3
+Î$ Î(9d
+b
+
+Î$ Î(9
+%15java.lang.Object"__id*5
+
+__unknown_file (
+
+%16java.lang.String*
+1*È
+4
+Í Í(3ÖÓ
+
+Í Í(3
+%13org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%9java.lang.String*5
+
+__unknown_file (
+
+%10java.lang.Object2)put(Ljava/lang/String;Ljava/lang/Object;)V
+T
+
+Î Î(
+%14java.lang.String"__id*'
+
+__unknown_file (	
+message*
+2
+3*Ð
+5
+Í- Í(2T
+R
+
+Í- Í(2
+%12java.lang.String"__id*%
+
+__unknown_file (	
+errord
+b
+
+Í- Í(2
+%10java.lang.Object"__id*5
+
+__unknown_file (
+
+%12java.lang.String*
+4*Ò
+6
+Í# Í(*V
+T
+
+Í# Í(*
+%11java.lang.String"__id*'
+
+__unknown_file (	
+successd
+b
+
+Í# Í(*
+%10java.lang.Object"__id*5
+
+__unknown_file (
+
+%11java.lang.String*
+4*„
+7
+È È(ÉÆ
+
+È È(!	
+%0int"/org.json.JSONObject#getInt(Ljava/lang/String;)I*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*"
+
+__unknown_file (
+id2getInt(Ljava/lang/String;)ïì
+
+É É(+
+%1java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*$
+
+__unknown_file (
+urls2getString(Ljava/lang/String;)d
+b
+
+É É(,
+urlsjava.lang.String"__id*4
+
+__unknown_file (
+
+%1java.lang.String·
+´
+
+Ê$ Ê(3B
+%2<server.data_access_layer.interfaces.HouseRepositoryInterface"__id*\
+
+__unknown_file (@*>)
+'server.presentation_layer.ClientHandler"
+houseRepositoryhf
+
+Ê Ê(#.
+%3(server.business_logic_layer.HouseService"(server.business_logic_layer.HouseService·
+´
+
+Ê Ê(4
+%4"pserver.business_logic_layer.HouseService#<init>(Lserver/data_access_layer/interfaces/HouseRepositoryInterface;)V*L
+
+__unknown_file (0
+.
+%3(server.business_logic_layer.HouseService*`
+
+__unknown_file (D
+B
+%2<server.data_access_layer.interfaces.HouseRepositoryInterface 
+
+
+Ê Ê(4;)
+'server.presentation_layer.ClientHandler"
+houseService"__id*L
+
+__unknown_file (0
+.
+%3(server.business_logic_layer.HouseService 
+
+
+Ë Ë(".
+%5(server.business_logic_layer.HouseService"__id*Y
+
+__unknown_file (=*;)
+'server.presentation_layer.ClientHandler"
+houseService®«
+
+Ë Ë(4
+%6boolean"Fserver.business_logic_layer.HouseService#newUrls(Ljava/lang/String;I)Z*L
+
+__unknown_file (0
+.
+%5(server.business_logic_layer.HouseService*6
+
+__unknown_file (
+
+urlsjava.lang.String*"
+
+__unknown_file (
+""2newUrls(Ljava/lang/String;I)><
+
+Ì Ì((
+%7org.json.JSONObject"org.json.JSONObjectl
+j
+
+Ì Ì(*
+%8"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%7org.json.JSONObjectn
+l
+
+Ì Ì(+
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%7org.json.JSONObjectT
+R
+
+Í Í(
+%9java.lang.String"__id*&
+
+__unknown_file (
+
+status*
+5
+6*š
+1
+Î Î(E×Ô
+
+Î Î(E
+%18org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*5
+
+__unknown_file (
+
+%14java.lang.String*5
+
+__unknown_file (
+
+%15java.lang.Object2)put(Ljava/lang/String;Ljava/lang/Object;)"/
+
+Ï Ï(!
+
+responseorg.json.JSONObject:,
+
+Ç Ç(/
+requestorg.json.JSONObjectB+)
+'server.presentation_layer.ClientHandlerH

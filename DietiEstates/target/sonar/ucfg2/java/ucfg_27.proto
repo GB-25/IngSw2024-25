@@ -1,0 +1,71 @@
+
+rserver.business_logic_layer.UserService#authenticateUser(Ljava/lang/String;Ljava/lang/String;)Lshared/classi/User;z
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/UserService.java ( "4*7
+2 ("(
+ (
+
+usershared.classi.User*•
+3 ( ¢Ÿ
+ (.
+%3java.lang.String"2shared.classi.User#getPassword()Ljava/lang/String;*8
+
+__unknown_file (
+
+usershared.classi.User2getPassword()ØÕ
+ (?
+%4boolean",java.lang.String#equals(Ljava/lang/Object;)Z*4
+
+__unknown_file (
+
+%3java.lang.String*:
+
+__unknown_file (
+
+passwordjava.lang.String2equals(Ljava/lang/Object;)*
+2
+1*†
+4 ( ³
+°
+ ( A
+%0;server.data_access_layer.interfaces.UserRepositoryInterface"__id*[
+
+__unknown_file (?*=)
+'server.business_logic_layer.UserService"
+userRepositoryÖÓ
+ (4
+%1shared.classi.User"qserver.data_access_layer.interfaces.UserRepositoryInterface#getUserByMail(Ljava/lang/String;)Lshared/classi/User;*_
+
+__unknown_file (C
+A
+%0;server.data_access_layer.interfaces.UserRepositoryInterface*6
+
+__unknown_file (
+
+mailjava.lang.String2!getUserByMail(Ljava/lang/String;)f
+d
+ (5
+usershared.classi.User"__id*6
+
+__unknown_file (
+
+%1shared.classi.Userx
+v
+ (
+%2boolean"	__compare*
+ (
+!=*(
+ (
+
+usershared.classi.User*
+ (
+""*
+3
+1*!
+1 ("
+	 (
+"":$
+! (-
+mailjava.lang.String:(
+. (=
+passwordjava.lang.StringB+)
+'server.business_logic_layer.UserServiceH

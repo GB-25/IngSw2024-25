@@ -1,0 +1,5 @@
+client.controller.Controller#cambiaFinestra(Ljavax/swing/JFrame;Ljavax/swing/JFrame;)V
+false
+419d63d903752d22b0895e75177f150e
+==
+setVisible java.awt.Window#setVisible(Z)V

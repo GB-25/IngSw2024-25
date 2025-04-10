@@ -1,0 +1,47 @@
+
+gclient.controller.Controller#getPrenotazione(Lshared/classi/User;Ljava/time/LocalDate;)Ljava/util/List;q
+e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.javaò ò(*"1*è
+1
+ó	 ó(}
+{
+
+ó	 ó(
+%0client.model.ClientModel"__id*G
+
+__unknown_file (+*)
+client.controller.Controller"
+model®«
+
+ó. ó(K
+%1java.lang.String"0java.time.LocalDate#toString()Ljava/lang/String;*G
+
+__unknown_file (+
+)
+selectedDateGlobaljava.time.LocalDate2
+toString()€ý
+
+ó	 ó(L
+%2java.util.List"iclient.model.ClientModel#getWholeReservationAgent(Lshared/classi/User;Ljava/lang/String;)Ljava/util/List;*<
+
+__unknown_file ( 
+
+%0client.model.ClientModel*8
+
+__unknown_file (
+
+usershared.classi.User*4
+
+__unknown_file (
+
+%1java.lang.String2@getWholeReservationAgent(Lshared/classi/User;Ljava/lang/String;)"$
+
+ó ó(M
+
+%2java.util.List:(
+
+ò+ ò(5
+usershared.classi.User:7
+
+ò6 ò(R)
+selectedDateGlobaljava.time.LocalDateB 
+client.controller.ControllerH

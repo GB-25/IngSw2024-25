@@ -1,0 +1,5 @@
+server.business_logic_layer.UserService#getUser(Ljava/lang/String;)Lshared/classi/User;
+false
+4f8669286f24fe12c0af0a77cb8c901a
+==
+getUserByMail server.data_access_layer.interfaces.UserRepositoryInterface#getUserByMail(Ljava/lang/String;)Lshared/classi/User;

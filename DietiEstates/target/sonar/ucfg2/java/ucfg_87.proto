@@ -1,0 +1,172 @@
+
+eclient.model.ClientModel#confirmReservation(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Zm
+a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.javaù ù(%"1*é
+1
+ú ú(-><
+
+ú! ú(+
+%0org.json.JSONObject"org.json.JSONObjectl
+j
+
+ú ú(-
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectm
+k
+
+ú ú(.
+requestorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObjectT
+R
+
+û û(
+%2java.lang.String"__id*&
+
+__unknown_file (
+
+actionÓÐ
+
+û û(3
+%3org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*4
+
+__unknown_file (
+
+%2java.lang.String*4
+
+__unknown_file (
+reservationConfirmed2)put(Ljava/lang/String;Ljava/lang/Object;)Š
+
+ü ü(
+%4org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*"
+
+__unknown_file (
+id*"
+
+__unknown_file (
+""2put(Ljava/lang/String;I)ÅÂ
+
+ý ý(!
+%5org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*$
+
+__unknown_file (
+mail*6
+
+__unknown_file (
+
+mailjava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)ÅÂ
+
+þ þ(!
+%6org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*$
+
+__unknown_file (
+data*6
+
+__unknown_file (
+
+datajava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)ÃÀ
+
+ÿ ÿ(
+%7org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*#
+
+__unknown_file (
+ora*5
+
+__unknown_file (
+
+orajava.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)˜•
+
+€ €(2
+%8org.json.JSONObject"Pclient.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;*8
+
+__unknown_file (
+client.model.ClientModel*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject2"sendRequest(Lorg/json/JSONObject;)n
+l
+
+€ €(3
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%8org.json.JSONObjectT
+R
+
+$ (*
+%9java.lang.String"__id*&
+
+__unknown_file (
+
+statusþ
+
+ (+
+%10java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%9java.lang.String2getString(Ljava/lang/String;)T
+R
+
+3 (8
+%11java.lang.String"__id*%
+
+__unknown_file (	
+error×Ô
+
+ (9
+%12boolean",java.lang.String#equals(Ljava/lang/Object;)Z*5
+
+__unknown_file (
+
+%10java.lang.String*5
+
+__unknown_file (
+
+%11java.lang.String2equals(Ljava/lang/Object;)"
+
+ (;
+"": 
+
+__unknown_file (
+"":&
+
+ù. ù(:
+mailjava.lang.String:&
+
+ù; ù(G
+datajava.lang.String:%
+
+ùH ù(R
+orajava.lang.StringB
+client.model.ClientModelHX

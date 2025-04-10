@@ -1,0 +1,22 @@
+client.controller.Controller#ricercaImmobili(DDLshared/classi/Immobile;Lshared/classi/ComposizioneImmobile;)Ljava/util/List;
+false
+64b6735950b4112b7bd56204853ad77d
+java.lang.StringBuilder#<init>(Ljava/lang/String;)V
+java.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+java.lang.StringBuilder#instance-init#
+java.lang.StringBuilder#toString()Ljava/lang/String;
+java.util.Collections#emptyList()Ljava/util/List;
+javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
+==
+checkDettagliComposizione client.controller.Controller#checkDettagliComposizione(ZZZZ)Ljava/lang/String;
+checkDettagliImmobile client.controller.Controller#checkDettagliImmobile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+checkPrezzi client.controller.Controller#checkPrezzi(DD)Z
+getAnnuncio shared.classi.Immobile#getAnnuncio()Ljava/lang/String;
+getClasseEnergetica shared.classi.Immobile#getClasseEnergetica()Ljava/lang/String;
+getIndirizzo shared.classi.Immobile#getIndirizzo()Ljava/lang/String;
+getTipo shared.classi.Immobile#getTipo()Ljava/lang/String;
+isAscensore shared.classi.ComposizioneImmobile#isAscensore()Z
+isCondominio shared.classi.ComposizioneImmobile#isCondominio()Z
+isGiardino shared.classi.ComposizioneImmobile#isGiardino()Z
+isTerrazzo shared.classi.ComposizioneImmobile#isTerrazzo()Z
+searchHouse client.model.ClientModel#searchHouse(Ljava/lang/String;)Ljava/util/List;

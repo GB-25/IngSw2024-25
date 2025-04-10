@@ -1,0 +1,374 @@
+
+1.0ingsw2025_dietiestates25JavaFrontend"1744294138024*java2.Bù
+8
+3src/main/java/client/view_gui/RisultatoRicerca.java2
+
+package4
+
+client.view_gui5
+%
+ client.view_gui.RisultatoRicerca7
+
+
+class8
+
+access9
+
+public10
+
+simple name11
+
+RisultatoRicerca12
+7
+1client.view_gui.RisultatoRicerca.serialVersionUID14
+
+field15
+
+private16
+
+serialVersionUID17
+0
+*client.view_gui.RisultatoRicerca.mainPanel19
+
+	mainPanel20
+0
+*client.view_gui.RisultatoRicerca.mapViewer22
+
+	mapViewer23
+!
+org.jxmapviewer.JXMapViewer25
+
+unknown26
+
+is type27
+
+
+uses28
+/
+)client.view_gui.RisultatoRicerca.mapPanel30
+
+mapPanel31
+7
+1client.view_gui.RisultatoRicerca.finestraCorrente33
+
+finestraCorrente34
+2
+,client.view_gui.RisultatoRicerca.lblNewLabel36
+
+lblNewLabel37
+„
+~client.view_gui.RisultatoRicerca#<init>(Lclient/controller/Controller;Lshared/classi/User;Ljava/util/List;Ljava/lang/String;)V39
+
+method40
+"
+client.controller.Controller42
+
+	has param43
+
+shared.classi.User45
+
+calls46
+
+shared.classi.Immobile48
+)
+#client.eccezioni.GeocodingException50
+!
+com.formdev.flatlaf.FlatLaf52
+
+
+references53
+C
+=com.formdev.flatlaf.FlatLaf#setup(Ljavax/swing/LookAndFeel;)Z55
+&
+ com.formdev.flatlaf.FlatLightLaf57
+Z
+Tclient.controller.Controller#findImmobili(Ljavax/swing/JFrame;Lshared/classi/User;)V59
+Î
+Çclient.controller.Controller#getCoordinates(Lclient/controller/Controller;Ljava/lang/String;Ljavax/swing/JPanel;Lorg/jxmapviewer/JXMapViewer;Ljava/util/List;Lshared/classi/User;Ljavax/swing/JFrame;)V61J
+
+1
+12Z
+
+3	
+354jÑ
+
+24
+242526
+@
+32:
+323315 *
+1 (26:3B
+	
+9
+16
+
+
+11
+34
+
+49
+495026
+9
+64
+678 *
+1 (:3B
+	
+9
+10
+
+
+11
+12
+@
+18:
+181915 *
+1 (	26:3B
+	
+9
+16
+
+
+11
+20
+
+56
+565726
+
+41
+414226
+
+47
+474826
+@
+35:
+353615 *
+1 (26:3B
+	
+9
+16
+
+
+11
+37
+
+44
+444526
+@
+13:
+131415 *
+1 (	26:3B
+	
+9
+16
+
+
+11
+17
+@
+21:
+212215 *
+1 (26:3B
+	
+9
+16
+
+
+11
+23
+@
+29:
+293015 *
+1 (26:3B
+	
+9
+16
+
+
+11
+31
+@
+38:
+383940 *
+1# #(26:3B
+	
+9
+10
+
+
+11
+12
+
+60
+606126
+
+54
+545526
+
+51
+515226
+
+58
+585926r¯
+
+212427*
+1 (
+
+212428*
+1 (
+
+212428*
+1 ("
+
+384143*
+1# #('
+
+384443*
+1#+ #(/
+
+38646*
+1# #(
+
+384127*
+1#( #()
+
+384128*
+1# #('
+
+384427*
+1#0 #(4
+
+384428*
+1#+ #(/
+
+384728*
+1#; #(C
+
+384928*
+1#g #(y
+
+385153*
+1$	 $(
+
+385446*
+1$ $(
+
+385128*
+1$	 $(
+
+385646*
+1$ $('
+
+383253*
+1&	 &(
+
+38628*
+1& &( 
+
+38653*
+1& &( 
+
+384153*
+15 5(
+
+385846*
+15 5(
+
+383253*
+15 5(,
+
+381853*
+19	 9(
+
+381853*
+1:	 :(
+
+381853*
+1:	 :(
+
+381853*
+1;	 ;(
+
+381853*
+1;	 ;(
+
+382953*
+1=	 =(
+
+382953*
+1>	 >(
+
+382953*
+1>	 >(
+
+382428*
+1@	 @(
+
+382153*
+1@	 @(
+
+382446*
+1@ @($
+
+382153*
+1A	 A(
+
+382428*
+1A	 A(
+
+382153*
+1A	 A(
+
+382953*
+1C	 C(
+
+382953*
+1C	 C(
+
+382428*
+1C C(
+
+382153*
+1C C(
+
+381853*
+1E	 E(
+
+381853*
+1E	 E(
+
+383553*
+1G	 G(
+
+383553*
+1H H(&
+
+381853*
+1I	 I(
+
+381853*
+1I	 I(
+
+382953*
+1I I(
+
+381853*
+1K K(!
+
+384153*
+1O	 O(
+
+
+386046*
+1O O(
+
+382953*
+1O) O(1
+
+382428*
+1O3 O(<
+
+382153*
+1O3 O(<
+
+383253*
+1OM O(]

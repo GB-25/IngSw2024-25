@@ -1,0 +1,6 @@
+client.controller.Controller#setNotificaLetta(Lshared/classi/Notifica;)V
+false
+dc0a7620271b4b8dd7ad1410e0f22486
+javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
+==
+notificaLetta client.model.ClientModel#notificaLetta(Lshared/classi/Notifica;)Z

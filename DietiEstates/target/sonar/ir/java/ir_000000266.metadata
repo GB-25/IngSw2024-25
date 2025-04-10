@@ -1,0 +1,66 @@
+client.view_gui.ProvaLogin#<init>(Lclient/controller/Controller;)V
+false
+598309126be4ecc159fc1ce2bbba091f
+com.formdev.flatlaf.FlatLaf#setup(Ljavax/swing/LookAndFeel;)Z
+com.formdev.flatlaf.FlatLightLaf#<init>()V
+com.formdev.flatlaf.FlatLightLaf#instance-init#
+java.awt.BorderLayout#<init>()V
+java.awt.BorderLayout#<init>(II)V
+java.awt.BorderLayout#instance-init#
+java.awt.Color#<init>(III)V
+java.awt.Color#instance-init#
+java.awt.Cursor#<init>(I)V
+java.awt.Cursor#getPredefinedCursor(I)Ljava/awt/Cursor;
+java.awt.Cursor#instance-init#
+java.awt.Dimension#<init>(II)V
+java.awt.Dimension#instance-init#
+java.awt.Font#<init>(Ljava/lang/String;II)V
+java.awt.Font#instance-init#
+java.awt.GridBagConstraints#<init>()V
+java.awt.GridBagConstraints#instance-init#
+java.awt.GridBagLayout#<init>()V
+java.awt.GridBagLayout#instance-init#
+java.awt.Insets#<init>(IIII)V
+java.awt.Insets#instance-init#
+java.lang.Class#getResource(Ljava/lang/String;)Ljava/net/URL;
+java.lang.Object#getClass()Ljava/lang/Class;
+javax.swing.ImageIcon#<init>(Ljava/awt/Image;)V
+javax.swing.ImageIcon#<init>(Ljava/net/URL;)V
+javax.swing.ImageIcon#instance-init#
+javax.swing.JButton#<init>(Ljava/lang/String;)V
+javax.swing.JButton#<init>(Ljavax/swing/Icon;)V
+javax.swing.JButton#instance-init#
+javax.swing.JLabel#<init>(Ljava/lang/String;)V
+javax.swing.JLabel#instance-init#
+javax.swing.JPanel#<init>()V
+javax.swing.JPanel#<init>(Ljava/awt/LayoutManager;)V
+javax.swing.JPanel#instance-init#
+javax.swing.JPasswordField#<init>()V
+javax.swing.JPasswordField#instance-init#
+javax.swing.JTextField#<init>()V
+javax.swing.JTextField#instance-init#
+==
+add java.awt.Container#add(Ljava/awt/Component;)Ljava/awt/Component;
+add java.awt.Container#add(Ljava/awt/Component;Ljava/lang/Object;)V
+addActionListener javax.swing.AbstractButton#addActionListener(Ljava/awt/event/ActionListener;)V
+getImage javax.swing.ImageIcon#getImage()Ljava/awt/Image;
+getScaledInstance java.awt.Image#getScaledInstance(III)Ljava/awt/Image;
+getWidth java.awt.Component#getWidth()I
+setAlignmentX javax.swing.JComponent#setAlignmentX(F)V
+setBackground javax.swing.JComponent#setBackground(Ljava/awt/Color;)V
+setBorder javax.swing.JComponent#setBorder(Ljavax/swing/border/Border;)V
+setBorderPainted javax.swing.AbstractButton#setBorderPainted(Z)V
+setBounds java.awt.Window#setBounds(IIII)V
+setColumns javax.swing.JTextField#setColumns(I)V
+setContentAreaFilled javax.swing.AbstractButton#setContentAreaFilled(Z)V
+setContentPane javax.swing.JFrame#setContentPane(Ljava/awt/Container;)V
+setCursor java.awt.Component#setCursor(Ljava/awt/Cursor;)V
+setDefaultCloseOperation javax.swing.JFrame#setDefaultCloseOperation(I)V
+setFocusPainted javax.swing.AbstractButton#setFocusPainted(Z)V
+setFont javax.swing.JComponent#setFont(Ljava/awt/Font;)V
+setForeground javax.swing.JComponent#setForeground(Ljava/awt/Color;)V
+setHorizontalAlignment javax.swing.JLabel#setHorizontalAlignment(I)V
+setLayout java.awt.Container#setLayout(Ljava/awt/LayoutManager;)V
+setPreferredSize java.awt.Component#setPreferredSize(Ljava/awt/Dimension;)V
+setPreferredSize javax.swing.JComponent#setPreferredSize(Ljava/awt/Dimension;)V
+setResizable java.awt.Frame#setResizable(Z)V

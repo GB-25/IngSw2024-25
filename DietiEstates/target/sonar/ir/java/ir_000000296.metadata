@@ -1,0 +1,18 @@
+client.model.ClientModel#retrievePrenotazione(I)Lshared/classi/Prenotazione;
+false
+b252b331b8f03e0a8e6ad643ec0cf7ab
+java.lang.String#equals(Ljava/lang/Object;)Z
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+shared.classi.Prenotazione#<init>(ILjava/lang/String;Ljava/lang/String;Lshared/classi/User;Lshared/classi/Immobile;Lshared/classi/User;Z)V
+shared.classi.Prenotazione#instance-init#
+==
+get java.util.List#get(I)Ljava/lang/Object;
+getAgente client.model.ClientModel#getAgente(Ljava/lang/String;)Lshared/classi/User;
+getBoolean org.json.JSONObject#getBoolean(Ljava/lang/String;)Z
+getInt org.json.JSONObject#getInt(Ljava/lang/String;)I
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+put org.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+searchHouse client.model.ClientModel#searchHouse(Ljava/lang/String;)Ljava/util/List;
+sendRequest client.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;

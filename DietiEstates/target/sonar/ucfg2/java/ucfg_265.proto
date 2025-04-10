@@ -1,0 +1,138 @@
+
+eserver.presentation_layer.ClientHandler#reservationDenied(Lorg/json/JSONObject;)Lorg/json/JSONObject;|
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.javað ð('"9*™
+5
+÷ ÷(T
+R
+
+÷ ÷(
+%8java.lang.String"__id*&
+
+__unknown_file (
+
+statusU
+S
+
+÷ ÷(!
+%9java.lang.String"__id*'
+
+__unknown_file (	
+successÕÒ
+
+÷ ÷("
+%10org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%8java.lang.String*4
+
+__unknown_file (
+
+%9java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+1*æ
+6
+õ õ(G¬
+©
+
+õ õ(GA)
+'server.presentation_layer.ClientHandler"
+reservationService"__id*R
+
+__unknown_file (6
+4
+%4.server.business_logic_layer.ReservationService¬
+©
+
+ö ö(4
+%6.server.business_logic_layer.ReservationService"__id*_
+
+__unknown_file (C*A)
+'server.presentation_layer.ClientHandler"
+reservationServiceñî
+
+ö ö(.
+
+%7void"Eserver.business_logic_layer.ReservationService#refusedReservation(I)V*R
+
+__unknown_file (6
+4
+%6.server.business_logic_layer.ReservationService*"
+
+__unknown_file (
+""2refusedReservation(I)*
+5*¢
+7
+ô ô(#Ã
+À
+
+õ1 õ(FH
+%3Bserver.data_access_layer.interfaces.ReservationRepositoryInterface"__id*b
+
+__unknown_file (F*D)
+'server.presentation_layer.ClientHandler"
+reservationRepositorytr
+
+õ õ(04
+%4.server.business_logic_layer.ReservationService".server.business_logic_layer.ReservationServiceÏ
+Ì
+
+õ õ(G
+%5"|server.business_logic_layer.ReservationService#<init>(Lserver/data_access_layer/interfaces/ReservationRepositoryInterface;)V*R
+
+__unknown_file (6
+4
+%4.server.business_logic_layer.ReservationService*f
+
+__unknown_file (J
+H
+%3Bserver.data_access_layer.interfaces.ReservationRepositoryInterface*
+6*à
+8
+ô ô(ÉÆ
+
+ô ô("	
+%2int"/org.json.JSONObject#getInt(Ljava/lang/String;)I*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*"
+
+__unknown_file (
+id2getInt(Ljava/lang/String;)*
+7*²
+9
+ñ ñ(*><
+
+ñ ñ((
+%0org.json.JSONObject"org.json.JSONObjectl
+j
+
+ñ ñ(*
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectn
+l
+
+ñ ñ(+
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObject*
+8*@
+1
+ü ü("/
+
+ü ü(!
+
+responseorg.json.JSONObject:,
+
+ð( ð(:
+requestorg.json.JSONObjectB+)
+'server.presentation_layer.ClientHandler

@@ -1,0 +1,27 @@
+
+Oserver.business_logic_layer.HouseService#getImmobile(I)Lshared/classi/Immobile;{
+q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/HouseService.java ("1*ù
+1	 (∂
+≥
+	 (B
+%0<server.data_access_layer.interfaces.HouseRepositoryInterface"__id*]
+
+__unknown_file (A*?*
+(server.business_logic_layer.HouseService"
+houseRepository®•
+	 ()
+%1shared.classi.Immobile"dserver.data_access_layer.interfaces.HouseRepositoryInterface#getHouseById(I)Lshared/classi/Immobile;*`
+
+__unknown_file (D
+B
+%0<server.data_access_layer.interfaces.HouseRepositoryInterface*"
+
+__unknown_file (
+""2getHouseById(I)"*
+ (*
+
+%1shared.classi.Immobile: 
+
+__unknown_file (
+""B,*
+(server.business_logic_layer.HouseServiceH

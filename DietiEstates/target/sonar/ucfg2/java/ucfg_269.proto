@@ -1,0 +1,380 @@
+
+eserver.presentation_layer.ClientHandler#fetchComposizione(Lorg/json/JSONObject;)Lorg/json/JSONObject;|
+p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.javaâ â(&"25*î
+24
+å å(ÕÒ
+
+å å(.	
+%2int"/org.json.JSONObject#getInt(Ljava/lang/String;)I*<
+
+__unknown_file ( 
+
+requestorg.json.JSONObject*.
+
+__unknown_file (
+idComposizione2getInt(Ljava/lang/String;)*
+23*²
+13
+í í(:™–
+
+í í(:
+%18org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*&
+
+__unknown_file (
+
+stanze*(
+
+__unknown_file (
+
+
+%17int2put(Ljava/lang/String;I)*
+12*´
+25
+ã ã(*><
+
+ã ã((
+%0org.json.JSONObject"org.json.JSONObjectl
+j
+
+ã ã(*
+%1"org.json.JSONObject#<init>()V*7
+
+__unknown_file (
+
+%0org.json.JSONObjectn
+l
+
+ã ã(+
+responseorg.json.JSONObject"__id*7
+
+__unknown_file (
+
+%0org.json.JSONObject*
+24*Ð
+14
+í í(·´
+
+í í(9
+
+%17int"5shared.classi.ComposizioneImmobile#getNumeroStanze()I*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2getNumeroStanze()*
+13*±
+15
+ì ì(2˜•
+
+ì ì(2
+%16org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*%
+
+__unknown_file (	
+piani*(
+
+__unknown_file (
+
+
+%15int2put(Ljava/lang/String;I)*
+14*Â
+16
+ì ì(©¦
+
+ì ì(1
+
+%15int".shared.classi.ComposizioneImmobile#getPiani()I*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2
+getPiani()*
+15*¶
+17
+ë ë(<š
+
+ë ë(<
+%14org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject**
+
+__unknown_file (
+
+quadratura*(
+
+__unknown_file (
+
+
+%13int2put(Ljava/lang/String;I)*
+16*Ì
+18
+ë ë(³°
+
+ë ë(;
+
+%13int"3shared.classi.ComposizioneImmobile#getQuadratura()I*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2getQuadratura()*
+17*´
+19
+ê ê(›˜
+
+ê ê('
+%12org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*.
+
+__unknown_file (
+idComposizione*"
+
+__unknown_file (
+""2put(Ljava/lang/String;I)*
+18*@
+1
+ö ö("/
+
+ö ö(!
+
+responseorg.json.JSONObject*¸
+5
+ñ ñ(B¡ž
+
+ñ ñ(B
+%26org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;Z)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject**
+
+__unknown_file (
+
+condominio*,
+
+__unknown_file (
+
+%25boolean2put(Ljava/lang/String;Z)*
+1*Ó
+6
+ñ ñ(¼¹
+
+ñ ñ(A
+%25boolean"2shared.classi.ComposizioneImmobile#isCondominio()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isCondominio()*
+5*·
+7
+ð ð(@ 
+
+ð ð(@
+%24org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;Z)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*)
+
+__unknown_file (
+	ascensore*,
+
+__unknown_file (
+
+%23boolean2put(Ljava/lang/String;Z)*
+6*Ñ
+8
+ð ð(º·
+
+ð ð(?
+%23boolean"1shared.classi.ComposizioneImmobile#isAscensore()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isAscensore()*
+7*¶
+9
+ï ï(>Ÿœ
+
+ï ï(>
+%22org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;Z)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*(
+
+__unknown_file (
+
+giardino*,
+
+__unknown_file (
+
+%21boolean2put(Ljava/lang/String;Z)*
+8*¸
+20
+è è(O˜
+•
+
+è è(O9
+composizioneBoolean"shared.classi.ComposizioneImmobile"__id*F
+
+__unknown_file (*
+(
+%8"shared.classi.ComposizioneImmobileT
+R
+
+é é(
+%9java.lang.String"__id*&
+
+__unknown_file (
+
+statusV
+T
+
+é é(!
+%10java.lang.String"__id*'
+
+__unknown_file (	
+successÖÓ
+
+é é("
+%11org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*4
+
+__unknown_file (
+
+%9java.lang.String*5
+
+__unknown_file (
+
+%10java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
+19*¥
+21
+ç ç(J‘
+Ž
+
+ç ç(J2
+composizione"shared.classi.ComposizioneImmobile"__id*F
+
+__unknown_file (*
+(
+%7"shared.classi.ComposizioneImmobileøõ
+
+è0 è(N(
+%8"shared.classi.ComposizioneImmobile"Xshared.classi.ComposizioneImmobile#getComposizione()Lshared/classi/ComposizioneImmobile;*P
+
+__unknown_file (4
+2
+composizione"shared.classi.ComposizioneImmobile2getComposizione()*
+20*Ð
+10
+ï ï(¸µ
+
+ï ï(=
+%21boolean"0shared.classi.ComposizioneImmobile#isGiardino()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isGiardino()*
+9*ÿ
+22
+æ æ(5 
+
+
+æ æ(5;)
+'server.presentation_layer.ClientHandler"
+houseService"__id*L
+
+__unknown_file (0
+.
+%4(server.business_logic_layer.HouseService 
+
+
+ç) ç(5.
+%6(server.business_logic_layer.HouseService"__id*Y
+
+__unknown_file (=*;)
+'server.presentation_layer.ClientHandler"
+houseService 
+
+ç) ç(I(
+%7"shared.classi.ComposizioneImmobile"_server.business_logic_layer.HouseService#getComposizione(I)Lshared/classi/ComposizioneImmobile;*L
+
+__unknown_file (0
+.
+%6(server.business_logic_layer.HouseService*"
+
+__unknown_file (
+""2getComposizione(I)*
+21*¸
+11
+î î(>Ÿœ
+
+î î(>
+%20org.json.JSONObject"Aorg.json.JSONObject#put(Ljava/lang/String;Z)Lorg/json/JSONObject;*=
+
+__unknown_file (!
+
+responseorg.json.JSONObject*(
+
+__unknown_file (
+
+terrazzo*,
+
+__unknown_file (
+
+%19boolean2put(Ljava/lang/String;Z)*
+10*ô
+23
+å å(/·
+´
+
+æ% æ(4B
+%3<server.data_access_layer.interfaces.HouseRepositoryInterface"__id*\
+
+__unknown_file (@*>)
+'server.presentation_layer.ClientHandler"
+houseRepositoryhf
+
+æ æ($.
+%4(server.business_logic_layer.HouseService"(server.business_logic_layer.HouseService·
+´
+
+æ æ(5
+%5"pserver.business_logic_layer.HouseService#<init>(Lserver/data_access_layer/interfaces/HouseRepositoryInterface;)V*L
+
+__unknown_file (0
+.
+%4(server.business_logic_layer.HouseService*`
+
+__unknown_file (D
+B
+%3<server.data_access_layer.interfaces.HouseRepositoryInterface*
+22*Ñ
+12
+î î(¸µ
+
+î î(=
+%19boolean"0shared.classi.ComposizioneImmobile#isTerrazzo()Z*W
+
+__unknown_file (;
+9
+composizioneBoolean"shared.classi.ComposizioneImmobile2isTerrazzo()*
+11:,
+
+â' â(9
+requestorg.json.JSONObjectB+)
+'server.presentation_layer.ClientHandlerH

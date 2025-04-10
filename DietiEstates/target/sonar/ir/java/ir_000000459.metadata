@@ -1,0 +1,8 @@
+client.controller.Controller#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)V
+false
+7cffb23c14789d1254eccd785505ea28
+shared.classi.Notifica#<init>(Ljava/lang/String;Ljava/lang/String;)V
+shared.classi.Notifica#instance-init#
+==
+inviaRichiestaNotifica client.model.ClientModel#inviaRichiestaNotifica(Lshared/classi/Notifica;)Z
+severe java.util.logging.Logger#severe(Ljava/lang/String;)V

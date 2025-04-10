@@ -1,0 +1,10 @@
+client.model.ClientModel#newPasswordModel(Ljava/lang/String;Ljava/lang/String;)Z
+false
+df8db11fc8b7ef7f2f534a0fb3ed224c
+java.lang.String#equals(Ljava/lang/Object;)Z
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+==
+getString org.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+sendRequest client.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;

@@ -1,0 +1,10 @@
+client.view_gui.FinestraRegistrazione#addButtons(Lclient/controller/Controller;)V
+false
+5bfc7aec855d9f468b077262f3895456
+javax.swing.JButton#<init>(Ljava/lang/String;)V
+javax.swing.JButton#instance-init#
+==
+add java.awt.Container#add(Ljava/awt/Component;)Ljava/awt/Component;
+addActionListener javax.swing.AbstractButton#addActionListener(Ljava/awt/event/ActionListener;)V
+setBounds java.awt.Component#setBounds(IIII)V
+setEnabled javax.swing.AbstractButton#setEnabled(Z)V

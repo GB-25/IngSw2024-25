@@ -1,0 +1,5 @@
+server.business_logic_layer.HouseService#getComposizione(I)Lshared/classi/ComposizioneImmobile;
+false
+aee54f443751f1f379d605f84b3d4f05
+==
+getComposizioneById server.data_access_layer.interfaces.HouseRepositoryInterface#getComposizioneById(I)Lshared/classi/ComposizioneImmobile;

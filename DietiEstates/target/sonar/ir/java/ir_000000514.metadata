@@ -1,0 +1,21 @@
+client.view_gui.CaricamentoProprietaNuovo#addBackButton(Ljavax/swing/JPanel;Lclient/controller/Controller;Lshared/classi/User;)V
+false
+2d114c64c487617a9e48062e6564f0dd
+java.awt.Dimension#<init>(II)V
+java.awt.Dimension#instance-init#
+java.awt.FlowLayout#<init>(I)V
+java.awt.FlowLayout#instance-init#
+java.awt.Font#<init>(Ljava/lang/String;II)V
+java.awt.Font#instance-init#
+javax.swing.JButton#<init>(Ljava/lang/String;)V
+javax.swing.JButton#instance-init#
+javax.swing.JPanel#<init>(Ljava/awt/LayoutManager;)V
+javax.swing.JPanel#instance-init#
+==
+add java.awt.Container#add(Ljava/awt/Component;)Ljava/awt/Component;
+addActionListener javax.swing.AbstractButton#addActionListener(Ljava/awt/event/ActionListener;)V
+setBackground javax.swing.JComponent#setBackground(Ljava/awt/Color;)V
+setBounds java.awt.Component#setBounds(IIII)V
+setFont javax.swing.JComponent#setFont(Ljava/awt/Font;)V
+setLayout java.awt.Container#setLayout(Ljava/awt/LayoutManager;)V
+setPreferredSize javax.swing.JComponent#setPreferredSize(Ljava/awt/Dimension;)V

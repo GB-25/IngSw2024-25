@@ -1,0 +1,126 @@
+
+8server.data_access_layer.DatabaseManager#setNotifica(I)Z}
+q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/data_access_layer/DatabaseManager.javaÒ Ò("8*%
+3
+Ø
+ Ø("
+
+Ø Ø(
+""*±
+4
+× ×(š—
+
+× ×(	
+%6int"+java.sql.PreparedStatement#executeUpdate()I*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement2executeUpdate()*
+3*è
+5
+Õ Õ(Ix
+v
+
+Õ Õ(I"
+stmtjava.sql.PreparedStatement"__id*>
+
+__unknown_file ("
+ 
+%4java.sql.PreparedStatement×Ô
+
+Ö Ö(
+
+%5void"&java.sql.PreparedStatement#setInt(II)V*@
+
+__unknown_file ($
+"
+stmtjava.sql.PreparedStatement* 
+
+__unknown_file (2*"
+
+__unknown_file (
+""2
+setInt(II)*
+4*°
+6
+Ô Ô(Pp
+n
+
+Ô Ô(P!
+
+connectionjava.sql.Connection"__id*7
+
+__unknown_file (
+
+%3java.sql.Connection§¤
+
+Õ' Õ(I 
+%4java.sql.PreparedStatement"Tjava.sql.Connection#prepareStatement(Ljava/lang/String;)Ljava/sql/PreparedStatement;*?
+
+__unknown_file (#
+!
+
+connectionjava.sql.Connection*7
+
+__unknown_file (
+
+queryjava.lang.String2$prepareStatement(Ljava/lang/String;)*
+5*Š
+7
+Ô  Ô(-P
+N
+
+Ô< Ô(?
+%0java.lang.String"__id*"
+
+__unknown_file (
+""V
+T
+
+ÔA Ô(E
+%1java.lang.String"__id*(
+
+__unknown_file (
+
+postgresP
+N
+
+ÔG Ô(O
+%2java.lang.String"__id*"
+
+__unknown_file (
+""÷
+ô
+
+Ô  Ô(P
+%3java.sql.Connection"qjava.sql.DriverManager#getConnection(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/sql/Connection;*6
+
+__unknown_file ("
+java.sql.DriverManager*4
+
+__unknown_file (
+
+%0java.lang.String*4
+
+__unknown_file (
+
+%1java.lang.String*4
+
+__unknown_file (
+
+%2java.lang.String*
+6*—
+8
+Ó Ó(B€
+~
+
+Ó Ó(C
+queryjava.lang.String"__id*O
+
+__unknown_file (31
+/UPDATE notifiche SET letta = TRUE WHERE id = ?;*
+7: 
+
+__unknown_file (
+""B,*
+(server.data_access_layer.DatabaseManagerHX

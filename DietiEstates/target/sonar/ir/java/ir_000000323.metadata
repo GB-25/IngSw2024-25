@@ -1,0 +1,9 @@
+client.view_gui.FinestraRegistrazione#validatePhone(Lclient/controller/Controller;)V
+false
+4051b135e19eca6bf28390225b7f2376
+client.view_gui.FinestraRegistrazione#updateConfirmButtonState(Lclient/controller/Controller;)V
+==
+getText javax.swing.text.JTextComponent#getText()Ljava/lang/String;
+isValidNumero client.controller.Controller#isValidNumero(Ljava/lang/String;)Z
+setForeground javax.swing.JComponent#setForeground(Ljava/awt/Color;)V
+setText javax.swing.JLabel#setText(Ljava/lang/String;)V

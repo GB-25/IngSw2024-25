@@ -1,0 +1,14 @@
+client.model.ClientModel#getComposizione(I)Lshared/classi/ComposizioneImmobile;
+false
+26798edfb483439b4f16deacab079d1a
+org.json.JSONObject#<init>()V
+org.json.JSONObject#instance-init#
+shared.classi.ComposizioneImmobile#<init>(IIIILshared/classi/ComposizioneImmobile;)V
+shared.classi.ComposizioneImmobile#<init>(ZZZZ)V
+shared.classi.ComposizioneImmobile#instance-init#
+==
+getBoolean org.json.JSONObject#getBoolean(Ljava/lang/String;)Z
+getInt org.json.JSONObject#getInt(Ljava/lang/String;)I
+put org.json.JSONObject#put(Ljava/lang/String;I)Lorg/json/JSONObject;
+put org.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;
+sendRequest client.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;

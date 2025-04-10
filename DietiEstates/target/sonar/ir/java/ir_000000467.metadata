@@ -1,0 +1,7 @@
+client.controller.Controller#confermaCaricamento(Ljavax/swing/JFrame;Lshared/classi/User;)V
+false
+9d11eccaa38026c2075259b490512adf
+client.view_gui.CaricamentoConfermato#<init>(Lclient/controller/Controller;Lshared/classi/User;)V
+client.view_gui.CaricamentoConfermato#instance-init#
+==
+setVisible java.awt.Window#setVisible(Z)V

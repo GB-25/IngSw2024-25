@@ -1,0 +1,6 @@
+client.model.ClientModel#instance-init#
+false
+cae0d536e6141f1464fe34c352134bc8
+java.lang.Class#getName()Ljava/lang/String;
+java.lang.Object#getClass()Ljava/lang/Class;
+java.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;
