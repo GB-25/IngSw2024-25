@@ -1,44 +1,0 @@
-
-…client.controller.Controller#createSchermataCaricamento(Ljavax/swing/JFrame;Ljava/lang/String;)Lclient/view_gui/SchermataCaricamento;o
-e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.javac c(7"1*’
-1d5 d(E^\
-d  d(4*
-%0$client.view_gui.SchermataCaricamento"$client.view_gui.SchermataCaricamento´
-±
-d d(O
-%1"Tclient.view_gui.SchermataCaricamento#<init>(Ljavax/swing/JFrame;Ljava/lang/String;)V*H
-
-__unknown_file (,
-*
-%0$client.view_gui.SchermataCaricamento*D
-
-__unknown_file ((
-&
-finestraCorrentejavax.swing.JFrame*9
-
-__unknown_file (
-
-messagejava.lang.String—
-”
-d d(O8
-client.controller.Controller"
-schermataCaricamento"__id*H
-
-__unknown_file (,
-*
-%0$client.view_gui.SchermataCaricamento—
-”
-e e( *
-%2$client.view_gui.SchermataCaricamento"__id*V
-
-__unknown_file (:*8
-client.controller.Controller"
-schermataCaricamento"8
-e e(!,
-*
-%2$client.view_gui.SchermataCaricamento:2
-c8 c(P&
-finestraCorrentejavax.swing.JFrame:'
-cQ c(_
-messagejava.lang.StringB 
-client.controller.ControllerH

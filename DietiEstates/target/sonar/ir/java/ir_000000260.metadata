@@ -1,5 +1,0 @@
-server.business_logic_layer.ReservationService#setLetta(I)Z
-false
-861559f3b0a96501dc3c16447659dc78
-==
-setNotifica server.data_access_layer.interfaces.ReservationRepositoryInterface#setNotifica(I)Z

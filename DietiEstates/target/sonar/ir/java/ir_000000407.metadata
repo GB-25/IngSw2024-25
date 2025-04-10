@@ -1,7 +1,0 @@
-server.presentation_layer.ClientHandler#<init>(Ljava/net/Socket;)V
-false
-a720e08c310aad1623efbf16594d2cb1
-server.data_access_layer.DatabaseManager#<init>()V
-server.data_access_layer.DatabaseManager#instance-init#
-server.data_access_layer.GoogleCloudStorageManager#<init>()V
-server.data_access_layer.GoogleCloudStorageManager#instance-init#

@@ -1,7 +1,0 @@
-client.controller.Controller#registerUser(Ljavax/swing/JFrame;)V
-false
-896173419f0f241ec0c499a21f17095e
-client.view_gui.FinestraRegistrazione#<init>(Lclient/controller/Controller;)V
-client.view_gui.FinestraRegistrazione#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

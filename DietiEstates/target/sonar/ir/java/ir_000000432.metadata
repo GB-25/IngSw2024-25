@@ -1,4 +1,0 @@
-client.controller.Controller#isValidEmail(Ljava/lang/String;)Z
-false
-229901ab176272b996f91a11febe524c
-java.lang.String#matches(Ljava/lang/String;)Z

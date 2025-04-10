@@ -1,70 +1,0 @@
-
-1.0ingsw2025_dietiestates25JavaFrontend"1744294120409*java2.Bð
-S
-Nsrc/main/java/server/data_access_layer/interfaces/StorageManagerInterface.java2
-
-package4
-(
-#server.data_access_layer.interfaces5
-@
-;server.data_access_layer.interfaces.StorageManagerInterface7
-
-	interface8
-
-access9
-
-public10
-
-simple name11
-
-StorageManagerInterface12
-…
-server.data_access_layer.interfaces.StorageManagerInterface#uploadFile(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;14
-
-method15
-
-
-uploadFile16
-}
-wserver.data_access_layer.interfaces.StorageManagerInterface#downloadImageAsBase64(Ljava/lang/String;)Ljava/lang/String;18
-
-downloadImageAsBase6419J
-
-1
-12Z
-
-3	
-354j¿
-9
-64
-678 *
-1 ():3B
-	
-9
-10
-
-
-11
-12
-@
-13:
-131415 *
-1 (26:3B
-	
-9
-10
-
-
-11
-16
-@
-17:
-171815 *
-1	 	(26:3B
-	
-9
-10
-
-
-11
-19

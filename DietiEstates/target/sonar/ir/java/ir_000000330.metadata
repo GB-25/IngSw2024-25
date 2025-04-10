@@ -1,6 +1,0 @@
-client.view_gui.FinestraRegistrazione#handleCancellation(Lclient/controller/Controller;)V
-false
-40d09419715869999ccde2604c6e5255
-javax.swing.JOptionPane#showConfirmDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)I
-==
-returnLogin client.controller.Controller#returnLogin(Ljavax/swing/JFrame;)V

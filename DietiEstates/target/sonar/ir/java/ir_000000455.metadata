@@ -1,6 +1,0 @@
-client.controller.Controller#reservationDeny(I)V
-false
-a59e90573c8a38bcb3e3e41cac97dfe6
-javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
-==
-denyReservation client.model.ClientModel#denyReservation(I)Z

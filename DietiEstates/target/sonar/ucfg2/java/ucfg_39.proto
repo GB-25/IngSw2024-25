@@ -1,26 +1,0 @@
-
-;server.business_logic_layer.ReservationService#setLetta(I)ZÅ
-w/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/business_logic_layer/ReservationService.javaE E("1*˚
-1F	 F(»
-≈
-F	 F(H
-%0Bserver.data_access_layer.interfaces.ReservationRepositoryInterface"__id*i
-
-__unknown_file (M*K0
-.server.business_logic_layer.ReservationService"
-reservationRepositoryåâ
-F	 F(.
-%1boolean"Rserver.data_access_layer.interfaces.ReservationRepositoryInterface#setNotifica(I)Z*f
-
-__unknown_file (J
-H
-%0Bserver.data_access_layer.interfaces.ReservationRepositoryInterface*"
-
-__unknown_file (
-""2setNotifica(I)"
-F F(/
-"": 
-
-__unknown_file (
-""B20
-.server.business_logic_layer.ReservationServiceHX

@@ -1,6 +1,0 @@
-client.view_gui.VisionePrenotazione#instance-init#
-false
-031708289be4ea65792348338d8aca59
-java.lang.Class#getName()Ljava/lang/String;
-java.lang.Object#getClass()Ljava/lang/Class;
-java.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;

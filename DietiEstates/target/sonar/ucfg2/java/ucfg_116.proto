@@ -1,44 +1,0 @@
-
-7__sonar_lambda_14$client.view_gui.FinestraRegistrazionez
-n/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/FinestraRegistrazione.javaÚ% Ú(?"startingBlock*‰
-startingBlock
-Ú% Ú(?”
-‘
-
-__unknown_file (!
-cclient.controller.Controller"__id*L
-
-__unknown_file (0*.'
-%client.view_gui.FinestraRegistrazione"
-cÏ
-Ì
-
-__unknown_file (C
-FinestraRegistrazione.this%client.view_gui.FinestraRegistrazione"__id*e
-
-__unknown_file (I*G'
-%client.view_gui.FinestraRegistrazione"
-FinestraRegistrazione.this*
-1*Ê
-1
-Ú* Ú(<›
-˜
-
-Ú* Ú(?
-%15void"Yclient.view_gui.FinestraRegistrazione#handleCancellation(Lclient/controller/Controller;)V*a
-
-__unknown_file (E
-C
-FinestraRegistrazione.this%client.view_gui.FinestraRegistrazione*?
-
-__unknown_file (#
-!
-cclient.controller.Controller"
-
-Ú* Ú(?
-
-%15void:-
-
-Ú% Ú(&
-ejava.awt.event.ActionEventB!
-java.awt.event.ActionListener

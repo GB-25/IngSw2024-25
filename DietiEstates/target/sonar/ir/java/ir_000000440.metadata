@@ -1,6 +1,0 @@
-client.controller.Controller#fileDownload(Ljava/lang/String;)Ljava/lang/String;
-false
-9f4d19de10e6fb9fcb115a7bdda540b0
-java.lang.String#isEmpty()Z
-==
-downloadFileModel client.model.ClientModel#downloadFileModel(Ljava/lang/String;)Ljava/lang/String;

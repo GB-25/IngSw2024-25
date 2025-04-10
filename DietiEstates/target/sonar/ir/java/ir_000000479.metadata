@@ -1,6 +1,0 @@
-client.controller.Controller#createAdmin(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
-false
-a3a7e53da4bd1e1b6003cdaa10929c3a
-javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
-==
-registerModel client.model.ClientModel#registerModel(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lshared/classi/User;

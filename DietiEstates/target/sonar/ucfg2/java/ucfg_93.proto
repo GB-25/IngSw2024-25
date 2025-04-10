@@ -1,177 +1,0 @@
-
-Jclient.model.ClientModel#inviaRichiestaNotifica(Lshared/classi/Notifica;)Zm
-a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.javaÉ É()"12*%
-3
-ã ã(H"
-
-ã ã(H
-""*⁄
-4
-ã? ã(FV
-T
-
-ã? ã(F
-%11java.lang.String"__id*'
-
-__unknown_file (	
-successÎË
-
-ã ã(G
-%12boolean"6java.lang.String#equalsIgnoreCase(Ljava/lang/String;)Z*5
-
-__unknown_file (
-
-%10java.lang.String*5
-
-__unknown_file (
-
-%11java.lang.String2$equalsIgnoreCase(Ljava/lang/String;)*
-3*ﬁ
-5
-ä ä(7n
-l
-
-ä ä(7
-responseorg.json.JSONObject"__id*7
-
-__unknown_file (
-
-%8org.json.JSONObjectT
-R
-
-ã& ã(,
-%9java.lang.String"__id*&
-
-__unknown_file (
-
-statusÅ˛
-
-ã ã(-
-%10java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
-
-__unknown_file (!
-
-responseorg.json.JSONObject*4
-
-__unknown_file (
-
-%9java.lang.String2getString(Ljava/lang/String;)*
-4*Ø
-6
-ä" ä(-òï
-
-ä" ä(6
-%8org.json.JSONObject"Pclient.model.ClientModel#sendRequest(Lorg/json/JSONObject;)Lorg/json/JSONObject;*8
-
-__unknown_file (
-client.model.ClientModel*<
-
-__unknown_file ( 
-
-requestorg.json.JSONObject2"sendRequest(Lorg/json/JSONObject;)*
-5*ﬂ
-7
-à à(=»≈
-
-à à(=
-%7org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
-
-__unknown_file ( 
-
-requestorg.json.JSONObject*)
-
-__unknown_file (
-	messaggio*4
-
-__unknown_file (
-
-%6java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
-6*…
-8
-à à(≤Ø
-
-à% à(<
-%6java.lang.String"7shared.classi.Notifica#getMessaggio()Ljava/lang/String;*@
-
-__unknown_file ($
-"
-notificashared.classi.Notifica2getMessaggio()*
-7*‚
-9
-á á(HÀ»
-
-á á(H
-%5org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
-
-__unknown_file ( 
-
-requestorg.json.JSONObject*,
-
-__unknown_file (
-destinatario*4
-
-__unknown_file (
-
-%4java.lang.String2)put(Ljava/lang/String;Ljava/lang/Object;)*
-8*⁄
-10
-á á(¬ø
-
-á( á(G
-%4java.lang.String"?shared.classi.Notifica#getDestinatarioEmail()Ljava/lang/String;*@
-
-__unknown_file ($
-"
-notificashared.classi.Notifica2getDestinatarioEmail()*
-9*≠
-11
-Ö Ö(2m
-k
-
-Ö Ö(2
-requestorg.json.JSONObject"__id*7
-
-__unknown_file (
-
-%0org.json.JSONObjectT
-R
-
-Ü Ü(
-%2java.lang.String"__id*&
-
-__unknown_file (
-
-actionœÃ
-
-Ü Ü(3
-%3org.json.JSONObject"Rorg.json.JSONObject#put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;*<
-
-__unknown_file ( 
-
-requestorg.json.JSONObject*4
-
-__unknown_file (
-
-%2java.lang.String*0
-
-__unknown_file (
-aggiungiNotifica2)put(Ljava/lang/String;Ljava/lang/Object;)*
-10*ƒ
-12
-Ö! Ö(1><
-
-Ö% Ö(/
-%0org.json.JSONObject"org.json.JSONObjectl
-j
-
-Ö! Ö(1
-%1"org.json.JSONObject#<init>()V*7
-
-__unknown_file (
-
-%0org.json.JSONObject*
-11:0
-
-É* É(;"
-notificashared.classi.NotificaB
-client.model.ClientModelHX

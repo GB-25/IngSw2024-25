@@ -1,5 +1,0 @@
-client.eccezioni.GeocodingException#<init>(Ljava/lang/String;Ljava/lang/Throwable;)V
-false
-ded476859105403e43af024bec519bc0
-==
-<init> java.lang.Exception#<init>(Ljava/lang/String;Ljava/lang/Throwable;)V

@@ -1,7 +1,0 @@
-client.controller.Controller#makeReservationClient(Ljavax/swing/JFrame;Lshared/classi/Immobile;Lshared/classi/User;)V
-false
-65e9b49868da2ea7956a70a13fe0793b
-client.view_gui.PrenotazioneCliente#<init>(Lclient/controller/Controller;Lshared/classi/Immobile;Lshared/classi/User;Ljavax/swing/JFrame;)V
-client.view_gui.PrenotazioneCliente#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

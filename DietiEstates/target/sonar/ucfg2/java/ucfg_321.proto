@@ -1,36 +1,0 @@
-
-=client.controller.Controller#isValidNome(Ljava/lang/String;)Zq
-e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.javaç ç("1*å
-1
-é
- é(wu
-
-é
- é(	
-%0int"java.lang.String#length()I*6
-
-__unknown_file (
-
-nomejava.lang.String2length()l
-j
-
-é
- é(
-%1boolean"	__compare*
-
-é é(
->*
-
-é
- é(
-	
-%0int*
-
-é é(2"
-
-é é(
-"":&
-
-ç ç('
-nomejava.lang.StringB 
-client.controller.ControllerHX

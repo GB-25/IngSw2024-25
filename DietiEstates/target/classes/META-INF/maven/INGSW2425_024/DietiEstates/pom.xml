@@ -15,8 +15,10 @@
   <properties>
     <sonar.organization>ingsw2025</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+	
 
   <dependencies>
 
@@ -53,7 +55,7 @@
     <dependency>
       <groupId>com.jgoodies</groupId>
       <artifactId>jgoodies-looks</artifactId>
-      <version>2.4.1</version>
+      <version>2.7.0</version>
     </dependency>
 
     <!-- MigLayout -->
@@ -179,8 +181,6 @@
     <version>1.6</version> <!-- Puoi usare l'ultima versione disponibile -->
   </dependency>
 
-
-
   </dependencies>
   <build>
     <plugins>
@@ -204,6 +204,10 @@
         <artifactId>sonar-maven-plugin</artifactId>
         <version>3.9.0.2155</version>
       </plugin>
+      
+      
+    
+
       
     </plugins>
   </build>

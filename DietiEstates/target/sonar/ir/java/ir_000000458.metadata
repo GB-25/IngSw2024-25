@@ -1,9 +1,0 @@
-client.controller.Controller#notifyAgente(Lshared/classi/Prenotazione;)V
-false
-b88a8ae9f3a170964aacf02d613337ab
-client.controller.Controller#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)V
-javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
-==
-getAgente shared.classi.Prenotazione#getAgente()Lshared/classi/User;
-getId shared.classi.Prenotazione#getId()I
-getMail shared.classi.User#getMail()Ljava/lang/String;

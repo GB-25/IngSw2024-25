@@ -1,7 +1,0 @@
-client.controller.Controller#createHomeUtente(Ljavax/swing/JFrame;Lshared/classi/User;)V
-false
-11217216cc2518309b5486f3d24b3f15
-client.view_gui.HomeGenerale#<init>(Lclient/controller/Controller;Lshared/classi/User;)V
-client.view_gui.HomeGenerale#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

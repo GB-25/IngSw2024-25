@@ -1,5 +1,0 @@
-server.business_logic_layer.HouseService#newUrls(Ljava/lang/String;I)Z
-false
-73f9699e77a69dff8402e8ef5ba6be53
-==
-updateUrls server.data_access_layer.interfaces.HouseRepositoryInterface#updateUrls(Ljava/lang/String;I)Z

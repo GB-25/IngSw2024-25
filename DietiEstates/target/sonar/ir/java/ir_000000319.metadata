@@ -1,9 +1,0 @@
-client.view_gui.FinestraRegistrazione#validateSurname(Lclient/controller/Controller;)V
-false
-df6615e58d4713b6ae344bbcf7333670
-client.view_gui.FinestraRegistrazione#updateConfirmButtonState(Lclient/controller/Controller;)V
-==
-getText javax.swing.text.JTextComponent#getText()Ljava/lang/String;
-isValidNome client.controller.Controller#isValidNome(Ljava/lang/String;)Z
-setForeground javax.swing.JComponent#setForeground(Ljava/awt/Color;)V
-setText javax.swing.JLabel#setText(Ljava/lang/String;)V

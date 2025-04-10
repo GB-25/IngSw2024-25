@@ -1,8 +1,0 @@
-client.view_gui.FinestraRegistrazione#instance-init#
-false
-41c43d2d29a84e84fc6fd1b0f4b16228
-javax.swing.JButton#<init>(Ljava/lang/String;)V
-javax.swing.JButton#instance-init#
-javax.swing.JLabel#<init>()V
-javax.swing.JLabel#<init>(Ljava/lang/String;)V
-javax.swing.JLabel#instance-init#

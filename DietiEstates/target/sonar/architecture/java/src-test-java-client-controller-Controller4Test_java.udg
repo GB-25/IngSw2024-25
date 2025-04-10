@@ -1,410 +1,0 @@
-
-1.0ingsw2025_dietiestates25JavaFrontend"1744294142338*java2.B‘
-9
-4src/test/java/client/controller/Controller4Test.java2
-
-package4
-
-client.controller5
-&
-!client.controller.Controller4Test7
-
-
-class8
-
-access9
-
-public10
-
-simple name11
-
-Controller4Test12
-2
-,client.controller.Controller4Test.controller14
-
-field15
-
-	protected16
-
-
-controller17
-"
-client.controller.Controller19
-
-unknown20
-
-is type21
-
-
-uses22
-
-calls23
-R
-Lclient.controller.Controller4Test#testCheckDettagliInserzione_CE1_CE6_CE9()V25
-
-method26
--
-'testCheckDettagliInserzione_CE1_CE6_CE927
-
-org.junit.Test29
-
-annotated by30
-
-
-references31
-s
-mclient.controller.Controller#checkDettagliInserzione(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z33
-
-org.junit.Assert35
-&
- org.junit.Assert#assertFalse(Z)V37
-R
-Lclient.controller.Controller4Test#testCheckDettagliInserzione_CE2_CE6_CE9()V39
--
-'testCheckDettagliInserzione_CE2_CE6_CE940
-R
-Lclient.controller.Controller4Test#testCheckDettagliInserzione_CE3_CE4_CE9()V42
--
-'testCheckDettagliInserzione_CE3_CE4_CE943
-R
-Lclient.controller.Controller4Test#testCheckDettagliInserzione_CE3_CE5_CE9()V45
--
-'testCheckDettagliInserzione_CE3_CE5_CE946
-R
-Lclient.controller.Controller4Test#testCheckDettagliInserzione_CE3_CE6_CE7()V48
--
-'testCheckDettagliInserzione_CE3_CE6_CE749
-R
-Lclient.controller.Controller4Test#testCheckDettagliInserzione_CE3_CE6_CE8()V51
--
-'testCheckDettagliInserzione_CE3_CE6_CE852
-R
-Lclient.controller.Controller4Test#testCheckDettagliInserzione_CE3_CE6_CE9()V54
--
-'testCheckDettagliInserzione_CE3_CE6_CE955
-%
-org.junit.Assert#assertTrue(Z)V57J
-
-1
-12Z
-
-3	
-354j√
-
-56
-565720
-
-36
-363720
-@
-38:
-383926 *
-1 (26:3B
-	
-9
-10
-
-
-11
-40
-
-28
-282920
-
-18
-181920
-@
-41:
-414226 *
-1 (26:3B
-	
-9
-10
-
-
-11
-43
-@
-47:
-474826 *
-13 3(26:3B
-	
-9
-10
-
-
-11
-49
-@
-44:
-444526 *
-1) )(26:3B
-	
-9
-10
-
-
-11
-46
-@
-24:
-242526 *
-1 (26:3B
-	
-9
-10
-
-
-11
-27
-@
-53:
-535426 *
-1G G(26:3B
-	
-9
-10
-
-
-11
-55
-@
-50:
-505126 *
-1= =(26:3B
-	
-9
-10
-
-
-11
-52
-9
-64
-678 *
-1 (:3B
-	
-9
-10
-
-
-11
-12
-
-32
-323320
-
-34
-343520
-@
-13:
-131415 *
-1	 	(26:3B
-	
-9
-16
-
-
-11
-17rë
-
-131821*
-1	 	(
-
-131822*
-1	 	(
-
-131822*
-1	 	(
-
-131823*
-1	$ 	(.
-
-242830*
-1 (
-
-242822*
-1 (	
-
-241831*
-1 (!
-
-243223*
-1" (9
-
-241331*
-1 (!
-
-241822*
-1 (!
-
-241331*
-1 (!
-
-243431*
-1 (
-
-243623*
-1 (
-
-382830*
-1 (
-
-382822*
-1 (	
-
-381831*
-1 (!
-
-383223*
-1" (9
-
-381331*
-1 (!
-
-381822*
-1 (!
-
-381331*
-1 (!
-
-383431*
-1 (
-
-383623*
-1 (
-
-412830*
-1 (
-
-412822*
-1 (	
-
-411831*
-1% %(!
-
-413223*
-1%" %(9
-
-411331*
-1% %(!
-
-411822*
-1% %(!
-
-411331*
-1% %(!
-
-413431*
-1& &(
-
-413623*
-1& &(
-
-442830*
-1) )(
-
-442822*
-1) )(	
-
-441831*
-1/ /(!
-
-443223*
-1/" /(9
-
-441331*
-1/ /(!
-
-441822*
-1/ /(!
-
-441331*
-1/ /(!
-
-443431*
-10 0(
-
-443623*
-10 0(
-
-472830*
-13 3(
-
-472822*
-13 3(	
-
-471831*
-19 9(!
-
-473223*
-19" 9(9
-
-471331*
-19 9(!
-
-471822*
-19 9(!
-
-471331*
-19 9(!
-
-473431*
-1: :(
-
-473623*
-1: :(
-
-502830*
-1= =(
-
-502822*
-1= =(	
-
-501831*
-1C C(!
-
-503223*
-1C" C(9
-
-501331*
-1C C(!
-
-501822*
-1C C(!
-
-501331*
-1C C(!
-
-503431*
-1D D(
-
-503623*
-1D D(
-
-532830*
-1G G(
-
-532822*
-1G G(	
-
-531831*
-1M M(!
-
-533223*
-1M" M(9
-
-531331*
-1M M(!
-
-531822*
-1M M(!
-
-531331*
-1M M(!
-
-533431*
-1N N(
-
-535623*
-1N N(

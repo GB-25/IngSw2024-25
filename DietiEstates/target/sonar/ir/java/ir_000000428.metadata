@@ -1,9 +1,0 @@
-client.controller.Controller#<init>()V
-false
-2b7b14fa3a7ef8fd671574fa1ce0d3e0
-client.model.ClientModel#<init>(Ljava/lang/String;I)V
-client.model.ClientModel#instance-init#
-client.view_gui.ProvaLogin#<init>(Lclient/controller/Controller;)V
-client.view_gui.ProvaLogin#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

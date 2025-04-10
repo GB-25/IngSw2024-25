@@ -1,51 +1,0 @@
-
-*__sonar_lambda_11$client.model.ClientModelm
-a/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/model/ClientModel.javaç' ç(f"startingBlock*Ø
-startingBlock
-ç' ç(få
-â
-
-__unknown_file (
-responseorg.json.JSONObject"__id*F
-
-__unknown_file (**(
-client.model.ClientModel"
-
-response*
-1*†
-1
-ç- ç(HV
-T
-
-ç^ ç(e
-%22java.lang.String"__id*'
-
-__unknown_file (	
-messageÇˇ
-
-çK ç(f
-%23java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*=
-
-__unknown_file (!
-
-responseorg.json.JSONObject*5
-
-__unknown_file (
-
-%22java.lang.String2getString(Ljava/lang/String;)à
-Ö
-
-ç- ç(f
-%24java.lang.String"__concat*+
-
-ç- ç(H
-Errore durante l'upload: *'
-
-çK ç(f
-
-%23java.lang.String"'
-
-ç- ç(f
-
-%24java.lang.StringB
-java.util.function.Supplier

@@ -1,7 +1,0 @@
-organization=ingsw2025
-projectKey=ingsw2025_dietiestates25
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.61777
-dashboardUrl=https://sonarcloud.io/dashboard?id=ingsw2025_dietiestates25
-ceTaskId=AZYgCLVFZhtxtPXzQ1VJ
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZYgCLVFZhtxtPXzQ1VJ

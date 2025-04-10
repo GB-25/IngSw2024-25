@@ -1,30 +1,0 @@
-
-2client.controller.Controller#verifyPassword([C[C)Zq
-e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.javaÈ È("1*þ
-1
-É	 É(Ö
-Ó
-
-É	 É(,
-%0boolean"java.util.Arrays#equals([C[C)Z*0
-
-__unknown_file ("
-java.util.Arrays*1
-
-__unknown_file (
-
-	password1char[]*1
-
-__unknown_file (
-
-	password2char[]"
-
-É É(-
-"":!
-
-È È(0
-	password1char[]:!
-
-È1 È(A
-	password2char[]B 
-client.controller.ControllerHX

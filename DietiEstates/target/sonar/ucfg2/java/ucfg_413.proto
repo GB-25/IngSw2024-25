@@ -1,73 +1,0 @@
-
-<client.view_gui.CaricamentoProprietaNuovo#%field_initializer
-__unknown_file ("1*à
-1 (±
-®
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java# (I
-%0java.util.logging.Logger"Pjava.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;*(
- ("
-java.util.logging.Logger*
- (
-""î
-ë
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java (J7+
-)client.view_gui.CaricamentoProprietaNuovo"
-logger"__id*,
- ( 
-
-%0java.util.logging.Logger±®
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java    (+
-%1java.util.ArrayList"java.util.ArrayListÏ
-Ì
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java   (-
-%2"java.util.ArrayList#<init>()V*'
- (
-
-%1java.util.ArrayListè
-å
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java   (.6+
-)client.view_gui.CaricamentoProprietaNuovo"
-files"__id*'
- (
-
-%1java.util.ArrayListÓ
-Ð
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java8 8(8+
-)client.view_gui.CaricamentoProprietaNuovo"	
-minFoto"__id*
- (2Ó
-Ð
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java9 9(8+
-)client.view_gui.CaricamentoProprietaNuovo"	
-maxFoto"__id*
- (2
-±®
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java;3 ;(>
-%3java.util.ArrayList"java.util.ArrayListÏ
-Ì
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java;/ ;(@
-%4"java.util.ArrayList#<init>()V*'
- (
-
-%3java.util.ArrayListó
-ð
-|
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java; ;(AA+
-)client.view_gui.CaricamentoProprietaNuovo"
-immaginiCaricate"__id*'
- (
-
-%3java.util.ArrayList"’
-{
-r/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/view_gui/CaricamentoProprietaNuovo.java À(
-implicit returnB-+
-)client.view_gui.CaricamentoProprietaNuovo

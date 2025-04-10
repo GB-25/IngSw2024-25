@@ -1,24 +1,0 @@
-
-;server.data_access_layer.DatabaseManager#%field_initializer
-__unknown_file ("1*Ã
-1 (°
-­
-{
-q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/data_access_layer/DatabaseManager.java (B
-%0java.util.logging.Logger"Pjava.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;*(
- ("
-java.util.logging.Logger*
- (
-""ì
-é
-{
-q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/data_access_layer/DatabaseManager.java (C6*
-(server.data_access_layer.DatabaseManager"
-logger"__id*,
- ( 
-
-%0java.util.logging.Logger"‘
-z
-q/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/data_access_layer/DatabaseManager.java ¡(
-implicit returnB,*
-(server.data_access_layer.DatabaseManager

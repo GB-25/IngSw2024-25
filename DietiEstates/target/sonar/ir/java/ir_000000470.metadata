@@ -1,7 +1,0 @@
-client.controller.Controller#createCaricamentoImmobile(Ljavax/swing/JFrame;Lshared/classi/User;)V
-false
-d0cac59cd5407bd008926151a3ccf4ca
-client.view_gui.CaricamentoProprietaNuovo#<init>(Lclient/controller/Controller;Lshared/classi/User;)V
-client.view_gui.CaricamentoProprietaNuovo#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

@@ -1,336 +1,0 @@
-
-^server.presentation_layer.ClientHandler#handleRequest(Ljava/lang/String;)Lorg/json/JSONObject;z
-p/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/server/presentation_layer/ClientHandler.javaM M($"1*‚,
-1N, N(3<:
-N! N(+
-%0org.json.JSONObject"org.json.JSONObject¸
-µ
-N N(4
-%1"/org.json.JSONObject#<init>(Ljava/lang/String;)V*7
-
-__unknown_file (
-
-%0org.json.JSONObject*9
-
-__unknown_file (
-
-messagejava.lang.Stringk
-i
-N N(5
-requestorg.json.JSONObject"__id*7
-
-__unknown_file (
-
-%0org.json.JSONObjectïì
-O O(3
-%2java.lang.String"Corg.json.JSONObject#getString(Ljava/lang/String;)Ljava/lang/String;*<
-
-__unknown_file ( 
-
-requestorg.json.JSONObject*&
-
-__unknown_file (
-
-action2getString(Ljava/lang/String;)d
-b
-O O(4
-actionjava.lang.String"__id*4
-
-__unknown_file (
-
-%2java.lang.String86
-RD R(M
-%3java.util.HashMap"java.util.HashMapf
-d
-R@ R(O
-%4"java.util.HashMap#<init>()V*5
-
-__unknown_file (
-
-%3java.util.HashMapj
-h
-R R(P
-actionHandlersjava.util.Map"__id*5
-
-__unknown_file (
-
-%3java.util.HashMapÉ
-Æ
-S S(6&
-%5 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*%
-
-__unknown_file (	
-login*"
-
-__unknown_file (
-""Ì
-É
-T T(<&
-%6 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*(
-
-__unknown_file (
-
-register*"
-
-__unknown_file (
-""Ò
-Ï
-U U(E&
-%7 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*.
-
-__unknown_file (
-updatePassword*"
-
-__unknown_file (
-""Î
-Ë
-V V(C&
-%8 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map**
-
-__unknown_file (
-
-uploadFile*"
-
-__unknown_file (
-""Ð
-Í
-W W(G&
-%9 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*,
-
-__unknown_file (
-downloadFile*"
-
-__unknown_file (
-""×
-Ô
-X X(J'
-%10 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*2
-
-__unknown_file (
-makeNewReservation*"
-
-__unknown_file (
-""Ù
-Ö
-Y Y(N'
-%11 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*4
-
-__unknown_file (
-reservationConfirmed*"
-
-__unknown_file (
-""Ö
-Ó
-Z Z(H'
-%12 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*1
-
-__unknown_file (
-reservationDenied*"
-
-__unknown_file (
-""Ó
-Ð
-[ [(F'
-%13 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*.
-
-__unknown_file (
-getReservation*"
-
-__unknown_file (
-""Î
-Ë
-\ \(7'
-%14 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*)
-
-__unknown_file (
-	findHouse*"
-
-__unknown_file (
-""Ï
-Ì
-] ](;'
-%15 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map**
-
-__unknown_file (
-
-findAgente*"
-
-__unknown_file (
-""Õ
-Ò
-^ ^(G'
-%16 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*0
-
-__unknown_file (
-findComposizione*"
-
-__unknown_file (
-""Ó
-Ð
-_ _(B'
-%17 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*.
-
-__unknown_file (
-uploadNewHouse*"
-
-__unknown_file (
-""Õ
-Ò
-` `(A'
-%18 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*0
-
-__unknown_file (
-aggiungiNotifica*"
-
-__unknown_file (
-""Ñ
-Î
-a a(>'
-%19 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*,
-
-__unknown_file (
-getNotifiche*"
-
-__unknown_file (
-""Ò
-Ï
-b b(?'
-%20 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*-
-
-__unknown_file (
-notificaLetta*"
-
-__unknown_file (
-""Ï
-Ì
-c c(8'
-%21 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map**
-
-__unknown_file (
-
-updateUrls*"
-
-__unknown_file (
-""Ù
-Ö
-d d(I'
-%22 java.util.function.UnaryOperator"__mapSet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*4
-
-__unknown_file (
-retrievePrenotazione*"
-
-__unknown_file (
-""¤
-¡
-gP l(	'
-%23 java.util.function.UnaryOperator"__declareFunction*Y
-
-__unknown_file (=;
-9__sonar_lambda_25$server.presentation_layer.ClientHandler¹
-¶
-g, l(
-'
-%31 java.util.function.UnaryOperator"__mapGet*=
-
-__unknown_file (!
-
-actionHandlersjava.util.Map*8
-
-__unknown_file (
-
-actionjava.lang.String‡
-„
-g l(+
-handler java.util.function.UnaryOperator"__id*E
-
-__unknown_file ()
-'
-%31 java.util.function.UnaryOperator–“
-n n(%
-%32org.json.JSONObject"Gjava.util.function.Function#apply(Ljava/lang/Object;)Ljava/lang/Object;*I
-
-__unknown_file (-
-+
-handler java.util.function.UnaryOperator*<
-
-__unknown_file ( 
-
-requestorg.json.JSONObject2apply(Ljava/lang/Object;)"(
-n n(&
-
-%32org.json.JSONObject:'
-M% M(3
-messagejava.lang.StringB+)
-'server.presentation_layer.ClientHandler

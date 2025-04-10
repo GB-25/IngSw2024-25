@@ -1,6 +1,0 @@
-client.controller.Controller#instance-init#
-false
-e27c0f3441a55c052b910d77f0d1f9ad
-java.lang.Class#getName()Ljava/lang/String;
-java.lang.Object#getClass()Ljava/lang/Class;
-java.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;

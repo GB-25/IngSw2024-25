@@ -1,5 +1,0 @@
-client.controller.Controller#createSchermataCaricamento(Ljavax/swing/JFrame;Ljava/lang/String;)Lclient/view_gui/SchermataCaricamento;
-false
-0712a175861be012f4c16602f1f2c4bc
-client.view_gui.SchermataCaricamento#<init>(Ljavax/swing/JFrame;Ljava/lang/String;)V
-client.view_gui.SchermataCaricamento#instance-init#

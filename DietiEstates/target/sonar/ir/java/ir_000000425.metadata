@@ -1,9 +1,0 @@
-client.view_gui.HomeGenerale#nuovaNotifica(Lclient/controller/Controller;Ljavax/swing/JPopupMenu;Lshared/classi/User;Ljavax/swing/JButton;Lshared/classi/Notifica;)V
-false
-71a6cf246b946bc752d520c57c317fde
-javax.swing.JMenuItem#<init>(Ljava/lang/String;)V
-javax.swing.JMenuItem#instance-init#
-==
-add javax.swing.JPopupMenu#add(Ljavax/swing/JMenuItem;)Ljavax/swing/JMenuItem;
-addActionListener javax.swing.AbstractButton#addActionListener(Ljava/awt/event/ActionListener;)V
-getMessaggio shared.classi.Notifica#getMessaggio()Ljava/lang/String;

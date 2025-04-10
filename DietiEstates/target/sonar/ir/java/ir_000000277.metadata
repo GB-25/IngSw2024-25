@@ -1,5 +1,0 @@
-server.business_logic_layer.GoogleCloudStorageService#uploadHouseImage(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;
-false
-00427c16dad9eae9ab215e5469faeed7
-==
-uploadFile server.data_access_layer.interfaces.StorageManagerInterface#uploadFile(Ljava/lang/String;Ljava/lang/String;I)Ljava/lang/String;

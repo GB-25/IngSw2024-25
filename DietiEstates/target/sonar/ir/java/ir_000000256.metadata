@@ -1,5 +1,0 @@
-server.business_logic_layer.ReservationService#getReservation(Ljava/lang/String;ZLjava/lang/String;Z)Ljava/util/List;
-false
-8a34e60707038ea411a0d581a7c8346b
-==
-getReservationByMail server.data_access_layer.interfaces.ReservationRepositoryInterface#getReservationByMail(Ljava/lang/String;ZLjava/lang/String;Z)Ljava/util/ArrayList;

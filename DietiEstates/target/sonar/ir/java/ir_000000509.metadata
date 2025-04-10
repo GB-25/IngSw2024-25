@@ -1,8 +1,0 @@
-client.view_gui.CaricamentoProprietaNuovo#instance-init#
-false
-7449dc77f386b2e1a72e6b5a4ec677f5
-java.lang.Class#getName()Ljava/lang/String;
-java.lang.Object#getClass()Ljava/lang/Class;
-java.util.ArrayList#<init>()V
-java.util.ArrayList#instance-init#
-java.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;

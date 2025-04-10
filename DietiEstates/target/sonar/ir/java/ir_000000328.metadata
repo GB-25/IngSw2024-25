@@ -1,9 +1,0 @@
-client.view_gui.FinestraRegistrazione#validateConfirmPassword(Lclient/controller/Controller;)V
-false
-870ee9239995c93de38f53565a43349f
-client.view_gui.FinestraRegistrazione#updateConfirmButtonState(Lclient/controller/Controller;)V
-==
-getPassword javax.swing.JPasswordField#getPassword()[C
-setForeground javax.swing.JComponent#setForeground(Ljava/awt/Color;)V
-setText javax.swing.JLabel#setText(Ljava/lang/String;)V
-verifyPassword client.controller.Controller#verifyPassword([C[C)Z

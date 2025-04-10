@@ -1,5 +1,0 @@
-client.controller.Controller#addWaypointClickListener(Lclient/controller/Controller;Lorg/jxmapviewer/JXMapViewer;Ljava/util/Map;Lshared/classi/User;Ljavax/swing/JFrame;)V
-false
-c1193f4af78b3602eec4efe29c883524
-==
-addMouseListener java.awt.Component#addMouseListener(Ljava/awt/event/MouseListener;)V

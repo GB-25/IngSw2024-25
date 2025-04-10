@@ -1,7 +1,0 @@
-client.controller.Controller#changePassword(Ljavax/swing/JFrame;Lshared/classi/User;)V
-false
-50b26dbad94e9545f6507f8913b601fc
-client.view_gui.CambioPassword#<init>(Lclient/controller/Controller;Lshared/classi/User;)V
-client.view_gui.CambioPassword#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

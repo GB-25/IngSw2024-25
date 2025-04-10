@@ -1,7 +1,0 @@
-client.controller.Controller#showImmobile(Ljavax/swing/JFrame;Lshared/classi/Immobile;Lshared/classi/User;Ljavax/swing/JFrame;)V
-false
-f1e91c18838d739616cec30576b00a43
-client.view_gui.VisioneImmobile#<init>(Lclient/controller/Controller;Lshared/classi/Immobile;Lshared/classi/User;Ljavax/swing/JFrame;)V
-client.view_gui.VisioneImmobile#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

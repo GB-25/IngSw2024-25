@@ -1,6 +1,0 @@
-client.view_gui.HomeGenerale#instance-init#
-false
-128f66e54c79b0085c0099bb8142be83
-java.lang.Class#getName()Ljava/lang/String;
-java.lang.Object#getClass()Ljava/lang/Class;
-java.util.logging.Logger#getLogger(Ljava/lang/String;)Ljava/util/logging/Logger;

@@ -1,9 +1,0 @@
-client.controller.Controller#updatePassword(Lshared/classi/User;[C)V
-false
-409e3fa756c72a3531e49691573dde11
-java.lang.String#<init>([C)V
-java.lang.String#instance-init#
-javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
-==
-getMail shared.classi.User#getMail()Ljava/lang/String;
-newPasswordModel client.model.ClientModel#newPasswordModel(Ljava/lang/String;Ljava/lang/String;)Z

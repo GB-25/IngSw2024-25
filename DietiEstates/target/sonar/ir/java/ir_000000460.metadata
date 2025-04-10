@@ -1,5 +1,0 @@
-client.controller.Controller#getNotificheUtente(Ljava/lang/String;)Ljava/util/List;
-false
-bcd42ac4eb226fff2fdaf03d57319a8a
-==
-richiestaNotificheUtente client.model.ClientModel#richiestaNotificheUtente(Ljava/lang/String;)Ljava/util/List;

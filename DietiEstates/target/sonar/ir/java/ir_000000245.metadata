@@ -1,7 +1,0 @@
-server.business_logic_layer.UserService#authenticateUser(Ljava/lang/String;Ljava/lang/String;)Lshared/classi/User;
-false
-c9612695593dfb5ea55006340656f0ad
-java.lang.String#equals(Ljava/lang/Object;)Z
-==
-getPassword shared.classi.User#getPassword()Ljava/lang/String;
-getUserByMail server.data_access_layer.interfaces.UserRepositoryInterface#getUserByMail(Ljava/lang/String;)Lshared/classi/User;

@@ -1,7 +1,0 @@
-client.controller.Controller#findImmobili(Ljavax/swing/JFrame;Lshared/classi/User;)V
-false
-a45bbf4ee04b99beb73cc351a3d2d6ed
-client.view_gui.RicercaImmobili#<init>(Lclient/controller/Controller;Lshared/classi/User;)V
-client.view_gui.RicercaImmobili#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

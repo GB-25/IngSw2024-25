@@ -1,7 +1,0 @@
-client.controller.Controller#checkDettagliComposizione(ZZZZ)Ljava/lang/String;
-false
-cd0d4085631a06cc1389fb62203a337b
-java.lang.StringBuilder#<init>()V
-java.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-java.lang.StringBuilder#instance-init#
-java.lang.StringBuilder#toString()Ljava/lang/String;

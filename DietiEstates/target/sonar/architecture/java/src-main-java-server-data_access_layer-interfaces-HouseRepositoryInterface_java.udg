@@ -1,204 +1,0 @@
-
-1.0ingsw2025_dietiestates25JavaFrontend"1744294138159*java2.B¹
-T
-Osrc/main/java/server/data_access_layer/interfaces/HouseRepositoryInterface.java2
-
-package4
-(
-#server.data_access_layer.interfaces5
-A
-<server.data_access_layer.interfaces.HouseRepositoryInterface7
-
-	interface8
-
-access9
-
-public10
-
-simple name11
-
-HouseRepositoryInterface12
-_
-Yserver.data_access_layer.interfaces.HouseRepositoryInterface#uploadComposizione(IIIZZZZ)I14
-
-method15
-
-uploadComposizione16
-}
-wserver.data_access_layer.interfaces.HouseRepositoryInterface#getComposizioneById(I)Lshared/classi/ComposizioneImmobile;18
-
-getComposizioneById19
-(
-"shared.classi.ComposizioneImmobile21
-
-unknown22
-
-returns23
-
-
-uses24
-€
-zserver.data_access_layer.interfaces.HouseRepositoryInterface#getHouseByAddress(Ljava/lang/String;)Lshared/classi/Immobile;26
-
-getHouseByAddress27
-
-shared.classi.Immobile29
-¢
-›server.data_access_layer.interfaces.HouseRepositoryInterface#uploadHouse(DILshared/classi/Immobile;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I31
-
-uploadHouse32
-
-	has param33
-
-is type34
-v
-pserver.data_access_layer.interfaces.HouseRepositoryInterface#findHouses(Ljava/lang/String;)Ljava/util/ArrayList;36
-
-
-findHouses37
-j
-dserver.data_access_layer.interfaces.HouseRepositoryInterface#getHouseById(I)Lshared/classi/Immobile;39
-
-getHouseById40
-c
-]server.data_access_layer.interfaces.HouseRepositoryInterface#updateUrls(Ljava/lang/String;I)Z42
-
-
-updateUrls43J
-
-1
-12Z
-
-3	
-354j±
-@
-35:
-353615 *
-1 (26:3B
-	
-9
-10
-
-
-11
-37
-9
-64
-678 *
-1 (*:3B
-	
-9
-10
-
-
-11
-12
-@
-41:
-414215 *
-1 (	26:3B
-	
-9
-10
-
-
-11
-43
-@
-13:
-131415 *
-1
- 
-(26:3B
-	
-9
-10
-
-
-11
-16
-@
-30:
-303115 *
-1 (26:3B
-	
-9
-10
-
-
-11
-32
-@
-25:
-252615 *
-1 (
-26:3B
-	
-9
-10
-
-
-11
-27
-@
-17:
-171815 *
-1 (26:3B
-	
-9
-10
-
-
-11
-19
-
-28
-282922
-@
-38:
-383915 *
-1 (
-26:3B
-	
-9
-10
-
-
-11
-40
-
-20
-202122rŽ
-
-172023*
-1 (
-
-172024*
-1 (
-
-252823*
-1 (
-
-
-252824*
-1 (
-
-
-302833*
-1< (D
-
-302834*
-1E (U
-
-302824*
-1< (D
-
-352824*
-1 (
-
-382823*
-1 (
-
-
-382824*
-1 (

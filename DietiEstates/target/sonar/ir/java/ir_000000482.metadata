@@ -1,8 +1,0 @@
-client.controller.Controller#checkDettagliImmobile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-false
-96fc046db48ab96d9e16f17569336f74
-java.lang.String#isBlank()Z
-java.lang.StringBuilder#<init>()V
-java.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-java.lang.StringBuilder#instance-init#
-java.lang.StringBuilder#toString()Ljava/lang/String;

@@ -1,114 +1,0 @@
-
-Nclient.controller.Controller#checkDettagliComposizione(ZZZZ)Ljava/lang/String;q
-e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.java‰ ‰(("9*ß
-2
-Ò Ò(	êç
-
-Ò Ò(*
-%5java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*?
-
-__unknown_file (#
-!
-stringjava.lang.StringBuilder*6
-
-__unknown_file (
- AND giardino = 'TRUE'2append(Ljava/lang/String;)*
-1*™
-4
-Ó Ó(	êç
-
-Ó Ó(*
-%4java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*?
-
-__unknown_file (#
-!
-stringjava.lang.StringBuilder*6
-
-__unknown_file (
- AND terrazzo = 'TRUE'2append(Ljava/lang/String;)*
-2
-1*Ø
-6
-Î Î(	íè
-
-Î Î(,
-%3java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*?
-
-__unknown_file (#
-!
-stringjava.lang.StringBuilder*8
-
-__unknown_file (
- AND condominio = 'TRUE'2append(Ljava/lang/String;)*	
-2
-4
-1*±
-8
-Ë Ë(	ëé
-
-Ë Ë(+
-%2java.lang.StringBuilder"Kjava.lang.StringBuilder#append(Ljava/lang/String;)Ljava/lang/StringBuilder;*?
-
-__unknown_file (#
-!
-stringjava.lang.StringBuilder*7
-
-__unknown_file (
- AND ascensore = 'TRUE'2append(Ljava/lang/String;)*
-2
-4
-6
-1*‘
-9
-Ê Ê(,FD
-
-Ê Ê(*
-%0java.lang.StringBuilder"java.lang.StringBuildert
-r
-
-Ê Ê(,
-%1"!java.lang.StringBuilder#<init>()V*;
-
-__unknown_file (
-
-%0java.lang.StringBuildert
-r
-
-Ê Ê(-!
-stringjava.lang.StringBuilder"__id*;
-
-__unknown_file (
-
-%0java.lang.StringBuilder*
-2
-4
-6
-8
-1*‰
-1
-Ù	 Ù(™ß
-
-Ù	 Ù(
-%6java.lang.String"4java.lang.StringBuilder#toString()Ljava/lang/String;*?
-
-__unknown_file (#
-!
-stringjava.lang.StringBuilder2
-toString()"&
-
-Ù Ù(
-
-%6java.lang.String: 
-
-__unknown_file (
-"": 
-
-__unknown_file (
-"": 
-
-__unknown_file (
-"": 
-
-__unknown_file (
-""B 
-client.controller.ControllerH

@@ -1,7 +1,0 @@
-client.controller.Controller#checkPrenotazione(Ljavax/swing/JFrame;ILshared/classi/User;)V
-false
-9d5b1289e37fd087b4de88ea83b62800
-javax.swing.JOptionPane#showMessageDialog(Ljava/awt/Component;Ljava/lang/Object;Ljava/lang/String;I)V
-==
-retrievePrenotazione client.model.ClientModel#retrievePrenotazione(I)Lshared/classi/Prenotazione;
-viewPrenotazione client.controller.Controller#viewPrenotazione(Lshared/classi/User;Lshared/classi/Prenotazione;Ljavax/swing/JFrame;)V

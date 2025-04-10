@@ -1,53 +1,0 @@
-
->client.controller.Controller#isValidEmail(Ljava/lang/String;)Zq
-e/home/bobo/Documenti/GitHub/IngSw2024-25/DietiEstates/src/main/java/client/controller/Controller.javaˆ ˆ("3*ø
-2
-Š$ Š()áÞ
-
-Š$ Š(=
-%1boolean"-java.lang.String#matches(Ljava/lang/String;)Z*7
-
-__unknown_file (
-
-emailjava.lang.String*<
-
-__unknown_file ( 
-
-
-emailRegexjava.lang.String2matches(Ljava/lang/String;)*
-1*¤
-3
-‰ ‰(P‰
-†
-
-‰ ‰(Q
-
-emailRegexjava.lang.String"__id*R
-
-__unknown_file (64
-2^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$
-}
-
-Š Š(
-%0boolean"	__compare*
-
-Š Š(
-!=*)
-
-Š Š(
-
-emailjava.lang.String*
-
-Š Š(
-""*
-2
-1*%
-1
-Š Š(@"
-
-Š Š(@
-"":'
-
-ˆ ˆ()
-emailjava.lang.StringB 
-client.controller.ControllerHX

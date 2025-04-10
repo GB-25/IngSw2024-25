@@ -1,7 +1,0 @@
-client.view_gui.FinestraRegistrazione#updateConfirmButtonState(Lclient/controller/Controller;)V
-false
-dfab8d53b82844b78daf51a319c3ca40
-==
-checkFields client.controller.Controller#checkFields([Z)Z
-getDate com.toedter.calendar.JDateChooser#getDate()Ljava/util/Date;
-setEnabled javax.swing.AbstractButton#setEnabled(Z)V

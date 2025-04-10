@@ -1,8 +1,0 @@
-client.view_gui.CaricamentoProprietaNuovo#areAllFieldsFilled()Z
-false
-f8e08de5bc47e6496900b857ad7374cf
-java.lang.String#isEmpty()Z
-java.lang.String#trim()Ljava/lang/String;
-==
-getSelectedIndex javax.swing.JComboBox#getSelectedIndex()I
-getText javax.swing.text.JTextComponent#getText()Ljava/lang/String;

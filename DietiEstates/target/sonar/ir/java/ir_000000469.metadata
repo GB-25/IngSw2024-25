@@ -1,7 +1,0 @@
-client.controller.Controller#createAdmin(Ljavax/swing/JFrame;Lshared/classi/User;)V
-false
-b53b12078a65036d5537d2a3e2205553
-client.view_gui.CreazioneAccountAdmin#<init>(Lclient/controller/Controller;Lshared/classi/User;)V
-client.view_gui.CreazioneAccountAdmin#instance-init#
-==
-setVisible java.awt.Window#setVisible(Z)V

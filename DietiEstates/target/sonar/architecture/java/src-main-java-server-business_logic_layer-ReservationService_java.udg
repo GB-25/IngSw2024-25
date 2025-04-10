@@ -1,559 +1,0 @@
-
-1.0ingsw2025_dietiestates25JavaFrontend"1744294125238*java2.Bã
-F
-Asrc/main/java/server/business_logic_layer/ReservationService.java2
-
-package4
- 
-server.business_logic_layer5
-3
-.server.business_logic_layer.ReservationService7
-
-
-class8
-
-access9
-
-public10
-
-simple name11
-
-ReservationService12
-J
-Dserver.business_logic_layer.ReservationService.reservationRepository14
-
-field15
-
-private16
-
-reservationRepository17
-H
-Bserver.data_access_layer.interfaces.ReservationRepositoryInterface19
-
-unknown20
-
-is type21
-
-
-uses22
-‚
-|server.business_logic_layer.ReservationService#<init>(Lserver/data_access_layer/interfaces/ReservationRepositoryInterface;)V24
-
-method25
-
-	has param26
-
-calls27
-
-
-references28
-
-‰server.business_logic_layer.ReservationService#newReservation(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)Z30
-
-newReservation31
- 
-shared.classi.Prenotazione33
-
-returns34
-‹
-„server.data_access_layer.interfaces.ReservationRepositoryInterface#checkReservation(Ljava/lang/String;I)Lshared/classi/Prenotazione;36
-™
-’server.data_access_layer.interfaces.ReservationRepositoryInterface#alreadyGotAppointment(Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Z38
-§
- server.data_access_layer.interfaces.ReservationRepositoryInterface#createReservation(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)V40
-K
-Eserver.business_logic_layer.ReservationService#refusedReservation(I)V42
-
-refusedReservation43
-^
-Xserver.data_access_layer.interfaces.ReservationRepositoryInterface#deleteReservation(I)V45
-€
-zserver.business_logic_layer.ReservationService#acceptReservation(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z47
-
-acceptReservation48
-_
-Yserver.data_access_layer.interfaces.ReservationRepositoryInterface#confirmReservation(I)V50
-{
-userver.business_logic_layer.ReservationService#getReservation(Ljava/lang/String;ZLjava/lang/String;Z)Ljava/util/List;52
-
-getReservation53
-›
-”server.data_access_layer.interfaces.ReservationRepositoryInterface#getReservationByMail(Ljava/lang/String;ZLjava/lang/String;Z)Ljava/util/ArrayList;55
-Œ
-…server.business_logic_layer.ReservationService#retrieveId(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)I57
-
-
-retrieveId58
-§
- server.data_access_layer.interfaces.ReservationRepositoryInterface#getReservationId(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZ)I60
-l
-fserver.business_logic_layer.ReservationService#aggiungiNotifica(Ljava/lang/String;Ljava/lang/String;)Z62
-
-aggiungiNotifica63
-
-shared.classi.Notifica65
-q
-kserver.data_access_layer.interfaces.ReservationRepositoryInterface#salvaNotifica(Lshared/classi/Notifica;)Z67
-e
-_server.business_logic_layer.ReservationService#getNotifiche(Ljava/lang/String;)Ljava/util/List;69
-
-getNotifiche70
-
-yserver.data_access_layer.interfaces.ReservationRepositoryInterface#getNotificheUtente(Ljava/lang/String;)Ljava/util/List;72
-A
-;server.business_logic_layer.ReservationService#setLetta(I)Z74
-
-setLetta75
-X
-Rserver.data_access_layer.interfaces.ReservationRepositoryInterface#setNotifica(I)Z77
-c
-]server.business_logic_layer.ReservationService#getPrenotazione(I)Lshared/classi/Prenotazione;79
-
-getPrenotazione80
-z
-tserver.data_access_layer.interfaces.ReservationRepositoryInterface#getReservationById(I)Lshared/classi/Prenotazione;82J
-
-1
-12Z
-
-3	
-354j©
-
-59
-596020
-
-37
-373820
-@
-68:
-686925 *
-1@ @(26:3B
-	
-9
-10
-
-
-11
-70
-@
-23:
-232425 *
-1 (26:3B
-	
-9
-10
-
-
-11
-12
-@
-51:
-515225 *
-12 2(26:3B
-	
-9
-10
-
-
-11
-53
-@
-29:
-293025 *
-1 (26:3B
-	
-9
-10
-
-
-11
-31
-@
-78:
-787925 *
-1I I(26:3B
-	
-9
-10
-
-
-11
-80
-
-49
-495020
-
-32
-323320
-@
-61:
-616225 *
-1; ;(26:3B
-	
-9
-10
-
-
-11
-63
-
-39
-394020
-@
-56:
-565725 *
-17 7(26:3B
-	
-9
-10
-
-
-11
-58
-
-81
-818220
-9
-64
-678 *
-1 ( :3B
-	
-9
-10
-
-
-11
-12
-
-35
-353620
-@
-41:
-414225 *
-1$ $(26:3B
-	
-9
-10
-
-
-11
-43
-
-66
-666720
-@
-46:
-464725 *
-1( ((26:3B
-	
-9
-10
-
-
-11
-48
-
-76
-767720
-
-18
-181920
-
-71
-717220
-
-44
-444520
-
-64
-646520
-@
-13:
-131415 *
-1 (	26:3B
-	
-9
-16
-
-
-11
-17
-@
-73:
-737425 *
-1E E(26:3B
-	
-9
-10
-
-
-11
-75
-
-54
-545520r£
-
-131821*
-1
- ((
-
-131822*
-1
- ((
-
-131822*
-1) (>
-
-231826*
-1 (:
-
-23627*
-1	 (
-
-231821*
-1; (P
-
-231822*
-1 (:
-
-23622*
-1 (
-
-23628*
-1 (
-
-231822*
-1 (
-
-231328*
-1 (
-
-293221*
-1 (
-
-293222*
-1 (
-
-293234*
-1 (4
-
-291828*
-1 (4
-
-293527*
-15 (E
-
-291328*
-1 (4
-
-291822*
-1 (4
-
-291328*
-1 (4
-
-291828*
-1 (
-
-293727*
-1 (2
-
-291328*
-1 (
-
-291822*
-1 (
-
-291328*
-1 (
-
-291828*
-1 (
-
-293927*
-1 (+
-
-291328*
-1 (
-
-291822*
-1 (
-
-291328*
-1 (
-
-411828*
-1% %(
-
-414427*
-1% %(*
-
-411328*
-1% %(
-
-411822*
-1% %(
-
-411328*
-1% %(
-
-461828*
-1) )(
-
-463727*
-1) )(2
-
-461328*
-1) )(
-
-461822*
-1) )(
-
-461328*
-1) )(
-
-461828*
-1* *(
-
-464927*
-1* *(,
-
-461328*
-1* *(
-
-461822*
-1* *(
-
-461328*
-1* *(
-
-513222*
-12 2(
-
-511828*
-14
- 4(
-
-515427*
-14  4(4
-
-511328*
-14
- 4(
-
-511822*
-14
- 4(
-
-511328*
-14
- 4(
-
-561828*
-18
- 8(
-
-565927*
-18  8(0
-
-561328*
-18
- 8(
-
-561822*
-18
- 8(
-
-561328*
-18
- 8(
-
-616421*
-1< <(
-
-616422*
-1< <(
-
-616427*
-1<# <(+
-
-611828*
-1= =("
-
-616627*
-1=# =(0
-
-611328*
-1= =("
-
-611822*
-1= =("
-
-611328*
-1= =("
-
-686422*
-1@ @(
-
-681828*
-1A A("
-
-687127*
-1A# A(5
-
-681328*
-1A A("
-
-681822*
-1A A("
-
-681328*
-1A A("
-
-731828*
-1F
- F(
-
-737627*
-1F  F(+
-
-731328*
-1F
- F(
-
-731822*
-1F
- F(
-
-731328*
-1F
- F(
-
-783234*
-1I	 I(
-
-783222*
-1I	 I(
-
-783234*
-1J
- J(
-
-781828*
-1J
- J(
-
-788127*
-1J  J(2
-
-781328*
-1J
- J(
-
-781822*
-1J
- J(
-
-781328*
-1J
- J(

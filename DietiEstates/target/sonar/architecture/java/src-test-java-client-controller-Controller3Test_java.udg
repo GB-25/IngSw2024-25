@@ -1,447 +1,0 @@
-
-1.0ingsw2025_dietiestates25JavaFrontend"1744294142310*java2.Bà
-9
-4src/test/java/client/controller/Controller3Test.java2
-
-package4
-
-client.controller5
-&
-!client.controller.Controller3Test7
-
-
-class8
-
-access9
-
-public10
-
-simple name11
-
-Controller3Test12
-2
-,client.controller.Controller3Test.controller14
-
-field15
-
-	protected16
-
-
-controller17
-"
-client.controller.Controller19
-
-unknown20
-
-is type21
-
-
-uses22
-
-calls23
-R
-Lclient.controller.Controller3Test#testCheckDettagliImmobile_CE1_CE10_CE14()V25
-
-method26
--
-'testCheckDettagliImmobile_CE1_CE10_CE1427
-
-org.junit.Test29
-
-annotated by30
-
-
-references31
-‚
-|client.controller.Controller#checkDettagliImmobile(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;33
-
-org.junit.Assert35
-J
-Dorg.junit.Assert#assertEquals(Ljava/lang/Object;Ljava/lang/Object;)V37
-Q
-Kclient.controller.Controller3Test#testCheckDettagliImmobile_CE2_CE9_CE15()V39
-,
-&testCheckDettagliImmobile_CE2_CE9_CE1540
-R
-Lclient.controller.Controller3Test#testCheckDettagliImmobile_CE3_CE11_CE13()V42
--
-'testCheckDettagliImmobile_CE3_CE11_CE1343
-R
-Lclient.controller.Controller3Test#testCheckDettagliImmobile_CE4_CE12_CE13()V45
--
-'testCheckDettagliImmobile_CE4_CE12_CE1346
-R
-Lclient.controller.Controller3Test#testCheckDettagliImmobile_CE5_CE11_CE14()V48
--
-'testCheckDettagliImmobile_CE5_CE11_CE1449
-R
-Lclient.controller.Controller3Test#testCheckDettagliImmobile_CE6_CE10_CE15()V51
--
-'testCheckDettagliImmobile_CE6_CE10_CE1552
-Q
-Kclient.controller.Controller3Test#testCheckDettagliImmobile_CE7_CE9_CE13()V54
-,
-&testCheckDettagliImmobile_CE7_CE9_CE1355
-R
-Lclient.controller.Controller3Test#testCheckDettagliImmobile_CE8_CE11_CE14()V57
--
-'testCheckDettagliImmobile_CE8_CE11_CE1458J
-
-1
-12Z
-
-3	
-354jñ
-@
-38:
-383926 *
-1 (26:3B
-	
-9
-10
-
-
-11
-40
-@
-44:
-444526 *
-1) )(26:3B
-	
-9
-10
-
-
-11
-46
-@
-24:
-242526 *
-1 (26:3B
-	
-9
-10
-
-
-11
-27
-
-28
-282920
-@
-41:
-414226 *
-1 (26:3B
-	
-9
-10
-
-
-11
-43
-
-18
-181920
-9
-64
-678 *
-1 (:3B
-	
-9
-10
-
-
-11
-12
-@
-13:
-131415 *
-1	 	(26:3B
-	
-9
-16
-
-
-11
-17
-
-36
-363720
-@
-50:
-505126 *
-1= =(26:3B
-	
-9
-10
-
-
-11
-52
-@
-53:
-535426 *
-1G G(26:3B
-	
-9
-10
-
-
-11
-55
-@
-56:
-565726 *
-1Q Q(26:3B
-	
-9
-10
-
-
-11
-58
-
-32
-323320
-@
-47:
-474826 *
-13 3(26:3B
-	
-9
-10
-
-
-11
-49
-
-34
-343520r„
-
-131821*
-1	 	(
-
-131822*
-1	 	(
-
-131822*
-1	 	(
-
-131823*
-1	$ 	(.
-
-242830*
-1 (
-
-242822*
-1 (	
-
-241831*
-1 ( 
-
-243223*
-1! (6
-
-241331*
-1 ( 
-
-241822*
-1 ( 
-
-241331*
-1 ( 
-
-243431*
-1 (
-
-243623*
-1 (
-
-382830*
-1 (
-
-382822*
-1 (	
-
-381831*
-1 ( 
-
-383223*
-1! (6
-
-381331*
-1 ( 
-
-381822*
-1 ( 
-
-381331*
-1 ( 
-
-383431*
-1 (
-
-383623*
-1 (
-
-412830*
-1 (
-
-412822*
-1 (	
-
-411831*
-1% %( 
-
-413223*
-1%! %(6
-
-411331*
-1% %( 
-
-411822*
-1% %( 
-
-411331*
-1% %( 
-
-413431*
-1& &(
-
-413623*
-1& &(
-
-442830*
-1) )(
-
-442822*
-1) )(	
-
-441831*
-1/ /( 
-
-443223*
-1/! /(6
-
-441331*
-1/ /( 
-
-441822*
-1/ /( 
-
-441331*
-1/ /( 
-
-443431*
-10 0(
-
-443623*
-10 0(
-
-472830*
-13 3(
-
-472822*
-13 3(	
-
-471831*
-19 9( 
-
-473223*
-19! 9(6
-
-471331*
-19 9( 
-
-471822*
-19 9( 
-
-471331*
-19 9( 
-
-473431*
-1: :(
-
-473623*
-1: :(
-
-502830*
-1= =(
-
-502822*
-1= =(	
-
-501831*
-1C C( 
-
-503223*
-1C! C(6
-
-501331*
-1C C( 
-
-501822*
-1C C( 
-
-501331*
-1C C( 
-
-503431*
-1D D(
-
-503623*
-1D D(
-
-532830*
-1G G(
-
-532822*
-1G G(	
-
-531831*
-1M M( 
-
-533223*
-1M! M(6
-
-531331*
-1M M( 
-
-531822*
-1M M( 
-
-531331*
-1M M( 
-
-533431*
-1N N(
-
-533623*
-1N N(
-
-562830*
-1Q Q(
-
-562822*
-1Q Q(	
-
-561831*
-1W W( 
-
-563223*
-1W! W(6
-
-561331*
-1W W( 
-
-561822*
-1W W( 
-
-561331*
-1W W( 
-
-563431*
-1X X(
-
-563623*
-1X X(

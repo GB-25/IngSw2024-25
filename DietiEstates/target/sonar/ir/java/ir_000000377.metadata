@@ -1,5 +1,0 @@
-server.business_logic_layer.HouseService#retrieveHouse(Ljava/lang/String;)Ljava/util/List;
-false
-4397c96958ef84b4547e6bc641642f41
-==
-findHouses server.data_access_layer.interfaces.HouseRepositoryInterface#findHouses(Ljava/lang/String;)Ljava/util/ArrayList;
