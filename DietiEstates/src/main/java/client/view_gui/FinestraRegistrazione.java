@@ -101,7 +101,7 @@ public class FinestraRegistrazione extends JFrame {
         contentPane.add(headerPanel);
     }
 
-    private void addLabelsAndFields(Controller c) {
+     private void addLabelsAndFields(Controller c) {
       
         JLabel lblNome = new JLabel("Nome:");
         lblNome.setBounds(30, 120, 80, 15);
@@ -112,7 +112,7 @@ public class FinestraRegistrazione extends JFrame {
         contentPane.add(lblCognome);
 
         JLabel lblDataDiNascita = new JLabel("<html><center>Data di Nascita:</center></html>");
-        lblDataDiNascita.setBounds(14, 164, 88, 30);
+        lblDataDiNascita.setBounds(30, 160, 88, 30);
         contentPane.add(lblDataDiNascita);
 
         JLabel lblIndirizzoMail = new JLabel("Email:");
@@ -120,7 +120,7 @@ public class FinestraRegistrazione extends JFrame {
         contentPane.add(lblIndirizzoMail);
 
         JLabel lblTelefono = new JLabel("Telefono:");
-        lblTelefono.setBounds(30, 216, 80, 15);
+        lblTelefono.setBounds(30, 221, 80, 15);
         contentPane.add(lblTelefono);
 
         JLabel lblPassword = new JLabel("Password:");
@@ -169,7 +169,7 @@ public class FinestraRegistrazione extends JFrame {
         contentPane.add(validationLabel);
 
         textFieldTelefono = new JTextField();
-        textFieldTelefono.setBounds(120, 213, 150, 20);
+        textFieldTelefono.setBounds(120, 218, 150, 20);
         contentPane.add(textFieldTelefono);
         textFieldTelefono.setColumns(10);
         textFieldTelefono.addKeyListener(createPhoneKeyListener(c));
@@ -188,7 +188,7 @@ public class FinestraRegistrazione extends JFrame {
         lblCheckPassword.setBounds(373, 290, 180, 42);
         contentPane.add(lblCheckPassword);
     }
-
+	
     private void addPasswordRequirements() {
         JLabel lblRequisiti = new JLabel("La password deve:");
         lblRequisiti.setBounds(32, 317, 150, 15);
