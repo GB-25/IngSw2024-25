@@ -199,12 +199,25 @@
       	<artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
       
+      
       <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
         <version>3.9.0.2155</version>
       </plugin>
       
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Main-Class>server.presentation_layer.Server</Main-Class>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
       
     
 
