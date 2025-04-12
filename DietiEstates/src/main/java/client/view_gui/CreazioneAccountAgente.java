@@ -90,7 +90,7 @@ public class CreazioneAccountAgente extends JFrame {
         mainPanel.add(headerPanel);
         
         dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd-MM-yyyy");
+		dateChooser.setDateFormatString("yyyy-MM-dd");
 		((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
 
 		dateChooser.getCalendarButton().addActionListener(e -> { });
