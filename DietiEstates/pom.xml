@@ -178,7 +178,7 @@
   <dependency>
     <groupId>com.google.re2j</groupId>
     <artifactId>re2j</artifactId>
-    <version>1.6</version> <!-- Puoi usare l'ultima versione disponibile -->
+    <version>1.6</version> 
   </dependency>
 
   </dependencies>
@@ -187,16 +187,17 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version> <!-- Usa la versione più recente disponibile -->
+        <version>3.8.1</version>
         <configuration>
-          <source>17</source> <!-- Versione di Java per il codice sorgente -->
-          <target>17</target> <!-- Versione di Java per la destinazione (compilazione) -->
+          <source>17</source> 
+          <target>17</target> 
         </configuration>
       </plugin>
       
       <plugin>
       	<groupId>org.springframework.boot</groupId>
       	<artifactId>spring-boot-maven-plugin</artifactId>
+        <version>3.2.4</version>
       </plugin>
       
       
@@ -205,21 +206,8 @@
         <artifactId>sonar-maven-plugin</artifactId>
         <version>3.9.0.2155</version>
       </plugin>
-      
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.1.0</version>
-            <configuration>
-                <archive>
-                    <manifestEntries>
-                        <Main-Class>server.presentation_layer.Server</Main-Class>
-                    </manifestEntries>
-                </archive>
-            </configuration>
-        </plugin>
-      
-    
+
+       
 
       
     </plugins>

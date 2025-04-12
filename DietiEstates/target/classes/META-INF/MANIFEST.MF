@@ -1,6 +1,4 @@
 Manifest-Version: 1.0
-Built-By: bobo
-Build-Jdk: 21.0.6
+Build-Jdk-Spec: 23
 Created-By: Maven Integration for Eclipse
-Main-Class: server.presentation_layer.Server
 
