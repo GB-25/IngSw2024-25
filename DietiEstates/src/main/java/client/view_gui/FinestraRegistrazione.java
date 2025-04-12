@@ -101,7 +101,7 @@ public class FinestraRegistrazione extends JFrame {
         contentPane.add(headerPanel);
     }
 
-     private void addLabelsAndFields(Controller c) {
+    private void addLabelsAndFields(Controller c) {
       
         JLabel lblNome = new JLabel("Nome:");
         lblNome.setBounds(30, 120, 80, 15);
@@ -148,7 +148,7 @@ public class FinestraRegistrazione extends JFrame {
         contentPane.add(labelVerifyCognome);
 
         dateChooser = new JDateChooser();
-        dateChooser.setDateFormatString("dd-MM-yyyy");
+        dateChooser.setDateFormatString("yyyy-MM-dd");
         ((JTextField) dateChooser.getDateEditor().getUiComponent()).setEditable(false);
         dateChooser.setBounds(120, 164, 150, 20);
         Calendar cal = Calendar.getInstance();
@@ -188,7 +188,7 @@ public class FinestraRegistrazione extends JFrame {
         lblCheckPassword.setBounds(373, 290, 180, 42);
         contentPane.add(lblCheckPassword);
     }
-	
+
     private void addPasswordRequirements() {
         JLabel lblRequisiti = new JLabel("La password deve:");
         lblRequisiti.setBounds(32, 317, 150, 15);
