@@ -21,7 +21,7 @@ import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.GeoPosition;
 
 
-public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, MouseMotionListener{
+public class CaricamentoProprieta extends JFrame implements MouseListener, MouseMotionListener{
 
 
     
@@ -62,7 +62,7 @@ public class CaricamentoProprietaNuovo extends JFrame implements MouseListener, 
      * 
      * Costruttore
      */
-    public CaricamentoProprietaNuovo(Controller c, User user) {
+    public CaricamentoProprieta(Controller c, User user) {
         finestraCorrente = this;
         FlatLaf.setup(new FlatLightLaf());
         
