@@ -27,7 +27,7 @@ public class CaricamentoConfermato extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setSize(600, 640);
+        setSize(600, 440);
         setLocationRelativeTo(null);
 
       
@@ -36,12 +36,14 @@ public class CaricamentoConfermato extends JFrame {
         setContentPane(mainPanel);
 
         
-        JButton logoButton = createIconButton("/LOGO.png", 200, 100);
+        JButton logoButton = createIconButton("/logopngwhite.png", 200, 100);
         
 
        
-        JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        logoPanel.setBackground(Color.WHITE);
+        JPanel logoPanel = new JPanel();
+        logoPanel.setPreferredSize(new Dimension(600, 120));
+        logoPanel.setBackground(new Color (40, 132, 212));
+        logoPanel.setLayout(null);
         logoPanel.add(logoButton);
         mainPanel.add(logoPanel, BorderLayout.NORTH);
 
@@ -91,6 +93,7 @@ public class CaricamentoConfermato extends JFrame {
         ImageIcon icon = new ImageIcon(getClass().getResource(path));
         Image image = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         JButton button = new JButton(new ImageIcon(image));
+        button.setBounds(184, 10, 232, 108);
 
  
         button.setBorderPainted(false);

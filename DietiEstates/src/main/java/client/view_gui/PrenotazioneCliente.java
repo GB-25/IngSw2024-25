@@ -33,7 +33,7 @@ public class PrenotazioneCliente extends JFrame {
     private JFrame finestraCorrente;
     private SchermataCaricamento schermataCaricamento;
     private transient Logger logger = Logger.getLogger(getClass().getName());
-    private static final String SELEZIONA = "<html><center>Seleziona una data ed un orario <br>ad intervalli di mezz'ora (10:00 - 18:00)</center></html>";
+    private static final String SELEZIONA = "Seleziona una data ed un orario ad intervalli di mezz'ora (10:00 - 18:00)";
     /**
      * 
      * Costruttore
@@ -141,7 +141,7 @@ public class PrenotazioneCliente extends JFrame {
         middlePanel.add(confirmButton);
 
         JLabel outputLabel = new JLabel(SELEZIONA);
-        outputLabel.setBounds(108, 12, 408, 36);
+        outputLabel.setBounds(54, 10, 536, 36);
         outputLabel.setHorizontalAlignment(SwingConstants.CENTER);
         middlePanel.add(outputLabel);
 

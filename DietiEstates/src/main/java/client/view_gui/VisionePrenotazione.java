@@ -54,6 +54,7 @@ public class VisionePrenotazione extends JFrame implements MouseListener, MouseM
 	    setTitle("Visione Prenotazione");
 	    setSize(800, 500);
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
+	    setLocationRelativeTo(null); 
 	    getContentPane().setLayout(new BorderLayout());
 	    setResizable(false);
 	    JPanel mainPanel = new JPanel(new BorderLayout());

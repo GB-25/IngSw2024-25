@@ -42,9 +42,12 @@ public class RisultatoRicerca extends JFrame {
         setLocationRelativeTo(null); 
         setResizable(false);
         JPanel indietroPanel = new JPanel(new BorderLayout());
+        indietroPanel.setBackground(new Color(40, 132, 212));
         JButton indietroButton = new JButton("←");
+        indietroButton.setBorderPainted(false);
+        indietroButton.setForeground(new Color(255, 255, 255));
         indietroButton.setHorizontalTextPosition(SwingConstants.LEFT);
-        indietroButton.setBackground(Color.WHITE);
+        indietroButton.setBackground(new Color(40, 132, 212));
         indietroButton.setFont(new Font("Helvetica", Font.BOLD, 13));
         indietroButton.setFocusPainted(false);
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
