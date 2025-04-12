@@ -17,7 +17,7 @@ import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Calendar;
 
-public class CreazioneAccountAdmin extends JFrame {
+public class CreazioneAccountAgente extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNome;
     private JTextField  txtCognome;
@@ -35,11 +35,11 @@ public class CreazioneAccountAdmin extends JFrame {
     private static final int LENGTH = 10;
     private static final SecureRandom random = new SecureRandom();
     
-    public CreazioneAccountAdmin(Controller c, User user) {
+    public CreazioneAccountAgente(Controller c, User user) {
     	FlatLaf.setup(new FlatLightLaf());
         
     	finestraCorrente=this;
-        setTitle("Creazione Account Admin - DietiEstates25");
+        setTitle("Creazione Account Agente - DietiEstates25");
 
         setResizable(false);
 
@@ -51,12 +51,13 @@ public class CreazioneAccountAdmin extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(new Color(255, 255, 255));
         
-        JPanel headerPanel = new JPanel(new BorderLayout());
+        JPanel headerPanel = new JPanel();
         headerPanel.setBounds(0, 0, 600, 100);
         headerPanel.setBackground(new Color(40, 132, 212));
         headerPanel.setPreferredSize(new Dimension(getWidth(), 100));
 
         JButton backButton = new JButton("← Indietro");
+        backButton.setBounds(0, 0, 98, 100);
         backButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         backButton.setFocusPainted(false);
         backButton.setForeground(Color.WHITE);
@@ -70,6 +71,7 @@ public class CreazioneAccountAdmin extends JFrame {
 
  
         JLabel logoLabel = new JLabel();
+        logoLabel.setBounds(453, 0, 120, 100);
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         try {
             ImageIcon logoIcon = new ImageIcon(getClass().getResource("/logopngwhite.png"));
@@ -81,9 +83,10 @@ public class CreazioneAccountAdmin extends JFrame {
             logoLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
         }
         mainPanel.setLayout(null);
+        headerPanel.setLayout(null);
 
-        headerPanel.add(backButton, BorderLayout.WEST);
-        headerPanel.add(logoLabel, BorderLayout.EAST);
+        headerPanel.add(backButton);
+        headerPanel.add(logoLabel);
         mainPanel.add(headerPanel);
         
         dateChooser = new JDateChooser();
@@ -118,7 +121,7 @@ public class CreazioneAccountAdmin extends JFrame {
         Label lblCognome = new Label("Cognome:");
         lblCognome.setBounds(352, 110, 61, 21);
         Label lblData = new Label("Data di nascita:");
-        lblData.setBounds(23, 190, 77, 21);
+        lblData.setBounds(10, 190, 100, 21);
         Label lblTelefono = new Label("Telefono:");
         lblTelefono.setBounds(357, 190, 56, 21);
         Label lblEmail = new Label("Email:");
@@ -151,7 +154,7 @@ public class CreazioneAccountAdmin extends JFrame {
         rigidArea.setBounds(742, 115, 12, 10);
         mainPanel.add(rigidArea);  
         JLabel label = new JLabel("<html><center>Sarà possibile modificare la password in futuro.<br> Ricordati di segnarla da qualche parte! ;)</center></html>");
-        label.setBounds(159, 321, 285, 34);
+        label.setBounds(170, 321, 285, 34);
         mainPanel.add(label);
         label.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
 
