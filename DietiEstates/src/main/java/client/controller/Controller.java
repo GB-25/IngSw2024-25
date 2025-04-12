@@ -89,7 +89,7 @@ public class Controller {
 	 */
 	public Controller() {
 
-		finestraPrincipale = new ProvaLogin(this);
+		finestraPrincipale = new Login(this);
 		finestraPrincipale.setVisible(true);
 		
 		model = new ClientModel(ip, porta);
