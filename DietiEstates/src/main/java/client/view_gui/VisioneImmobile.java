@@ -141,7 +141,7 @@ public class VisioneImmobile extends JFrame {
         detailsPanel.setBackground(Color.WHITE);
         detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        JLabel priceLabel = new JLabel("Prezzo: "+immobile.getPrezzo());
+        JLabel priceLabel = new JLabel("Prezzo: "+immobile.getPrezzo()+" €");
         priceLabel.setFont(new Font(fontScritte, Font.BOLD, 20));
         priceLabel.setForeground(Color.BLACK);
 

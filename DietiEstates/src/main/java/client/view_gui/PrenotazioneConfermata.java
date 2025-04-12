@@ -22,7 +22,7 @@ public class PrenotazioneConfermata extends JFrame {
         finestraCorrente = this;
         setTitle("DietiEstates25");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(600, 640);
+        setSize(600, 440);
         setLocationRelativeTo(null);
         setResizable(false);
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -31,9 +31,11 @@ public class PrenotazioneConfermata extends JFrame {
 
         JButton logoButton = createIconButton("/logopngwhite.png", 200, 100);
 
-        JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel logoPanel = new JPanel();
+        logoPanel.setPreferredSize(new Dimension(600, 120));
         logoPanel.setBackground(new Color(40, 132, 212));
-        logoPanel.add(logoButton, BorderLayout.CENTER);
+        logoPanel.setLayout(null);
+        logoPanel.add(logoButton);
         mainPanel.add(logoPanel, BorderLayout.NORTH);
 
         JPanel textPanel = new JPanel();
@@ -86,6 +88,7 @@ public class PrenotazioneConfermata extends JFrame {
         ImageIcon icon = new ImageIcon(getClass().getResource(path));
         Image image = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         JButton button = new JButton(new ImageIcon(image));
+        button.setBounds(184, 10, 232, 108);
 
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
