@@ -122,7 +122,20 @@ public class HomeGenerale extends JFrame {
             }
         });
         viewCalendarButton.addActionListener(e -> c.viewCalendar(finestraCorrente, user));
-        
+
+	changePasswordButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            	changePasswordButton.setBackground(new Color(180, 224, 239));  // Colore più chiaro al passaggio
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	changePasswordButton.setBackground(new Color(210, 224, 239));  // Colore originale quando il mouse esce
+            }
+        });
+
+		
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
         gbc1.gridy = 1;
