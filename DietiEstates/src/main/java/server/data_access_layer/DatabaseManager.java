@@ -83,7 +83,7 @@ public class DatabaseManager implements UserRepositoryInterface, HouseRepository
             stmt.executeUpdate();
            
         } catch (SQLException e) {
-            logger.severe("Errore in register, DB: " + e.getMessage()););
+            logger.severe("Errore in register, DB: " + e.getMessage());
         }
     }
     
