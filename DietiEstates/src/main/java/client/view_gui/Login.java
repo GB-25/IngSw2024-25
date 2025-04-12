@@ -31,7 +31,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 
-public class ProvaLogin extends JFrame {
+public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -45,11 +45,12 @@ public class ProvaLogin extends JFrame {
 	 * 
 	 * Costruttore
 	 */
-	public ProvaLogin(Controller c) {
+	public Login(Controller c) {
         FlatLaf.setup(new FlatLightLaf());
 		finestraCorrente= this;
 		this.setResizable(false);
 		setPreferredSize(new Dimension(800, 600));
+		setLocationRelativeTo(null); 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
