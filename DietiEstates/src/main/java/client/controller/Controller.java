@@ -777,19 +777,19 @@ public class Controller {
     }
     
     public void returnLogin(JFrame finestraCorrente) {
-    	finestraPrincipale = new ProvaLogin(this);
+    	finestraPrincipale = new Login(this);
     	finestraCorrente.setVisible(false);
     	finestraPrincipale.setVisible(true);
     }
     
     public void createAdmin(JFrame finestraCorrente, User user) {
-    	creazioneAdmin = new CreazioneAccountAdmin(this, user);
+    	creazioneAdmin = new CreazioneAccountAgente(this, user);
     	finestraCorrente.setVisible(false);
     	creazioneAdmin.setVisible(true);
     }
     
     public void createCaricamentoImmobile(JFrame finestraCorrente, User user) {
-    	caricamento = new CaricamentoProprietaNuovo(this, user);
+    	caricamento = new CaricamentoProprieta(this, user);
     	finestraCorrente.setVisible(false);
     	caricamento.setVisible(true);
     }
