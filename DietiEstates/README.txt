@@ -1,3 +1,6 @@
+Avendo noi lavorato sul progetto con jdk 17, consigliamo di averla installata da questa versione in poi insieme a Maven. E' necessario che siano impostate anche
+come variabili di sistema e di ambiente per poter effettuare la build.
+
 Su Windows, effettuare la build tramite "mvn clean install" in una directory apposita da linea di comando(spesso la presenza di determinati caratteri nel percorso 
 provoca errore nella build, anche se risulta corretta); onde evitare ciò, usare una cartella ad hoc per contenere il progetto e da linea di 
 comando effettuare la build all'interno di essa. 
